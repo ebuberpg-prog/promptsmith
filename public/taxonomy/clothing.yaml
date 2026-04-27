@@ -1,0 +1,1001 @@
+# PROMPTSMITH TAXONOMY - CLOTHING & FASHION
+# Explicit content marked with explicit: true
+
+tops:
+  casual:
+    - id: top_tshirt
+      label: "t-shirt"
+      aliases: ["tee", "tshirt", "crew neck tee"]
+      description: "Basic t-shirt"
+      explicit: false
+      weight: 1.0
+
+    - id: top_tank
+      label: "tank top"
+      aliases: ["sleeveless shirt", "wife beater", "muscle tee"]
+      description: "Sleeveless top"
+      explicit: false
+      weight: 1.0
+
+    - id: top_crop_top
+      label: "crop top"
+      aliases: ["midriff top", "belly shirt", "short top"]
+      description: "Short top exposing midriff"
+      explicit: false
+      weight: 1.0
+
+    - id: top_camisole
+      label: "camisole"
+      aliases: ["cami", "camisole top", "slip top"]
+      description: "Light, thin-strapped top"
+      explicit: false
+      weight: 1.0
+
+    - id: top_halter
+      label: "halter top"
+      aliases: ["halter neck", "backless top"]
+      description: "Top with halter neckline"
+      explicit: false
+      weight: 1.0
+
+    - id: top_tube_top
+      label: "tube top"
+      aliases: ["bandeau top", "strapless top"]
+      description: "Strapless, tight-fitting top"
+      explicit: false
+      weight: 1.0
+
+    - id: top_off_shoulder
+      label: "off-shoulder top"
+      aliases: ["bare shoulder top", "cold shoulder"]
+      description: "Top with shoulders exposed"
+      explicit: false
+      weight: 1.0
+
+    - id: top_bodysuit
+      label: "bodysuit"
+      aliases: ["one-piece top", "snap crotch bodysuit"]
+      description: "One-piece form-fitting top"
+      explicit: false
+      weight: 1.0
+
+  formal:
+    - id: top_blouse
+      label: "blouse"
+      aliases: ["dressy top", "feminine shirt"]
+      description: "Formal women's top"
+      explicit: false
+      weight: 1.0
+
+    - id: top_button_up
+      label: "button-up shirt"
+      aliases: ["dress shirt", "collared shirt", "oxford shirt"]
+      description: "Formal button-up shirt"
+      explicit: false
+      weight: 1.0
+
+    - id: top_corset
+      label: "corset"
+      aliases: ["bustier", "waist cincher", "tightlacing corset"]
+      description: "Structured, tight-fitting corset"
+      explicit: false
+      weight: 1.0
+
+    - id: top_blazer
+      label: "blazer"
+      aliases: ["suit jacket", "sport coat"]
+      description: "Formal jacket"
+      explicit: false
+      weight: 1.0
+
+  intimate:
+    - id: top_bra
+      label: "bra"
+      aliases: ["underwire bra", "push-up bra", "padded bra"]
+      description: "Bra underwear"
+      explicit: false
+      weight: 1.0
+
+    - id: top_bralette
+      label: "bralette"
+      aliases: ["wireless bra", "soft cup bra", "lace bralette"]
+      description: "Light, unstructured bra"
+      explicit: false
+      weight: 1.0
+
+    - id: top_sports_bra
+      label: "sports bra"
+      aliases: ["athletic bra", "workout bra"]
+      description: "Athletic support bra"
+      explicit: false
+      weight: 1.0
+
+    - id: top_bikini_top
+      label: "bikini top"
+      aliases: ["swim top", "bathing suit top"]
+      description: "Bikini/swimwear top"
+      explicit: false
+      weight: 1.0
+
+    - id: top_micro_bikini_top
+      label: "micro bikini top"
+      aliases: ["tiny bikini top", "string bikini top", "minimal coverage top"]
+      description: "Minimal coverage bikini top"
+      explicit: true
+      weight: 1.0
+
+    - id: top_pasties
+      label: "pasties"
+      aliases: ["nipple covers", "adhesive covers"]
+      description: "Adhesive nipple covers"
+      explicit: true
+      weight: 1.0
+
+    - id: top_sheer_top
+      label: "sheer top"
+      aliases: ["see-through top", "transparent shirt", "mesh top"]
+      description: "Transparent or semi-transparent top"
+      explicit: true
+      weight: 1.0
+
+    - id: top_wet_shirt
+      label: "wet shirt"
+      aliases: ["soaked shirt", "see-through wet", "wet t-shirt"]
+      description: "Wet, clinging, semi-transparent shirt"
+      explicit: true
+      weight: 1.0
+
+    - id: top_no_shirt
+      label: "no shirt"
+      aliases: ["shirtless", "bare chested", "topless", "bare breasted"]
+      description: "No upper body clothing"
+      explicit: true
+      weight: 1.0
+
+bottoms:
+  pants:
+    - id: bot_jeans
+      label: "jeans"
+      aliases: ["denim pants", "blue jeans"]
+      description: "Denim pants"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_leggings
+      label: "leggings"
+      aliases: ["yoga pants", "stretchy pants", "tight pants"]
+      description: "Tight-fitting stretch pants"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_sweatpants
+      label: "sweatpants"
+      aliases: ["joggers", "track pants", "athletic pants"]
+      description: "Casual athletic pants"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_shorts
+      label: "shorts"
+      aliases: ["short pants", "summer shorts"]
+      description: "Short pants"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_hot_pants
+      label: "hot pants"
+      aliases: ["booty shorts", "tiny shorts", "daisy dukes"]
+      description: "Very short, tight shorts"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_cargo_pants
+      label: "cargo pants"
+      aliases: ["utility pants", "pocket pants"]
+      description: "Pants with cargo pockets"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_leather_pants
+      label: "leather pants"
+      aliases: ["leather trousers", "tight leather pants"]
+      description: "Leather pants"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_pvc_pants
+      label: "PVC pants"
+      aliases: ["vinyl pants", "plastic pants", "shiny pants"]
+      description: "Shiny PVC/vinyl pants"
+      explicit: false
+      weight: 1.0
+
+  skirts:
+    - id: bot_mini_skirt
+      label: "mini skirt"
+      aliases: ["short skirt", "micro skirt"]
+      description: "Very short skirt"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_pencil_skirt
+      label: "pencil skirt"
+      aliases: ["tight skirt", "fitted skirt"]
+      description: "Tight, form-fitting skirt"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_pleated_skirt
+      label: "pleated skirt"
+      aliases: ["tennis skirt", "school girl skirt", "accordion skirt"]
+      description: "Skirt with pleats"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_maxi_skirt
+      label: "maxi skirt"
+      aliases: ["long skirt", "floor length skirt"]
+      description: "Long, flowing skirt"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_cargo_skirt
+      label: "cargo skirt"
+      aliases: ["utility skirt", "pocket skirt"]
+      description: "Skirt with cargo pockets"
+      explicit: false
+      weight: 1.0
+
+  underwear:
+    - id: bot_panties
+      label: "panties"
+      aliases: ["underwear", "knickers", "briefs"]
+      description: "Women's underwear"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_thong
+      label: "thong"
+      aliases: ["g-string", "tanga", "cheeky"]
+      description: "Minimal coverage underwear"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_crotchless_panties
+      label: "crotchless panties"
+      aliases: ["open crotch", "open panties"]
+      description: "Underwear with open crotch"
+      explicit: true
+      weight: 1.0
+
+    - id: bot_see_through_panties
+      label: "see-through panties"
+      aliases: ["sheer underwear", "lace panties", "transparent panties"]
+      description: "Transparent underwear"
+      explicit: true
+      weight: 1.0
+
+    - id: bot_no_panties
+      label: "no panties"
+      aliases: ["commando", "going commando", "no underwear"]
+      description: "No underwear visible"
+      explicit: true
+      weight: 1.0
+
+    - id: bot_boxers
+      label: "boxers"
+      aliases: ["boxer shorts", "loose underwear"]
+      description: "Men's boxer shorts"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_briefs
+      label: "briefs"
+      aliases: ["underwear", "tighty whities"]
+      description: "Men's briefs"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_boxer_briefs
+      label: "boxer briefs"
+      aliases: ["fitted boxers", "long leg underwear"]
+      description: "Men's boxer briefs"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_jockstrap
+      label: "jockstrap"
+      aliases: ["athletic supporter", "strap underwear"]
+      description: "Athletic jockstrap"
+      explicit: false
+      weight: 1.0
+
+    - id: bot_mens_thong
+      label: "men's thong"
+      aliases: ["mens g-string", "male thong"]
+      description: "Men's thong underwear"
+      explicit: false
+      weight: 1.0
+
+full_body:
+  dresses:
+    - id: full_sundress
+      label: "sundress"
+      aliases: ["summer dress", "light dress"]
+      description: "Light, casual summer dress"
+      explicit: false
+      weight: 1.0
+
+    - id: full_cocktail_dress
+      label: "cocktail dress"
+      aliases: ["party dress", "little black dress", "LBD"]
+      description: "Short formal dress"
+      explicit: false
+      weight: 1.0
+
+    - id: full_ball_gown
+      label: "ball gown"
+      aliases: ["formal gown", "princess dress", "evening gown"]
+      description: "Full-length formal gown"
+      explicit: false
+      weight: 1.0
+
+    - id: full_bodycon_dress
+      label: "bodycon dress"
+      aliases: ["body conscious dress", "tight dress", "form fitting dress"]
+      description: "Tight, body-hugging dress"
+      explicit: false
+      weight: 1.0
+
+    - id: full_slip_dress
+      label: "slip dress"
+      aliases: ["slip", "lingerie dress", "satin slip"]
+      description: "Dress resembling a slip"
+      explicit: false
+      weight: 1.0
+
+    - id: full_wedding_dress
+      label: "wedding dress"
+      aliases: ["bridal gown", "white dress", "bride dress"]
+      description: "Wedding dress"
+      explicit: false
+      weight: 1.0
+
+    - id: full_cheongsam
+      label: "cheongsam"
+      aliases: ["qipao", "chinese dress", "mandarin dress"]
+      description: "Traditional Chinese dress"
+      explicit: false
+      weight: 1.0
+
+  suits:
+    - id: full_business_suit
+      label: "business suit"
+      aliases: ["formal suit", "two-piece suit", "three-piece suit"]
+      description: "Formal business suit"
+      explicit: false
+      weight: 1.0
+
+    - id: full_tuxedo
+      label: "tuxedo"
+      aliases: ["formal suit", "black tie"]
+      description: "Formal tuxedo"
+      explicit: false
+      weight: 1.0
+
+  jumpsuits:
+    - id: full_jumpsuit
+      label: "jumpsuit"
+      aliases: ["one-piece", "coverall"]
+      description: "One-piece outfit"
+      explicit: false
+      weight: 1.0
+
+    - id: full_romper
+      label: "romper"
+      aliases: ["playsuit", "short jumpsuit"]
+      description: "Short one-piece outfit"
+      explicit: false
+      weight: 1.0
+
+    - id: full_catsuit
+      label: "catsuit"
+      aliases: ["bodysuit", "unitard", "full body suit", "zentai"]
+      description: "Tight-fitting full body suit"
+      explicit: false
+      weight: 1.0
+
+  swimwear:
+    - id: full_one_piece
+      label: "one-piece swimsuit"
+      aliases: ["swimsuit", "bathing suit", "maillot"]
+      description: "One-piece swimwear"
+      explicit: false
+      weight: 1.0
+
+    - id: full_bikini
+      label: "bikini"
+      aliases: ["two-piece swimsuit", "swim bikini"]
+      description: "Two-piece swimwear"
+      explicit: false
+      weight: 1.0
+
+    - id: full_micro_bikini
+      label: "micro bikini"
+      aliases: ["tiny bikini", "string bikini", "minimal bikini"]
+      description: "Minimal coverage bikini"
+      explicit: true
+      weight: 1.0
+
+    - id: full_monokini
+      label: "monokini"
+      aliases: ["cutout swimsuit", "one-piece bikini"]
+      description: "One-piece with cutouts"
+      explicit: false
+      weight: 1.0
+
+    - id: full_slingshot
+      label: "slingshot bikini"
+      aliases: ["mankini", "suspender bikini", "v-string bikini"]
+      description: "Minimal V-shaped swimwear"
+      explicit: true
+      weight: 1.0
+
+lingerie:
+  sets:
+    - id: ling_bra_panty_set
+      label: "bra and panty set"
+      aliases: ["lingerie set", "matching set"]
+      description: "Matching bra and underwear set"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_teddy
+      label: "teddy"
+      aliases: ["one-piece lingerie", "bodysuit lingerie"]
+      description: "One-piece lingerie garment"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_babydoll
+      label: "babydoll"
+      aliases: ["babydoll nightie", "chemise"]
+      description: "Short, loose nightgown"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_nightgown
+      label: "nightgown"
+      aliases: ["nightie", "sleep gown", "nightdress"]
+      description: "Long sleepwear gown"
+      explicit: false
+      weight: 1.0
+
+  fetish:
+    - id: ling_latex
+      label: "latex outfit"
+      aliases: ["rubber suit", "latex dress", "latex catsuit"]
+      description: "Latex/rubber clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_leather
+      label: "leather outfit"
+      aliases: ["leather dress", "leather catsuit", "biker leather"]
+      description: "Leather clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_pvc
+      label: "PVC outfit"
+      aliases: ["vinyl outfit", "plastic clothing", "shiny outfit"]
+      description: "PVC/vinyl clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_bondage_gear
+      label: "bondage gear"
+      aliases: ["BDSM outfit", "fetish wear", "kink outfit"]
+      description: "Bondage/fetish clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_harness
+      label: "body harness"
+      aliases: ["strap harness", "chest harness", "body straps"]
+      description: "Decorative body harness"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_collar
+      label: "collar"
+      aliases: ["pet collar", "BDSM collar", "choker collar"]
+      description: "Collar worn around neck"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_garter_belt
+      label: "garter belt"
+      aliases: ["suspenders", "stocking belt"]
+      description: "Belt for holding up stockings"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_stockings
+      label: "stockings"
+      aliases: ["thigh highs", "hold-ups", "nylons"]
+      description: "Thigh-high stockings"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_fishnets
+      label: "fishnets"
+      aliases: ["fishnet stockings", "net stockings", "fishnet tights"]
+      description: "Fishnet pattern stockings"
+      explicit: false
+      weight: 1.0
+
+    - id: ling_bodystocking
+      label: "bodystocking"
+      aliases: ["full body stocking", "fishnet bodysuit"]
+      description: "Full body fishnet/stocking garment"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_crotchless
+      label: "crotchless lingerie"
+      aliases: ["open crotch lingerie", "open bottom"]
+      description: "Lingerie with open crotch"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_open_cup
+      label: "open cup bra"
+      aliases: ["shelf bra", "cupless bra", "peek-a-boo bra"]
+      description: "Bra with open/exposed cups"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_sheer_lingerie
+      label: "sheer lingerie"
+      aliases: ["see-through lingerie", "transparent lingerie"]
+      description: "Transparent lingerie"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_restraints
+      label: "restraints"
+      aliases: ["handcuffs", "wrist cuffs", "ankle cuffs", "bondage restraints"]
+      description: "Bondage restraints"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_blindfold
+      label: "blindfold"
+      aliases: ["eye mask", "silk blindfold"]
+      description: "Blindfold for sensory deprivation"
+      explicit: true
+      weight: 1.0
+
+    - id: ling_ball_gag
+      label: "ball gag"
+      aliases: ["gag", "mouth gag"]
+      description: "Ball gag"
+      explicit: true
+      weight: 1.0
+
+footwear:
+  - id: shoe_sneakers
+    label: "sneakers"
+    aliases: ["trainers", "athletic shoes", "running shoes"]
+    description: "Athletic sneakers"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_heels
+    label: "high heels"
+    aliases: ["heels", "pumps", "stilettos"]
+    description: "High-heeled shoes"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_stilettos
+    label: "stilettos"
+    aliases: ["stiletto heels", "thin heels", "spike heels"]
+    description: "Very thin high heels"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_platforms
+    label: "platform shoes"
+    aliases: ["platform heels", "thick sole shoes"]
+    description: "Shoes with thick platform sole"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_boots
+    label: "boots"
+    aliases: ["ankle boots", "booties"]
+    description: "Ankle-length boots"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_thigh_high_boots
+    label: "thigh-high boots"
+    aliases: ["over-the-knee boots", "thigh boots", "OTK boots"]
+    description: "Boots extending to thigh"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_knee_high_boots
+    label: "knee-high boots"
+    aliases: ["knee boots", "tall boots"]
+    description: "Boots extending to knee"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_combat_boots
+    label: "combat boots"
+    aliases: ["military boots", "army boots", "Doc Martens"]
+    description: "Heavy-duty combat boots"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_sandals
+    label: "sandals"
+    aliases: ["open-toe shoes", "strappy sandals"]
+    description: "Open-toe sandals"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_flip_flops
+    label: "flip flops"
+    aliases: ["thong sandals", "slippers"]
+    description: "Casual flip flop sandals"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_barefoot
+    label: "barefoot"
+    aliases: ["no shoes", "bare feet", "shoeless"]
+    description: "No footwear"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_heeled_boots
+    label: "heeled boots"
+    aliases: ["boots with heels", "high heel boots"]
+    description: "Boots with high heels"
+    explicit: false
+    weight: 1.0
+
+  - id: shoe_pole_dance_shoes
+    label: "pole dance shoes"
+    aliases: ["pleaser heels", "stripper heels", "platform heels"]
+    description: "Extreme platform heels"
+    explicit: true
+    weight: 1.0
+
+clothing_states:
+  condition:
+    - id: cloth_pristine
+      label: "pristine clothing"
+      aliases: ["new clothes", "clean clothes", "crisp"]
+      description: "Clothing in perfect condition"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_worn
+      label: "worn clothing"
+      aliases: ["used clothes", "lived-in clothes"]
+      description: "Clothing showing signs of wear"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_torn
+      label: "torn clothing"
+      aliases: ["ripped clothes", "damaged clothing", "tattered"]
+      description: "Clothing with tears or rips"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_distressed
+      label: "distressed clothing"
+      aliases: ["weathered clothes", "aged clothing"]
+      description: "Intentionally distressed clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_wet
+      label: "wet clothing"
+      aliases: ["soaked clothes", "drenched clothing", "wet fabric"]
+      description: "Wet, clinging clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_transparent_wet
+      label: "see-through wet clothing"
+      aliases: ["transparent when wet", "wet see-through"]
+      description: "Clothing that becomes transparent when wet"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_stained
+      label: "stained clothing"
+      aliases: ["dirty clothes", "blood-stained", "mud-stained"]
+      description: "Clothing with visible stains"
+      explicit: false
+      weight: 1.0
+
+  position:
+    - id: cloth_fully_dressed
+      label: "fully dressed"
+      aliases: ["complete outfit", "properly dressed"]
+      description: "Fully clothed"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_partially_undressed
+      label: "partially undressed"
+      aliases: ["half dressed", "partially clothed"]
+      description: "Some clothing removed"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_undressing
+      label: "undressing"
+      aliases: ["taking off clothes", "removing clothing"]
+      description: "In the act of removing clothing"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_clothing_askew
+      label: "clothing askew"
+      aliases: ["messy clothes", "disheveled", "crooked clothing"]
+      description: "Clothing not properly positioned"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_strap_slipping
+      label: "strap slipping"
+      aliases: ["falling off shoulder", "slipping strap", "off one shoulder"]
+      description: "Clothing strap slipping off shoulder"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_buttons_undone
+      label: "buttons undone"
+      aliases: ["unbuttoned", "partially unbuttoned", "open shirt"]
+      description: "Buttons left open"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_zipper_open
+      label: "zipper open"
+      aliases: ["unzipped", "fly open", "zipper down"]
+      description: "Zipper left open"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_skirt_lifted
+      label: "skirt lifted"
+      aliases: ["skirt raised", "lifting skirt", "skirt hiked up"]
+      description: "Skirt lifted or raised"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_shirt_lifted
+      label: "shirt lifted"
+      aliases: ["shirt raised", "lifting shirt", "shirt pulled up"]
+      description: "Shirt lifted to expose midriff or above"
+      explicit: false
+      weight: 1.0
+
+    - id: cloth_pants_pulled_down
+      label: "pants pulled down"
+      aliases: ["pants down", "trousers lowered", "pants at ankles"]
+      description: "Pants pulled down"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_exposed
+      label: "exposed"
+      aliases: ["nude", "naked", "bare", "unclothed"]
+      description: "Fully or partially exposed"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_topless
+      label: "topless"
+      aliases: ["bare chested", "no top", "bare breasted"]
+      description: "No upper body clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_bottomless
+      label: "bottomless"
+      aliases: ["no pants", "no skirt", "bare bottom"]
+      description: "No lower body clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: cloth_nude
+      label: "nude"
+      aliases: ["completely naked", "fully nude", "bare all"]
+      description: "Completely nude"
+      explicit: true
+      weight: 1.0
+
+accessories:
+  head:
+    - id: acc_hat
+      label: "hat"
+      aliases: ["cap", "fedora", "baseball cap"]
+      description: "Headwear"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_beanie
+      label: "beanie"
+      aliases: ["knit cap", "winter hat", "skull cap"]
+      description: "Knit beanie hat"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_headband
+      label: "headband"
+      aliases: ["hair band", "sweatband"]
+      description: "Headband"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_crown
+      label: "crown"
+      aliases: ["tiara", "royal crown", "coronet"]
+      description: "Royal crown or tiara"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_hair_ornament
+      label: "hair ornament"
+      aliases: ["hair clip", "hair pin", "hair accessory"]
+      description: "Decorative hair accessory"
+      explicit: false
+      weight: 1.0
+
+  neck:
+    - id: acc_necklace
+      label: "necklace"
+      aliases: ["pendant", "chain", "jewelry"]
+      description: "Neck jewelry"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_choker
+      label: "choker"
+      aliases: ["neck band", "tight necklace", "collar necklace"]
+      description: "Tight-fitting neck accessory"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_scarf
+      label: "scarf"
+      aliases: ["neck scarf", "wrap"]
+      description: "Neck scarf"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_tie
+      label: "necktie"
+      aliases: ["tie", "business tie", "bow tie"]
+      description: "Necktie or bow tie"
+      explicit: false
+      weight: 1.0
+
+  eyes:
+    - id: acc_glasses
+      label: "glasses"
+      aliases: ["eyeglasses", "spectacles", "reading glasses"]
+      description: "Eyeglasses"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_sunglasses
+      label: "sunglasses"
+      aliases: ["shades", "sun glasses"]
+      description: "Sunglasses"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_eye_patch
+      label: "eye patch"
+      aliases: ["pirate patch", "single eye cover"]
+      description: "Eye patch"
+      explicit: false
+      weight: 1.0
+
+  hands:
+    - id: acc_gloves
+      label: "gloves"
+      aliases: ["hand gloves", "dress gloves"]
+      description: "Hand gloves"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_fingerless_gloves
+      label: "fingerless gloves"
+      aliases: ["half gloves", "tactical gloves"]
+      description: "Gloves without fingers"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_rings
+      label: "rings"
+      aliases: ["finger rings", "jewelry rings"]
+      description: "Finger rings"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_bracelets
+      label: "bracelets"
+      aliases: ["bangles", "wrist jewelry", "cuffs"]
+      description: "Wrist jewelry"
+      explicit: false
+      weight: 1.0
+
+  other:
+    - id: acc_belt
+      label: "belt"
+      aliases: ["waist belt", "leather belt"]
+      description: "Waist belt"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_suspenders
+      label: "suspenders"
+      aliases: ["braces", "shoulder straps"]
+      description: "Suspenders/braces"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_bag
+      label: "bag"
+      aliases: ["purse", "handbag", "tote"]
+      description: "Handbag or purse"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_backpack
+      label: "backpack"
+      aliases: ["rucksack", "pack"]
+      description: "Backpack"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_weapon
+      label: "weapon"
+      aliases: ["sword", "gun", "knife", "firearm"]
+      description: "Carrying a weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_umbrella
+      label: "umbrella"
+      aliases: ["parasol", "rain umbrella"]
+      description: "Holding an umbrella"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_cigarette
+      label: "cigarette"
+      aliases: ["smoking", "holding cigarette", "cigar"]
+      description: "Holding cigarette or cigar"
+      explicit: false
+      weight: 1.0
+
+    - id: acc_drink
+      label: "holding drink"
+      aliases: ["glass of wine", "cocktail", "beer bottle"]
+      description: "Holding a beverage"
+      explicit: false
+      weight: 1.0

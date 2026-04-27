@@ -1,0 +1,313 @@
+# PROMPTSMITH TAXONOMY - BODY HAIR
+
+body_hair_locations:
+  chest:
+    - id: bodyhair_chest_hairy
+      label: "hairy chest"
+      aliases: ["chest hair", "hairy male chest"]
+      description: "Hairy male chest"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_chest_slight
+      label: "slight chest hair"
+      aliases: ["trace chest hair", "light chest hair"]
+      description: "Slight trace of chest hair"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_chest_hairy_female
+      label: "female chest hair"
+      aliases: ["hairy female", "excess body hair female"]
+      description: "Visible chest hair on female"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_chest_stubble
+      label: "chest stubble"
+      aliases: ["chest fuzz", "light chest hair"]
+      description: "Light stubble on chest"
+      explicit: false
+      weight: 1.0
+
+  back:
+    - id: bodyhair_back_hairy
+      label: "hairy back"
+      aliases: ["back hair", "hairy male back"]
+      description: "Hairy back"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_back_partial
+      label: "partial back hair"
+      aliases: ["lower back hair", "shoulder back hair"]
+      description: "Partial back hair coverage"
+      explicit: false
+      weight: 1.0
+
+  arms:
+    - id: bodyhair_arms_hairy
+      label: "hairy arms"
+      aliases: ["arm hair", "hairy forearms"]
+      description: "Hairy arms"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_arms_light
+      label: "light arm hair"
+      aliases: ["slight arm hair", "fair arm hair"]
+      description: "Light arm hair"
+      explicit: false
+      weight: 1.0
+
+  legs:
+    - id: bodyhair_legs_hairy
+      label: "hairy legs"
+      aliases: ["leg hair", "hairy thighs", "hairy calves"]
+      description: "Hairy legs"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_legs_light
+      label: "light leg hair"
+      aliases: ["slight leg hair", "fair leg hair"]
+      description: "Light leg hair"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_legs_smooth
+      label: "smooth legs"
+      aliases: ["shaved legs", "hairless legs"]
+      description: "Smooth hairless legs"
+      explicit: false
+      weight: 1.0
+
+  underarms:
+    - id: bodyhair_underarm_hairy
+      label: "hairy underarms"
+      aliases: ["underarm hair", "axillary hair"]
+      description: "Hairy underarms"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_underarm_shaved
+      label: "shaved underarms"
+      aliases: ["smooth underarms", "bald underarms"]
+      description: "Shaved underarms"
+      explicit: false
+      weight: 1.0
+
+    - id: bodyhair_underarm_stubble
+      label: "underarm stubble"
+      aliases: ["regrowth underarms", "axillary stubble"]
+      description: "Underarm stubble/regrowth"
+      explicit: false
+      weight: 1.0
+
+  pubic:
+    - id: bodyhair_pubic_hairy
+      label: "hairy pubic area"
+      aliases: ["natural pubic hair", "bush", "pubic"]
+      description: "Hairy pubic area"
+      explicit: true
+      weight: 1.0
+
+    - id: bodyhair_pubic_styled
+      label: "styled pubic hair"
+      aliases: ["trimmed pubic", "landing strip", "designer wax"]
+      description: "Styled trimmed pubic hair"
+      explicit: true
+      weight: 1.0
+
+    - id: bodyhair_pubic_shaved
+      label: "shaved pubic"
+      aliases: ["bald pubic", "bare", "smooth pubic"]
+      description: "Shaved hairless pubic area"
+      explicit: true
+      weight: 1.0
+
+    - id: bodyhair_pubic_stubble
+      label: "pubic stubble"
+      aliases: ["regrowth down there", "shadow"]
+      description: "Pubic stubble/regrowth"
+      explicit: true
+      weight: 1.0
+
+facial_hair_body:
+  - id: bodyhair_facial_light
+    label: "light facial hair"
+    aliases: ["peach fuzz face", "fair facial hair"]
+    description: "Light facial hair (peach fuzz)"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_beard_full
+    label: "full beard"
+    aliases: ["beard", "full facial hair"]
+    description: "Full beard"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_beard_stubble
+    label: "stubble beard"
+    aliases: ["facial stubble", "5 o clock shadow"]
+    description: "Facial stubble"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_mustache
+    label: "mustache"
+    aliases: ["upper lip hair", "mo"]
+    description: "Mustache only"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_goatee
+    label: "goatee"
+    aliases: ["chin beard", "small beard"]
+    description: "Goatee beard"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_sideburns
+    label: "sideburns"
+    aliases: ["facial hair sides", "temple hair"]
+    description: "Prominent sideburns"
+    explicit: false
+    weight: 1.0
+
+body_hair_styles:
+  - id: bodyhair_smooth
+    label: "completely smooth"
+    aliases: ["hairless", "bald", "shaved all over"]
+    description: "Completely smooth hairless body"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_waxed
+    label: "waxed"
+    aliases: ["waxed body", "brow nappy removed"]
+    description: "Recently waxed smooth"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_natural
+    label: "natural body hair"
+    aliases: ["au naturel", "body hair natural"]
+    description: "Natural body hair (not removed)"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_trimmed
+    label: "trimmed body hair"
+    aliases: ["neatly trimmed", "maintained hair"]
+    description: "Trimmed maintained body hair"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_razor_burn
+    label: "razor burn"
+    aliases: ["shaving irritation", "red bumps"]
+    description: "Visible razor burn"
+    explicit: false
+    weight: 1.0
+
+body_hair_colors:
+  - id: bodyhair_dark
+    label: "dark body hair"
+    aliases: ["black body hair", "dark coarse hair"]
+    description: "Dark colored body hair"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_light
+    label: "light body hair"
+    aliases: ["blonde body hair", "fair hair"]
+    description: "Light blonde body hair"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_red
+    label: "red body hair"
+    aliases: ["auburn body hair", "ginger body"]
+    description: "Red/auburn body hair"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_gray
+    label: "gray body hair"
+    aliases: ["silver body hair", "graying"]
+    description: "Gray/silver body hair"
+    explicit: false
+    weight: 1.0
+
+special:
+  - id: bodyhair_elf
+    label: "elf-like hairless"
+    aliases: ["pointed ears hairless", "fairy skin"]
+    description: "Elf-like hairless smooth skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_alien
+    label: "alien smooth"
+    aliases: ["synthetic skin", "hairless alien"]
+    description: "Alien hairless smooth skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_doll
+    label: "doll-like"
+    aliases: ["porcelain skin", "figure doll"]
+    description: "Doll-like hairless smooth skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_statue
+    label: "statue smooth"
+    aliases: ["marble skin", "sculpted"]
+    description: "Statue-like smooth skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_corpse
+    label: "corpse pale"
+    aliases: ["death pale", "undead smooth"]
+    description: "Corpse-pale hairless skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_sweat
+    label: "sweaty body hair"
+    aliases: ["moisturized with sweat", "glistening"]
+    description: "Sweaty body with body hair"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_oily
+    label: "oily skin"
+    aliases: ["shiny", "greasy", "lustrous"]
+    description: "Oily shiny skin"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_glitter
+    label: "body glitter"
+    aliases: ["shimmer", "glitter on body"]
+    description: "Glitter applied to body"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_body_paint
+    label: "body paint"
+    aliases: ["body art paint", "painted body"]
+    description: "Body covered in paint"
+    explicit: false
+    weight: 1.0
+
+  - id: bodyhair_henna
+    label: "henna body art"
+    aliases: ["mehndi", "temporary tattoo body"]
+    description: "Henna designs on body"
+    explicit: false
+    weight: 1.0

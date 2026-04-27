@@ -1,0 +1,1073 @@
+# PROMPTSMITH TAXONOMY - HAIR SYSTEM
+
+hair_length:
+  - id: hair_bald
+    label: "bald"
+    aliases: ["shaved head", "no hair", "clean shaven head"]
+    description: "Completely bald head"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_buzz_cut
+    label: "buzz cut"
+    aliases: ["crew cut", "short cropped hair", "military cut"]
+    description: "Very short buzz cut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_very_short
+    label: "very short hair"
+    aliases: ["cropped hair", "pixie length"]
+    description: "Very short hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_short
+    label: "short hair"
+    aliases: ["above ear length", "chin length"]
+    description: "Short hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_medium
+    label: "medium length hair"
+    aliases: ["shoulder length", "mid-length hair"]
+    description: "Medium length hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_long
+    label: "long hair"
+    aliases: ["past shoulders", "long flowing hair"]
+    description: "Long hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_very_long
+    label: "very long hair"
+    aliases: ["waist length hair", "hip length hair"]
+    description: "Very long hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_extremely_long
+    label: "extremely long hair"
+    aliases: ["floor length hair", "knee length hair", "rapunzel hair"]
+    description: "Extremely long, floor-length hair"
+    explicit: false
+    weight: 1.0
+
+hair_style_women:
+  - id: hair_bob
+    label: "bob cut"
+    aliases: ["bob haircut", "classic bob", "blunt bob"]
+    description: "Classic bob haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_lob
+    label: "lob cut"
+    aliases: ["long bob", "shoulder bob"]
+    description: "Long bob haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_pixie
+    label: "pixie cut"
+    aliases: ["pixie haircut", "short pixie"]
+    description: "Short pixie cut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_layers
+    label: "layered hair"
+    aliases: ["layers", "layered cut", "feathered layers"]
+    description: "Layered haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_shag
+    label: "shag cut"
+    aliases: ["shaggy hair", "70s shag", "messy shag"]
+    description: "Shag haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_mullet
+    label: "mullet"
+    aliases: ["business in front party in back", "modern mullet"]
+    description: "Mullet haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_afro
+    label: "afro"
+    aliases: ["natural afro", "afro puff", "round afro"]
+    description: "Afro hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braids
+    label: "braids"
+    aliases: ["box braids", "cornrows", "plaited hair"]
+    description: "Braided hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_dreadlocks
+    label: "dreadlocks"
+    aliases: ["locs", "dreads", "twisted locks"]
+    description: "Dreadlock hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_ponytail
+    label: "ponytail"
+    aliases: ["pony tail", "high ponytail", "low ponytail"]
+    description: "Ponytail hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_high_ponytail
+    label: "high ponytail"
+    aliases: ["top ponytail", "high pony"]
+    description: "High ponytail"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_side_ponytail
+    label: "side ponytail"
+    aliases: ["side pony", "ponytail to the side"]
+    description: "Side ponytail"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_pigtails
+    label: "pigtails"
+    aliases: ["twin tails", "double ponytails", "two ponytails"]
+    description: "Pigtails/twin tails"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_bun
+    label: "hair bun"
+    aliases: ["bun hairstyle", "top knot", "hair knot"]
+    description: "Hair bun"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_messy_bun
+    label: "messy bun"
+    aliases: ["casual bun", "loose bun", "undone bun"]
+    description: "Messy, casual bun"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_chignon
+    label: "chignon"
+    aliases: ["low bun", "elegant bun", "French twist bun"]
+    description: "Elegant chignon bun"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_french_twist
+    label: "French twist"
+    aliases: ["twist updo", "rolled updo"]
+    description: "French twist updo"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_updo
+    label: "updo"
+    aliases: ["formal updo", "elegant updo", "pinned up hair"]
+    description: "Formal updo hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_crown_braid
+    label: "crown braid"
+    aliases: ["halo braid", "braided crown", "circular braid"]
+    description: "Crown braid hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_fishtail_braid
+    label: "fishtail braid"
+    aliases: ["fish braid", "herringbone braid"]
+    description: "Fishtail braid"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_space_buns
+    label: "space buns"
+    aliases: ["double buns", "odango", "two buns"]
+    description: "Space buns hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_half_up
+    label: "half-up half-down"
+    aliases: ["half up hairstyle", "half tied hair"]
+    description: "Half-up half-down hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_wavy
+    label: "wavy hair"
+    aliases: ["beach waves", "loose waves", "wavy texture"]
+    description: "Wavy hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_curly
+    label: "curly hair"
+    aliases: ["tight curls", "ringlets", "curly texture"]
+    description: "Curly hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_coily
+    label: "coily hair"
+    aliases: ["kinky curls", "tight coils", "4c hair"]
+    description: "Coily/kinky hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_straight
+    label: "straight hair"
+    aliases: ["pin straight", "sleek straight", "flat ironed"]
+    description: "Straight hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_frizzy
+    label: "frizzy hair"
+    aliases: ["frizzy texture", "unruly hair", "poofy hair"]
+    description: "Frizzy hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_sleek
+    label: "sleek hair"
+    aliases: ["smooth hair", "polished hair", "glossy hair"]
+    description: "Sleek, polished hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_mohawk
+    label: "mohawk"
+    aliases: ["mohawk hairstyle", "hawk", "punk mohawk"]
+    description: "Mohawk hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_faux_hawk
+    label: "faux hawk"
+    aliases: ["fauxhawk", "soft mohawk"]
+    description: "Faux hawk hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_undercut
+    label: "undercut"
+    aliases: ["shaved sides", "undercut hairstyle"]
+    description: "Undercut hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_asymmetrical
+    label: "asymmetrical hair"
+    aliases: ["uneven hair", "one side longer", "asymmetric cut"]
+    description: "Asymmetrical haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_bangs
+    label: "bangs"
+    aliases: ["fringe", "front bangs", "straight bangs"]
+    description: "Hair with bangs/fringe"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_side_swept_bangs
+    label: "side-swept bangs"
+    aliases: ["side fringe", "swept bangs"]
+    description: "Side-swept bangs"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_curtain_bangs
+    label: "curtain bangs"
+    aliases: ["curtain fringe", "70s bangs", "parted bangs"]
+    description: "Curtain-style bangs"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_blunt_bangs
+    label: "blunt bangs"
+    aliases: ["straight across bangs", "heavy bangs", "full fringe"]
+    description: "Blunt, straight-across bangs"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_micro_bangs
+    label: "micro bangs"
+    aliases: ["baby bangs", "short bangs", "mini fringe"]
+    description: "Very short micro bangs"
+    explicit: false
+    weight: 1.0
+
+hair_style_men:
+  - id: hair_mens_undercut
+    label: "undercut"
+    aliases: ["men's undercut", "disconnected undercut"]
+    description: "Men's undercut hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_fade
+    label: "fade"
+    aliases: ["skin fade", "taper fade", "low fade", "high fade"]
+    description: "Fade haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_pompadour
+    label: "pompadour"
+    aliases: ["pompadour hairstyle", "voluminous top", "Elvis hair"]
+    description: "Pompadour hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_quiff
+    label: "quiff"
+    aliases: ["modern quiff", "textured quiff"]
+    description: "Quiff hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_slicked_back
+    label: "slicked back"
+    aliases: ["slick back", "combed back", "greased back"]
+    description: "Slicked back hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_man_bun
+    label: "man bun"
+    aliases: ["male bun", "broski bun", "top knot"]
+    description: "Man bun hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_messy_men
+    label: "messy hair"
+    aliases: ["textured messy", "bedhead", "undone style"]
+    description: "Messy men's hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_spiky
+    label: "spiky hair"
+    aliases: ["spikes", "gel spikes", "textured spikes"]
+    description: "Spiky hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_crew_cut
+    label: "crew cut"
+    aliases: ["military cut", "short back and sides"]
+    description: "Crew cut hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_side_part
+    label: "side part"
+    aliases: ["classic side part", "gentleman's part", "hard part"]
+    description: "Side part hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_curtains
+    label: "curtains"
+    aliases: ["middle part", "90s curtains", "center part"]
+    description: "Curtains hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_mens_long
+    label: "long hair"
+    aliases: ["men's long hair", "flowing hair", "warrior hair"]
+    description: "Long men's hairstyle"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_mens_dreadlocks
+    label: "dreadlocks"
+    aliases: ["men's locs", "male dreadlocks"]
+    description: "Men's dreadlocks"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_mens_afro
+    label: "afro"
+    aliases: ["men's afro", "natural afro", "round afro"]
+    description: "Men's afro hairstyle"
+    explicit: false
+    weight: 1.0
+
+hair_color:
+  natural:
+    - id: hair_color_black
+      label: "black hair"
+      aliases: ["jet black hair", "dark black hair", "raven hair"]
+      description: "Black hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_dark_brown
+      label: "dark brown hair"
+      aliases: ["chocolate hair", "espresso hair", "deep brown"]
+      description: "Dark brown hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_brown
+      label: "brown hair"
+      aliases: ["medium brown", "brunette", "chestnut hair"]
+      description: "Brown hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_light_brown
+      label: "light brown hair"
+      aliases: ["dark blonde", "light brunette", "honey brown"]
+      description: "Light brown hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_blonde
+      label: "blonde hair"
+      aliases: ["golden blonde", "honey blonde", "medium blonde"]
+      description: "Blonde hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_platinum_blonde
+      label: "platinum blonde"
+      aliases: ["ice blonde", "white blonde", "bleached blonde"]
+      description: "Platinum blonde hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_strawberry_blonde
+      label: "strawberry blonde"
+      aliases: ["red-blonde", "golden red", "copper blonde"]
+      description: "Strawberry blonde hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_red
+      label: "red hair"
+      aliases: ["ginger", "auburn", "copper red"]
+      description: "Red hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_ginger
+      label: "ginger hair"
+      aliases: ["bright ginger", "orange hair", "fiery red"]
+      description: "Ginger/orange hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_gray
+      label: "gray hair"
+      aliases: ["grey hair", "silver hair", "salt and pepper"]
+      description: "Gray hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_white
+      label: "white hair"
+      aliases: ["pure white hair", "snow white hair", "platinum white"]
+      description: "White hair"
+      explicit: false
+      weight: 1.0
+
+  fashion:
+    - id: hair_color_blue
+      label: "blue hair"
+      aliases: ["navy hair", "electric blue hair", "pastel blue hair"]
+      description: "Blue hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_pink
+      label: "pink hair"
+      aliases: ["hot pink hair", "pastel pink hair", "rose hair"]
+      description: "Pink hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_purple
+      label: "purple hair"
+      aliases: ["violet hair", "lavender hair", "lilac hair"]
+      description: "Purple hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_green
+      label: "green hair"
+      aliases: ["emerald hair", "mint hair", "neon green hair"]
+      description: "Green hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_silver
+      label: "silver hair"
+      aliases: ["metallic silver", "chrome hair", "gunmetal hair"]
+      description: "Silver hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_ombre
+      label: "ombre hair"
+      aliases: ["gradient hair", "color fade hair", "dip dye"]
+      description: "Ombre/gradient hair color"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_balayage
+      label: "balayage"
+      aliases: ["hand-painted highlights", "sun-kissed balayage"]
+      description: "Balayage hair coloring"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_highlights
+      label: "highlights"
+      aliases: ["streaked hair", "colored streaks", "highlighted hair"]
+      description: "Highlighted hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_split_dye
+      label: "split dye"
+      aliases: ["half and half hair", "two-tone hair", "cruella hair"]
+      description: "Split-dye hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_rainbow
+      label: "rainbow hair"
+      aliases: ["multicolor hair", "prismatic hair", "all colors"]
+      description: "Rainbow-colored hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_pastel
+      label: "pastel hair"
+      aliases: ["soft pastel colors", "muted tones", "cotton candy hair"]
+      description: "Pastel-colored hair"
+      explicit: false
+      weight: 1.0
+
+    - id: hair_color_neon
+      label: "neon hair"
+      aliases: ["bright neon", "fluorescent hair", "glow hair"]
+      description: "Neon-colored hair"
+      explicit: false
+      weight: 1.0
+
+hair_texture:
+  - id: hair_texture_straight
+    label: "straight hair"
+    aliases: ["pin straight", "flat ironed", "sleek straight"]
+    description: "Straight hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_wavy
+    label: "wavy hair"
+    aliases: ["beach waves", "loose waves", "S-wave"]
+    description: "Wavy hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_curly
+    label: "curly hair"
+    aliases: ["ringlets", "bouncy curls", "spiral curls"]
+    description: "Curly hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_coily
+    label: "coily hair"
+    aliases: ["kinky hair", "tight coils", "type 4 hair"]
+    description: "Coily/kinky hair texture"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_thick
+    label: "thick hair"
+    aliases: ["voluminous hair", "dense hair", "full hair"]
+    description: "Thick, voluminous hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_thin
+    label: "thin hair"
+    aliases: ["fine hair", "sparse hair", "wispy hair"]
+    description: "Thin, fine hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_wet
+    label: "wet hair"
+    aliases: ["soaked hair", "dripping wet hair", "wet look"]
+    description: "Wet, dripping hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_messy
+    label: "messy hair"
+    aliases: ["tousled hair", "bedhead", "unkempt hair"]
+    description: "Messy, tousled hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_windswept
+    label: "windswept hair"
+    aliases: ["wind-blown hair", "blowing in wind", "windy hair"]
+    description: "Wind-blown, windswept hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_flowing
+    label: "flowing hair"
+    aliases: ["hair flowing in wind", "dynamic hair movement"]
+    description: "Flowing, dynamic hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_greasy
+    label: "greasy hair"
+    aliases: ["oily hair", "unwashed hair", "dirty hair"]
+    description: "Greasy, oily hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_texture_frizzy
+    label: "frizzy hair"
+    aliases: ["frizzy texture", "poofy hair", "unruly frizz"]
+    description: "Frizzy hair texture"
+    explicit: false
+    weight: 1.0
+
+facial_hair:
+  - id: facial_clean_shaven
+    label: "clean shaven"
+    aliases: ["no facial hair", "smooth face", "shaved face"]
+    description: "Clean shaven face"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_stubble
+    label: "stubble"
+    aliases: ["5 o'clock shadow", "light stubble", "scruff"]
+    description: "Light facial stubble"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_heavy_stubble
+    label: "heavy stubble"
+    aliases: ["10 day beard", "thick stubble", "dense scruff"]
+    description: "Heavy, thick stubble"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_goatee
+    label: "goatee"
+    aliases: ["chin beard", "goatee beard", "soul patch"]
+    description: "Goatee facial hair"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_mustache
+    label: "mustache"
+    aliases: ["moustache", "handlebar mustache", "thick mustache"]
+    description: "Mustache"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_full_beard
+    label: "full beard"
+    aliases: ["thick beard", "long beard", "bushy beard"]
+    description: "Full beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_short_beard
+    label: "short beard"
+    aliases: ["trimmed beard", "neat beard", "groomed beard"]
+    description: "Short, trimmed beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_stubble_beard
+    label: "designer stubble"
+    aliases: ["designer beard", "corporate beard", "light beard"]
+    description: "Designer stubble beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_sideburns
+    label: "sideburns"
+    aliases: ["mutton chops", "long sideburns", "thick sideburns"]
+    description: "Prominent sideburns"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_van_dyke
+    label: "Van Dyke beard"
+    aliases: ["vandike", "goatee and mustache combo"]
+    description: "Van Dyke style beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_mutton_chops
+    label: "mutton chops"
+    aliases: ["muttonchops", "Wolverine sideburns", "friendly mutton chops"]
+    description: "Mutton chop sideburns"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_neutral_facial_hair
+    label: "peach fuzz"
+    aliases: ["light facial hair", "faint mustache", "upper lip hair"]
+    description: "Light peach fuzz facial hair"
+    explicit: false
+    weight: 1.0
+
+braiding_styles:
+  - id: hair_braid_french
+    label: "French braid"
+    aliases: ["braided updo", "classic braid"]
+    description: "French braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_dutch
+    label: "Dutch braid"
+    aliases: ["inside out braid", "reverse braid"]
+    description: "Dutch braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_cornrows
+    label: "cornrows"
+    aliases: ["canerows", "braid patterns"]
+    description: "Cornrow braids"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_boxer
+    label: "boxer braids"
+    aliases: ["two braids", "athlete braids"]
+    description: "Boxer braid style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_fishtail
+    label: "fishtail braid"
+    aliases: ["fishbone braid", " herringbone"]
+    description: "Fishtail braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_herringbone
+    label: "herringbone braid"
+    aliases: [" herringbone pattern", "elk horn braid"]
+    description: "Herringbone braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_waterfall
+    label: "waterfall braid"
+    aliases: ["cascading braid", "drop braid"]
+    description: "Waterfall braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_crown
+    label: "crown braid"
+    aliases: ["braided crown", "halo braid"]
+    description: "Crown braided style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_braid_mohawk_braid
+    label: "Mohawk braid"
+    aliases: ["braided Mohawk", "dread braid"]
+    description: "Mohawk braided style"
+    explicit: false
+    weight: 1.0
+
+updos_expanded:
+  - id: hair_updo_french_roll
+    label: "French roll"
+    aliases: ["french twist", "rolled updo"]
+    description: "French roll updo"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_updo_braided_updo
+    label: "braided updo"
+    aliases: ["bun with braid", "braided bun"]
+    description: "Braided updo style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_updo_double_bun
+    label: "double bun"
+    aliases: ["twin buns", "space buns double"]
+    description: "Double bun style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_updo_throne_bun
+    label: "throne bun"
+    aliases: ["royal bun", "high ornate bun"]
+    description: "Throne decorative bun"
+    explicit: false
+    weight: 1.0
+
+hair_accessories:
+  - id: hair_acc_ribbon
+    label: "ribbon"
+    aliases: ["hair ribbon", "satin ribbon"]
+    description: "Ribbon hair accessory"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_bow
+    label: "bow"
+    aliases: ["hair bow", "satin bow"]
+    description: "Bow hair accessory"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_alice_band
+    label: "Alice band"
+    aliases: ["headband", "hair band"]
+    description: "Alice band headband"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_scrunchie
+    label: "scrunchie"
+    aliases: ["fabric hair tie", "scrunchie"]
+    description: "Scrunchie hair tie"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_hair_tie
+    label: "hair tie"
+    aliases: ["elastic band", "ponytail holder"]
+    description: "Hair tie"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_bobby_pins
+    label: "bobby pins"
+    aliases: ["hair pins", "bobby pins"]
+    description: "Bobby pins"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_flowers
+    label: "hair flowers"
+    aliases: ["flower accessory", "floral pin"]
+    description: "Flower hair accessory"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_crown
+    label: "crown tiara"
+    aliases: ["tiara", "diadem", "royal crown"]
+    description: "Crown tiara accessory"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_barrette
+    label: "barrette"
+    aliases: ["hair clip", "clasp"]
+    description: "Barrette hair clip"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_acc_headband
+    label: "headband"
+    aliases: ["sport headband", "elastic headband"]
+    description: "Headband"
+    explicit: false
+    weight: 1.0
+
+hair_treatments:
+  - id: hair_treat_permed
+    label: "permed"
+    aliases: ["perm", "chemical wave", "curly perm"]
+    description: "Permed hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_bleached
+    label: "bleached"
+    aliases: ["bleach blonde", "platinum"]
+    description: "Bleached hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_relaxed
+    label: "relaxed"
+    aliases: ["hair relaxer", "straight chemical"]
+    description: "Chemically relaxed hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_keratin
+    label: "keratin treatment"
+    aliases: ["Brazilian blowout", "smoothed"]
+    description: "Keratin treated hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_highlights
+    label: "highlights"
+    aliases: ["hair highlights", "foil highlights"]
+    description: "Highlighted hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_balayage
+    label: "balayage"
+    aliases: ["hand-painted highlights", "sun-kissed"]
+    description: "Balayage colored hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_ombre
+    label: "ombre"
+    aliases: ["gradual color", "dark to light"]
+    description: "Ombre colored hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_treat_dip_dye
+    label: "dip dye"
+    aliases: ["dip dye color", "dipped ends"]
+    description: "Dip dye colored hair"
+    explicit: false
+    weight: 1.0
+
+hair_color_expanded:
+  - id: hair_color_rainbow
+    label: "rainbow hair"
+    aliases: ["multicolored", "pride colors"]
+    description: "Rainbow colored hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_color_galaxy
+    label: "galaxy hair"
+    aliases: ["space colors", "cosmic hair"]
+    description: "Galaxy colored hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_color_pastel_mix
+    label: "pastel mix"
+    aliases: ["soft pastel colors", "mixed pastels"]
+    description: "Pastel mixed hair color"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_color_rooted
+    label: "rooted color"
+    aliases: ["roots showing", "natural roots"]
+    description: "Hair with visible roots"
+    explicit: false
+    weight: 1.0
+
+facial_hair_expanded:
+  - id: facial_dyed_beard
+    label: "dyed beard"
+    aliases: ["colored beard", "beard color"]
+    description: "Dyed colored beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_gradient_beard
+    label: "gradient beard"
+    aliases: ["ombre beard", "faded color beard"]
+    description: "Gradient colored beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_stubble_full
+    label: "heavy stubble"
+    aliases: ["five o clock shadow", "heavy beard growth"]
+    description: "Heavy stubble beard"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_chin_curtain
+    label: "chin curtain beard"
+    aliases: ["chin strap", "goatee curtain"]
+    description: "Chin curtain beard style"
+    explicit: false
+    weight: 1.0
+
+  - id: facial_anchorage
+    label: "anchorage beard"
+    aliases: ["anchor beard", " nautical beard"]
+    description: "Anchor styled beard"
+    explicit: false
+    weight: 1.0
+
+mens_styles_expanded:
+  - id: hair_men_flat_top
+    label: "flat top"
+    aliases: ["flat top haircut", "military flat top"]
+    description: "Flat top haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_men_caesar
+    label: "Caesar cut"
+    aliases: ["Caesar haircut", "fringe forward"]
+    description: "Caesar cut style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_men_ivy_league
+    label: "Ivy League"
+    aliases: ["Ivy league haircut", "Harvard cut"]
+    description: "Ivy League haircut"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_men_forward_mowhawk
+    label: "forward mohawk"
+    aliases: ["faux hawk", "falcon cut"]
+    description: "Forward mohawk style"
+    explicit: false
+    weight: 1.0
+
+  - id: hair_men_textured_crop
+    label: "textured crop"
+    aliases: ["textured quiff", "cropped texture"]
+    description: "Textured crop style"
+    explicit: false
+    weight: 1.0

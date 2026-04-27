@@ -1,0 +1,816 @@
+# PROMPTSMITH TAXONOMY - INTIMATE & SUGGESTIVE CONTENT (SOFT NSFW)
+
+intimate_poses:
+  suggestive:
+    - id: int_pose_arched_back
+      label: "arched back"
+      aliases: ["back arch", "sensual arch", "presenting"]
+      description: "Suggestive arched back pose"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_bent_over
+      label: "bent over"
+      aliases: ["overturned", "bent at waist", "presenting"]
+      description: "Bent over suggestive pose"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_all_fours
+      label: "all fours"
+      aliases: ["hands and knees", "quadruped position"]
+      description: "All fours position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_cowgirl
+      label: "cowgirl position"
+      aliases: ["riding", "woman on top"]
+      description: "Cowgirl intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_doggy_style
+      label: "doggy style"
+      aliases: ["rear entry", "from behind"]
+      description: "Doggy style intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_missionary
+      label: "missionary"
+      aliases: ["face to face", "man on top"]
+      description: "Missionary intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_spooning_intimate
+      label: "spooning"
+      aliases: ["side by side", "behind"]
+      description: "Intimate spooning position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_69
+      label: "69 position"
+      aliases: ["mutual oral", "simultaneous"]
+      description: "69 intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_grinding
+      label: "grinding"
+      aliases: ["hip movement", "dancing close"]
+      description: "Grinding intimate pose"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_standing_intimate
+      label: "standing intimate"
+      aliases: ["standing sex", "vertical"]
+      description: "Standing intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_chair_intimate
+      label: "chair intimate"
+      aliases: ["seated intimacy", "on chair"]
+      description: "Chair intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_wall_intimate
+      label: "wall intimate"
+      aliases: ["against wall", "standing doggy"]
+      description: "Wall intimate position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_shower_intimate
+      label: "shower intimacy"
+      aliases: ["in shower", "water setting"]
+      description: "Shower intimate setting"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_watersports
+      label: "water intimacy"
+      aliases: ["pool intimacy", "hot tub"]
+      description: "Water/ocean intimate setting"
+      explicit: true
+      weight: 1.0
+
+  partial_undress:
+    - id: int_pose_topless_front
+      label: "topless front view"
+      aliases: ["breasts visible front", "exposed front"]
+      description: "Topless front view"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_topless_back
+      label: "topless back view"
+      aliases: ["bare back", "exposed back"]
+      description: "Topless back view"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_bottomless
+      label: "bottomless"
+      aliases: ["no pants", "exposed bottom"]
+      description: "Bottomless state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_backless
+      label: "backless"
+      aliases: ["bare back", "exposed back"]
+      description: "Backless clothing state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_side_nude
+      label: "side nude"
+      aliases: ["profile nude", "side view"]
+      description: "Side nude view"
+      explicit: true
+      weight: 1.0
+
+    - id: int_pose_silhouette
+      label: "intimate silhouette"
+      aliases: ["shadow profile", "darkened intimate"]
+      description: "Silhouette intimate pose"
+      explicit: true
+      weight: 1.0
+
+intimate_gestures:
+  touching:
+    - id: int_gest_hand_breast
+      label: "hand on breast"
+      aliases: ["touching breast", "breast hold"]
+      description: "Hand on breast gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_cupping_breast
+      label: "cupping breast"
+      aliases: ["breast cupped", "holding breast"]
+      description: "Cups breast gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_nipple_tweak
+      label: "nipple touch"
+      aliases: ["pinching nipple", "breast touch"]
+      description: "Nipple touching gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_hand_ass
+      label: "hand on ass"
+      aliases: ["grabbing butt", "ass grab"]
+      description: "Hand on ass gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_squeezing_ass
+      label: "squeezing ass"
+      aliases: ["butt squeeze", "ass grab tight"]
+      description: "Squeezing ass gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_spanking
+      label: "spanking"
+      aliases: ["butt slap", "hand on butt"]
+      description: "Spanking gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_finger_vagina
+      label: "finger insertion"
+      aliases: ["vaginal fingering", "hand intimate"]
+      description: "Finger insertion gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_hand_penis
+      label: "hand on penis"
+      aliases: ["hand job", "penis hold"]
+      description: "Hand on penis gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_pull_close
+      label: "pulling closer"
+      aliases: ["grabbing hips", "pulling into"]
+      description: "Pulling closer intimate gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_embrace_tight
+      label: "tight embrace"
+      aliases: ["hugging close", "body press"]
+      description: "Tight embrace gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_kissing_neck
+      label: "kissing neck"
+      aliases: ["neck kiss", "hickey"]
+      description: "Kissing neck gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_kissing_chest
+      label: "kissing chest"
+      aliases: ["chest kiss", "torso kiss"]
+      description: "Kissing chest gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_biting_ear
+      label: "biting ear"
+      aliases: ["ear nibble", "ear play"]
+      description: "Biting ear gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_biting_lip
+      label: "biting lip"
+      aliases: ["lip bite", "sensual bite"]
+      description: "Biting lip gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_hair_pull_intimate
+      label: "pulling hair"
+      aliases: ["hair grab intimate", "yanking hair"]
+      description: "Hair pulling intimate gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_undressing
+      label: "undressing"
+      aliases: ["taking off clothes", "striptease"]
+      description: "Undressing gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_gest_oral_intimate
+      label: "oral gesture"
+      aliases: ["implied oral", "mouth intimate"]
+      description: "Oral intimate gesture"
+      explicit: true
+      weight: 1.0
+
+clothing_fetish:
+  lingerie:
+    - id: int_cloth_latex
+      label: "latex clothing"
+      aliases: ["rubber", "latex catsuit", "shiny"]
+      description: "Latex rubber clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_leather
+      label: "leather clothing"
+      aliases: ["leather pants", "leather jacket", "biker"]
+      description: "Leather fetish clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_pvc
+      label: "PVC clothing"
+      aliases: ["vinyl", "plastic shiny"]
+      description: "PVC vinyl clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_bondage_gear
+      label: "bondage gear"
+      aliases: ["restraints", "shibari", "tied up"]
+      description: "Bondage BDSM gear"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_harness
+      label: "harness"
+      aliases: ["chest harness", "body harness"]
+      description: "Harness clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_collar
+      label: "collar"
+      aliases: ["pet collar", "BDSM collar", "neck collar"]
+      description: "Collar fetish item"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_stockings
+      label: "stockings"
+      aliases: ["hold ups", "thigh highs", "seamed"]
+      description: "Stockings fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_fishnets
+      label: "fishnet"
+      aliases: ["fishnet stockings", "mesh"]
+      description: "Fishnet clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_garter_belt
+      label: "garter belt"
+      aliases: ["garters", "belt with clips"]
+      description: "Garter belt lingerie"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_bodystocking
+      label: "bodystocking"
+      aliases: ["sheer bodysuit", "stocking bodysuit"]
+      description: "Bodystocking clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_corset
+      label: "corset"
+      aliases: ["waist cincher", "bustier"]
+      description: "Corset lingerie"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_bra_panty
+      label: "bra and panty set"
+      aliases: ["matching lingerie", "intimate set"]
+      description: "Bra and panty set"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_babydoll
+      label: "babydoll"
+      aliases: ["nightie", "short nightgown"]
+      description: "Babydoll nightwear"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_teddy
+      label: "teddy"
+      aliases: ["one piece lingerie", "bodysuit"]
+      description: "Teddy lingerie"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_thong
+      label: "thong"
+      aliases: ["G-string", "cheeky", "t-string"]
+      description: "Thong underwear"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_crotchless
+      label: "crotchless"
+      aliases: ["open crotch", "crotchless panties"]
+      description: "Crotchless underwear"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_micro_bikini
+      label: "micro bikini"
+      aliases: ["tiny bikini", "barely there"]
+      description: "Micro bikini"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_see_through
+      label: "see through"
+      aliases: ["sheer", "transparent clothing"]
+      description: "See-through clothing"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_wet_clothes
+      label: "wet clothes"
+      aliases: ["wet shirt", "soaked clothing"]
+      description: "Wet see-through clothing"
+      explicit: true
+      weight: 1.0
+
+  uniforms:
+    - id: int_cloth_nurse
+      label: "nurse uniform"
+      aliases: ["sexy nurse", "medical fantasy"]
+      description: "Nurse uniform fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_maid
+      label: "maid outfit"
+      aliases: ["French maid", "servant"]
+      description: "Maid uniform fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_schoolgirl
+      label: "schoolgirl uniform"
+      aliases: ["Japanese school", "uniform fetish"]
+      description: "Schoolgirl uniform"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_police
+      label: "police uniform"
+      aliases: ["cop fantasy", "officer"]
+      description: "Police uniform fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_military
+      label: "military uniform"
+      aliases: ["soldier", "camouflage"]
+      description: "Military uniform fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_firefighter
+      label: "firefighter"
+      aliases: ["fireman", "bunker gear"]
+      description: "Firefighter uniform fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_cat_ears
+      label: "cat ears"
+      aliases: ["nekomimi", "pet play"]
+      description: "Cat ear headband"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_bunny_suit
+      label: "bunny suit"
+      aliases: ["playboy bunny", "costume"]
+      description: "Bunny costume"
+      explicit: true
+      weight: 1.0
+
+    - id: int_cloth_pole_dancing
+      label: "pole dancing outfit"
+      aliases: ["club wear", "dancer"]
+      description: "Pole dancing outfit"
+      explicit: true
+      weight: 1.0
+
+body_states:
+  arousal:
+    - id: int_state_aroused
+      label: "aroused"
+      aliases: ["turned on", "horny", "excited"]
+      description: "Sexually aroused state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_hard_nipples
+      label: "hard nipples"
+      aliases: ["erect nipples", "nipple tension"]
+      description: "Aroused hard nipples visible"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_blushing_intense
+      label: "intense blushing"
+      aliases: ["deep blush", "flushed"]
+      description: "Intense arousal blush"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_sweaty_intimate
+      label: "sweaty intimate"
+      aliases: ["arousal sweat", "glistening"]
+      description: "Intimate sweaty state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_wet_panties
+      label: "wet panties"
+      aliases: ["moist", "aroused female"]
+      description: "Wet arousal state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_erection
+      label: "erection visible"
+      aliases: ["hard penis", "aroused male"]
+      description: "Visible erection"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_breast_perky
+      label: "perky breasts"
+      aliases: ["pert", "uplifted", "firm"]
+      description: "Perky breast state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_genitals_spread
+      label: "spread genitals"
+      aliases: ["open intimate", "displaying"]
+      description: "Spread genitals view"
+      explicit: true
+      weight: 1.0
+
+  positions_states:
+    - id: int_state_tied_up
+      label: "tied up"
+      aliases: ["bound", "restrained", "shibari"]
+      description: "Tied up restrained state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_handcuffed
+      label: "handcuffed"
+      aliases: ["wrist restraints", "cuffed"]
+      description: "Handcuffed state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_chained
+      label: "chained"
+      aliases: ["in chains", "metal restraints"]
+      description: "Chained restrained state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_blindfolded
+      label: "blindfolded"
+      aliases: ["eyes covered", "sensory deprivation"]
+      description: "Blindfolded state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_gagged
+      label: "gagged"
+      aliases: ["mouth covered", "ball gag"]
+      description: "Gagged state"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_collar_leash
+      label: "collar and leash"
+      aliases: ["leashed", "pet play"]
+      description: "Collar and leash"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_spread_eagle
+      label: "spread eagle"
+      aliases: ["arms and legs out", "restrained"]
+      description: "Spread eagle position"
+      explicit: true
+      weight: 1.0
+
+    - id: int_state_hogtied
+      label: "hogtied"
+      aliases: ["tied hands and feet", "immobilized"]
+      description: "Hogtied position"
+      explicit: true
+      weight: 1.0
+
+adult_settings:
+  - id: int_setting_dungeon
+    label: "dungeon"
+    aliases: ["BDSM dungeon", " bondage room"]
+    description: "BDSM dungeon setting"
+    explicit: true
+    weight: 1.0
+
+  - id: int_setting_strip_club
+    label: "strip club"
+    aliases: ["gentlemen's club", "pole club"]
+    description: "Strip club setting"
+    explicit: true
+    weight: 1.0
+
+  - id: int_setting_brothel
+    label: "brothel"
+    aliases: ["red light district", "adult establishment"]
+    description: "Brothel setting"
+    explicit: true
+    weight: 1.0
+
+  - id: int_setting_boudoir
+    label: "boudoir"
+    aliases: ["intimate bedroom", "romantic chamber"]
+    description: "Boudoir intimate setting"
+    explicit: true
+    weight: 1.0
+
+  - id: int_setting_swingers_club
+    label: "swingers club"
+    aliases: ["lifestyle club", "adult club"]
+    description: "Swingers club setting"
+    explicit: true
+    weight: 1.0
+
+  - id: int_setting_adult_store
+    label: "adult store"
+    aliases: ["sex shop", "toys"]
+    description: "Adult store setting"
+    explicit: true
+    weight: 1.0
+
+fetish_specific:
+  foot_fetish:
+    - id: int_fetish_footjob
+      label: "foot job"
+      aliases: ["foot pleasure", "feet sex"]
+      description: "Foot fetish intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_foot_worship
+      label: "foot worship"
+      aliases: ["kissing feet", "foot kiss"]
+      description: "Foot worship gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_toe_sucking
+      label: "toe sucking"
+      aliases: ["foot play", "toe suck"]
+      description: "Toe sucking gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_smelly_feet
+      label: "smelly feet fetish"
+      aliases: ["dirty feet", "foot odor"]
+      description: "Smelly feet fetish"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_tickling
+      label: "tickling"
+      aliases: ["ticklish", "tickle torture"]
+      description: "Tickling fetish"
+      explicit: true
+      weight: 1.0
+
+  body_part_fetish:
+    - id: int_fetish_breast_worship
+      label: "breast worship"
+      aliases: ["kissing breasts", "tit worship"]
+      description: "Breast worship gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_ass_worship
+      label: "ass worship"
+      aliases: ["butt kiss", "anal worship"]
+      description: "Ass worship gesture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_cbt
+      label: "cock and ball torture"
+      aliases: ["CBT", "testicle play"]
+      description: "Cock and ball torture"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_cuni
+      label: "cunnilingus"
+      aliases: ["oral on woman", "eating out"]
+      description: "Cunnilingus intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_fellation
+      label: "fellatio"
+      aliases: ["oral on man", "blowjob"]
+      description: "Fellatio intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_anal
+      label: "anal"
+      aliases: ["back door", "anal sex"]
+      description: "Anal intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_footjob
+      label: "footjob"
+      aliases: ["foot sex", "feet pleasure"]
+      description: "Footjob intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_tits_job
+      label: "tits job"
+      aliases: ["paizuri", "breast sex"]
+      description: "Titjob intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_creampie
+      label: "creampie"
+      aliases: ["internal ejaculation", "cum inside"]
+      description: "Creampie intimate act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_cum_on
+      label: "cum on body"
+      aliases: ["body cum", "facjal", "body shot"]
+      description: "Cum on body act"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_gangbang
+      label: "gangbang"
+      aliases: ["multiple men", "group"]
+      description: "Gangbang intimate scene"
+      explicit: true
+      weight: 1.0
+
+    - id: int_fetish_double_penetration
+      label: "double penetration"
+      aliases: ["DP", "two penetration"]
+      description: "Double penetration act"
+      explicit: true
+      weight: 1.0
+
+aftermath:
+  - id: int_aftermath_satisfied
+    label: "satisfied"
+    aliases: ["post-intimate satisfied", "content"]
+    description: "Satisfied after intimate act"
+    explicit: true
+    weight: 1.0
+
+  - id: int_aftermath_exhausted
+    label: "exhausted"
+    aliases: ["tired after", "worn out"]
+    description: "Exhausted after intimate act"
+    explicit: true
+    weight: 1.0
+
+  - id: int_aftermath_crying
+    label: "crying after"
+    aliases: ["tears", "emotional"]
+    description: "Crying after intimate act"
+    explicit: true
+    weight: 1.0
+
+  - id: int_aftermath_snuggling
+    label: "post-intimate snuggling"
+    aliases: ["after glow", "cuddling after"]
+    description: "Snuggling after intimate act"
+    explicit: true
+    weight: 1.0
+
+  - id: int_aftermath_smoking
+    label: "post-intimate smoking"
+    aliases: ["cigarette after", "after sex smoke"]
+    description: "Smoking after intimate act"
+    explicit: true
+    weight: 1.0
+
+sensation:
+  - id: int_sensation_ice
+    label: "ice on skin"
+    aliases: ["ice cube", "cold sensation"]
+    description: "Ice sensation on skin"
+    explicit: true
+    weight: 1.0
+
+  - id: int_sensation_wax
+    label: "wax play"
+    aliases: ["hot wax", "candle wax"]
+    description: "Hot wax on skin sensation"
+    explicit: true
+    weight: 1.0
+
+  - id: int_sensation_whip
+    label: "whip sensation"
+    aliases: ["whipping", "flogging"]
+    description: "Whip sensation play"
+    explicit: true
+    weight: 1.0
+
+  - id: int_sensation_feathers
+    label: "feather tickling"
+    aliases: ["feather play", "tickling"]
+    description: "Feather tickling sensation"
+    explicit: true
+    weight: 1.0
+
+  - id: int_sensation_rope
+    label: "rope burn"
+    aliases: ["rope on skin", "abrasion"]
+    description: "Rope sensation play"
+    explicit: true
+    weight: 1.0

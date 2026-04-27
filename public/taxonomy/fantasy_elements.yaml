@@ -1,0 +1,516 @@
+# PROMPTSMITH TAXONOMY - FANTASY ELEMENTS & MAGIC
+
+magic_types:
+  elemental:
+    - id: fantasy_elemental_fire
+      label: "fire magic"
+      aliases: ["pyromancy", "flame sorcery", "fire spells"]
+      description: "Fire elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_water
+      label: "water magic"
+      aliases: ["hydrokinesis", "aquamancy", "water spells"]
+      description: "Water elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_earth
+      label: "earth magic"
+      aliases: ["geomancy", "terramancy", "earth spells"]
+      description: "Earth elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_air
+      label: "air magic"
+      aliases: ["aeromancy", "wind sorcery", "air spells"]
+      description: "Air elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_lightning
+      label: "lightning magic"
+      aliases: ["electrokinesis", "thunder magic", "storm spells"]
+      description: "Lightning elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_ice
+      label: "ice magic"
+      aliases: ["cryomancy", "frost sorcery", "cold spells"]
+      description: "Ice elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_nature
+      label: "nature magic"
+      aliases: ["druidry", "plant magic", "growth spells"]
+      description: "Nature elemental magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_shadow
+      label: "shadow magic"
+      aliases: ["umbramancy", "dark magic", "shadow spells"]
+      description: "Shadow/ darkness magic"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elemental_light
+      label: "light magic"
+      aliases: ["photomancy", "radiant magic", "holy spells"]
+      description: "Light/holy magic"
+      explicit: false
+      weight: 1.0
+
+magical_creatures:
+  dragons:
+    - id: fantasy_dragon
+      label: "dragon"
+      aliases: ["drake", "wyrm", "serpent"]
+      description: "Dragon creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_dragon_european
+      label: "European dragon"
+      aliases: [" классический дракон", "winged dragon"]
+      description: "European style dragon"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_dragon_chinese
+      label: "Chinese dragon"
+      aliases: ["long", "serpentine dragon", "Eastern"]
+      description: "Chinese dragon"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_dragon_wyvern
+      label: "wyvern"
+      aliases: ["two-legged dragon", "winged serpent"]
+      description: "Wyvern (two-legged dragon)"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_dragon_lake
+      label: "lake dragon"
+      aliases: ["freshwater dragon", "pond drake"]
+      description: "Lake/freshwater dragon"
+      explicit: false
+      weight: 1.0
+
+  mythical:
+    - id: fantasy_griffin
+      label: "griffin"
+      aliases: ["gryphon", "lion eagle hybrid"]
+      description: "Griffin creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_phoenix
+      label: "phoenix"
+      aliases: ["firebird", "rebirth bird"]
+      description: "Phoenix creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_unicorn
+      label: "unicorn"
+      aliases: ["single horn", "magic horse"]
+      description: "Unicorn creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_pegasus
+      label: "pegasus"
+      aliases: ["winged horse", "celestial horse"]
+      description: "Pegasus winged horse"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_minotaur
+      label: "minotaur"
+      aliases: ["bull man", "labyrinth beast"]
+      description: "Minotaur creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_cyclops
+      label: "cyclops"
+      aliases: ["one-eyed giant", "polyphemus"]
+      description: "Cyclops one-eyed giant"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_siren
+      label: "siren"
+      aliases: ["mermaid predator", "lure"]
+      description: "Mythical siren creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_harpy
+      label: "harpy"
+      aliases: ["bird woman", "savage"]
+      description: "Harpy creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_manticore
+      label: "manticore"
+      aliases: ["lion scorpion hybrid", "man eater"]
+      description: "Manticore creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_banshee
+      label: "banshee"
+      aliases: ["death wail", "Irish spirit"]
+      description: "Banshee spirit"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_kitsune
+      label: "kitsune"
+      aliases: ["Japanese fox spirit", "nine-tailed fox"]
+      description: "Kitsune fox spirit"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_sphinx
+      label: "sphinx"
+      aliases: ["riddle keeper", "lion body human head"]
+      description: "Sphinx creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_chimera
+      label: "chimera"
+      aliases: ["multi-hybrid beast", "lion goat snake"]
+      description: "Chimera creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_basilisk
+      label: "basilisk"
+      aliases: ["king of serpents", "petrify gaze"]
+      description: "Basilisk creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_kraken
+      label: "kraken"
+      aliases: ["sea monster", "tentacle giant"]
+      description: "Kraken sea monster"
+      explicit: false
+      weight: 1.0
+
+fairies:
+    - id: fantasy_fairy
+      label: "fairy"
+      aliases: ["fae", "fairy folk", "pixie"]
+      description: "Fairy creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_sprite
+      label: "sprite"
+      aliases: ["nymph", "forest spirit"]
+      description: "Sprite fairy"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_shadow_fae
+      label: "dark fairy"
+      aliases: ["dark fae", "gothic fae", "unseelie"]
+      description: "Dark fairy fae"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_elf
+      label: "elf"
+      aliases: ["fey", "fair folk", "pointed ears"]
+      description: "Elf fantasy creature"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_drow
+      label: "drow"
+      aliases: ["dark elf", "underdark elf"]
+      description: "Drow dark elf"
+      explicit: false
+      weight: 1.0
+
+magical_items:
+  weapons:
+    - id: fantasy_sword_enchanted
+      label: "enchanted sword"
+      aliases: ["magic sword", "runic blade"]
+      description: "Enchanted magical sword"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_staff_magic
+      label: "magic staff"
+      aliases: ["wizard staff", "power staff"]
+      description: "Magic staff"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_wand
+      label: "magic wand"
+      aliases: ["witch wand", "spell wand"]
+      description: "Magic wand"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_dagger_ritual
+      label: "ritual dagger"
+      aliases: ["athame", "ceremonial blade"]
+      description: "Ritual dagger"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_bow_magic
+      label: "magic bow"
+      aliases: ["enchanted bow", "fae bow"]
+      description: "Magic enchanted bow"
+      explicit: false
+      weight: 1.0
+
+  artifacts:
+    - id: fantasy_crystal_ball
+      label: "crystal ball"
+      aliases: ["scrying ball", "divination"]
+      description: "Crystal ball artifact"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_grimoire
+      label: "grimoire"
+      aliases: ["spell book", "magic tome"]
+      description: "Magic spell book"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_potion
+      label: "potion"
+      aliases: ["magic potion", "elixir", "bottle"]
+      description: "Magic potion"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_amulet
+      label: "magic amulet"
+      aliases: ["charm", "talisman", "pendant"]
+      description: "Magic amulet"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_ring_magic
+      label: "magic ring"
+      aliases: ["enchanted ring", "power ring"]
+      description: "Magic ring"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_orb
+      label: "magic orb"
+      aliases: ["arcane orb", "power sphere"]
+      description: "Magic orb artifact"
+      explicit: false
+      weight: 1.0
+
+    - id: fantasy_chalice
+      label: "magical chalice"
+      aliases: ["holy grail", "goblet power"]
+      description: "Magical chalice/goblet"
+      explicit: false
+      weight: 1.0
+
+spell_effects:
+  - id: fantasy_magic_circle
+    label: "magic circle"
+    aliases: ["spell circle", "ritual circle", "runes circle"]
+    description: "Magic circle spell effect"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_runes
+    label: "glowing runes"
+    aliases: ["runic inscriptions", "magical symbols"]
+    description: "Glowing magical runes"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_sparkles
+    label: "magic sparkles"
+    aliases: ["fairy dust", "glitter magic"]
+    description: "Magical sparkle effects"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_energy_beam
+    label: "energy beam"
+    aliases: ["magic blast", "power beam"]
+    description: "Magic energy beam"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_fireball
+    label: "fireball"
+    aliases: ["flame ball", "explosion of fire"]
+    description: "Magic fireball"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_lightning_bolt_magic
+    label: "magic lightning"
+    aliases: ["spell lightning", "arcane bolt"]
+    description: "Magic lightning bolt"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_mist_magic
+    label: "magic mist"
+    aliases: ["arcane mist", "spell fog"]
+    description: "Magical mist effect"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_portal
+    label: "magic portal"
+    aliases: ["portal", "gateway", "wormhole"]
+    description: "Magic portal/wormhole"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_summoning_circle
+    label: "summoning circle"
+    aliases: ["demon circle", "conjuration"]
+    description: "Summoning circle"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_transformation
+    label: "transformation spell"
+    aliases: ["shapeshifting magic", "morph"]
+    description: "Transformation spell effect"
+    explicit: false
+    weight: 1.0
+
+supernatural:
+  - id: fantasy_ghost
+    label: "ghost"
+    aliases: ["spirit", "specter", "phantom"]
+    description: "Ghost/spirit"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_specter
+    label: "specter"
+    aliases: ["wraith", "shade", "apparition"]
+    description: "Specter/wraith"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_demon
+    label: "demon"
+    aliases: ["fiend", "infernal", "hellspawn"]
+    description: "Demon creature"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_demon_lord
+    label: "demon lord"
+    aliases: ["archdemon", "demon king", "prince of hell"]
+    description: "Demon lord entity"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_angel
+    label: "angel"
+    aliases: ["celestial", "heavenly being", "seraph"]
+    description: "Angel celestial being"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_archangel
+    label: "archangel"
+    aliases: ["Cherubim", "Power", "celestial warrior"]
+    description: "Archangel powerful being"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_vampire
+    label: "vampire"
+    aliases: ["blood drinker", "undead predator"]
+    description: "Vampire creature"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_werewolf
+    label: "werewolf"
+    aliases: ["lycanthrope", "wolf man", "shapeshifter"]
+    description: "Werewolf creature"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_zombie
+    label: "zombie"
+    aliases: ["undead", "walking dead", "revenant"]
+    description: "Zombie undead"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_skeleton
+    label: "skeleton"
+    aliases: ["bones", "undead skeletal"]
+    description: "Skeleton undead"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_reaper
+    label: "reaper"
+    aliases: ["grim reaper", "death personified", "scythe"]
+    description: "Death reaper entity"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_succubus
+    label: "succubus"
+    aliases: ["demon seductress", "demon lover"]
+    description: "Succubus demon"
+    explicit: true
+    weight: 1.0
+
+  - id: fantasy_incubus
+    label: "incubus"
+    aliases: ["demon seducer", "male demon"]
+    description: "Incubus demon"
+    explicit: true
+    weight: 1.0
+
+  - id: fantasy_witch
+    label: "witch"
+    aliases: ["sorceress", "magic user female"]
+    description: "Witch magic user"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_warlock
+    label: "warlock"
+    aliases: ["sorcerer", "magic user male"]
+    description: "Warlock magic user"
+    explicit: false
+    weight: 1.0
+
+  - id: fantasy_necromancer
+    label: "necromancer"
+    aliases: ["death mage", "grave magic"]
+    description: "Necromancer death mage"
+    explicit: false
+    weight: 1.0

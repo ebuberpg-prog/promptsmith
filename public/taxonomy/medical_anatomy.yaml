@@ -1,0 +1,403 @@
+# PROMPTSMITH TAXONOMY - MEDICAL ANATOMY
+
+skeletal:
+  skull_head:
+    - id: med_skull_front
+      label: "front of skull"
+      aliases: ["frontal bone", "forehead bone"]
+      description: "Front view of skull anatomy"
+      explicit: false
+      weight: 1.0
+
+    - id: med_skull_side
+      label: "side of skull"
+      aliases: ["temporal bone", "parietal"]
+      description: "Side view of skull"
+      explicit: false
+      weight: 1.0
+
+    - id: med_skull_back
+      label: "back of skull"
+      aliases: ["occipital bone", "posterior skull"]
+      description: "Back view of skull"
+      explicit: false
+      weight: 1.0
+
+    - id: med_skull_inside
+      label: "inside skull"
+      aliases: ["cranial cavity", "brain case interior"]
+      description: "Inside cranial cavity"
+      explicit: false
+      weight: 1.0
+
+    - id: med_jaw_bone
+      label: "jaw bone"
+      aliases: ["mandible", "maxilla", "jawline bone"]
+      description: "Jaw bone anatomy"
+      explicit: false
+      weight: 1.0
+
+    - id: med_teeth_arrangement
+      label: "teeth arrangement"
+      aliases: ["dentition", "dental", "tooth layout"]
+      description: "Teeth arrangement"
+      explicit: false
+      weight: 1.0
+
+  spine:
+    - id: med_spine_cervical
+      label: "cervical spine"
+      aliases: ["neck vertebrae", "C1-C7"]
+      description: "Cervical neck spine"
+      explicit: false
+      weight: 1.0
+
+    - id: med_spine_thoracic
+      label: "thoracic spine"
+      aliases: ["mid back vertebrae", "T1-T12"]
+      description: "Thoracic spine"
+      explicit: false
+      weight: 1.0
+
+    - id: med_spine_lumbar
+      label: "lumbar spine"
+      aliases: ["lower back vertebrae", "L1-L5"]
+      description: "Lumbar lower spine"
+      explicit: false
+      weight: 1.0
+
+    - id: med_spine_sacrum
+      label: "sacrum"
+      aliases: ["sacral spine", "tailbone area"]
+      description: "Sacral spine area"
+      explicit: false
+      weight: 1.0
+
+  ribcage:
+    - id: med_ribcage
+      label: "ribcage"
+      aliases: ["ribs", "thoracic cage", "rib cage"]
+      description: "Human ribcage"
+      explicit: false
+      weight: 1.0
+
+    - id: med_ribs_visible
+      label: "visible ribs"
+      aliases: ["defined ribcage", "ribs showing"]
+      description: "Visible ribcage definition"
+      explicit: false
+      weight: 1.0
+
+  pelvis:
+    - id: med_pelvis_male
+      label: "male pelvis"
+      aliases: ["narrow pelvis", "masculine hip bone"]
+      description: "Male pelvis anatomy"
+      explicit: false
+      weight: 1.0
+
+    - id: med_pelvis_female
+      label: "female pelvis"
+      aliases: ["wide pelvis", "feminine hip bone"]
+      description: "Female pelvis anatomy"
+      explicit: false
+      weight: 1.0
+
+muscular:
+  torso:
+    - id: med_abs
+      label: "abs"
+      aliases: ["six-pack", "rectus abdominis", " Abdominals"]
+      description: "Abdominal muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_abs_defined
+      label: "defined abs"
+      aliases: ["ripped abs", "visible six-pack"]
+      description: "Highly defined abs"
+      explicit: false
+      weight: 1.0
+
+    - id: med_obliques
+      label: "obliques"
+      aliases: ["side abs", "waist muscles"]
+      description: "Oblique muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_pectorals
+      label: "pectorals"
+      aliases: ["pecs", "chest muscles"]
+      description: "Pectoral muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_pecs_defined
+      label: "defined pecs"
+      aliases: ["muscular chest", "chiseled chest"]
+      description: "Well-defined pecs"
+      explicit: false
+      weight: 1.0
+
+  arms:
+    - id: med_biceps
+      label: "biceps"
+      aliases: ["bicep muscles", "arm muscles"]
+      description: "Bicep muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_triceps
+      label: "triceps"
+      aliases: ["back arm muscles", "tricep"]
+      description: "Tricep muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_deltoids
+      label: "deltoids"
+      aliases: ["shoulder muscles", "delts"]
+      description: "Deltoid shoulder muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_traps
+      label: "trapezius"
+      aliases: ["trap muscles", "neck shoulder"]
+      description: "Trapezius muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_forearms
+      label: "forearms"
+      aliases: ["forearm muscles", "wrist to elbow"]
+      description: "Forearm muscles"
+      explicit: false
+      weight: 1.0
+
+  back:
+    - id: med_lats
+      label: "latissimus dorsi"
+      aliases: ["lats", "back muscles V-shape"]
+      description: "Latissimus dorsi back muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_traps_back
+      label: "traps upper back"
+      aliases: ["upper trapezius", "shoulder top"]
+      description: "Upper trapezius back muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_rhomboids
+      label: "rhomboids"
+      aliases: ["mid back", "between spine and shoulder"]
+      description: "Rhomboid muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_erector
+      label: "erector spinae"
+      aliases: ["lower back muscles", "spinal erectors"]
+      description: "Erector spinae muscles"
+      explicit: false
+      weight: 1.0
+
+  legs:
+    - id: med_quadriceps
+      label: "quadriceps"
+      aliases: ["quads", "front thigh muscles"]
+      description: "Quadriceps thigh muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_hamstrings
+      label: "hamstrings"
+      aliases: ["back thigh muscles", "hamstring"]
+      description: "Hamstring muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_calves
+      label: "calves"
+      aliases: ["calf muscles", "lower leg"]
+      description: "Calf muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_glutes
+      label: "glutes"
+      aliases: ["gluteal muscles", "buttock muscles"]
+      description: "Gluteal muscles"
+      explicit: false
+      weight: 1.0
+
+    - id: med_adductors
+      label: "adductors"
+      aliases: ["inner thigh muscles", "groin"]
+      description: "Adductor inner thigh muscles"
+      explicit: false
+      weight: 1.0
+
+internal:
+  circulatory:
+    - id: med_heart
+      label: "heart"
+      aliases: ["cardiac organ", "heart anatomy"]
+      description: "Human heart"
+      explicit: false
+      weight: 1.0
+
+    - id: med_arteries
+      label: "arteries"
+      aliases: ["blood vessels", "vascular system"]
+      description: "Arteries"
+      explicit: false
+      weight: 1.0
+
+    - id: med_veins
+      label: "veins"
+      aliases: ["venous", "blood return"]
+      description: "Veins"
+      explicit: false
+      weight: 1.0
+
+  organs:
+    - id: med_lungs
+      label: "lungs"
+      aliases: ["pulmonary", "respiratory organs"]
+      description: "Human lungs"
+      explicit: false
+      weight: 1.0
+
+    - id: med_liver
+      label: "liver"
+      aliases: ["hepatic organ", "detox"]
+      description: "Human liver"
+      explicit: false
+      weight: 1.0
+
+    - id: med_kidneys
+      label: "kidneys"
+      aliases: ["renal organs", "filtering"]
+      description: "Human kidneys"
+      explicit: false
+      weight: 1.0
+
+    - id: med_stomach
+      label: "stomach"
+      aliases: ["gastric organ", "digestion"]
+      description: "Human stomach"
+      explicit: false
+      weight: 1.0
+
+    - id: med_intestines
+      label: "intestines"
+      aliases: ["gastrointestinal", "bowel"]
+      description: "Human intestines"
+      explicit: false
+      weight: 1.0
+
+body_systems:
+  nervous:
+    - id: med_brain
+      label: "brain"
+      aliases: ["cerebral", "neural organ"]
+      description: "Human brain"
+      explicit: false
+      weight: 1.0
+
+    - id: med_spinal_cord
+      label: "spinal cord"
+      aliases: ["neural pathway", "CNS"]
+      description: "Spinal cord"
+      explicit: false
+      weight: 1.0
+
+    - id: med_nerves
+      label: "nerves"
+      aliases: ["neural network", "neuron pathways"]
+      description: "Nerves visible"
+      explicit: false
+      weight: 1.0
+
+  respiratory:
+    - id: med_windpipe
+      label: "windpipe"
+      aliases: ["trachea", "throat tube"]
+      description: "Trachea/windpipe"
+      explicit: false
+      weight: 1.0
+
+    - id: med_diaphragm
+      label: "diaphragm"
+      aliases: ["breathing muscle", "thoracic floor"]
+      description: "Diaphragm muscle"
+      explicit: false
+      weight: 1.0
+
+body_parts:
+  - id: med_collarbone
+    label: "collarbone"
+    aliases: ["clavicle", "neck to shoulder bone"]
+    description: "Collarbone/clavicle"
+    explicit: false
+    weight: 1.0
+
+  - id: med_shouder_blade
+    label: "shoulder blade"
+    aliases: ["scapula", "shoulder bone"]
+    description: "Shoulder blade"
+    explicit: false
+    weight: 1.0
+
+  - id: med_spine_visible
+    label: "spine visible"
+    aliases: ["vertebral column", "backbone"]
+    description: "Visible spine"
+    explicit: false
+    weight: 1.0
+
+  - id: med_hipbones
+    label: "hip bones"
+    aliases: ["ilium", "pelvic bones"]
+    description: "Hip bones visible"
+    explicit: false
+    weight: 1.0
+
+  - id: med_tailbone
+    label: "tailbone"
+    aliases: ["coccyx", "tail bone"]
+    description: "Tailbone/coccyx"
+    explicit: false
+    weight: 1.0
+
+  - id: med_kneecap
+    label: "kneecap"
+    aliases: ["patella", "knee bone"]
+    description: "Kneecap/patella"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ankle_bone
+    label: "ankle bones"
+    aliases: ["malleolus", "ankle joint"]
+    description: "Ankle bones"
+    explicit: false
+    weight: 1.0
+
+  - id: med_tendons
+    label: "tendons"
+    aliases: ["sinew", "connective tissue"]
+    description: "Visible tendons"
+    explicit: false
+    weight: 1.0
+
+  - id: med_cartilage
+    label: "cartilage"
+    aliases: ["gristle", "flexible tissue"]
+    description: "Cartilage visible"
+    explicit: false
+    weight: 1.0

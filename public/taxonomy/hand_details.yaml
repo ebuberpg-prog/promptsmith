@@ -1,0 +1,359 @@
+# PROMPTSMITH TAXONOMY - HAND DETAILS & FINGER POSITIONS
+
+finger_positions:
+  spread:
+    - id: hand_fingers_spread
+      label: "fingers spread"
+      aliases: ["spread fingers", "fingers open", "displaying hands"]
+      description: "Fingers spread apart"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_fingers_wide_spread
+      label: "wide spread fingers"
+      aliases: ["very spread", "open palm spread"]
+      description: "Fingers spread wide apart"
+      explicit: false
+      weight: 1.0
+
+  together:
+    - id: hand_fingers_together
+      label: "fingers together"
+      aliases: ["fists", "closed fingers", "gripping"]
+      description: "Fingers held together"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_fists
+      label: "fists"
+      aliases: ["clenched", "fist", "grip"]
+      description: "Closed fists"
+      explicit: false
+      weight: 1.0
+
+  pointing:
+    - id: hand_index_pointing
+      label: "index pointing"
+      aliases: ["pointing finger", "one finger point"]
+      description: "Index finger pointing"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_two_fingers_pointing
+      label: "two fingers pointing"
+      aliases: ["peace pointing", "V pointing"]
+      description: "Two fingers pointing (peace/wait)"
+      explicit: false
+      weight: 1.0
+
+  gestures:
+    - id: hand_ok_sign
+      label: "OK sign"
+      aliases: ["circle gesture", "finger circle"]
+      description: "OK sign (thumb and index circle)"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_thumbs_up
+      label: "thumbs up"
+      aliases: ["approval", "good sign"]
+      description: "Thumbs up gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_thumbs_down
+      label: "thumbs down"
+      aliases: ["disapproval", "bad sign"]
+      description: "Thumbs down gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_rock_horns
+      label: "rock horns"
+      aliases: ["devil horns", "metal sign"]
+      description: "Rock horns gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_peace_sign
+      label: "peace sign"
+      aliases: ["V sign", "victory", "peace"]
+      description: "Peace/V sign gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_peace_inverted
+      label: "inverted peace sign"
+      aliases: ["wrong peace", "backwards V"]
+      description: "Inverted peace sign"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_middle_finger
+      label: "middle finger"
+      aliases: ["flipping off", "rude gesture"]
+      description: "Middle finger gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_spread_gui
+      label: "spreading hands"
+      aliases: ["palms up", "open palms gesture"]
+      description: "Spreading/displaying hands gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_clapping
+      label: "clapping"
+      aliases: ["applause", "hands together"]
+      description: "Clapping hands"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_waving
+      label: "waving"
+      aliases: ["hello", "goodbye wave"]
+      description: "Waving hand gesture"
+      explicit: false
+      weight: 1.0
+
+    - id: hand_finger_gun
+      label: "finger gun"
+      aliases: ["thumb trigger", "pointing gesture"]
+      description: "Finger gun gesture"
+      explicit: false
+      weight: 1.0
+
+nail_styles:
+  - id: hand_nails_natural
+    label: "natural nails"
+    aliases: ["bare nails", "no polish", "clean nails"]
+    description: "Natural unpolished nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_painted
+    label: "painted nails"
+    aliases: ["nail polish", "lacquered"]
+    description: "Painted/ polished nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_red
+    label: "red nails"
+    aliases: ["red polish", "classic red"]
+    description: "Red painted nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_black
+    label: "black nails"
+    aliases: ["dark polish", "gothic nails"]
+    description: "Black painted nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_pastel
+    label: "pastel nails"
+    aliases: ["soft colors", "light pink", "mint"]
+    description: "Pastel colored nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_neon
+    label: "neon nails"
+    aliases: ["bright colors", "glow", "vibrant"]
+    description: "Neon bright nail polish"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_french
+    label: "French tips"
+    aliases: ["french manicure", "white tips"]
+    description: "French tip manicure"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_ Stiletto
+    label: "stiletto nails"
+    aliases: ["pointed nails", "sharp nails"]
+    description: "Stiletto pointed nail shape"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_almond
+    label: "almond nails"
+    aliases: ["oval pointed", "soft point"]
+    description: "Almond shaped nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_square
+    label: "square nails"
+    aliases: ["box shape", "straight edge"]
+    description: "Square shaped nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_coffin
+    label: "coffin nails"
+    aliases: ["ballerina shape", "long tapered"]
+    description: "Coffin/ballerina shaped nails"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nails_pressed
+    label: "pressed nails"
+    aliases: ["fake nails", "nail extensions", " acrylics"]
+    description: "Pressed/false nail extensions"
+    explicit: false
+    weight: 1.0
+
+hand_states:
+  - id: hand_holding_object
+    label: "holding object"
+    aliases: ["gripping", "grasping", "carrying"]
+    description: "Hand holding an object"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_reaching
+    label: "reaching"
+    aliases: ["outstretched hand", "reaching for"]
+    description: "Hand reaching out"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_resting
+    label: "hand resting"
+    aliases: ["relaxed hand", "loose", "at ease"]
+    description: "Resting hand position"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_trembling
+    label: "trembling"
+    aliases: ["shaking", "quivering", "nervous"]
+    description: "Trembling/shaking hand"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_sweaty
+    label: "sweaty palm"
+    aliases: ["clammy", "moist hands"]
+    description: "Sweaty/clammy hands"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_gloves
+    label: "gloved hands"
+    aliases: ["wearing gloves", "gloved"]
+    description: "Hands wearing gloves"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_bare
+    label: "bare hands"
+    aliases: ["uncovered hands", "naked hands"]
+    description: "Bare exposed hands"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_offered
+    label: "offered hand"
+    aliases: ["hand out", "palm up offer"]
+    description: "Hand offered outward"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_intertwined
+    label: "intertwined fingers"
+    aliases: ["fingers interlaced", "clutching"]
+    description: "Fingers intertwined"
+    explicit: false
+    weight: 1.0
+
+hand_details:
+  - id: hand_long_fingers
+    label: "long fingers"
+    aliases: ["slender hands", "elegant hands"]
+    description: "Long slender fingers"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_short_fingers
+    label: "short fingers"
+    aliases: ["stubby fingers", "chubby hands"]
+    description: "Short fingers"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_bony
+    label: "bony hands"
+    aliases: ["knuckles prominent", "thin hands"]
+    description: "Bony hands with prominent knuckles"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_fleshy
+    label: "fleshy hands"
+    aliases: ["soft hands", "plump hands"]
+    description: "Soft fleshy hands"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_knuckle_tattoos
+    label: "knuckle tattoos"
+    aliases: ["hand tattoos", "finger tattoos"]
+    description: "Tattoos on knuckles"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_hairy
+    label: "hairy hands"
+    aliases: ["hairy knuckles", "hand hair"]
+    description: "Hairy backs of hands"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_rings
+    label: "rings on fingers"
+    aliases: ["jewelry", "wearing rings", "band"]
+    description: "Rings on fingers"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_bracelet
+    label: "bracelet"
+    aliases: ["wrist jewelry", "bangle"]
+    description: "Bracelet on wrist"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_nail_art
+    label: "elaborate nail art"
+    aliases: ["decorated nails", "nail designs", "artistic nails"]
+    description: "Elaborate nail art designs"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_cuticles
+    label: "visible cuticles"
+    aliases: ["nail bed", "unpolished cuticles"]
+    description: "Visible cuticles"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_wrinkled
+    label: "wrinkled hands"
+    aliases: ["age spots", "elderly hands"]
+    description: "Aged wrinkled hands"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_young
+    label: "young hands"
+    aliases: ["smooth hands", "youthful hands"]
+    description: "Young smooth hands"
+    explicit: false
+    weight: 1.0

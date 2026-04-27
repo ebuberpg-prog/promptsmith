@@ -1,0 +1,364 @@
+# PROMPTSMITH TAXONOMY - TIME PERIOD & ERA
+
+ancient:
+  classical:
+    - id: time_ancient_greek
+      label: "ancient Greek"
+      aliases: ["Greek antiquity", "Hellenic", "Classical Greece"]
+      description: "Ancient Greek period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_roman
+      label: "ancient Roman"
+      aliases: ["Roman antiquity", "Roman Empire", "Byzantine"]
+      description: "Ancient Roman period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_egyptian
+      label: "ancient Egyptian"
+      aliases: ["Egyptian antiquity", "Pharaonic", "Nile civilization"]
+      description: "Ancient Egyptian period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_persian
+      label: "ancient Persian"
+      aliases: ["Persian Empire", "Achaemenid", "Median"]
+      description: "Ancient Persian period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_mesopotamian
+      label: "ancient Mesopotamian"
+      aliases: ["Sumerian", "Babylonian", "Assyrian"]
+      description: "Ancient Mesopotamian period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_chinese
+      label: "ancient Chinese"
+      aliases: ["Han Dynasty", "Tang Dynasty", "Imperial China"]
+      description: "Ancient Chinese period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_ancient_indian
+      label: "ancient Indian"
+      aliases: ["Indus Valley", "Maurya", "Gupta Empire"]
+      description: "Ancient Indian period aesthetics"
+      explicit: false
+      weight: 1.0
+
+  medieval:
+    - id: time_medieval_european
+      label: "medieval European"
+      aliases: ["Middle Ages", "Dark Ages", "Feudal Europe"]
+      description: "Medieval European period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_medieval_knightly
+      label: "knightly era"
+      aliases: ["Crusades", "chivalry", "feudal knight"]
+      description: "Knightly and Crusades era aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_medieval_viking
+      label: "Viking era"
+      aliases: ["Norse", "Scandinavian", "Nordic"]
+      description: "Viking and Norse period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_medieval_byzantine
+      label: "Byzantine"
+      aliases: ["Eastern Roman Empire", "Orthodox"]
+      description: "Byzantine Empire aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_medieval_japanese
+      label: "medieval Japanese"
+      aliases: ["Sengoku period", "samurai era", "Feudal Japan"]
+      description: "Medieval Japanese period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_medieval_arabian
+      label: "Islamic Golden Age"
+      aliases: ["Abbasid", "Moorish", "Arabian Nights"]
+      description: "Islamic Golden Age aesthetics"
+      explicit: false
+      weight: 1.0
+
+historical:
+  renaissance_baroque:
+    - id: time_renaissance
+      label: "Renaissance"
+      aliases: ["文艺复兴", "Rebirth", "15th century Europe"]
+      description: "Renaissance period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_baroque
+      label: "Baroque"
+      aliases: ["17th century", "Louis XIV", "opulent"]
+      description: "Baroque period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_rococo
+      label: "Rococo"
+      aliases: ["18th century", "Louis XV", "pastoral"]
+      description: "Rococo period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_enlightenment
+      label: "Age of Enlightenment"
+      aliases: ["18th century philosophy", "Age of Reason"]
+      description: "Enlightenment period aesthetics"
+      explicit: false
+      weight: 1.0
+
+  colonial:
+    - id: time_colonial_american
+      label: "colonial American"
+      aliases: ["18th century America", "Founding Fathers"]
+      description: "Colonial American period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_colonial_british
+      label: "British colonial"
+      aliases: ["Victorian Britain", "Empire era"]
+      description: "British colonial period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_colonial_french
+      label: "French colonial"
+      aliases: ["Ancien Régime", "pre-revolution France"]
+      description: "French colonial period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_east_india
+      label: "British East India"
+      aliases: ["Raj era", "British India"]
+      description: "British East India Company era aesthetics"
+      explicit: false
+      weight: 1.0
+
+modern:
+  industrial:
+    - id: time_industrial_revolution
+      label: "Industrial Revolution"
+      aliases: ["steam power", "Victorian industrial"]
+      description: "Industrial Revolution aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_edwardian
+      label: "Edwardian"
+      aliases: ["pre-WWI", "early 1900s"]
+      description: "Edwardian period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1920s
+      label: "1920s"
+      aliases: ["Roaring Twenties", "Jazz Age", "Art Deco"]
+      description: "1920s Roaring Twenties aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1930s
+      label: "1930s"
+      aliases: ["Great Depression", "Art Deco", "Golden Age Hollywood"]
+      description: "1930s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1940s
+      label: "1940s"
+      aliases: ["WWII era", "post-war", "Film Noir"]
+      description: "1940s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1950s
+      label: "1950s"
+      aliases: ["post-war America", "rock and roll", "diner"]
+      description: "1950s Americana aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1960s
+      label: "1960s"
+      aliases: ["mod", "psychedelic", "hippie", "space age"]
+      description: "1960s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1970s
+      label: "1970s"
+      aliases: ["disco", "vinyl", "earth tones", "afro"]
+      description: "1970s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1980s
+      label: "1980s"
+      aliases: ["synthwave", "neon", "power dressing", "arcade"]
+      description: "1980s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_1990s
+      label: "1990s"
+      aliases: ["grunge", "hip hop", "minimalist", "club kid"]
+      description: "1990s aesthetics"
+      explicit: false
+      weight: 1.0
+
+  contemporary:
+    - id: time_early_2000s
+      label: "early 2000s"
+      aliases: ["Y2K", "flip phone", "low rise"]
+      description: "Early 2000s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_2010s
+      label: "2010s"
+      aliases: ["vintage revival", "hipster", "Instagram"]
+      description: "2010s aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_2020s
+      label: "2020s"
+      aliases: ["modern", "contemporary", "aesthetic"]
+      description: "2020s contemporary aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_futuristic
+      label: "near future"
+      aliases: ["2050s", "cyberpunk", "dystopian"]
+      description: "Near-future aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_distant_future
+      label: "distant future"
+      aliases: ["space age future", "utopian", "post-human"]
+      description: "Distant future aesthetics"
+      explicit: false
+      weight: 1.0
+
+cultural:
+  asian:
+    - id: time_taisho
+      label: "Taisho era"
+      aliases: ["Japanese 1920s", "Taisho democracy"]
+      description: "Japanese Taisho period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_showa
+      label: "Showa era"
+      aliases: ["Imperial Japan", "post-war Japan"]
+      description: "Japanese Showa period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_heisei
+      label: "Heisei era"
+      aliases: ["1989-2019 Japan"]
+      description: "Japanese Heisei period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_reiwa
+      label: "Reiwa era"
+      aliases: ["modern Japan", "2019-present"]
+      description: "Japanese Reiwa period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_qing_dynasty
+      label: "Qing Dynasty"
+      aliases: ["Chinese Imperial", "Mandarin"]
+      description: "Chinese Qing Dynasty aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_republic_china
+      label: "Republic of China"
+      aliases: ["1920s-40s China", "Nationalist China"]
+      description: "Republic of China era aesthetics"
+      explicit: false
+      weight: 1.0
+
+  european:
+    - id: time_belle_epoque
+      label: "Belle Époque"
+      aliases: ["Parisian golden age", "turn of century Europe"]
+      description: "Belle Époque European aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_weimar
+      label: "Weimar Republic"
+      aliases: ["1920s Germany", "cabaret era"]
+      description: "Weimar Republic aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_cold_war
+      label: "Cold War"
+      aliases: ["nuclear age", "space race", "Iron Curtain"]
+      description: "Cold War period aesthetics"
+      explicit: false
+      weight: 1.0
+
+    - id: time_soviet
+      label: "Soviet era"
+      aliases: ["USSR", "Communist bloc", "propaganda posters"]
+      description: "Soviet Union era aesthetics"
+      explicit: false
+      weight: 1.0
+
+seasonal:
+  - id: time_spring
+    label: "springtime"
+    aliases: ["spring aesthetic", "blooming", "pastel"]
+    description: "Spring season aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_summer
+    label: "summertime"
+    aliases: ["summer aesthetic", "sunny", "vibrant"]
+    description: "Summer season aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_autumn
+    label: "autumn"
+    aliases: ["fall aesthetic", "cozy", "warm tones"]
+    description: "Autumn/fall season aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_winter
+    label: "wintertime"
+    aliases: ["winter aesthetic", "snowy", "cozy"]
+    description: "Winter season aesthetics"
+    explicit: false
+    weight: 1.0

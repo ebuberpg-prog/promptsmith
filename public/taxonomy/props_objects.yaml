@@ -1,0 +1,1160 @@
+# PROMPTSMITH TAXONOMY - PROPS & OBJECTS
+
+weapons:
+  melee:
+    - id: prop_sword
+      label: "sword"
+      aliases: ["blade", "steel sword", "arming sword"]
+      description: "Sword/weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_katana
+      label: "katana"
+      aliases: ["samurai sword", "Japanese sword", "curved blade"]
+      description: "Katana sword"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_dagger
+      label: "dagger"
+      aliases: ["knife", "blade", "short sword"]
+      description: "Dagger/knife"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_axe
+      label: "axe"
+      aliases: ["battle axe", "hatchet", "war axe"]
+      description: "Axe weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_hammer
+      label: "war hammer"
+      aliases: ["mace", "hammer", "warhammer"]
+      description: "War hammer/mace"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_spear
+      label: "spear"
+      aliases: ["lance", "pike", "staff weapon"]
+      description: "Spear/lance"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_bow
+      label: "bow"
+      aliases: ["archery bow", "longbow", "recurve bow"]
+      description: "Bow weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_crossbow
+      label: "crossbow"
+      aliases: ["arbalest", "ballista"]
+      description: "Crossbow weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_staff
+      label: "magic staff"
+      aliases: ["wizard staff", "magical rod", "spell staff"]
+      description: "Magical staff"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_wand
+      label: "wand"
+      aliases: ["magic wand", "spell wand", "witch wand"]
+      description: "Magic wand"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_scythe
+      label: "scythe"
+      aliases: ["reaper scythe", "war scythe"]
+      description: "Scythe weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_whip
+      label: "whip"
+      aliases: ["flail", "lash", "chain whip"]
+      description: "Whip/flail weapon"
+      explicit: false
+      weight: 1.0
+
+  firearms:
+    - id: prop_pistol
+      label: "pistol"
+      aliases: ["handgun", "gun", "firearm"]
+      description: "Pistol/handgun"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_rifle
+      label: "rifle"
+      aliases: ["assault rifle", "gun", "long gun"]
+      description: "Rifle weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_shotgun
+      label: "shotgun"
+      aliases: ["pump action", "double barrel"]
+      description: "Shotgun weapon"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_smg
+      label: "SMG"
+      aliases: ["submachine gun", "machine pistol"]
+      description: "Submachine gun"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_sniper
+      label: "sniper rifle"
+      aliases: ["sniper", "long range rifle"]
+      description: "Sniper rifle"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_laser_gun
+      label: "laser gun"
+      aliases: ["sci-fi gun", "phaser", "energy weapon"]
+      description: "Laser/energy gun"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_blaster
+      label: "blaster"
+      aliases: ["sci-fi blaster", "space gun", "futuristic gun"]
+      description: "Sci-fi blaster"
+      explicit: false
+      weight: 1.0
+
+tools:
+  - id: prop_wrench
+    label: "wrench"
+    aliases: ["spanner", "tool wrench"]
+    description: "Wrench tool"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_hammer_tool
+    label: "hammer"
+    aliases: ["tool hammer", "mallet", "claw hammer"]
+    description: "Hammer tool"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_screwdriver
+    label: "screwdriver"
+    aliases: ["screw", "tool"]
+    description: "Screwdriver"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_saw
+    label: "saw"
+    aliases: ["hand saw", "power saw", "chainsaw"]
+    description: "Saw tool"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_drill
+    label: "drill"
+    aliases: ["power drill", "cordless drill"]
+    description: "Power drill"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_torch
+    label: "blowtorch"
+    aliases: ["welding torch", "torch tool"]
+    description: "Blowtorch"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_magnifying_glass
+    label: "magnifying glass"
+    aliases: ["loupe", "detective glass"]
+    description: "Magnifying glass"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_microscope
+    label: "microscope"
+    aliases: ["lab microscope", "science microscope"]
+    description: "Microscope"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_telescope
+    label: "telescope"
+    aliases: ["astronomical telescope", "spyglass"]
+    description: "Telescope"
+    explicit: false
+    weight: 1.0
+
+gadgets:
+  - id: prop_phone
+    label: "smartphone"
+    aliases: ["mobile phone", "cellphone", "iPhone"]
+    description: "Smartphone"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_tablet
+    label: "tablet"
+    aliases: ["iPad", "tablets", "slate"]
+    description: "Tablet device"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_laptop
+    label: "laptop"
+    aliases: ["notebook", "computer", "macbook"]
+    description: "Laptop computer"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_headphones
+    label: "headphones"
+    aliases: ["earphones", "headset", "wireless headphones"]
+    description: "Headphones"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_smartwatch
+    label: "smartwatch"
+    aliases: ["watch", "fitness tracker", "apple watch"]
+    description: "Smartwatch"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_vr_headset
+    label: "VR headset"
+    aliases: ["virtual reality", "oculus", "VR goggle"]
+    description: "VR headset"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_camera
+    label: "camera"
+    aliases: ["photo camera", "dslr", "film camera"]
+    description: "Camera"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_drone
+    label: "drone"
+    aliases: ["quadcopter", "uav", "flying camera"]
+    description: "Drone"
+    explicit: false
+    weight: 1.0
+
+vehicles:
+  land:
+    - id: prop_car
+      label: "car"
+      aliases: ["vehicle", "automobile", "sedan"]
+      description: "Car/automobile"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_motorcycle
+      label: "motorcycle"
+      aliases: ["bike", "motorbike", "scooter"]
+      description: "Motorcycle"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_truck
+      label: "truck"
+      aliases: ["pickup truck", "lorry", "big rig"]
+      description: "Truck"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_bus
+      label: "bus"
+      aliases: ["city bus", "coach", "public transport"]
+      description: "Bus"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_train
+      label: "train"
+      aliases: ["railway", "locomotive", "bullet train"]
+      description: "Train"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_tank
+      label: "tank"
+      aliases: ["military tank", "armored vehicle", "battle tank"]
+      description: "Military tank"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_bicycle
+      label: "bicycle"
+      aliases: ["bike", "cycle", "velo"]
+      description: "Bicycle"
+      explicit: false
+      weight: 1.0
+
+  air:
+    - id: prop_airplane
+      label: "airplane"
+      aliases: ["plane", "jet", "aircraft"]
+      description: "Airplane"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_helicopter
+      label: "helicopter"
+      aliases: ["chopper", "copter", "rotorcraft"]
+      description: "Helicopter"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_jet
+      label: "fighter jet"
+      aliases: ["jet fighter", "military jet", "fighter aircraft"]
+      description: "Fighter jet"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_rocket
+      label: "rocket"
+      aliases: ["space rocket", "missile", "launch vehicle"]
+      description: "Rocket"
+      explicit: false
+      weight: 1.0
+
+  water:
+    - id: prop_boat
+      label: "boat"
+      aliases: ["watercraft", "yacht", "sailboat"]
+      description: "Boat"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_ship
+      label: "ship"
+      aliases: ["vessel", "freighter", "ocean liner"]
+      description: "Ship"
+      explicit: false
+      weight: 1.0
+
+    - id: prop_submarine
+      label: "submarine"
+      aliases: ["sub", "underwater vessel", "USS"]
+      description: "Submarine"
+      explicit: false
+      weight: 1.0
+
+vehicles_fantasy:
+  - id: prop_chariot
+    label: "chariot"
+    aliases: ["war chariot", "ancient chariot", "horse drawn"]
+    description: "Ancient chariot"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_broom
+    label: "witch broom"
+    aliases: ["flying broom", "broomstick", "magical broom"]
+    description: "Witch's flying broom"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_magic_carpet
+    label: "magic carpet"
+    aliases: ["flying carpet", "enchanted rug", "Persian carpet"]
+    description: "Magic flying carpet"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_flying_ship
+    label: "flying ship"
+    aliases: ["airship", "steampunk ship", "skyship"]
+    description: "Flying/air ship"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_mech
+    label: "mecha"
+    aliases: ["mech suit", "giant robot", "walking tank"]
+    description: "Mecha/robot suit"
+    explicit: false
+    weight: 1.0
+
+furniture:
+  - id: prop_chair
+    label: "chair"
+    aliases: ["seat", "chair furniture"]
+    description: "Chair"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_table
+    label: "table"
+    aliases: ["desk", "dining table", "coffee table"]
+    description: "Table"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_sofa
+    label: "sofa"
+    aliases: ["couch", "settee", "lounge"]
+    description: "Sofa/couch"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_bed
+    label: "bed"
+    aliases: ["bedroom furniture", "sleeping", "mattress"]
+    description: "Bed"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_bookshelf
+    label: "bookshelf"
+    aliases: ["bookcase", "shelves", "library shelf"]
+    description: "Bookshelf"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_desk
+    label: "desk"
+    aliases: ["office desk", "work desk", "study desk"]
+    description: "Desk"
+    explicit: false
+    weight: 1.0
+
+containers:
+  - id: prop_backpack_bag
+    label: "backpack"
+    aliases: ["rucksack", "pack", "school bag"]
+    description: "Backpack"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_purse
+    label: "purse"
+    aliases: ["handbag", "tote bag", "bag"]
+    description: "Purse/handbag"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_suitcase
+    label: "suitcase"
+    aliases: ["luggage", "travel bag", "trunk"]
+    description: "Suitcase/luggage"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_box
+    label: "box"
+    aliases: ["container", "crate", "cardboard box"]
+    description: "Box/container"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_treasure_chest
+    label: "treasure chest"
+    aliases: ["chest", "loot box", "pirate chest"]
+    description: "Treasure chest"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_briefcase
+    label: "briefcase"
+    aliases: ["business case", "attaché case"]
+    description: "Briefcase"
+    explicit: false
+    weight: 1.0
+
+entertainment:
+  - id: prop_musical_instrument_guitar
+    label: "guitar"
+    aliases: ["acoustic guitar", "electric guitar", "string instrument"]
+    description: "Guitar"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_piano
+    label: "piano"
+    aliases: ["keyboard", "grand piano", "upright piano"]
+    description: "Piano"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_violin
+    label: "violin"
+    aliases: ["fiddle", "string instrument"]
+    description: "Violin"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_drums
+    label: "drum kit"
+    aliases: ["drums", "percussion", "drum set"]
+    description: "Drum kit"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_microphone
+    label: "microphone"
+    aliases: ["mic", "studio mic", "handheld mic"]
+    description: "Microphone"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_book
+    label: "book"
+    aliases: ["novel", "tome", "tome", "spellbook"]
+    description: "Book"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_game_controller
+    label: "game controller"
+    aliases: ["controller", "joystick", "gamepad"]
+    description: "Game controller"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_chess_piece
+    label: "chess piece"
+    aliases: ["chess", "board game piece"]
+    description: "Chess piece"
+    explicit: false
+    weight: 1.0
+
+food_drink:
+  - id: prop_wine_glass
+    label: "wine glass"
+    aliases: ["glass of wine", "red wine"]
+    description: "Wine glass"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_cocktail
+    label: "cocktail"
+    aliases: ["drink", "alcohol", "mixed drink"]
+    description: "Cocktail drink"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_coffee_cup
+    label: "coffee cup"
+    aliases: ["coffee", "latte", "espresso"]
+    description: "Coffee cup"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pizza
+    label: "pizza"
+    aliases: ["food", "slice", "italian food"]
+    description: "Pizza"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_burger
+    label: "burger"
+    aliases: ["hamburger", "fast food", "sandwich"]
+    description: "Burger"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_sushi
+    label: "sushi"
+    aliases: ["japanese food", "raw fish", "roll"]
+    description: "Sushi"
+    explicit: false
+    weight: 1.0
+
+nature_objects:
+  - id: prop_tree
+    label: "tree"
+    aliases: ["pine tree", "oak tree", "palm tree"]
+    description: "Tree"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_flower
+    label: "flower"
+    aliases: ["blooms", "roses", "floral"]
+    description: "Flower"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_rock
+    label: "rock"
+    aliases: ["stone", "boulder", "pebble"]
+    description: "Rock/stone"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_crystal
+    label: "crystal"
+    aliases: ["gem", "gemstone", "mineral"]
+    description: "Crystal/gem"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_skull
+    label: "skull"
+    aliases: ["skeleton head", "human skull", "bone"]
+    description: "Skull"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_bone
+    label: "bone"
+    aliases: ["bones", "skeleton", "femur"]
+    description: "Bone"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_feather
+    label: "feather"
+    aliases: ["bird feather", "plume", "wing"]
+    description: "Feather"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_fur
+    label: "fur"
+    aliases: ["animal pelt", "fur coat", "fur texture"]
+    description: "Fur/animal pelt"
+    explicit: false
+    weight: 1.0
+
+religious_mystical:
+  - id: prop_cross
+    label: "cross"
+    aliases: ["crucifix", "religious cross", "Christian symbol"]
+    description: "Cross symbol"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_ankh
+    label: "ankh"
+    aliases: ["egyptian symbol", "life symbol", "Egyptian cross"]
+    description: "Ankh symbol"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pentagram
+    label: "pentagram"
+    aliases: ["pentacle", "star symbol", "witch symbol"]
+    description: "Pentagram symbol"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_tarot_card
+    label: "tarot card"
+    aliases: ["fortune card", "oracle card", "divination card"]
+    description: "Tarot card"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_potion
+    label: "potion bottle"
+    aliases: ["magic potion", "bottle", "elixir"]
+    description: "Potion bottle"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_spell_book
+    label: "spellbook"
+    aliases: ["grimoire", "magic book", "book of shadows"]
+    description: "Spellbook/grimoire"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_crystal_ball
+    label: "crystal ball"
+    aliases: ["fortune ball", "scrying ball", "oracle ball"]
+    description: "Crystal ball"
+    explicit: false
+    weight: 1.0
+
+protection:
+  - id: prop_shield
+    label: "shield"
+    aliases: ["buckler", "round shield", "heater shield"]
+    description: "Shield weapon"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_armor
+    label: "armor"
+    aliases: ["plate armor", "chainmail", "knight armor"]
+    description: "Body armor"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_helmet
+    label: "helmet"
+    aliases: ["helm", "war helmet", "knight helmet"]
+    description: "Protective helmet"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_padlock
+    label: "padlock"
+    aliases: ["lock", "combination lock"]
+    description: "Padlock"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_chains
+    label: "chains"
+    aliases: ["metal chain", "iron chain"]
+    description: "Metal chains"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_rope
+    label: "rope"
+    aliases: ["rope coil", "hemp rope", "sisal"]
+    description: "Rope"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_handcuffs
+    label: "handcuffs"
+    aliases: ["police cuffs", "restraints"]
+    description: "Handcuffs"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_shackles
+    label: "shackles"
+    aliases: ["leg irons", "ankle cuffs"]
+    description: "Leg shackles"
+    explicit: false
+    weight: 1.0
+
+kitchen:
+  - id: prop_knife
+    label: "knife"
+    aliases: ["kitchen knife", "chef knife", "blade"]
+    description: "Kitchen knife"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_fork
+    label: "fork"
+    aliases: ["dining fork", "utensil"]
+    description: "Fork"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_spoon
+    label: "spoon"
+    aliases: ["soup spoon", "tablespoon"]
+    description: "Spoon"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_plate
+    label: "plate"
+    aliases: ["dinner plate", "dish"]
+    description: "Plate"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_bowl
+    label: "bowl"
+    aliases: ["soup bowl", "mixing bowl"]
+    description: "Bowl"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_cup
+    label: "cup"
+    aliases: ["mug", "tea cup", "coffee mug"]
+    description: "Cup/mug"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pan
+    label: "pan"
+    aliases: ["frying pan", "skillet", "saucepan"]
+    description: "Cooking pan"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pot
+    label: "pot"
+    aliases: ["stockpot", "cooking pot"]
+    description: "Cooking pot"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_cutting_board
+    label: "cutting board"
+    aliases: ["chopping board", "kitchen board"]
+    description: "Cutting board"
+    explicit: false
+    weight: 1.0
+
+household:
+  - id: prop_lamp
+    label: "lamp"
+    aliases: ["table lamp", "floor lamp", "lighting"]
+    description: "Lamp"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_mirror
+    label: "mirror"
+    aliases: ["looking glass", "reflection"]
+    description: "Mirror"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_clock
+    label: "clock"
+    aliases: ["wall clock", "timepiece"]
+    description: "Clock"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_vase
+    label: "vase"
+    aliases: ["flower vase", "decorative"]
+    description: "Vase"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_plant_pot
+    label: "plant pot"
+    aliases: ["flower pot", "terracotta"]
+    description: "Plant pot"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_curtain
+    label: "curtain"
+    aliases: ["drapes", "window curtain"]
+    description: "Curtain"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_rug
+    label: "rug"
+    aliases: ["carpet", "floor covering"]
+    description: "Rug/carpet"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pillow
+    label: "pillow"
+    aliases: ["cushion", "throw pillow"]
+    description: "Pillow/cushion"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_blanket
+    label: "blanket"
+    aliases: ["quilt", "throw blanket"]
+    description: "Blanket"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_towel
+    label: "towel"
+    aliases: ["bath towel", "hand towel"]
+    description: "Towel"
+    explicit: false
+    weight: 1.0
+
+musical_instruments:
+  - id: prop_saxophone
+    label: "saxophone"
+    aliases: ["sax", "brass instrument"]
+    description: "Saxophone"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_trumpet
+    label: "trumpet"
+    aliases: ["horn", "brass"]
+    description: "Trumpet"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_flute
+    label: "flute"
+    aliases: ["woodwind", "recorder"]
+    description: "Flute"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_harp
+    label: "harp"
+    aliases: ["string instrument", "angelic"]
+    description: "Harp"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_cello
+    label: "cello"
+    aliases: ["violin family", "string bass"]
+    description: "Cello"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_dj_turntable
+    label: "DJ turntable"
+    aliases: ["record player", "DJ equipment"]
+    description: "DJ turntable"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_drum_kit
+    label: "drum kit"
+    aliases: ["drums", "percussion set"]
+    description: "Drum kit"
+    explicit: false
+    weight: 1.0
+
+sports:
+  - id: prop_basketball
+    label: "basketball"
+    aliases: ["ball", "sports ball"]
+    description: "Basketball"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_football
+    label: "football"
+    aliases: ["American football", "pigskin"]
+    description: "Football"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_soccer_ball
+    label: "soccer ball"
+    aliases: ["football ball", "football"]
+    description: "Soccer ball"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_tennis_racket
+    label: "tennis racket"
+    aliases: ["racket", "tennis"]
+    description: "Tennis racket"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_golf_club
+    label: "golf club"
+    aliases: ["driver", "iron", "putter"]
+    description: "Golf club"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_skateboard
+    label: "skateboard"
+    aliases: ["skate", "board"]
+    description: "Skateboard"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_surfboard
+    label: "surfboard"
+    aliases: ["surf", "board"]
+    description: "Surfboard"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_skis
+    label: "skis"
+    aliases: ["skiing", "snow ski"]
+    description: "Skis"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_snowboard
+    label: "snowboard"
+    aliases: ["snow board", "winter sport"]
+    description: "Snowboard"
+    explicit: false
+    weight: 1.0
+
+medical:
+  - id: prop_syringe
+    label: "syringe"
+    aliases: ["needle", "injection"]
+    description: "Medical syringe"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_bandages
+    label: "bandages"
+    aliases: ["medical bandage", "gauze"]
+    description: "Medical bandages"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_stethoscope
+    label: "stethoscope"
+    aliases: ["doctor instrument", "medical"]
+    description: "Stethoscope"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pill_bottle
+    label: "pill bottle"
+    aliases: ["medicine bottle", "prescription"]
+    description: "Pill bottle"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_crutch
+    label: "crutch"
+    aliases: ["mobility aid", "walking aid"]
+    description: "Crutch"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_wheelchair
+    label: "wheelchair"
+    aliases: ["medical wheelchair", "mobility"]
+    description: "Wheelchair"
+    explicit: false
+    weight: 1.0
+
+office:
+  - id: prop_pen
+    label: "pen"
+    aliases: ["ballpoint pen", "writing"]
+    description: "Pen"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pencil
+    label: "pencil"
+    aliases: ["writing pencil", "mechanical pencil"]
+    description: "Pencil"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_paper
+    label: "paper"
+    aliases: ["sheet of paper", "document"]
+    description: "Paper"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_monitor
+    label: "computer monitor"
+    aliases: ["screen", "display"]
+    description: "Computer monitor"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_keyboard
+    label: "keyboard"
+    aliases: ["computer keyboard", "typing"]
+    description: "Computer keyboard"
+    explicit: false
+    weight: 1.0
+
+religious_mystical_expanded:
+  - id: prop_rosary
+    label: "rosary"
+    aliases: ["prayer beads", "catholic beads"]
+    description: "Rosary"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_prayer_beads
+    label: "prayer beads"
+    aliases: ["malas", "worry beads"]
+    description: "Prayer beads"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_offering_bowl
+    label: "offering bowl"
+    aliases: ["ritual bowl", "sacrifice bowl"]
+    description: "Offering bowl"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_incense
+    label: "incense"
+    aliases: ["incense stick", "smudge"]
+    description: "Incense"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_tarot_deck
+    label: "tarot deck"
+    aliases: ["tarot cards", "oracle deck"]
+    description: "Tarot deck"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_runes
+    label: "runes"
+    aliases: ["runic stones", "elder futhark"]
+    description: "Runes"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_candle_altar
+    label: "altar candles"
+    aliases: ["ritual candles", "candles"]
+    description: "Altar candles"
+    explicit: false
+    weight: 1.0
+
+fantasy_vehicles_expanded:
+  - id: prop_unicorn_mount
+    label: "unicorn mount"
+    aliases: ["riding unicorn", "fantasy steed"]
+    description: "Unicorn riding mount"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_pegasus_mount
+    label: "pegasus mount"
+    aliases: ["winged horse", "flying steed"]
+    description: "Pegasus flying mount"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_dragon_mount
+    label: "dragon mount"
+    aliases: ["riding dragon", "tamed dragon"]
+    description: "Dragon riding mount"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_magic_carpet
+    label: "magic carpet"
+    aliases: ["flying carpet", " Arabian nights"]
+    description: "Magic flying carpet"
+    explicit: false
+    weight: 1.0
+
+  - id: prop_steampunk_ship
+    label: "steampunk airship"
+    aliases: ["steampunk vessel", "victorian airship"]
+    description: "Steampunk airship"
+    explicit: false
+    weight: 1.0

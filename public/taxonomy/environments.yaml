@@ -1,0 +1,1081 @@
+# PROMPTSMITH TAXONOMY - ENVIRONMENTS & SETTINGS
+
+interior_locations:
+  residential:
+    - id: env_int_bedroom
+      label: "bedroom"
+      aliases: ["bedroom interior", "sleeping room", "master bedroom"]
+      description: "Bedroom interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_bedroom_messy
+      label: "messy bedroom"
+      aliases: ["disheveled bedroom", "unmade bed", "lived-in bedroom"]
+      description: "Messy, lived-in bedroom"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_living_room
+      label: "living room"
+      aliases: ["lounge", "sitting room", "family room"]
+      description: "Living room interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_kitchen
+      label: "kitchen"
+      aliases: ["kitchen interior", "modern kitchen", "rustic kitchen"]
+      description: "Kitchen interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_bathroom
+      label: "bathroom"
+      aliases: ["bath room", "shower room", "restroom"]
+      description: "Bathroom interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_bathroom_shower
+      label: "bathroom with shower"
+      aliases: ["in shower", "showering", "shower scene"]
+      description: "Bathroom with active shower"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_bathtub
+      label: "bathtub"
+      aliases: ["in bathtub", "bathing", "bubble bath"]
+      description: "Bathtub scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_attic
+      label: "attic"
+      aliases: ["loft", "upper room", "dusty attic"]
+      description: "Attic interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_basement
+      label: "basement"
+      aliases: ["cellar", "underground room", "dungeon basement"]
+      description: "Basement interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_closet
+      label: "walk-in closet"
+      aliases: ["dressing room", "wardrobe room", "closet"]
+      description: "Walk-in closet interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_laundry_room
+      label: "laundry room"
+      aliases: ["laundry", "washing room"]
+      description: "Laundry room interior"
+      explicit: false
+      weight: 1.0
+
+  commercial:
+    - id: env_int_office
+      label: "office"
+      aliases: ["office interior", "workspace", "cubicle"]
+      description: "Office interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_boardroom
+      label: "boardroom"
+      aliases: ["conference room", "meeting room"]
+      description: "Boardroom/conference room"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_restaurant
+      label: "restaurant"
+      aliases: ["dining room", "eatery", "bistro"]
+      description: "Restaurant interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_bar
+      label: "bar"
+      aliases: ["pub", "tavern", "cocktail bar"]
+      description: "Bar interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_nightclub
+      label: "nightclub"
+      aliases: ["club", "dance club", "disco"]
+      description: "Nightclub interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_gym
+      label: "gym"
+      aliases: ["fitness center", "workout room", "weight room"]
+      description: "Gym interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_hotel_room
+      label: "hotel room"
+      aliases: ["motel room", "luxury hotel suite", "hotel bedroom"]
+      description: "Hotel room interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_hospital
+      label: "hospital room"
+      aliases: ["hospital", "medical room", "examination room"]
+      description: "Hospital room interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_classroom
+      label: "classroom"
+      aliases: ["school room", "lecture hall", "study room"]
+      description: "Classroom interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_library
+      label: "library"
+      aliases: ["book room", "reading room", "archive"]
+      description: "Library interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_church
+      label: "church"
+      aliases: ["cathedral", "chapel", "temple interior"]
+      description: "Church/cathedral interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_prison_cell
+      label: "prison cell"
+      aliases: ["jail cell", "cell", "dungeon cell"]
+      description: "Prison cell interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_studio
+      label: "art studio"
+      aliases: ["artist studio", "workshop", "creative space"]
+      description: "Art studio interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_photography_studio
+      label: "photography studio"
+      aliases: ["photo studio", "backdrop studio", "lighting studio"]
+      description: "Photography studio"
+      explicit: false
+      weight: 1.0
+
+  fantasy_interior:
+    - id: env_int_castle
+      label: "castle interior"
+      aliases: ["castle hall", "medieval castle", "stone castle"]
+      description: "Castle interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_dungeon
+      label: "dungeon"
+      aliases: ["dungeon cell", "underground dungeon", "torture chamber"]
+      description: "Dungeon interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_tavern
+      label: "tavern"
+      aliases: ["inn", "medieval pub", "alehouse"]
+      description: "Medieval tavern interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_wizard_tower
+      label: "wizard tower"
+      aliases: ["mage tower", "sorcerer study", "magic room"]
+      description: "Wizard tower interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_throne_room
+      label: "throne room"
+      aliases: ["royal hall", "king's chamber", "palace hall"]
+      description: "Throne room interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_temple
+      label: "temple interior"
+      aliases: ["ancient temple", "sacred hall", "shrine"]
+      description: "Temple interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_treasure_room
+      label: "treasure room"
+      aliases: ["vault", "gold room", "hoard chamber"]
+      description: "Treasure room interior"
+      explicit: false
+      weight: 1.0
+
+  scifi_interior:
+    - id: env_int_spaceship
+      label: "spaceship interior"
+      aliases: ["spacecraft", "starship bridge", "ship cabin"]
+      description: "Spaceship interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_space_station
+      label: "space station"
+      aliases: ["orbital station", "space habitat"]
+      description: "Space station interior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_cyberpunk_apartment
+      label: "cyberpunk apartment"
+      aliases: ["neon apartment", "futuristic apartment", "megacity flat"]
+      description: "Cyberpunk-style apartment"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_laboratory
+      label: "laboratory"
+      aliases: ["lab", "research facility", "science lab"]
+      description: "Scientific laboratory"
+      explicit: false
+      weight: 1.0
+
+    - id: env_int_cockpit
+      label: "cockpit"
+      aliases: ["pilot seat", "mech cockpit", "fighter cockpit"]
+      description: "Vehicle/mech cockpit"
+      explicit: false
+      weight: 1.0
+
+exterior_locations:
+  urban:
+    - id: env_ext_city_street
+      label: "city street"
+      aliases: ["urban street", "downtown street", "city road"]
+      description: "City street scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_alley
+      label: "alleyway"
+      aliases: ["alley", "back alley", "narrow passage"]
+      description: "Urban alleyway"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_rooftop
+      label: "rooftop"
+      aliases: ["roof", "building top", "skyline view"]
+      description: "Building rooftop"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_parking_lot
+      label: "parking lot"
+      aliases: ["car park", "parking garage"]
+      description: "Parking lot"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_bridge
+      label: "bridge"
+      aliases: ["overpass", "suspension bridge", "stone bridge"]
+      description: "Bridge exterior"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_plaza
+      label: "plaza"
+      aliases: ["town square", "public square", "courtyard"]
+      description: "Public plaza"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_market
+      label: "market"
+      aliases: ["open-air market", "bazaar", "street market"]
+      description: "Outdoor market"
+      explicit: false
+      weight: 1.0
+
+  natural:
+    - id: env_ext_forest
+      label: "forest"
+      aliases: ["woods", "woodland", "dense forest"]
+      description: "Forest scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_beach
+      label: "beach"
+      aliases: ["shore", "coastline", "sandy beach"]
+      description: "Beach scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_desert
+      label: "desert"
+      aliases: ["arid landscape", "sand dunes", "wasteland"]
+      description: "Desert landscape"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_mountains
+      label: "mountains"
+      aliases: ["mountain range", "peaks", "alpine"]
+      description: "Mountain landscape"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_meadow
+      label: "meadow"
+      aliases: ["field", "grassland", "flower field"]
+      description: "Meadow/grassland"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_jungle
+      label: "jungle"
+      aliases: ["rainforest", "tropical forest", "dense jungle"]
+      description: "Jungle scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_swamp
+      label: "swamp"
+      aliases: ["marsh", "bog", "wetland"]
+      description: "Swamp/wetland"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_ocean
+      label: "ocean"
+      aliases: ["sea", "open water", "deep ocean"]
+      description: "Ocean scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_underwater
+      label: "underwater"
+      aliases: ["submerged", "under the sea", "ocean floor"]
+      description: "Underwater scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_waterfall
+      label: "waterfall"
+      aliases: ["falls", "cascade", "rapids"]
+      description: "Waterfall scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_cave
+      label: "cave"
+      aliases: ["cavern", "grotto", "underground cave"]
+      description: "Cave interior/exterior"
+      explicit: false
+      weight: 1.0
+
+  architectural:
+    - id: env_ext_ruins
+      label: "ruins"
+      aliases: ["ancient ruins", "crumbling structure", "abandoned building"]
+      description: "Architectural ruins"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_garden
+      label: "garden"
+      aliases: ["botanical garden", "flower garden", "zen garden"]
+      description: "Garden scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_cemetery
+      label: "cemetery"
+      aliases: ["graveyard", "burial ground", "tombstones"]
+      description: "Cemetery scene"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_castle_exterior
+      label: "castle exterior"
+      aliases: ["castle walls", "fortress", "medieval castle"]
+      description: "Castle exterior"
+      explicit: false
+      weight: 1.0
+
+  fantasy_exterior:
+    - id: env_ext_floating_island
+      label: "floating island"
+      aliases: ["sky island", "levitating land", "aerial island"]
+      description: "Floating island in sky"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_volcanic
+      label: "volcanic landscape"
+      aliases: ["volcano", "lava field", "magma"]
+      description: "Volcanic landscape"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_crystal_cave
+      label: "crystal cave"
+      aliases: ["crystal cavern", "gem cave", "crystalline cavern"]
+      description: "Crystal-filled cave"
+      explicit: false
+      weight: 1.0
+
+    - id: env_ext_enchanted_forest
+      label: "enchanted forest"
+      aliases: ["magical forest", "fairy forest", "mystical woods"]
+      description: "Magical/enchanted forest"
+      explicit: false
+      weight: 1.0
+
+atmosphere:
+  weather:
+    - id: atm_clear
+      label: "clear sky"
+      aliases: ["sunny", "blue sky", "cloudless"]
+      description: "Clear, sunny weather"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_cloudy
+      label: "cloudy"
+      aliases: ["overcast", "cloud cover", "gray sky"]
+      description: "Cloudy weather"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_foggy
+      label: "foggy"
+      aliases: ["misty", "hazy", "fog"]
+      description: "Foggy/misty atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_rainy
+      label: "rainy"
+      aliases: ["raining", "downpour", "rain storm"]
+      description: "Rainy weather"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_snowy
+      label: "snowy"
+      aliases: ["snowing", "snowfall", "winter snow"]
+      description: "Snowy weather"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_stormy
+      label: "stormy"
+      aliases: ["thunderstorm", "lightning", "dark clouds"]
+      description: "Stormy weather"
+      explicit: false
+      weight: 1.0
+
+    - id: atm_windy
+      label: "windy"
+      aliases: ["blustery", "gusty", "strong wind"]
+      description: "Windy conditions"
+      explicit: false
+      weight: 1.0
+
+  time:
+    - id: time_dawn
+      label: "dawn"
+      aliases: ["early morning", "daybreak", "first light"]
+      description: "Dawn/early morning light"
+      explicit: false
+      weight: 1.0
+
+    - id: time_sunrise
+      label: "sunrise"
+      aliases: ["sunrise glow", "morning sun"]
+      description: "Sunrise lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_morning
+      label: "morning"
+      aliases: ["morning light", "AM"]
+      description: "Morning lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_noon
+      label: "noon"
+      aliases: ["midday", "high noon", "harsh sunlight"]
+      description: "Midday lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_afternoon
+      label: "afternoon"
+      aliases: ["PM", "afternoon light"]
+      description: "Afternoon lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_golden_hour
+      label: "golden hour"
+      aliases: ["magic hour", "warm golden light", "golden sunlight"]
+      description: "Golden hour lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_sunset
+      label: "sunset"
+      aliases: ["sunset glow", "evening sun", "dusk"]
+      description: "Sunset lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_twilight
+      label: "twilight"
+      aliases: ["blue hour", "dusk", "evening twilight"]
+      description: "Twilight lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: time_night
+      label: "night"
+      aliases: ["nighttime", "dark", "midnight"]
+      description: "Night scene"
+      explicit: false
+      weight: 1.0
+
+    - id: time_midnight
+      label: "midnight"
+      aliases: ["deep night", "witching hour", "dark midnight"]
+      description: "Midnight scene"
+      explicit: false
+      weight: 1.0
+
+  mood:
+    - id: mood_romantic
+      label: "romantic atmosphere"
+      aliases: ["romantic mood", "intimate atmosphere", "love scene"]
+      description: "Romantic mood lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_sinister
+      label: "sinister atmosphere"
+      aliases: ["dark mood", "menacing", "threatening"]
+      description: "Sinister, dark mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_ethereal
+      label: "ethereal atmosphere"
+      aliases: ["dreamy", "otherworldly", "heavenly"]
+      description: "Ethereal, dreamy atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_noir
+      label: "noir atmosphere"
+      aliases: ["film noir", "dark cinematic", "shadowy"]
+      description: "Film noir atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_peaceful
+      label: "peaceful atmosphere"
+      aliases: ["serene", "calm", "tranquil"]
+      description: "Peaceful, serene atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_tense
+      label: "tense atmosphere"
+      aliases: ["suspenseful", "tension", "anxious mood"]
+      description: "Tense, suspenseful atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_melancholic
+      label: "melancholic atmosphere"
+      aliases: ["melancholy", "somber", "wistful"]
+      description: "Melancholic atmosphere"
+      explicit: false
+      weight: 1.0
+
+religious_places:
+  - id: env_ext_mosque
+    label: "mosque"
+    aliases: ["islamic temple", "masjid", "muslim worship"]
+    description: "Mosque exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_synagogue
+    label: "synagogue"
+    aliases: ["jewish temple", "shul"]
+    description: "Synagogue exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_hindu_temple
+    label: "hindu temple"
+    aliases: ["mandir", "hindu shrine"]
+    description: "Hindu temple exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_buddhist_temple
+    label: "buddhist temple"
+    aliases: ["pagoda", "stupa", "zen temple"]
+    description: "Buddhist temple exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_shrine
+    label: "shrine"
+    aliases: ["shinto shrine", "sacred shrine"]
+    description: "Shinto/Buddhist shrine"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_church
+    label: "church interior"
+    aliases: ["chapel", "cathedral interior"]
+    description: "Church interior"
+    explicit: false
+    weight: 1.0
+
+industrial:
+  - id: env_int_factory
+    label: "factory"
+    aliases: ["industrial facility", "manufacturing plant"]
+    description: "Factory interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_warehouse
+    label: "warehouse"
+    aliases: ["storage facility", "industrial storage"]
+    description: "Warehouse interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_workshop
+    label: "workshop"
+    aliases: ["workroom", "craft shop"]
+    description: "Workshop interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_garage
+    label: "garage"
+    aliases: ["auto repair", "mechanic shop"]
+    description: "Garage interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_construction
+    label: "construction site"
+    aliases: ["building site", "unfinished building"]
+    description: "Construction site"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_construction
+    label: "construction site exterior"
+    aliases: ["building site exterior", "active construction"]
+    description: "Construction site exterior"
+    explicit: false
+    weight: 1.0
+
+agricultural:
+  - id: env_ext_farm
+    label: "farm"
+    aliases: ["farmhouse", "agricultural land"]
+    description: "Farm exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_barn
+    label: "barn"
+    aliases: ["farm barn", "red barn"]
+    description: "Barn exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_field
+    label: "field"
+    aliases: ["farm field", "crop field", "open field"]
+    description: "Open field"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_pasture
+    label: "pasture"
+    aliases: ["meadow", "grazing field"]
+    description: "Pasture field"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_orchard
+    label: "orchard"
+    aliases: ["fruit orchard", "apple orchard"]
+    description: "Orchard"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_vineyard
+    label: "vineyard"
+    aliases: ["wine vineyard", "grape field"]
+    description: "Vineyard"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_greenhouse
+    label: "greenhouse"
+    aliases: ["plant nursery", "glass house"]
+    description: "Greenhouse interior"
+    explicit: false
+    weight: 1.0
+
+entertainment:
+  - id: env_int_theater
+    label: "theater"
+    aliases: ["movie theater", "cinema", "performance hall"]
+    description: "Theater interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_concert_hall
+    label: "concert hall"
+    aliases: ["music venue", "live music hall"]
+    description: "Concert hall interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_cinema
+    label: "cinema"
+    aliases: ["movie theater", "screening room"]
+    description: "Cinema interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_stadium
+    label: "stadium"
+    aliases: ["sports stadium", "arena exterior"]
+    description: "Stadium exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_stadium
+    label: "stadium interior"
+    aliases: ["sports arena", "crowd venue"]
+    description: "Stadium interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_casino
+    label: "casino"
+    aliases: ["gambling hall", "Vegas style"]
+    description: "Casino interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_amusement_park
+    label: "amusement park"
+    aliases: ["theme park", "fairground"]
+    description: "Amusement park exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_arcade
+    label: "arcade"
+    aliases: ["game arcade", "retro arcade"]
+    description: "Arcade interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_bowling_alley
+    label: "bowling alley"
+    aliases: ["bowling center", "lanes"]
+    description: "Bowling alley interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_piano_bar
+    label: "piano bar"
+    aliases: ["cocktail lounge", "live piano"]
+    description: "Piano bar interior"
+    explicit: false
+    weight: 1.0
+
+transport:
+  - id: env_ext_airport
+    label: "airport"
+    aliases: ["airport terminal", "airfield"]
+    description: "Airport exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_airport_terminal
+    label: "airport terminal"
+    aliases: ["airport interior", "departure lounge"]
+    description: "Airport terminal interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_train_station
+    label: "train station"
+    aliases: ["railway station", "train platform"]
+    description: "Train station interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_train_station
+    label: "train station exterior"
+    aliases: ["railway station exterior", "train depot"]
+    description: "Train station exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_subway
+    label: "subway station"
+    aliases: ["metro", "underground station"]
+    description: "Subway metro station"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_bus_station
+    label: "bus station"
+    aliases: ["bus terminal", "coach station"]
+    description: "Bus station interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_harbor
+    label: "harbor"
+    aliases: ["port", "docks", "marina"]
+    description: "Harbor exterior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_ship_cabin
+    label: "ship cabin"
+    aliases: ["cruise ship cabin", "boat interior"]
+    description: "Ship cabin interior"
+    explicit: false
+    weight: 1.0
+
+medical:
+  - id: env_int_hospital_room
+    label: "hospital room"
+    aliases: ["patient room", "medical ward"]
+    description: "Hospital room interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_surgery
+    label: "surgery room"
+    aliases: ["operating theater", "OR"]
+    description: "Surgery operating room"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_dentist
+    label: "dentist office"
+    aliases: ["dental clinic", "teeth cleaning"]
+    description: "Dentist office interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_pharmacy
+    label: "pharmacy"
+    aliases: ["drugstore", "medicine shop"]
+    description: "Pharmacy interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_morgue
+    label: "morgue"
+    aliases: ["mortuary", "funeral home"]
+    description: "Morgue interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_psych_ward
+    label: "psychiatric ward"
+    aliases: ["mental institution", "asylum"]
+    description: "Psychiatric ward interior"
+    explicit: false
+    weight: 1.0
+
+educational:
+  - id: env_int_university
+    label: "university lecture hall"
+    aliases: ["college lecture", "academic hall"]
+    description: "University lecture hall"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_library_large
+    label: "large library"
+    aliases: ["research library", "reading room"]
+    description: "Large library interior"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_laboratory
+    label: "science laboratory"
+    aliases: ["lab", "research lab"]
+    description: "Science laboratory"
+    explicit: false
+    weight: 1.0
+
+  - id: env_int_classroom
+    label: "classroom"
+    aliases: ["school room", "study room"]
+    description: "Classroom interior"
+    explicit: false
+    weight: 1.0
+
+nature_expanded:
+  - id: env_ext_canyon
+    label: "canyon"
+    aliases: ["gorge", "ravine"]
+    description: "Canyon landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_valley
+    label: "valley"
+    aliases: ["river valley", "mountain valley"]
+    description: "Valley landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_cliff
+    label: "cliff"
+    aliases: ["rock cliff", "precipice", "rock face"]
+    description: "Cliff landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_oasis
+    label: "oasis"
+    aliases: ["desert oasis", "watering hole"]
+    description: "Desert oasis"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_savanna
+    label: "savanna"
+    aliases: ["grassland", "African savanna"]
+    description: "Savanna landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_tundra
+    label: "tundra"
+    aliases: ["arctic tundra", "frozen plain"]
+    description: "Tundra landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_glacier
+    label: "glacier"
+    aliases: ["ice glacier", "ice field"]
+    description: "Glacier landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_marsh
+    label: "marsh"
+    aliases: ["wetland", "swamp", "bog"]
+    description: "Marsh/wetland"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_quarry
+    label: "quarry"
+    aliases: ["open pit mine", "stone quarry"]
+    description: "Quarry landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_volcano
+    label: "volcano"
+    aliases: ["volcanic", "lava", "erupting"]
+    description: "Volcano landscape"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_geyser
+    label: "geyser"
+    aliases: ["hot spring", "geothermal"]
+    description: "Geyser/hot spring"
+    explicit: false
+    weight: 1.0
+
+celestial:
+  - id: env_ext_starry_night
+    label: "starry night"
+    aliases: ["night sky", "stars", "milky way"]
+    description: "Starry night sky"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_nebula
+    label: "nebula"
+    aliases: ["cosmic gas cloud", "space nebula"]
+    description: "Nebula in space"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_eclipse
+    label: "eclipse"
+    aliases: ["solar eclipse", "lunar eclipse"]
+    description: "Solar/lunar eclipse"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_meteor_shower
+    label: "meteor shower"
+    aliases: ["shooting stars", "meteor storm"]
+    description: "Meteor shower"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_galaxy
+    label: "galaxy"
+    aliases: ["spiral galaxy", "cosmic"]
+    description: "Galaxy view"
+    explicit: false
+    weight: 1.0
+
+  - id: env_ext_aurora_space
+    label: "aurora from space"
+    aliases: ["space aurora", "cosmic lights"]
+    description: "Aurora viewed from space"
+    explicit: false
+    weight: 1.0

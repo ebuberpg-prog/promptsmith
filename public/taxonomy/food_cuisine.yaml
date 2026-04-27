@@ -1,0 +1,386 @@
+# PROMPTSMITH TAXONOMY - FOOD & CUISINE
+
+cuisines:
+  asian:
+    - id: food_sushi
+      label: "sushi"
+      aliases: ["Japanese cuisine", "raw fish rice", "sashimi"]
+      description: "Japanese sushi cuisine"
+      explicit: false
+      weight: 1.0
+
+    - id: food_ramen
+      label: "ramen"
+      aliases: ["Japanese noodles", "noodle soup"]
+      description: "Japanese ramen"
+      explicit: false
+      weight: 1.0
+
+    - id: food_poke_bowl
+      label: "poke bowl"
+      aliases: ["Hawaiian raw fish", "fish bowl"]
+      description: "Poke bowl Hawaiian cuisine"
+      explicit: false
+      weight: 1.0
+
+    - id: food_dim_sum
+      label: "dim sum"
+      aliases: ["Chinese dumplings", "buns", "steamed"]
+      description: "Chinese dim sum"
+      explicit: false
+      weight: 1.0
+
+    - id: food_peking_duck
+      label: "Peking duck"
+      aliases: ["Beijing duck", "crispy duck"]
+      description: "Peking duck Chinese cuisine"
+      explicit: false
+      weight: 1.0
+
+    - id: food_pad_thai
+      label: "pad thai"
+      aliases: ["Thai noodles", "stir-fried noodles"]
+      description: "Thai pad thai"
+      explicit: false
+      weight: 1.0
+
+    - id: food_curry
+      label: "curry"
+      aliases: ["Indian curry", "masala", "curry sauce"]
+      description: "Curry dish"
+      explicit: false
+      weight: 1.0
+
+    - id: food_biryani
+      label: "biryani"
+      aliases: ["Indian rice", "spiced rice", "meat rice"]
+      description: "Biryani Indian rice dish"
+      explicit: false
+      weight: 1.0
+
+    - id: food_samosa
+      label: "samosa"
+      aliases: ["Indian pastry", "stuffed pastry", "savory"]
+      description: "Samosa Indian pastry"
+      explicit: false
+      weight: 1.0
+
+    - id: food_kimchi
+      label: "kimchi"
+      aliases: ["Korean fermented", "spicy cabbage"]
+      description: "Korean kimchi"
+      explicit: false
+      weight: 1.0
+
+    - id: food_bulgogi
+      label: "bulgogi"
+      aliases: ["Korean BBQ", "marinated beef"]
+      description: "Korean bulgogi BBQ"
+      explicit: false
+      weight: 1.0
+
+    - id: food_pho
+      label: "pho"
+      aliases: ["Vietnamese noodle soup", "beef noodles"]
+      description: "Vietnamese pho"
+      explicit: false
+      weight: 1.0
+
+    - id: food_banh_mi
+      label: "banh mi"
+      aliases: ["Vietnamese sandwich", "baguette sandwich"]
+      description: "Vietnamese banh mi"
+      explicit: false
+      weight: 1.0
+
+  european:
+    - id: food_pasta
+      label: "pasta"
+      aliases: ["Italian noodles", "spaghetti", "macaroni"]
+      description: "Italian pasta"
+      explicit: false
+      weight: 1.0
+
+    - id: food_pizza
+      label: "pizza"
+      aliases: ["Italian pie", "flatbread with toppings"]
+      description: "Italian pizza"
+      explicit: false
+      weight: 1.0
+
+    - id: food_risotto
+      label: "risotto"
+      aliases: ["Italian rice dish", "creamy rice"]
+      description: "Italian risotto"
+      explicit: false
+      weight: 1.0
+
+    - id: food_paella
+      label: "paella"
+      aliases: ["Spanish rice", "seafood rice dish"]
+      description: "Spanish paella"
+      explicit: false
+      weight: 1.0
+
+    - id: food_tapas
+      label: "tapas"
+      aliases: ["Spanish appetizers", "small plates"]
+      description: "Spanish tapas"
+      explicit: false
+      weight: 1.0
+
+    - id: food_croissant
+      label: "croissant"
+      aliases: ["French pastry", "buttery pastry"]
+      description: "French croissant"
+      explicit: false
+      weight: 1.0
+
+    - id: food_crepe
+      label: "crepe"
+      aliases: ["French pancake", "thin pancake"]
+      description: "French crepe"
+      explicit: false
+      weight: 1.0
+
+    - id: food_coq_au_vin
+      label: "coq au vin"
+      aliases: ["French chicken", "chicken wine stew"]
+      description: "Coq au vin French dish"
+      explicit: false
+      weight: 1.0
+
+    - id: food_goulash
+      label: "goulash"
+      aliases: ["Hungarian stew", "paprika beef"]
+      description: "Hungarian goulash"
+      explicit: false
+      weight: 1.0
+
+  american:
+    - id: food_burger
+      label: "burger"
+      aliases: ["hamburger", "beef patty sandwich"]
+      description: "American burger"
+      explicit: false
+      weight: 1.0
+
+    - id: food_hotdog
+      label: "hot dog"
+      aliases: ["frankfurter", "sausage bun"]
+      description: "American hot dog"
+      explicit: false
+      weight: 1.0
+
+    - id: food_barbecue
+      label: "barbecue"
+      aliases: ["BBQ", "grilled meat", "smoked meat"]
+      description: "American BBQ"
+      explicit: false
+      weight: 1.0
+
+    - id: food_pulled_pork
+      label: "pulled pork"
+      aliases: ["shredded pork", "BBQ pork"]
+      description: "Pulled pork"
+      explicit: false
+      weight: 1.0
+
+    - id: food_mac_cheese
+      label: "mac and cheese"
+      aliases: ["macaroni cheese", "comfort food"]
+      description: "Mac and cheese"
+      explicit: false
+      weight: 1.0
+
+    - id: food_clambake
+      label: "clam bake"
+      aliases: ["seafood boil", "New England"]
+      description: "Clam bake New England"
+      explicit: false
+      weight: 1.0
+
+    - id: food_tacos
+      label: "tacos"
+      aliases: ["Mexican tacos", "street tacos"]
+      description: "Mexican tacos"
+      explicit: false
+      weight: 1.0
+
+    - id: food_burrito
+      label: "burrito"
+      aliases: ["Mexican wrap", "filled tortilla"]
+      description: "Mexican burrito"
+      explicit: false
+      weight: 1.0
+
+    - id: food_enchilada
+      label: "enchilada"
+      aliases: ["Mexican casserole", "tortilla filled rolled"]
+      description: "Mexican enchilada"
+      explicit: false
+      weight: 1.0
+
+    - id: food_guacamole
+      label: "guacamole"
+      aliases: ["avocado dip", "mexican avocado"]
+      description: "Guacamole dip"
+      explicit: false
+      weight: 1.0
+
+drinks:
+  - id: food_coffee
+    label: "coffee"
+    aliases: ["caffeinated beverage", "espresso"]
+    description: "Coffee drink"
+    explicit: false
+    weight: 1.0
+
+  - id: food_tea
+    label: "tea"
+    aliases: ["hot tea", "leaf beverage"]
+    description: "Tea drink"
+    explicit: false
+    weight: 1.0
+
+  - id: food_wine
+    label: "wine"
+    aliases: ["grape wine", "red wine", "white wine"]
+    description: "Wine drink"
+    explicit: false
+    weight: 1.0
+
+  - id: food_beer
+    label: "beer"
+    aliases: ["malt beverage", "ale", "lager"]
+    description: "Beer drink"
+    explicit: false
+    weight: 1.0
+
+  - id: food_cocktail
+    label: "cocktail"
+    aliases: ["mixed drink", "alcoholic beverage"]
+    description: "Cocktail drink"
+    explicit: false
+    weight: 1.0
+
+  - id: food_smoothie
+    label: "smoothie"
+    aliases: ["fruit blend drink", "blended beverage"]
+    description: "Smoothie drink"
+    explicit: false
+    weight: 1.0
+
+desserts:
+  - id: food_ice_cream
+    label: "ice cream"
+    aliases: ["frozen dessert", "gelato"]
+    description: "Ice cream dessert"
+    explicit: false
+    weight: 1.0
+
+  - id: food_cake
+    label: "cake"
+    aliases: ["layer cake", "birthday cake"]
+    description: "Cake dessert"
+    explicit: false
+    weight: 1.0
+
+  - id: food_chocolate
+    label: "chocolate"
+    aliases: ["chocolate bar", "cocoa"]
+    description: "Chocolate dessert"
+    explicit: false
+    weight: 1.0
+
+  - id: food_cheesecake
+    label: "cheesecake"
+    aliases: ["cream cheese dessert", "NY cheesecake"]
+    description: "Cheesecake dessert"
+    explicit: false
+    weight: 1.0
+
+  - id: food_tiramisu
+    label: "tiramisu"
+    aliases: ["Italian coffee dessert", "mascarpone"]
+    description: "Tiramisu dessert"
+    explicit: false
+    weight: 1.0
+
+  - id: food_cheese_board
+    label: "cheese board"
+    aliases: ["cheese platter", "aged cheeses"]
+    description: "Cheese board"
+    explicit: false
+    weight: 1.0
+
+settings:
+  - id: food_fine_dining
+    label: "fine dining"
+    aliases: ["upscale restaurant", "gourmet"]
+    description: "Fine dining setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_fast_food
+    label: "fast food"
+    aliases: ["burger joint", "quick service"]
+    description: "Fast food setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_street_food
+    label: "street food"
+    aliases: ["food cart", "night market", "vendor"]
+    description: "Street food setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_picnic
+    label: "picnic"
+    aliases: ["outdoor meal", "park", "basket"]
+    description: "Picnic setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_bbq_grill
+    label: "BBQ grill"
+    aliases: ["backyard BBQ", "grilling"]
+    description: "BBQ grill setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_buffet
+    label: "buffet"
+    aliases: ["all-you-can-eat", "spread"]
+    description: "Buffet setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_cafe
+    label: "cafe"
+    aliases: ["coffee shop", "bistro"]
+    description: "Cafe setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_bakery
+    label: "bakery"
+    aliases: ["pastry shop", "breads"]
+    description: "Bakery setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_market
+    label: "food market"
+    aliases: ["gourmet market", "farmers market"]
+    description: "Food market setting"
+    explicit: false
+    weight: 1.0
+
+  - id: food_banquet
+    label: "banquet"
+    aliases: ["feast", "formal dinner", "catered event"]
+    description: "Banquet setting"
+    explicit: false
+    weight: 1.0

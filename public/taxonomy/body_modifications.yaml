@@ -1,0 +1,680 @@
+# PROMPTSMITH TAXONOMY - BODY MODIFICATIONS
+
+tattoos:
+  styles:
+    - id: mod_tattoo_traditional
+      label: "traditional tattoo"
+      aliases: ["old school tattoo", "American traditional", "sailor tattoo"]
+      description: "Traditional/American traditional tattoo style"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_neo_traditional
+      label: "neo-traditional tattoo"
+      aliases: ["new traditional", "neo trad"]
+      description: "Neo-traditional tattoo style"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_realism
+      label: "realistic tattoo"
+      aliases: ["photo-realistic tattoo", "portrait tattoo"]
+      description: "Realistic/photorealistic tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_watercolor
+      label: "watercolor tattoo"
+      aliases: ["watercolor style tattoo", "painted tattoo"]
+      description: "Watercolor-style tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_geometric
+      label: "geometric tattoo"
+      aliases: ["sacred geometry", "mandala tattoo", "geometric patterns"]
+      description: "Geometric pattern tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_tribal
+      label: "tribal tattoo"
+      aliases: ["tribal patterns", "Polynesian tattoo", "Maori tattoo"]
+      description: "Tribal-style tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_japanese
+      label: "Japanese tattoo"
+      aliases: ["irezumi", "Japanese traditional", "yakuza tattoo"]
+      description: "Traditional Japanese tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_blackwork
+      label: "blackwork tattoo"
+      aliases: ["black ink tattoo", "solid black tattoo"]
+      description: "Blackwork tattoo style"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_minimalist
+      label: "minimalist tattoo"
+      aliases: ["small tattoo", "simple tattoo", "tiny tattoo"]
+      description: "Minimalist/small tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_fine_line
+      label: "fine line tattoo"
+      aliases: ["single needle", "delicate tattoo", "thin line tattoo"]
+      description: "Fine line tattoo style"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_lettering
+      label: "lettering tattoo"
+      aliases: ["text tattoo", "script tattoo", "word tattoo"]
+      description: "Lettering/text tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_sketch
+      label: "sketch tattoo"
+      aliases: ["sketchy tattoo", "drawn style tattoo"]
+      description: "Sketch-style tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_trash_polka
+      label: "trash polka tattoo"
+      aliases: ["trash polka style", "red and black tattoo"]
+      description: "Trash polka tattoo style"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_dotwork
+      label: "dotwork tattoo"
+      aliases: ["stippling tattoo", "pointillism tattoo", "dot work"]
+      description: "Dotwork/stippling tattoo"
+      explicit: false
+      weight: 1.0
+
+  placements:
+    - id: mod_tattoo_sleeve
+      label: "sleeve tattoo"
+      aliases: ["full sleeve", "half sleeve", "quarter sleeve"]
+      description: "Arm sleeve tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_full_sleeve
+      label: "full sleeve"
+      aliases: ["full arm sleeve", "shoulder to wrist"]
+      description: "Full arm sleeve tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_half_sleeve
+      label: "half sleeve"
+      aliases: ["half arm tattoo", "elbow to wrist"]
+      description: "Half sleeve tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_chest_piece
+      label: "chest piece"
+      aliases: ["chest tattoo", "pectorals tattoo"]
+      description: "Chest tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_back_piece
+      label: "back piece"
+      aliases: ["full back tattoo", "back tattoo", "large back tattoo"]
+      description: "Back tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_leg_sleeve
+      label: "leg sleeve"
+      aliases: ["full leg tattoo", "thigh to ankle tattoo"]
+      description: "Full leg sleeve tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_neck
+      label: "neck tattoo"
+      aliases: ["neck ink", "throat tattoo"]
+      description: "Neck tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_face
+      label: "face tattoo"
+      aliases: ["facial tattoo", "face ink"]
+      description: "Face tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_hand
+      label: "hand tattoo"
+      aliases: ["hand ink", "knuckle tattoo", "finger tattoo"]
+      description: "Hand tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_rib
+      label: "rib tattoo"
+      aliases: ["ribcage tattoo", "side tattoo", "ribs ink"]
+      description: "Ribcage tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_stomach
+      label: "stomach tattoo"
+      aliases: ["belly tattoo", "abdomen tattoo", "stomach ink"]
+      description: "Stomach/abdomen tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_lower_back
+      label: "lower back tattoo"
+      aliases: ["tramp stamp", "lower back ink", "sacral tattoo"]
+      description: "Lower back tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_thigh
+      label: "thigh tattoo"
+      aliases: ["thigh ink", "upper leg tattoo"]
+      description: "Thigh tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_ankle
+      label: "ankle tattoo"
+      aliases: ["ankle ink", "ankle band"]
+      description: "Ankle tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_full_body
+      label: "full body suit"
+      aliases: ["bodysuit tattoo", "full body tattoo", "full coverage"]
+      description: "Full body suit tattoo"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_tattoo_intimate
+      label: "intimate area tattoo"
+      aliases: ["private area tattoo", "groin tattoo", "genital tattoo"]
+      description: "Tattoo on intimate areas"
+      explicit: true
+      weight: 1.0
+
+piercings:
+  face:
+    - id: mod_piercing_earlobe
+      label: "earlobe piercing"
+      aliases: ["ear piercing", "lobe piercing", "earrings"]
+      description: "Earlobe piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_helix
+      label: "helix piercing"
+      aliases: ["cartilage piercing", "upper ear piercing"]
+      description: "Helix/cartilage piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_tragus
+      label: "tragus piercing"
+      aliases: ["inner ear piercing", "tragus stud"]
+      description: "Tragus piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_industrial
+      label: "industrial piercing"
+      aliases: ["scaffold piercing", "bar piercing ear"]
+      description: "Industrial ear piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_daith
+      label: "daith piercing"
+      aliases: ["inner cartilage piercing", "daith ring"]
+      description: "Daith piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_septum
+      label: "septum piercing"
+      aliases: ["nose septum", "bull ring", "septum ring"]
+      description: "Septum piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_nostril
+      label: "nostril piercing"
+      aliases: ["nose stud", "nose ring", "nostril stud"]
+      description: "Nostril piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_eyebrow
+      label: "eyebrow piercing"
+      aliases: ["brow piercing", "eyebrow ring"]
+      description: "Eyebrow piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_lip
+      label: "lip piercing"
+      aliases: ["lip ring", "labret", "lip stud"]
+      description: "Lip piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_monroe
+      label: "Monroe piercing"
+      aliases: ["beauty mark piercing", "Marilyn piercing"]
+      description: "Monroe/Marilyn piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_smiley
+      label: "smiley piercing"
+      aliases: ["frenulum piercing", "upper lip inside"]
+      description: "Smiley/frenulum piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_tongue
+      label: "tongue piercing"
+      aliases: ["tongue ring", "tongue stud", "tongue barbell"]
+      description: "Tongue piercing"
+      explicit: false
+      weight: 1.0
+
+  body:
+    - id: mod_piercing_navel
+      label: "navel piercing"
+      aliases: ["belly button piercing", "navel ring", "belly ring"]
+      description: "Navel/belly button piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_nipple
+      label: "nipple piercing"
+      aliases: ["nipple ring", "nipple barbell", "nipple jewelry"]
+      description: "Nipple piercing"
+      explicit: true
+      weight: 1.0
+
+    - id: mod_piercing_genital
+      label: "genital piercing"
+      aliases: ["intimate piercing", "private piercing", "genital jewelry"]
+      description: "Genital/intimate piercing"
+      explicit: true
+      weight: 1.0
+
+    - id: mod_piercing_surface
+      label: "surface piercing"
+      aliases: ["surface bar", "dermal anchor", "microdermal"]
+      description: "Surface/dermal piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: mod_piercing_corset
+      label: "corset piercing"
+      aliases: ["corset back piercing", "lacing piercing"]
+      description: "Corset-style surface piercings"
+      explicit: true
+      weight: 1.0
+
+    - id: mod_piercing_multiple
+      label: "multiple pierings"
+      aliases: ["many piercings", "heavily pierced", "pierced all over"]
+      description: "Multiple body piercings"
+      explicit: false
+      weight: 1.0
+
+scars:
+  - id: mod_scar_surgical
+    label: "surgical scars"
+    aliases: ["operation scar", "surgery scar", "incision scar"]
+    description: "Surgical/operation scars"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_acne
+    label: "acne scars"
+    aliases: ["pitted scars", "acne marks", "pockmarks"]
+    description: "Acne scarring"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_keloid
+    label: "keloid scars"
+    aliases: ["raised scars", "keloid", "hypertrophic scar"]
+    description: "Keloid/raised scars"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_burn
+    label: "burn scars"
+    aliases: ["burn marks", "fire scars", "scald scars"]
+    description: "Burn scarring"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_battle
+    label: "battle scars"
+    aliases: ["combat scars", "war wounds", "fight scars"]
+    description: "Battle/combat scars"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_claw
+    label: "claw marks"
+    aliases: ["scratch marks", "claw scars", "animal scratch"]
+    description: "Claw/scratch marks"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_cut
+    label: "cut scars"
+    aliases: ["knife scars", "slash marks", "laceration scars"]
+    description: "Cut/laceration scars"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_self_harm
+    label: "self-harm scars"
+    aliases: ["wrist scars", "cutting scars", "self-harm marks"]
+    description: "Self-harm scarring"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_stretch
+    label: "stretch marks"
+    aliases: ["stretchmarks", "growth marks", "pregnancy marks"]
+    description: "Stretch marks"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_bullet
+    label: "bullet wound scar"
+    aliases: ["gunshot scar", "bullet scar", "gun wound"]
+    description: "Bullet wound scarring"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_scar_brand
+    label: "brand scar"
+    aliases: ["burn brand", "cattle brand", "intentional brand"]
+    description: "Intentional brand scarring"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_scar_cut
+    label: "scarification"
+    aliases: ["intentional scarring", "cut scarification", "body scarification"]
+    description: "Intentional scarification"
+    explicit: true
+    weight: 1.0
+
+other_modifications:
+  - id: mod_implant
+    label: "subdermal implants"
+    aliases: ["body implants", "under-skin implants", "3D implants"]
+    description: "Subdermal body implants"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_split_tongue
+    label: "split tongue"
+    aliases: ["forked tongue", "bifurcated tongue", "snake tongue"]
+    description: "Split/forked tongue"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_ear_stretch
+    label: "stretched earlobes"
+    aliases: ["gauged ears", "stretched lobes", "ear plugs", "ear tunnels"]
+    description: "Stretched earlobe piercings"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tooth_fangs
+    label: "fang teeth"
+    aliases: ["vampire fangs", "sharp teeth", "pointed teeth"]
+    description: "Fang-like teeth"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tooth_grills
+    label: "grills"
+    aliases: ["tooth grills", "grillz", "gold teeth", "diamond teeth"]
+    description: "Dental grills/grillz"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_body_painting
+    label: "body painting"
+    aliases: ["painted body", "body art paint", "full body paint"]
+    description: "Body paint decoration"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_henna
+    label: "henna"
+    aliases: ["mehndi", "henna design", "temporary henna"]
+    description: "Henna body art"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_body_glitter
+    label: "body glitter"
+    aliases: ["glitter on skin", "sparkly body", "glitter makeup"]
+    description: "Body glitter decoration"
+    explicit: false
+    weight: 1.0
+
+tattoo_subjects:
+  - id: mod_tattoo_portrait
+    label: "portrait tattoo"
+    aliases: ["photo realistic tattoo", "likeness tattoo"]
+    description: "Portrait style tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tattoo_wildlife
+    label: "wildlife tattoo"
+    aliases: ["animal tattoo", "lion wolf bear"]
+    description: "Wildlife animal tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tattoo_floral
+    label: "floral tattoo"
+    aliases: ["flower tattoo", "botanical tattoo"]
+    description: "Floral flower tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tattoo_mandala
+    label: "mandala tattoo"
+    aliases: ["circle pattern tattoo", "spiritual geometric"]
+    description: "Mandala design tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tattoo_quote
+    label: "quote tattoo"
+    aliases: ["lettering tattoo", "word tattoo", "script"]
+    description: "Quote/script tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_tattoo_family
+    label: "family crest tattoo"
+    aliases: ["crest", "heraldry", "coat of arms"]
+    description: "Family crest heraldry tattoo"
+    explicit: false
+    weight: 1.0
+
+piercings_expanded:
+  - id: mod_piercing_prince_albert
+    label: "Prince Albert piercing"
+    aliases: ["PA piercing", "urethral piercing"]
+    description: "Prince Albert male genital piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_frenum
+    label: "Frenum piercing"
+    aliases: ["frenum ladder", "penile piercing"]
+    description: "Frenum male genital piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_guiche
+    label: "Guiche piercing"
+    aliases: ["perineum piercing", "body piercing"]
+    description: "Guiche male genital piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_hafada
+    label: "Hafada piercing"
+    aliases: ["scrotal piercing", "ball sack"]
+    description: "Hafada scrotal piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_apadravya
+    label: "Apadravya piercing"
+    aliases: ["male genital piercing", "pierced penis"]
+    description: "Apadravya male genital piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_ampallang
+    label: "Ampallang piercing"
+    aliases: ["horizontal genital", "penis piercing"]
+    description: "Ampallang male genital piercing"
+    explicit: true
+    weight: 1.0
+
+  - id: mod_piercing_nose_ring
+    label: "nose ring"
+    aliases: ["bull ring", "septum ring"]
+    description: "Large nose ring piercing"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_piercing_dimple
+    label: "dimple piercing"
+    aliases: ["cheek dimple piercing", "facial dimple"]
+    description: "Dimple cheek piercing"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_piercing_teardrop
+    label: "teardrop piercing"
+    aliases: ["dermal tear drop", "skin anchor"]
+    description: "Teardrop dermal piercing"
+    explicit: false
+    weight: 1.0
+
+uv_body_art:
+  - id: mod_uv_tattoo
+    label: "UV tattoo"
+    aliases: ["blacklight tattoo", "glow in dark tattoo"]
+    description: "UV/blacklight reactive tattoo"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_glow_dark
+    label: "glow-in-dark ink"
+    aliases: ["phosphorescent tattoo", "luminous ink"]
+    description: "Glow in dark tattoo ink"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_bioluminescent
+    label: "bioluminescent body art"
+    aliases: ["glowing patterns", "neon body"]
+    description: "Bioluminescent glowing body art"
+    explicit: false
+    weight: 1.0
+
+cosmetic_procedures:
+  - id: mod_botox
+    label: "botox"
+    aliases: ["botox injections", "wrinkle relaxer"]
+    description: "Botox cosmetic procedure"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_fillers
+    label: "dermal fillers"
+    aliases: ["lip fillers", "facial fillers"]
+    description: "Dermal filler cosmetic"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_breast_implants
+    label: "breast implants"
+    aliases: ["augmented breasts", "silicone"]
+    description: "Breast implant body modification"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_nose_job
+    label: "nose job"
+    aliases: ["rhinoplasty", "nose surgery"]
+    description: "Nose job body modification"
+    explicit: false
+    weight: 1.0
+
+brand_scars:
+  - id: mod_cattle_brand
+    label: "cattle brand"
+    aliases: ["branding iron", "livestock brand"]
+    description: "Cattle brand style scar"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_ritual_scarification
+    label: "ritual scarification"
+    aliases: ["deliberate scarring", "tribal scars"]
+    description: "Ritual intentional scarification"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_ice_pick
+    label: "ice pick scarring"
+    aliases: ["ice pick marks", "puncture scars"]
+    description: "Ice pick style scarring"
+    explicit: false
+    weight: 1.0
+
+gauge_expansion:
+  - id: mod_gauge_stretched
+    label: "stretched gauges"
+    aliases: ["gauge piercings", "stretched piercings"]
+    description: "Stretched gauge piercings"
+    explicit: false
+    weight: 1.0
+
+  - id: mod_plug_tunnel
+    label: "plug tunnels"
+    aliases: ["ear tunnels", "flesh tunnel"]
+    description: "Flesh plug tunnels"
+    explicit: false
+    weight: 1.0

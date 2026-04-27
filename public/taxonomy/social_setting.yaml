@@ -1,0 +1,367 @@
+# PROMPTSMITH TAXONOMY - SOCIAL SETTINGS & CONTEXTS
+
+intimate:
+  - id: social_dating
+    label: "date"
+    aliases: ["dating scene", "romantic outing", "courting"]
+    description: "Dating scenario"
+    explicit: false
+    weight: 1.0
+
+  - id: social_first_date
+    label: "first date"
+    aliases: ["initial meeting", "getting to know"]
+    description: "First date scenario"
+    explicit: false
+    weight: 1.0
+
+  - id: social_romantic_dinner
+    label: "romantic dinner"
+    aliases: ["date dinner", "tête-à-tête", "candlelit"]
+    description: "Romantic dinner setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_wedding
+    label: "wedding"
+    aliases: ["marriage ceremony", "bride and groom"]
+    description: "Wedding celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: social_anniversary
+    label: "anniversary celebration"
+    aliases: ["relationship milestone", "celebration"]
+    description: "Anniversary celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: social_honeymoon
+    label: "honeymoon"
+    aliases: ["post-wedding trip", "romantic getaway"]
+    description: "Honeymoon setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_proposal
+    label: "marriage proposal"
+    aliases: ["proposing", "getting engaged"]
+    description: "Proposal scenario"
+    explicit: false
+    weight: 1.0
+
+social_gatherings:
+  - id: social_party
+    label: "party"
+    aliases: ["celebration", "gathering", "fete"]
+    description: "General party setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_house_party
+    label: "house party"
+    aliases: ["home party", "kegerator", "gatherings"]
+    description: "House party setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_dinner_party
+    label: "dinner party"
+    aliases: ["dinner gathering", "soirée", "dinner"]
+    description: "Dinner party setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_cocktail_party
+    label: "cocktail party"
+    aliases: ["cocktails", "drinks party"]
+    description: "Cocktail party setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_birthday_party
+    label: "birthday party"
+    aliases: ["birthday celebration", "cake and candles"]
+    description: "Birthday party"
+    explicit: false
+    weight: 1.0
+
+  - id: social_baby_shower
+    label: "baby shower"
+    aliases: ["expecting mother celebration"]
+    description: "Baby shower"
+    explicit: false
+    weight: 1.0
+
+  - id: social_bridal_shower
+    label: "bridal shower"
+    aliases: ["engagement party", "wedding shower"]
+    description: "Bridal shower"
+    explicit: false
+    weight: 1.0
+
+  - id: social_reunion
+    label: "reunion"
+    aliases: ["family gathering", "class reunion"]
+    description: "Reunion gathering"
+    explicit: false
+    weight: 1.0
+
+work_professional:
+  - id: social_office
+    label: "office setting"
+    aliases: ["workplace", "corporate"]
+    description: "Office work setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_meeting
+    label: "business meeting"
+    aliases: ["conference", "corporate meeting"]
+    description: "Business meeting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_conference
+    label: "conference"
+    aliases: ["convention", "business event"]
+    description: "Conference setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_networking
+    label: "networking event"
+    aliases: ["mixer", "professional gathering"]
+    description: "Networking event"
+    explicit: false
+    weight: 1.0
+
+  - id: social_interview
+    label: "job interview"
+    aliases: ["interview setting", "professional meeting"]
+    description: "Job interview"
+    explicit: false
+    weight: 1.0
+
+casual:
+  - id: social_cafe
+    label: "cafe hanging out"
+    aliases: ["coffee shop chill", "casual meetup"]
+    description: "Casual cafe setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_bar
+    label: "bar"
+    aliases: ["pub", "drinks with friends"]
+    description: "Bar setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_club
+    label: "nightclub"
+    aliases: ["dance club", "clubbing", "night out"]
+    description: "Nightclub setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_game_night
+    label: "game night"
+    aliases: ["board games", "card games", "party games"]
+    description: "Game night setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_movie_night
+    label: "movie night"
+    aliases: ["watching movies", "couch", "film night"]
+    description: "Movie night setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_sleepover
+    label: "sleepover"
+    aliases: ["slumber party", "overnight"]
+    description: "Sleepover setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_picnic
+    label: "picnic"
+    aliases: ["outdoor meal", "park lunch"]
+    description: "Picnic setting"
+    explicit: false
+    weight: 1.0
+
+outdoor:
+  - id: social_beach_day
+    label: "beach day"
+    aliases: ["beach hangout", "sun and sand"]
+    description: "Beach day social"
+    explicit: false
+    weight: 1.0
+
+  - id: social_pool_party
+    label: "pool party"
+    aliases: ["poolside", "summer party"]
+    description: "Pool party setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_barbecue
+    label: "barbecue"
+    aliases: ["BBQ party", "grilling out"]
+    description: "Barbecue setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_camping
+    label: "camping"
+    aliases: ["campout", "outdoor", "tent"]
+    description: "Camping social setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_hiking
+    label: "hiking trip"
+    aliases: ["trail", "nature walk", "outdoor"]
+    description: "Hiking social setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_festival
+    label: "festival"
+    aliases: ["music festival", "outdoor event"]
+    description: "Festival setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_concert
+    label: "concert"
+    aliases: ["live music", "show"]
+    description: "Concert setting"
+    explicit: false
+    weight: 1.0
+
+events:
+  - id: social_graduation
+    label: "graduation"
+    aliases: ["commencement", "ceremony"]
+    description: "Graduation event"
+    explicit: false
+    weight: 1.0
+
+  - id: social_prom
+    label: "prom"
+    aliases: ["school dance", "formal dance"]
+    description: "Prom dance event"
+    explicit: false
+    weight: 1.0
+
+  - id: social_reunion_event
+    label: "class reunion"
+    aliases: ["school reunion", "alumni event"]
+    description: "Class reunion event"
+    explicit: false
+    weight: 1.0
+
+  - id: social_award_ceremony
+    label: "award ceremony"
+    aliases: ["gala", "formal event"]
+    description: "Award ceremony"
+    explicit: false
+    weight: 1.0
+
+  - id: social_fundraiser
+    label: "fundraiser"
+    aliases: ["charity event", "gala"]
+    description: "Fundraiser charity event"
+    explicit: false
+    weight: 1.0
+
+family:
+  - id: social_family_dinner
+    label: "family dinner"
+    aliases: ["home dinner", "family meal"]
+    description: "Family dinner setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_family_gathering
+    label: "family gathering"
+    aliases: ["family reunion", "kinfolk"]
+    description: "Family gathering"
+    explicit: false
+    weight: 1.0
+
+  - id: social_holiday_celebration
+    label: "holiday celebration"
+    aliases: ["Christmas", "Thanksgiving", "family holiday"]
+    description: "Holiday family celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: social_mothers_day
+    label: "Mother's Day brunch"
+    aliases: ["brunch with mom", "special breakfast"]
+    description: "Mother's Day celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: social_fathers_day
+    label: "Father's Day"
+    aliases: ["dads", "special day"]
+    description: "Father's Day celebration"
+    explicit: false
+    weight: 1.0
+
+solitary:
+  - id: social_alone
+    label: "alone"
+    aliases: ["solitary", "by oneself", "solo"]
+    description: "Being alone setting"
+    explicit: false
+    weight: 1.0
+
+  - id: social_reading
+    label: "reading alone"
+    aliases: ["book", "quiet time", "solitary hobby"]
+    description: "Reading alone"
+    explicit: false
+    weight: 1.0
+
+  - id: social_bath
+    label: "bath time"
+    aliases: ["bathtub", "soaking", "self-care"]
+    description: "Solitary bath"
+    explicit: false
+    weight: 1.0
+
+  - id: social_meditating
+    label: "meditating"
+    aliases: ["meditation", "zen", "alone time"]
+    description: "Meditation setting"
+    explicit: false
+    weight: 1.0
+
+romantic_specific:
+  - id: social_rolling_in_together
+    label: "cozy evening in"
+    aliases: ["staying in", "couch cuddles", "Netflix and chill"]
+    description: "Cozy romantic evening at home"
+    explicit: false
+    weight: 1.0
+
+  - id: social_walking_hand_in_hand
+    label: "walking hand in hand"
+    aliases: ["holding hands", "strolling"]
+    description: "Couple walking hand in hand"
+    explicit: false
+    weight: 1.0
+
+  - id: social_cuddling
+    label: "cuddling"
+    aliases: ["snuggling", "affectionate"]
+    description: "Cuddling couple"
+    explicit: false
+    weight: 1.0

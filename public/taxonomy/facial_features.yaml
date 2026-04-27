@@ -1,0 +1,1144 @@
+# PROMPTSMITH TAXONOMY - FACIAL FEATURES
+
+eyes:
+  color:
+    - id: face_eye_color_amber
+      label: "amber eyes"
+      aliases: ["golden eyes", "yellow eyes", "honey eyes"]
+      description: "Amber/golden colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_blue
+      label: "blue eyes"
+      aliases: ["azure eyes", "sapphire eyes", "ocean blue eyes"]
+      description: "Blue colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_brown
+      label: "brown eyes"
+      aliases: ["dark brown eyes", "chocolate eyes", "warm brown eyes"]
+      description: "Brown colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_green
+      label: "green eyes"
+      aliases: ["emerald eyes", "jade eyes", "forest green eyes"]
+      description: "Green colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_hazel
+      label: "hazel eyes"
+      aliases: ["brown-green eyes", "multi-colored eyes"]
+      description: "Hazel colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_gray
+      label: "gray eyes"
+      aliases: ["silver eyes", "steel gray eyes", "slate eyes"]
+      description: "Gray colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_red
+      label: "red eyes"
+      aliases: ["crimson eyes", "ruby eyes", "blood red eyes"]
+      description: "Red colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_violet
+      label: "violet eyes"
+      aliases: ["purple eyes", "lavender eyes"]
+      description: "Violet/purple colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_heterochromia
+      label: "heterochromia"
+      aliases: ["different colored eyes", "mismatched eyes", "two-tone eyes"]
+      description: "Two different colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_pink
+      label: "pink eyes"
+      aliases: ["rose eyes", "blush eyes"]
+      description: "Pink colored eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_black
+      label: "black eyes"
+      aliases: ["dark eyes", "obsidian eyes", "pitch black eyes"]
+      description: "Very dark/black eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_color_glowing
+      label: "glowing eyes"
+      aliases: ["luminescent eyes", "bright eyes", "radiant eyes"]
+      description: "Eyes that glow or emit light"
+      explicit: false
+      weight: 1.0
+
+  shape:
+    - id: face_eye_shape_almond
+      label: "almond eyes"
+      aliases: ["almond-shaped eyes", "oval eyes"]
+      description: "Almond-shaped eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_round
+      label: "round eyes"
+      aliases: ["circular eyes", "big round eyes", "doe eyes"]
+      description: "Round, circular eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_monolid
+      label: "monolid eyes"
+      aliases: ["single eyelid", "no crease eyes"]
+      description: "Eyes with no visible eyelid crease"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_hooded
+      label: "hooded eyes"
+      aliases: ["heavy-lidded", "hooded eyelids", "droopy eyelids"]
+      description: "Eyes with hooded/droopy eyelids"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_upturned
+      label: "upturned eyes"
+      aliases: ["cat eyes", "uplifted eyes", "feline eyes"]
+      description: "Eyes angled upward at outer corners"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_downturned
+      label: "downturned eyes"
+      aliases: ["puppy eyes", "sad eyes", "downward eyes"]
+      description: "Eyes angled downward at outer corners"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_deep_set
+      label: "deep-set eyes"
+      aliases: ["sunken eyes", "recessed eyes", "deep eyes"]
+      description: "Eyes set deep in the skull"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_protruding
+      label: "protruding eyes"
+      aliases: ["bulging eyes", "prominent eyes", "wide eyes"]
+      description: "Eyes that protrude from the face"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_narrow
+      label: "narrow eyes"
+      aliases: ["slit eyes", "squinting eyes", "thin eyes"]
+      description: "Narrow, thin eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_wide_set
+      label: "wide-set eyes"
+      aliases: ["far apart eyes", "spaced eyes"]
+      description: "Eyes set far apart on face"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_close_set
+      label: "close-set eyes"
+      aliases: ["close together eyes", "narrow spaced eyes"]
+      description: "Eyes set close together on face"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_tsurime
+      label: "tsurime"
+      aliases: ["sharp anime eyes", "anime sharp eyes"]
+      description: "Sharp, angular anime-style eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_shape_tareme
+      label: "tareme"
+      aliases: ["soft anime eyes", "gentle anime eyes"]
+      description: "Soft, droopy anime-style eyes"
+      explicit: false
+      weight: 1.0
+
+  details:
+    - id: face_eye_detail_long_lashes
+      label: "long eyelashes"
+      aliases: ["thick lashes", "fluttery lashes", "dramatic lashes"]
+      description: "Long, prominent eyelashes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_thick_brows
+      label: "thick eyebrows"
+      aliases: ["bushy brows", "full eyebrows", "bold brows"]
+      description: "Thick, full eyebrows"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_thin_brows
+      label: "thin eyebrows"
+      aliases: ["pencil brows", "narrow brows", "slim eyebrows"]
+      description: "Thin, narrow eyebrows"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_unibrow
+      label: "unibrow"
+      aliases: ["monobrow", "connected eyebrows", "joined brows"]
+      description: "Eyebrows that connect in the middle"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_eye_makeup
+      label: "eye makeup"
+      aliases: ["eyeshadow", "eye cosmetics", "made-up eyes"]
+      description: "Visible eye makeup"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_smoky_eyes
+      label: "smoky eyes"
+      aliases: ["smoky eyeshadow", "dark eye makeup", "smudged eyes"]
+      description: "Smoky eye makeup style"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_winged_liner
+      label: "winged eyeliner"
+      aliases: ["cat eye liner", "flicked liner", "winged liner"]
+      description: "Winged/flicked eyeliner"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_colored_liner
+      label: "colored eyeliner"
+      aliases: ["colorful liner", "bright eyeliner", "fashion liner"]
+      description: "Colored/bright eyeliner"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_glitter_eyes
+      label: "glitter eyeshadow"
+      aliases: ["sparkly eyes", "shimmer eyes", "glitter makeup"]
+      description: "Glitter/shimmer on eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_under_eye_bags
+      label: "under-eye bags"
+      aliases: ["dark circles", "tired eyes", "puffy under eyes"]
+      description: "Visible under-eye bags"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_eye_contact
+      label: "direct eye contact"
+      aliases: ["staring at viewer", "looking at camera", "piercing gaze"]
+      description: "Making direct eye contact"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_averted_gaze
+      label: "averted gaze"
+      aliases: ["looking away", "eyes averted", "avoiding eye contact"]
+      description: "Looking away from viewer"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_half_closed
+      label: "half-closed eyes"
+      aliases: ["bedroom eyes", "sleepy eyes", "heavy-lidded eyes"]
+      description: "Partially closed, heavy-lidded eyes"
+      explicit: false
+      weight: 1.0
+
+    - id: face_eye_detail_wide_eyes
+      label: "wide eyes"
+      aliases: ["eyes wide open", "startled eyes", "big eyes"]
+      description: "Eyes opened very wide"
+      explicit: false
+      weight: 1.0
+
+nose:
+  shape:
+    - id: face_nose_button
+      label: "button nose"
+      aliases: ["cute nose", "small upturned nose", "snub nose"]
+      description: "Small, cute button nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_straight
+      label: "straight nose"
+      aliases: ["Greek nose", "straight bridge", "classical nose"]
+      description: "Straight, classical nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_aquiline
+      label: "aquiline nose"
+      aliases: ["Roman nose", "hooked nose", "curved nose"]
+      description: "Curved, aquiline nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_broad
+      label: "broad nose"
+      aliases: ["wide nose", "flat nose", "wide nostrils"]
+      description: "Broad, wide nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_narrow
+      label: "narrow nose"
+      aliases: ["thin nose", "slender nose", "pointed nose"]
+      description: "Narrow, thin nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_upturned
+      label: "upturned nose"
+      aliases: ["celestial nose", "upturned tip", "nose pointing up"]
+      description: "Nose with upturned tip"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_downturned
+      label: "downturned nose"
+      aliases: ["hawk nose", "nose pointing down", "drooping nose"]
+      description: "Nose with downturned tip"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_bulbous
+      label: "bulbous nose"
+      aliases: ["round nose tip", "large nose tip", "bulbous tip"]
+      description: "Nose with bulbous/round tip"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_small
+      label: "small nose"
+      aliases: ["tiny nose", "petite nose", "dainty nose"]
+      description: "Small, petite nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_large
+      label: "large nose"
+      aliases: ["big nose", "prominent nose", "long nose"]
+      description: "Large, prominent nose"
+      explicit: false
+      weight: 1.0
+
+    - id: face_nose_pierced
+      label: "nose piercing"
+      aliases: ["nose ring", "nostril piercing", "septum ring"]
+      description: "Nose with visible piercing"
+      explicit: false
+      weight: 1.0
+
+lips:
+  fullness:
+    - id: face_lips_thin
+      label: "thin lips"
+      aliases: ["narrow lips", "small lips", "tight lips"]
+      description: "Thin, narrow lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_full
+      label: "full lips"
+      aliases: ["plump lips", "thick lips", "generous lips"]
+      description: "Full, plump lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_very_full
+      label: "very full lips"
+      aliases: ["pillow lips", "duck lips", "overly plump lips"]
+      description: "Very full, exaggerated lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_average
+      label: "average lips"
+      aliases: ["medium lips", "normal lips"]
+      description: "Average lip fullness"
+      explicit: false
+      weight: 1.0
+
+  shape:
+    - id: face_lips_cupid_bow
+      label: "cupid's bow lips"
+      aliases: ["defined cupid's bow", "sharp lip bow"]
+      description: "Lips with pronounced cupid's bow"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_heart_shaped
+      label: "heart-shaped lips"
+      aliases: ["heart lips", "full upper lip"]
+      description: "Heart-shaped lip contour"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_bow_shaped
+      label: "bow-shaped lips"
+      aliases: ["bow lips", "natural bow"]
+      description: "Natural bow-shaped lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_wide
+      label: "wide mouth"
+      aliases: ["broad mouth", "wide smile", "large mouth"]
+      description: "Wide mouth/lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_narrow
+      label: "narrow mouth"
+      aliases: ["small mouth", "petite mouth"]
+      description: "Narrow, small mouth"
+      explicit: false
+      weight: 1.0
+
+  attributes:
+    - id: face_lips_natural
+      label: "natural lips"
+      aliases: ["bare lips", "no lipstick", "natural lip color"]
+      description: "Natural, unadorned lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_red_lipstick
+      label: "red lipstick"
+      aliases: ["red lips", "classic red lips", "bold red"]
+      description: "Red lipstick on lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_dark_lipstick
+      label: "dark lipstick"
+      aliases: ["black lipstick", "dark lips", "goth lips", "purple lips"]
+      description: "Dark-colored lipstick"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_glossy
+      label: "glossy lips"
+      aliases: ["shiny lips", "lip gloss", "wet-looking lips"]
+      description: "Glossy, shiny lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_matte
+      label: "matte lips"
+      aliases: ["matte lipstick", "flat color lips"]
+      description: "Matte-finish lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_nude
+      label: "nude lips"
+      aliases: ["nude lipstick", "natural tone lips", "barely-there color"]
+      description: "Nude-colored lips"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_lip_gloss
+      label: "lip gloss"
+      aliases: ["clear gloss", "shiny gloss", "wet lips"]
+      description: "Lip gloss applied"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_lip_piercing
+      label: "lip piercing"
+      aliases: ["lip ring", "labret", "snake bites", "spider bites"]
+      description: "Lip with visible piercing"
+      explicit: false
+      weight: 1.0
+
+    - id: face_lips_bitten
+      label: "bitten lips"
+      aliases: ["lip bite", "chewed lips", "blood bitten lips"]
+      description: "Lips that appear bitten"
+      explicit: false
+      weight: 1.0
+
+jawline:
+  - id: face_jaw_sharp
+    label: "sharp jawline"
+    aliases: ["defined jaw", "chiseled jaw", "cut jawline"]
+    description: "Sharp, defined jawline"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_soft
+    label: "soft jawline"
+    aliases: ["rounded jaw", "gentle jaw", "undefined jaw"]
+    description: "Soft, rounded jawline"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_square
+    label: "square jaw"
+    aliases: ["strong jaw", "angular jaw", "masculine jaw"]
+    description: "Square, angular jawline"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_round
+    label: "round jaw"
+    aliases: ["circular jaw", "soft round face"]
+    description: "Round jaw shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_pointed
+    label: "pointed chin"
+    aliases: ["V-line jaw", "sharp chin", "pointed jaw"]
+    description: "Pointed chin/jaw"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_cleft
+    label: "cleft chin"
+    aliases: ["dimpled chin", "butt chin", "chin dimple"]
+    description: "Chin with visible cleft/dimple"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_double_chin
+    label: "double chin"
+    aliases: ["extra chin", "under chin fat"]
+    description: "Visible double chin"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_weak
+    label: "weak chin"
+    aliases: ["receding chin", "small chin", "no chin"]
+    description: "Weak, receding chin"
+    explicit: false
+    weight: 1.0
+
+  - id: face_jaw_protruding
+    label: "protruding jaw"
+    aliases: ["jutting jaw", "underbite", "forward jaw"]
+    description: "Jaw that protrudes forward"
+    explicit: false
+    weight: 1.0
+
+cheeks:
+  - id: face_cheeks_high_cheekbones
+    label: "high cheekbones"
+    aliases: ["prominent cheekbones", "defined cheekbones", "sculpted cheeks"]
+    description: "High, prominent cheekbones"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_low_cheekbones
+    label: "low cheekbones"
+    aliases: ["flat cheekbones", "subtle cheekbones"]
+    description: "Low, subtle cheekbones"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_chubby
+    label: "chubby cheeks"
+    aliases: ["round cheeks", "full cheeks", "chipmunk cheeks"]
+    description: "Full, chubby cheeks"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_hollow
+    label: "hollow cheeks"
+    aliases: ["sunken cheeks", "gaunt cheeks", "gaunt face"]
+    description: "Hollow, sunken cheeks"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_blushing
+    label: "blushing cheeks"
+    aliases: ["rosy cheeks", "flushed cheeks", "pink cheeks"]
+    description: "Blushing, rosy cheeks"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_freckled
+    label: "freckled cheeks"
+    aliases: ["freckles across nose", "sun freckles"]
+    description: "Cheeks with visible freckles"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_dimples
+    label: "cheek dimples"
+    aliases: ["dimples", "smile dimples", "dimpled cheeks"]
+    description: "Visible cheek dimples when smiling"
+    explicit: false
+    weight: 1.0
+
+  - id: face_cheeks_blush_makeup
+    label: "blush makeup"
+    aliases: ["applied blush", "rosy makeup", "pink cheeks from makeup"]
+    description: "Visible blush makeup on cheeks"
+    explicit: false
+    weight: 1.0
+
+forehead:
+  - id: face_forehead_high
+    label: "high forehead"
+    aliases: ["large forehead", "broad forehead", "fivehead"]
+    description: "High, broad forehead"
+    explicit: false
+    weight: 1.0
+
+  - id: face_forehead_low
+    label: "low forehead"
+    aliases: ["small forehead", "narrow forehead", "short forehead"]
+    description: "Low, narrow forehead"
+    explicit: false
+    weight: 1.0
+
+  - id: face_forehead_broad
+    label: "broad forehead"
+    aliases: ["wide forehead", "expansive forehead"]
+    description: "Wide, broad forehead"
+    explicit: false
+    weight: 1.0
+
+  - id: face_forehead_smooth
+    label: "smooth forehead"
+    aliases: ["wrinkle-free forehead", "unlined forehead"]
+    description: "Smooth, unwrinkled forehead"
+    explicit: false
+    weight: 1.0
+
+  - id: face_forehead_wrinkled
+    label: "wrinkled forehead"
+    aliases: ["forehead lines", "aged forehead", "furrowed brow"]
+    description: "Forehead with visible wrinkles"
+    explicit: false
+    weight: 1.0
+
+ears:
+  - id: face_ears_small
+    label: "small ears"
+    aliases: ["petite ears", "tiny ears"]
+    description: "Small ears"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_large
+    label: "large ears"
+    aliases: ["big ears", "prominent ears", "jug ears"]
+    description: "Large, prominent ears"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_pointed
+    label: "pointed ears"
+    aliases: ["elf ears", "elfin ears", "tapered ears"]
+    description: "Pointed, elf-like ears"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_round
+    label: "round ears"
+    aliases: ["human ears", "normal ears"]
+    description: "Round, normal human ears"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_pierced
+    label: "ear piercings"
+    aliases: ["earrings", "pierced ears", "ear jewelry"]
+    description: "Ears with visible piercings"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_stretched
+    label: "stretched earlobes"
+    aliases: ["gauged ears", "stretched lobes", "ear plugs"]
+    description: "Stretched earlobe piercings"
+    explicit: false
+    weight: 1.0
+
+  - id: face_ears_hidden
+    label: "ears hidden by hair"
+    aliases: ["covered ears", "hair over ears"]
+    description: "Ears hidden behind hair"
+    explicit: false
+    weight: 1.0
+
+face_shape:
+  - id: face_shape_oval
+    label: "oval face"
+    aliases: ["oval face shape", "egg-shaped face"]
+    description: "Oval face shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_round
+    label: "round face"
+    aliases: ["circular face", "soft round face"]
+    description: "Round face shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_square
+    label: "square face"
+    aliases: ["angular face", "boxy face", "strong face"]
+    description: "Square face shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_heart
+    label: "heart-shaped face"
+    aliases: ["heart face", "inverted triangle face"]
+    description: "Heart-shaped face"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_diamond
+    label: "diamond face"
+    aliases: ["diamond-shaped face", "angular narrow face"]
+    description: "Diamond face shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_oblong
+    label: "oblong face"
+    aliases: ["long face", "rectangular face", "elongated face"]
+    description: "Oblong/long face shape"
+    explicit: false
+    weight: 1.0
+
+  - id: face_shape_triangle
+    label: "triangle face"
+    aliases: ["pear-shaped face", "wide jaw narrow forehead"]
+    description: "Triangle face shape"
+    explicit: false
+    weight: 1.0
+
+skin_details:
+  - id: skin_freckles
+    label: "freckles"
+    aliases: ["freckled face", "sun freckles", "light freckles"]
+    description: "Visible freckles on face"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_heavy_freckles
+    label: "heavy freckles"
+    aliases: ["dense freckles", "many freckles", "freckled all over"]
+    description: "Heavy, dense freckling"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_beauty_mark
+    label: "beauty mark"
+    aliases: ["mole", "beauty spot", "facial mole"]
+    description: "Visible beauty mark/mole"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_acne
+    label: "acne"
+    aliases: ["pimples", "breakout", "acne-prone skin"]
+    description: "Visible acne on face"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_acne_scars
+    label: "acne scars"
+    aliases: ["pitted scars", "acne marks", "scarring"]
+    description: "Visible acne scarring"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_rosacea
+    label: "rosacea"
+    aliases: ["redness", "flushed skin", "rosy skin condition"]
+    description: "Rosacea skin condition"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_vitiligo
+    label: "vitiligo"
+    aliases: ["patchy skin", "pigment loss", "white patches"]
+    description: "Vitiligo skin condition"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_wrinkles
+    label: "wrinkles"
+    aliases: ["fine lines", "aged skin", "wrinkled face"]
+    description: "Visible facial wrinkles"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_pores_visible
+    label: "visible pores"
+    aliases: ["realistic skin texture", "detailed skin", "skin pores"]
+    description: "Realistic visible skin pores"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_smooth
+    label: "smooth skin"
+    aliases: ["flawless skin", "perfect skin", "airbrushed skin"]
+    description: "Smooth, flawless skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_oily
+    label: "oily skin"
+    aliases: ["shiny skin", "glossy skin", "greasy skin"]
+    description: "Oily, shiny skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_dry
+    label: "dry skin"
+    aliases: ["flaky skin", "rough skin", "dehydrated skin"]
+    description: "Dry, flaky skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_tanned
+    label: "tanned skin"
+    aliases: ["sun-kissed", "bronzed skin", "tan lines"]
+    description: "Tanned skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_suntan_lines
+    label: "tan lines"
+    aliases: ["bikini tan lines", "sun tan marks", "uneven tan"]
+    description: "Visible tan lines"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_sunburned
+    label: "sunburned"
+    aliases: ["red from sun", "burned skin", "pink from sun"]
+    description: "Sunburned skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_pale_complexion
+    label: "pale complexion"
+    aliases: ["very pale", "ghostly pale", "porcelain complexion"]
+    description: "Very pale skin tone"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_glowing
+    label: "glowing skin"
+    aliases: ["radiant skin", "luminous skin", "healthy glow"]
+    description: "Healthy, glowing skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_sweaty
+    label: "sweaty skin"
+    aliases: ["perspiring", "glistening sweat", "damp skin"]
+    description: "Skin with visible sweat"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_wet
+    label: "wet skin"
+    aliases: ["dripping wet", "water on skin", "soaked skin"]
+    description: "Wet, dripping skin"
+    explicit: false
+    weight: 1.0
+
+neck_details:
+  - id: neck_tattoo
+    label: "neck tattoo"
+    aliases: ["throat tattoo", "neck ink"]
+    description: "Tattoo on neck"
+    explicit: false
+    weight: 1.0
+
+  - id: neck_piercing
+    label: "neck piercing"
+    aliases: ["throat piercing", "neck chain"]
+    description: "Piercing on neck"
+    explicit: false
+    weight: 1.0
+
+  - id: neck_thick
+    label: "thick neck"
+    aliases: ["muscular neck", "bull neck"]
+    description: "Thick muscular neck"
+    explicit: false
+    weight: 1.0
+
+  - id: neck_thin
+    label: "thin neck"
+    aliases: ["slender neck", "swan neck"]
+    description: "Thin slender neck"
+    explicit: false
+    weight: 1.0
+
+  - id: neck_visible_tendons
+    label: "visible tendons"
+    aliases: ["neck tendons", "tendon lines"]
+    description: "Visible tendons in neck"
+    explicit: false
+    weight: 1.0
+
+  - id: neck_adams_apple
+    label: "Adam's apple prominent"
+    aliases: ["visible adam's apple", "thyroid cartilage"]
+    description: "Prominent Adam's apple"
+    explicit: false
+    weight: 1.0
+
+throat_details:
+  - id: throat_collarbone_visible
+    label: "collarbone visible"
+    aliases: ["prominent collarbone", "clavicle showing"]
+    description: "Visible prominent collarbone"
+    explicit: false
+    weight: 1.0
+
+  - id: throat_decolletage
+    label: "decolletage"
+    aliases: ["chest area", "neckline", "bust"]
+    description: "Decolletage chest area"
+    explicit: false
+    weight: 1.0
+
+  - id: throat_neckline
+    label: "neckline"
+    aliases: ["cleavage", "neck line"]
+    description: "Visible neckline/cleavage"
+    explicit: false
+    weight: 1.0
+
+makeup_styles:
+  - id: makeup_contouring
+    label: "contouring"
+    aliases: ["face contour", "sculpted face"]
+    description: "Contouring makeup"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_highlighting
+    label: "highlighting"
+    aliases: ["face highlight", "glow makeup"]
+    description: "Highlighting makeup"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_false_lashes
+    label: "false lashes"
+    aliases: ["fake eyelashes", "dramatic lashes"]
+    description: "False eyelashes"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_lash_extensions
+    label: "lash extensions"
+    aliases: [" eyelash extensions", "permanently lashline"]
+    description: "Lash extensions"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_drag
+    label: "drag makeup"
+    aliases: ["drag queen", "heavy contouring"]
+    description: "Drag queen makeup style"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_editorial
+    label: "editorial makeup"
+    aliases: ["high fashion makeup", "avant-garde"]
+    description: "Editorial fashion makeup"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_gothic
+    label: "gothic makeup"
+    aliases: ["dark makeup", "black lipstick"]
+    description: "Gothic makeup style"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_natural
+    label: "natural makeup"
+    aliases: ["no makeup makeup", "subtle"]
+    description: "Natural subtle makeup"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_bridal
+    label: "bridal makeup"
+    aliases: ["wedding makeup", "groomed bridal"]
+    description: "Bridal makeup style"
+    explicit: false
+    weight: 1.0
+
+  - id: makeup_avant_garde
+    label: "avant-garde makeup"
+    aliases: ["experimental makeup", "artistic"]
+    description: "Avant-garde artistic makeup"
+    explicit: false
+    weight: 1.0
+
+eye_conditions:
+  - id: eye_bloodshot
+    label: "bloodshot eyes"
+    aliases: ["red eyes", "bloodshot", "tired eyes"]
+    description: "Bloodshot red eyes"
+    explicit: false
+    weight: 1.0
+
+  - id: eye_tired
+    label: "tired eyes"
+    aliases: ["sleepy eyes", "droopy eyelids"]
+    description: "Tired sleepy eyes"
+    explicit: false
+    weight: 1.0
+
+  - id: eye_puffy
+    label: "puffy eyes"
+    aliases: ["swollen eyes", "bags under eyes"]
+    description: "Puffy swollen eyes"
+    explicit: false
+    weight: 1.0
+
+  - id: eye_glossy
+    label: "glossy eyes"
+    aliases: ["shiny eyes", "wet look eyes"]
+    description: "Glossy wet-looking eyes"
+    explicit: false
+    weight: 1.0
+
+  - id: eye_glass
+    label: "glassy eyes"
+    aliases: ["glazed look", "vacant stare"]
+    description: "Glassy vacant stare"
+    explicit: false
+    weight: 1.0
+
+pupil_details:
+  - id: pupil_dilated
+    label: "dilated pupils"
+    aliases: ["wide pupils", "large pupils"]
+    description: "Dilated wide pupils"
+    explicit: false
+    weight: 1.0
+
+  - id: pupil_constricted
+    label: "constricted pupils"
+    aliases: ["small pupils", "pinpoint pupils"]
+    description: "Constricted small pupils"
+    explicit: false
+    weight: 1.0
+
+  - id: pupil_uneven
+    label: "uneven pupils"
+    aliases: ["anisocoria", "different sized pupils"]
+    description: "Uneven pupil sizes"
+    explicit: false
+    weight: 1.0
+
+eyelashes:
+  - id: lash_individual
+    label: "individual lashes"
+    aliases: ["individual lash extensions", "separated"]
+    description: "Individual lash extensions"
+    explicit: false
+    weight: 1.0
+
+  - id: lash_no_lashes
+    label: "no lashes"
+    aliases: ["bald lash line", "missing lashes"]
+    description: "No visible eyelashes"
+    explicit: false
+    weight: 1.0
+
+  - id: lash_voluminous
+    label: "voluminous lashes"
+    aliases: ["thick lashes", "dramatic lashes"]
+    description: "Extra voluminous lashes"
+    explicit: false
+    weight: 1.0
+
+skin_conditions:
+  - id: skin_goosebumps
+    label: "goosebumps"
+    aliases: ["gooseflesh", "pimples", "horripilation"]
+    description: "Visible goosebumps"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_broken_capillaries
+    label: "broken capillaries"
+    aliases: ["spider veins", "facial veins", "couperose"]
+    description: "Broken capillaries visible"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_bruising
+    label: "bruised skin"
+    aliases: ["bruise", "hematoma", "black and blue"]
+    description: "Bruised skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_cuts
+    label: "cut on face"
+    aliases: ["facial cut", "scratch on face"]
+    description: "Visible cut on face"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_pores_visible
+    label: "visible pores"
+    aliases: ["large pores", "pore visibility"]
+    description: "Visible pores on skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_oily_shine
+    label: "oily shine"
+    aliases: ["greasy skin", "shiny T-zone"]
+    description: "Oily shiny skin"
+    explicit: false
+    weight: 1.0
+
+  - id: skin_dry_flaky
+    label: "dry flaky skin"
+    aliases: ["dry skin", "flaking"]
+    description: "Dry flaky skin"
+    explicit: false
+    weight: 1.0

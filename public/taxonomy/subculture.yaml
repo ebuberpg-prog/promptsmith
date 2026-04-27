@@ -1,0 +1,334 @@
+# PROMPTSMITH TAXONOMY - SUBCULTURES & ALTERNATIVE CULTURES
+
+goth:
+  - id: sub_goth
+    label: "goth"
+    aliases: ["gothic", "goth subculture", "gothic aesthetic"]
+    description: "Goth subculture aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_goth_romantic
+    label: "romantic goth"
+    aliases: ["romantic gothic", "Victorian goth"]
+    description: "Romantic goth aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_industrial
+    label: "industrial"
+    aliases: ["industrial goth", "EBM", "darkwave"]
+    description: "Industrial subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_cybergoth
+    label: "cybergoth"
+    aliases: ["cyber goth", "futuristic goth"]
+    description: "Cybergoth subculture"
+    explicit: false
+    weight: 1.0
+
+punk:
+  - id: sub_punk
+    label: "punk"
+    aliases: ["punk rock", "punk subculture", "DIY ethic"]
+    description: "Punk subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_punk_70s
+    label: "1970s punk"
+    aliases: ["original punk", " CBGB", " Sex Pistols era"]
+    description: "1970s punk rock aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_punk_oi
+    label: "Oi! punk"
+    aliases: ["skinhead punk", "working class punk"]
+    description: "Oi! punk subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_punk_emo
+    label: "emo"
+    aliases: ["emotional hardcore", "scene"]
+    description: "Emo subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_hardcore
+    label: "hardcore punk"
+    aliases: ["hardcore", "mosh pit", "skate punk"]
+    description: "Hardcore punk aesthetic"
+    explicit: false
+    weight: 1.0
+
+hipster:
+  - id: sub_hipster
+    label: "hipster"
+    aliases: ["indie", "craft", "vintage modern"]
+    description: "Hipster subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_vintage_aesthetic
+    label: "vintage aesthetic"
+    aliases: ["retro", "pinup", "nostalgic"]
+    description: "Vintage aesthetic subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_artisanal
+    label: "artisanal"
+    aliases: ["craft culture", "maker movement", "handmade"]
+    description: "Artisanal craft culture"
+    explicit: false
+    weight: 1.0
+
+biker:
+  - id: sub_biker
+    label: "biker"
+    aliases: ["motorcycle", "hog", "MC"]
+    description: "Biker subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_outlaw_biker
+    label: "outlaw biker"
+    aliases: ["1%er", "club", "biker gang"]
+    description: "Outlaw biker aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_cafe_racer
+    label: "cafe racer"
+    aliases: ["vintage motorcycle", "British cafe"]
+    description: "Cafe racer motorcycle aesthetic"
+    explicit: false
+    weight: 1.0
+
+military_tactical:
+  - id: sub_military
+    label: "military aesthetic"
+    aliases: ["tactical", "army", "combat"]
+    description: "Military aesthetic subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_tactical
+    label: "tactical gear"
+    aliases: ["operator", "gear head tactical"]
+    description: "Tactical gear aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_prepper
+    label: "prepper"
+    aliases: ["survivalist", "SHTF", "off-grid"]
+    description: "Prepper/survivalist aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_militia
+    label: "militia"
+    aliases: ["patriot movement", "gun culture"]
+    description: "Militia movement aesthetic"
+    explicit: false
+    weight: 1.0
+
+streetwear:
+  - id: sub_streetwear
+    label: "streetwear"
+    aliases: ["hypebeast", "urban fashion", "sneakerhead"]
+    description: "Streetwear subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_sneakerhead
+    label: "sneakerhead"
+    aliases: ["shoe collector", "kicks", "sneaker culture"]
+    description: "Sneakerhead culture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_skateboard
+    label: "skate culture"
+    aliases: ["skater", "skateboarding", "Vans"]
+    description: "Skateboarding subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_surf
+    label: "surf culture"
+    aliases: ["surfer", "beach", "wave rider"]
+    description: "Surf culture aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_graffiti
+    label: "graffiti artist"
+    aliases: ["street art", "tagger", "bombing"]
+    description: "Graffiti artist aesthetic"
+    explicit: false
+    weight: 1.0
+
+fashion:
+  - id: sub_high_fashion
+    label: "high fashion"
+    aliases: ["haute couture", "runway", "avant-garde fashion"]
+    description: "High fashion/avant-garde"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_vaporwave
+    label: "vaporwave"
+    aliases: ["retrowave", "synthwave aesthetic", "90s digital"]
+    description: "Vaporwave aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_cottagecore
+    label: "cottagecore"
+    aliases: ["farmcore", "countryside aesthetic", "romantic rural"]
+    description: "Cottagecore aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_dark_academia
+    label: "dark academia"
+    aliases: ["tome aesthetic", "literary dark", "scholar gothic"]
+    description: "Dark academia aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_light_academia
+    label: "light academia"
+    aliases: ["bright scholarly", "preppy academic"]
+    description: "Light academia aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_burlesque
+    label: "burlesque"
+    aliases: ["cabaret", "tease", "vintage performance"]
+    description: "Burlesque aesthetic"
+    explicit: false
+    weight: 1.0
+
+anime_manga:
+  - id: sub_anime
+    label: "anime aesthetic"
+    aliases: ["anime fan", "manga style", "Japanese animation"]
+    description: "Anime aesthetic subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_weeb
+    label: "weeb"
+    aliases: ["otaku", "anime obsessive", "weeaboo"]
+    description: "Weeb/otaku subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_kawaii
+    label: "kawaii"
+    aliases: ["cute Japanese", "pastel", "Hello Kitty"]
+    description: "Kawaii cute aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_decora
+    label: "Decora"
+    aliases: ["colorful Japanese", "accessory heavy"]
+    description: "Decora kawaii aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_visual_kei
+    label: "Visual Kei"
+    aliases: ["Japanese rock fashion", "genderless"]
+    description: "Visual Kei Japanese rock aesthetic"
+    explicit: false
+    weight: 1.0
+
+gaming:
+  - id: sub_gamer
+    label: "gamer aesthetic"
+    aliases: ["gaming culture", "gamer lifestyle"]
+    description: "Gamer subculture"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_cyberpunk
+    label: "cyberpunk"
+    aliases: ["futuristic", "neon noir", "high tech low life"]
+    description: "Cyberpunk aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_retro_gaming
+    label: "retro gaming"
+    aliases: ["8-bit", "16-bit", "pixel art culture"]
+    description: "Retro gaming aesthetic"
+    explicit: false
+    weight: 1.0
+
+esoteric:
+  - id: sub_witchy
+    label: "witchy"
+    aliases: ["Wiccan", "pagan aesthetic", "occult"]
+    description: "Witchy/pagan aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_astrology
+    label: "astrology obsessed"
+    aliases: ["zodiac", "natal chart", "cosmic"]
+    description: "Astrology enthusiast aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_occult
+    label: "occult"
+    aliases: ["dark occult", "satanic", "ritual"]
+    description: "Occult aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_satanic
+    label: "satanic"
+    aliases: ["The Satanic Temple", "anti-Christian"]
+    description: "Satanic aesthetic"
+    explicit: false
+    weight: 1.0
+
+adult:
+  - id: sub_bdsm
+    label: "BDSM aesthetic"
+    aliases: ["kink", "bondage", "fetish fashion"]
+    description: "BDSM kink aesthetic"
+    explicit: true
+    weight: 1.0
+
+  - id: sub_latex
+    label: "latex fetish"
+    aliases: ["rubber", "catsuit lover"]
+    description: "Latex rubber fetish aesthetic"
+    explicit: true
+    weight: 1.0
+
+  - id: sub_cuckold
+    label: "cuckolding aesthetic"
+    aliases: ["hotwife", "cuckoldry"]
+    description: "Cuckolding lifestyle aesthetic"
+    explicit: true
+    weight: 1.0
+
+  - id: sub_swingers
+    label: "swinger lifestyle"
+    aliases: ["partner swapping", "lifestyle"]
+    description: "Swingers lifestyle aesthetic"
+    explicit: true
+    weight: 1.0

@@ -1,0 +1,353 @@
+# PROMPTSMITH TAXONOMY - FESTIVALS & EVENTS
+
+religious:
+  christian:
+    - id: event_christmas
+      label: "Christmas"
+      aliases: ["Xmas", "holiday season", "Nativity"]
+      description: "Christmas celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_easter
+      label: "Easter"
+      aliases: ["Easter Sunday", "Pascha", "Resurrection"]
+      description: "Easter celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_thanksgiving
+      label: "Thanksgiving"
+      aliases: ["Turkey Day", "Harvest Festival"]
+      description: "Thanksgiving celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_valentines
+      label: "Valentine's Day"
+      aliases: ["Valentine", "Day of Lovers", "Feb 14"]
+      description: "Valentine's Day celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_halloween
+      label: "Halloween"
+      aliases: ["All Hallows Eve", "Spooky Season", "Oct 31"]
+      description: "Halloween celebration"
+      explicit: false
+      weight: 1.0
+
+  non_christian:
+    - id: event_diwali
+      label: "Diwali"
+      aliases: ["Festival of Lights", "Deepavali", "Hindu festival"]
+      description: "Diwali Festival of Lights"
+      explicit: false
+      weight: 1.0
+
+    - id: event_eid
+      label: "Eid al-Fitr"
+      aliases: ["Eid", "Ramadan end", "Islamic festival"]
+      description: "Eid al-Fitr celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_eid_adha
+      label: "Eid al-Adha"
+      aliases: ["Eid Qurbani", "Greater Eid"]
+      description: "Eid al-Adha celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_hanukkah
+      label: "Hanukkah"
+      aliases: ["Chanukah", "Festival of Lights", "Jewish"]
+      description: "Hanukkah celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_passover
+      label: "Passover"
+      aliases: ["Pesach", "Jewish festival"]
+      description: "Passover celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_vesak
+      label: "Vesak"
+      aliases: ["Buddha Day", "Wesak", "Buddhist festival"]
+      description: "Vesak/Buddha Day celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_chinese_new_year
+      label: "Chinese New Year"
+      aliases: ["Lunar New Year", "Spring Festival", "Tet"]
+      description: "Chinese New Year celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_dussehra
+      label: "Dussehra"
+      aliases: ["Dasara", "Vijayadashami", "Hindu festival"]
+      description: "Dussehra celebration"
+      explicit: false
+      weight: 1.0
+
+    - id: event_holi
+      label: "Holi"
+      aliases: ["Festival of Colors", "Phagwah", "Hindu spring festival"]
+      description: "Holi Festival of Colors"
+      explicit: false
+      weight: 1.0
+
+cultural:
+  - id: event_carnival
+    label: "Carnival"
+    aliases: ["Mardi Gras", "Brazilian Carnival", "Carnevale"]
+    description: "Carnival celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_oktoberfest
+    label: "Oktoberfest"
+    aliases: ["German beer festival", "Munich"]
+    description: "Oktoberfest celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_sanmarino
+    label: "La Tomatina"
+    aliases: ["Tomato festival", "Spain"]
+    description: "La Tomatina tomato festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_sundance
+    label: "Sundance Film Festival"
+    aliases: ["film festival", "independent cinema"]
+    description: "Sundance Film Festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_cannes
+    label: "Cannes Film Festival"
+    aliases: ["film festival", "Cannes"]
+    description: "Cannes Film Festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_mardis_gras
+    label: "Mardi Gras"
+    aliases: ["Fat Tuesday", "Pre-Lenten"]
+    description: "Mardi Gras celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_day_dead
+    label: "Day of the Dead"
+    aliases: ["Dia de los Muertos", "Mexican holiday"]
+    description: "Day of the Dead celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_bastille_day
+    label: "Bastille Day"
+    aliases: ["July 14", "French National Day"]
+    description: "Bastille Day celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_st_patricks
+    label: "St. Patrick's Day"
+    aliases: ["Patrick", "Irish", "Green Day"]
+    description: "St. Patrick's Day celebration"
+    explicit: false
+    weight: 1.0
+
+music:
+  - id: event_rock_concert
+    label: "rock concert"
+    aliases: ["rock music festival", "guitar concert"]
+    description: "Rock concert/music festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_electronic_festival
+    label: "electronic music festival"
+    aliases: ["EDM festival", "rave", "techno"]
+    description: "Electronic music festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_jazz_festival
+    label: "jazz festival"
+    aliases: ["jazz concert", "New Orleans style"]
+    description: "Jazz festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_classical_concert
+    label: "classical concert"
+    aliases: ["orchestra", "symphony", "opera"]
+    description: "Classical music concert"
+    explicit: false
+    weight: 1.0
+
+  - id: event_folk_festival
+    label: "folk festival"
+    aliases: ["folk music", "acoustic", "bluegrass"]
+    description: "Folk music festival"
+    explicit: false
+    weight: 1.0
+
+  - id: event_kpop_concert
+    label: "K-pop concert"
+    aliases: ["K-pop", "Korean pop", "idol concert"]
+    description: "K-pop concert"
+    explicit: false
+    weight: 1.0
+
+celebrations:
+  - id: event_wedding
+    label: "wedding"
+    aliases: ["marriage ceremony", "bride groom"]
+    description: "Wedding celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_birthday
+    label: "birthday party"
+    aliases: ["birthday", "celebration", "cake"]
+    description: "Birthday party"
+    explicit: false
+    weight: 1.0
+
+  - id: event_anniversary
+    label: "anniversary"
+    aliases: ["celebration", "milestone"]
+    description: "Anniversary celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_graduation
+    label: "graduation"
+    aliases: ["commencement", "cap and gown", "diploma"]
+    description: "Graduation ceremony"
+    explicit: false
+    weight: 1.0
+
+  - id: event_prom
+    label: "prom"
+    aliases: ["prom night", "school dance", "formal"]
+    description: "Prom/high school dance"
+    explicit: false
+    weight: 1.0
+
+  - id: event_housewarming
+    label: "housewarming"
+    aliases: ["new home", "moving in celebration"]
+    description: "Housewarming party"
+    explicit: false
+    weight: 1.0
+
+  - id: event_baby_shower
+    label: "baby shower"
+    aliases: ["expecting mother", "baby celebration"]
+    description: "Baby shower celebration"
+    explicit: false
+    weight: 1.0
+
+sports:
+  - id: event_super_bowl
+    label: "Super Bowl"
+    aliases: ["NFL championship", "football"]
+    description: "Super Bowl event"
+    explicit: false
+    weight: 1.0
+
+  - id: event_olympics
+    label: "Olympics"
+    aliases: ["Olympic Games", "athletics"]
+    description: "Olympic Games"
+    explicit: false
+    weight: 1.0
+
+  - id: event_world_cup
+    label: "World Cup"
+    aliases: ["FIFA", "soccer championship"]
+    description: "World Cup soccer"
+    explicit: false
+    weight: 1.0
+
+  - id: event_wrestling
+    label: "wrestling match"
+    aliases: ["WWE", "pro wrestling", "sports entertainment"]
+    description: "Professional wrestling event"
+    explicit: false
+    weight: 1.0
+
+  - id: event_martial_arts
+    label: "martial arts tournament"
+    aliases: ["fighting championship", "MMA"]
+    description: "Martial arts tournament"
+    explicit: false
+    weight: 1.0
+
+seasonal:
+  - id: event_midsummer
+    label: "Midsummer"
+    aliases: ["Summer Solstice", "June 21"]
+    description: "Midsummer celebration"
+    explicit: false
+    weight: 1.0
+
+  - id: event_winter_solstice
+    label: "Winter Solstice"
+    aliases: ["Yule", "Dec 21", "shortest day"]
+    description: "Winter Solstice"
+    explicit: false
+    weight: 1.0
+
+  - id: event_spring_festival
+    label: "Spring Festival"
+    aliases: ["Vernal Equinox", "March equinox"]
+    description: "Spring Festival/Equinox"
+    explicit: false
+    weight: 1.0
+
+  - id: event_harvest_festival
+    label: "Harvest Festival"
+    aliases: ["Fall Festival", "Equinox celebration"]
+    description: "Harvest Festival"
+    explicit: false
+    weight: 1.0
+
+nightlife:
+  - id: event_clubbing
+    label: "nightclub"
+    aliases: ["dance club", "nightlife", "club scene"]
+    description: "Nightclub scene"
+    explicit: false
+    weight: 1.0
+
+  - id: event_bar_crawl
+    label: "bar crawl"
+    aliases: ["pub crawl", "night out", "drinking"]
+    description: "Bar/pub crawl event"
+    explicit: false
+    weight: 1.0
+
+  - id: event_karaoke
+    label: "karaoke"
+    aliases: ["singing", "KTV", "night out"]
+    description: "Karaoke event"
+    explicit: false
+    weight: 1.0
+
+  - id: event_casino
+    label: "casino night"
+    aliases: ["gambling", "Vegas style", "poker"]
+    description: "Casino night event"
+    explicit: false
+    weight: 1.0

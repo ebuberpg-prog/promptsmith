@@ -1,0 +1,310 @@
+# PROMPTSMITH TAXONOMY - ART MEDIUM & MEDIA TYPE
+
+photography:
+  film_types:
+    - id: med_photo_film
+      label: "film photography"
+      aliases: ["analog photo", "silver halide", "chemical process"]
+      description: "Traditional film photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_digital
+      label: "digital photography"
+      aliases: ["digital photo", "sensor capture"]
+      description: "Digital photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_instant
+      label: "instant film"
+      aliases: ["Polaroid", "Instax", "SX-70"]
+      description: "Instant film photography"
+      explicit: false
+      weight: 1.0
+
+  camera_types:
+    - id: med_photo_dslr
+      label: "DSLR"
+      aliases: ["digital SLR", "digital single-lens reflex"]
+      description: "DSLR photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_mirrorless
+      label: "mirrorless"
+      aliases: ["MILC", "compact system camera"]
+      description: "Mirrorless camera photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_medium_format
+      label: "medium format"
+      aliases: ["120 film", "Rolleiflex", "Hasselblad"]
+      description: "Medium format photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_large_format
+      label: "large format"
+      aliases: ["4x5", "8x10", "view camera"]
+      description: "Large format photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_compact
+      label: "compact camera"
+      aliases: ["point-and-shoot", "rangefinder"]
+      description: "Compact camera photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_smartphone
+      label: "smartphone photo"
+      aliases: ["phone camera", "mobile photography"]
+      description: "Smartphone photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_underwater
+      label: "underwater photography"
+      aliases: ["dive photography", "aquatic photo"]
+      description: "Underwater photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_aerial
+      label: "aerial photography"
+      aliases: ["drone photo", "airborne", "bird's eye"]
+      description: "Aerial photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_pinhole
+      label: "pinhole photography"
+      aliases: ["camera obscura", "no lens"]
+      description: "Pinhole photography"
+      explicit: false
+      weight: 1.0
+
+    - id: med_photo_stereoscopic
+      label: "stereoscopic"
+      aliases: ["3D photo", "stereo pair", "View-Master"]
+      description: "Stereoscopic 3D photography"
+      explicit: false
+      weight: 1.0
+
+three_dimensional:
+  rendering:
+    - id: med_3d_cycles
+      label: "Cycles render"
+      aliases: ["Blender Cycles", "ray traced"]
+      description: "Blender Cycles render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_eevee
+      label: "Eevee render"
+      aliases: ["Blender Eevee", "real-time render"]
+      description: "Blender Eevee render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_octane
+      label: "Octane Render"
+      aliases: ["Octane", "GPU render"]
+      description: "Octane Render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_redshift
+      label: "Redshift"
+      aliases: ["GPU accelerated render"]
+      description: "Redshift render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_vray
+      label: "V-Ray"
+      aliases: ["Chaos V-Ray", "photorealistic render"]
+      description: "V-Ray render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_unreal
+      label: "Unreal Engine"
+      aliases: ["real-time 3D", "UE5", "realistic lighting"]
+      description: "Unreal Engine render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_unity
+      label: "Unity Engine"
+      aliases: ["Unity 3D", "game engine"]
+      description: "Unity Engine render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_c4d
+      label: "Cinema 4D"
+      aliases: ["C4D", "Maxon Cinema 4D"]
+      description: "Cinema 4D render"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_zbrush
+      label: "ZBrush sculpture"
+      aliases: ["digital sculpt", "3D model"]
+      description: "ZBrush digital sculpture"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_lowpoly
+      label: "low poly"
+      aliases: ["geometric 3D", "faceted"]
+      description: "Low poly 3D style"
+      explicit: false
+      weight: 1.0
+
+    - id: med_3d_voxel
+      label: "voxel art"
+      aliases: ["Minecraft style", "cubic"]
+      description: "Voxel art style"
+      explicit: false
+      weight: 1.0
+
+animation:
+  - id: med_animation_2d
+    label: "2D animation"
+    aliases: ["cel animation", "hand drawn", "traditional anime"]
+    description: "2D animation style"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_3d_cgi
+    label: "3D CGI"
+    aliases: ["computer animation", "Pixar style", "3D animated"]
+    description: "3D CGI animation"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_stop_motion
+    label: "stop motion"
+    aliases: ["claymation", "found object animation"]
+    description: "Stop motion animation"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_puppet
+    label: "puppet animation"
+    aliases: ["Muppets style", "animatronic"]
+    description: "Puppet animation"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_cutout
+    label: "cutout animation"
+    aliases: ["paper cutout", "silhouette animation"]
+    description: "Cutout animation style"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_motion_graphics
+    label: "motion graphics"
+    aliases: ["After Effects", " kinetic typography"]
+    description: "Motion graphics"
+    explicit: false
+    weight: 1.0
+
+  - id: med_animation_ai
+    label: "AI-generated animation"
+    aliases: ["AI animation", "machine learning video"]
+    description: "AI-generated animation"
+    explicit: false
+    weight: 1.0
+
+video:
+  - id: med_video_live_action
+    label: "live action video"
+    aliases: ["filmed footage", "real footage"]
+    description: "Live action video footage"
+    explicit: false
+    weight: 1.0
+
+  - id: med_video_vhs
+    label: "VHS style"
+    aliases: ["retro video", "analog video", " videotape"]
+    description: "VHS/analog video aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: med_video_security_cam
+    label: "security camera"
+    aliases: ["CCTV", "surveillance footage", "night vision"]
+    description: "Security camera aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: med_video_go_pro
+    label: "GoPro POV"
+    aliases: ["action cam", " POV footage", "body cam"]
+    description: "GoPro POV footage"
+    explicit: false
+    weight: 1.0
+
+  - id: med_video_drone
+    label: "drone footage"
+    aliases: ["aerial video", "UAV video"]
+    description: "Drone aerial footage"
+    explicit: false
+    weight: 1.0
+
+  - id: med_video_endoscope
+    label: "endoscopic"
+    aliases: [" POV cam", " POV video", "inner workings"]
+    description: "Endoscopic POV footage"
+    explicit: false
+    weight: 1.0
+
+mixed_media:
+  - id: med_mixed_photobash
+    label: "photobash"
+    aliases: ["photo manipulation", "composite"]
+    description: "Photobashed/mixed media"
+    explicit: false
+    weight: 1.0
+
+  - id: med_mixed_collage
+    label: "collage"
+    aliases: ["mixed media collage", "cut and paste"]
+    description: "Collage style"
+    explicit: false
+    weight: 1.0
+
+  - id: med_mixed_digital_mixed
+    label: "digital painting"
+    aliases: ["digital art", "graphic art"]
+    description: "Digital painting/mixed"
+    explicit: false
+    weight: 1.0
+
+  - id: med_mixed_analog_analog
+    label: "analog mixed media"
+    aliases: ["mixed media art", "multimedia"]
+    description: "Analog mixed media"
+    explicit: false
+    weight: 1.0
+
+  - id: med_mixed_glitch
+    label: "glitch art"
+    aliases: ["databending", "digital corruption"]
+    description: "Glitch art aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: med_mixed_vaporwave
+    label: "vaporwave"
+    aliases: ["aesthetic collage", "synthwave"]
+    description: "Vaporwave aesthetic"
+    explicit: false
+    weight: 1.0

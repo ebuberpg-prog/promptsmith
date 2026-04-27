@@ -1,0 +1,334 @@
+# PROMPTSMITH TAXONOMY - COLOR PALETTES & SCHEMES
+
+monochromatic:
+  - id: color_mono_red
+    label: "monochromatic red"
+    aliases: ["red palette", "red color scheme"]
+    description: "Monochromatic red palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_blue
+    label: "monochromatic blue"
+    aliases: ["blue palette", "blue color scheme"]
+    description: "Monochromatic blue palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_green
+    label: "monochromatic green"
+    aliases: ["green palette", "green color scheme"]
+    description: "Monochromatic green palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_yellow
+    label: "monochromatic yellow"
+    aliases: ["yellow palette", "yellow color scheme"]
+    description: "Monochromatic yellow palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_purple
+    label: "monochromatic purple"
+    aliases: ["purple palette", "violet color scheme"]
+    description: "Monochromatic purple palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_orange
+    label: "monochromatic orange"
+    aliases: ["orange palette", "amber color scheme"]
+    description: "Monochromatic orange palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_pink
+    label: "monochromatic pink"
+    aliases: ["pink palette", "rose color scheme"]
+    description: "Monochromatic pink palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_black
+    label: "monochromatic black"
+    aliases: ["black palette", "noir color scheme"]
+    description: "Monochromatic black palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mono_white
+    label: "monochromatic white"
+    aliases: ["white palette", "clean white scheme"]
+    description: "Monochromatic white palette"
+    explicit: false
+    weight: 1.0
+
+complementary:
+  - id: color_compl_blue_orange
+    label: "blue and orange"
+    aliases: ["complementary blue orange", "contrast warm cool"]
+    description: "Complementary blue-orange palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_compl_red_green
+    label: "red and green"
+    aliases: ["complementary red green", "christmas palette"]
+    description: "Complementary red-green palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_compl_yellow_purple
+    label: "yellow and purple"
+    aliases: ["complementary yellow purple", "regal contrast"]
+    description: "Complementary yellow-purple palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_compl_pink_green
+    label: "pink and green"
+    aliases: ["complementary pink green", "spring palette"]
+    description: "Complementary pink-green palette"
+    explicit: false
+    weight: 1.0
+
+analogous:
+  - id: color_analog_warm
+    label: "warm analogous"
+    aliases: ["warm palette", "red orange yellow"]
+    description: "Warm analogous color palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_analog_cool
+    label: "cool analogous"
+    aliases: ["cool palette", "blue green purple"]
+    description: "Cool analogous color palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_analog_earth
+    label: "earth tones"
+    aliases: ["brown palette", "natural colors", "beige"]
+    description: "Earth tone analogous palette"
+    explicit: false
+    weight: 1.0
+
+triadic:
+  - id: color_triad_rgb
+    label: "RGB triad"
+    aliases: ["red blue green", "primary colors"]
+    description: "Primary color RGB triad"
+    explicit: false
+    weight: 1.0
+
+  - id: color_triad_ryb
+    label: "RYB triad"
+    aliases: ["red yellow blue", "artist primaries"]
+    description: "RYB artistic triad"
+    explicit: false
+    weight: 1.0
+
+  - id: color_triad_pastel
+    label: "pastel triad"
+    aliases: ["soft triadic", "light colors"]
+    description: "Pastel triadic palette"
+    explicit: false
+    weight: 1.0
+
+split_complementary:
+  - id: color_split_red
+    label: "split red"
+    aliases: ["red with yellow-green blue-green"]
+    description: "Split complementary around red"
+    explicit: false
+    weight: 1.0
+
+  - id: color_split_blue
+    label: "split blue"
+    aliases: ["blue with red-orange yellow-orange"]
+    description: "Split complementary around blue"
+    explicit: false
+    weight: 1.0
+
+  - id: color_split_yellow
+    label: "split yellow"
+    aliases: ["yellow with red-violet blue-violet"]
+    description: "Split complementary around yellow"
+    explicit: false
+    weight: 1.0
+
+thematic:
+  sunset:
+    - id: color_sunset
+      label: "sunset palette"
+      aliases: ["orange pink purple", "dusk colors", "golden hour extended"]
+      description: "Sunset gradient palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_sunrise
+      label: "sunrise palette"
+      aliases: ["golden pink", "dawn colors", "morning glow"]
+      description: "Sunrise palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_golden_hour
+      label: "golden hour"
+      aliases: ["warm golden", "magic hour", "golden light"]
+      description: "Golden hour lighting colors"
+      explicit: false
+      weight: 1.0
+
+  oceanic:
+    - id: color_ocean
+      label: "ocean palette"
+      aliases: ["teal blue aqua", "sea colors"]
+      description: "Ocean blue-green palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_deep_sea
+      label: "deep sea"
+      aliases: ["dark blue black", "abyssal colors"]
+      description: "Deep ocean dark palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_tropical
+      label: "tropical"
+      aliases: ["teal coral turquoise", "paradise"]
+      description: "Tropical vibrant palette"
+      explicit: false
+      weight: 1.0
+
+  forest:
+    - id: color_forest
+      label: "forest palette"
+      aliases: ["green brown", "nature colors"]
+      description: "Forest green-brown palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_autumn
+      label: "autumn palette"
+      aliases: ["orange red yellow", "fall colors", "harvest"]
+      description: "Autumn fall colors"
+      explicit: false
+      weight: 1.0
+
+  urban:
+    - id: color_neon
+      label: "neon palette"
+      aliases: ["bright neon colors", "electric", "vibrant cyber"]
+      description: "Neon bright colors"
+      explicit: false
+      weight: 1.0
+
+    - id: color_pastel
+      label: "pastel palette"
+      aliases: ["soft colors", "light muted", "kawaii"]
+      description: "Soft pastel colors"
+      explicit: false
+      weight: 1.0
+
+    - id: color_vintage
+      label: "vintage palette"
+      aliases: ["muted warm", "faded colors", "retro"]
+      description: "Vintage muted palette"
+      explicit: false
+      weight: 1.0
+
+    - id: color_noir
+      label: "noir palette"
+      aliases: ["black white gray", "monochrome", "high contrast"]
+      description: "Film noir black and white"
+      explicit: false
+      weight: 1.0
+
+mood_based:
+  - id: color_mood_cheerful
+    label: "cheerful colors"
+    aliases: ["bright happy colors", "yellow orange"]
+    description: "Cheerful bright color palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_mysterious
+    label: "mysterious colors"
+    aliases: ["dark purple blue", "enigmatic"]
+    description: "Mysterious dark palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_romantic
+    label: "romantic colors"
+    aliases: ["red pink rose", "passionate"]
+    description: "Romantic red-pink palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_melancholic
+    label: "melancholic colors"
+    aliases: ["blue gray", "sad tones"]
+    description: "Melancholic blue-gray palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_energetic
+    label: "energetic colors"
+    aliases: ["red orange yellow bright", "dynamic"]
+    description: "Energetic vibrant palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_peaceful
+    label: "peaceful colors"
+    aliases: ["blue green soft", "calming"]
+    description: "Peaceful calming palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_edgy
+    label: "edgy colors"
+    aliases: ["black red", "punk", "rebellious"]
+    description: "Edgy black-red palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_luxurious
+    label: "luxurious colors"
+    aliases: ["gold black purple", "royal", "expensive"]
+    description: "Luxurious gold-purple palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_natural
+    label: "natural colors"
+    aliases: ["earth tones", "organic", "neutral"]
+    description: "Natural earth tone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_candy
+    label: "candy colors"
+    aliases: ["bright pink blue yellow", "sweet", "playful"]
+    description: "Candy bright playful palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_military
+    label: "military colors"
+    aliases: ["olive drab green brown", "camouflage tones"]
+    description: "Military olive palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_mood_corporate
+    label: "corporate colors"
+    aliases: ["blue gray navy", "professional"]
+    description: "Corporate professional palette"
+    explicit: false
+    weight: 1.0

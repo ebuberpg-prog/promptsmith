@@ -1,0 +1,1382 @@
+# PROMPTSMITH TAXONOMY - CAMERA, LIGHTING & STYLE
+
+camera:
+  angle:
+    - id: cam_angle_bird_eye
+      label: "bird's eye view"
+      aliases: ["overhead shot", "top-down view", "aerial view"]
+      description: "View from directly above"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_high_angle
+      label: "high angle"
+      aliases: ["looking down", "above eye level"]
+      description: "Camera positioned above subject"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_eye_level
+      label: "eye level"
+      aliases: ["straight on", "head-on view", "direct view"]
+      description: "Camera at subject's eye level"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_low_angle
+      label: "low angle"
+      aliases: ["looking up", "below eye level", "hero shot"]
+      description: "Camera positioned below subject"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_worm_eye
+      label: "worm's eye view"
+      aliases: ["ground level", "from below", "extreme low angle"]
+      description: "Extreme low angle from ground"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_dutch
+      label: "dutch angle"
+      aliases: ["tilted angle", "canted angle", "diagonal shot"]
+      description: "Tilted camera angle"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_over_shoulder
+      label: "over the shoulder"
+      aliases: ["OTS shot", "over shoulder view"]
+      description: "Shot from behind one subject's shoulder"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_pov
+      label: "point of view"
+      aliases: ["POV", "first person view", "first-person perspective"]
+      description: "First-person perspective"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_back_view
+      label: "back view"
+      aliases: ["from behind", "rear view", "view from back"]
+      description: "View of subject from behind"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_three_quarter
+      label: "three-quarter view"
+      aliases: ["3/4 view", "angled view", "partial profile"]
+      description: "Three-quarter angle view"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_angle_profile
+      label: "profile view"
+      aliases: ["side view", "sideways", "lateral view"]
+      description: "Side profile of subject"
+      explicit: false
+      weight: 1.0
+
+  distance:
+    - id: cam_dist_extreme_closeup
+      label: "extreme close-up"
+      aliases: ["ECU", "macro detail", "extreme detail"]
+      description: "Extreme close-up on detail"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_dist_closeup
+      label: "close-up"
+      aliases: ["CU", "head shot", "face shot"]
+      description: "Close-up on face/upper body"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_dist_medium
+      label: "medium shot"
+      aliases: ["MS", "waist-up shot", "mid shot"]
+      description: "Shot from waist up"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_dist_full
+      label: "full body shot"
+      aliases: ["full shot", "FS", "head to toe"]
+      description: "Full body visible"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_dist_wide
+      label: "wide shot"
+      aliases: ["WS", "establishing shot", "long shot"]
+      description: "Wide establishing shot"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_dist_extreme_wide
+      label: "extreme wide shot"
+      aliases: ["EWS", "panoramic", "sweeping vista"]
+      description: "Extreme wide panoramic shot"
+      explicit: false
+      weight: 1.0
+
+  lens:
+    - id: cam_lens_wide
+      label: "wide angle lens"
+      aliases: ["wide lens", "14mm", "ultra-wide"]
+      description: "Wide angle lens effect"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_lens_standard
+      label: "standard lens"
+      aliases: ["50mm", "normal lens", "nifty fifty"]
+      description: "Standard 50mm lens"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_lens_telephoto
+      label: "telephoto lens"
+      aliases: ["85mm", "135mm", "portrait lens", "compressed background"]
+      description: "Telephoto lens with compression"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_lens_macro
+      label: "macro lens"
+      aliases: ["macro photography", "extreme detail", "close-up lens"]
+      description: "Macro lens for extreme detail"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_lens_fisheye
+      label: "fisheye lens"
+      aliases: ["fish-eye", "ultra-wide distortion", "barrel distortion"]
+      description: "Fisheye lens with distortion"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_lens_tilt_shift
+      label: "tilt-shift lens"
+      aliases: ["miniature effect", "selective focus", "tilt shift"]
+      description: "Tilt-shift miniature effect"
+      explicit: false
+      weight: 1.0
+
+  effects:
+    - id: cam_effect_bokeh
+      label: "bokeh"
+      aliases: ["shallow depth of field", "blurred background", "creamy bokeh"]
+      description: "Blurred background bokeh effect"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_effect_lens_flare
+      label: "lens flare"
+      aliases: ["sun flare", "light streaks", "anamorphic flare"]
+      description: "Lens flare effect"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_effect_motion_blur
+      label: "motion blur"
+      aliases: ["movement blur", "action blur", "speed blur"]
+      description: "Motion blur effect"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_effect_chromatic_aberration
+      label: "chromatic aberration"
+      aliases: ["color fringing", "RGB split", "color separation"]
+      description: "Chromatic aberration effect"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_effect_vignette
+      label: "vignette"
+      aliases: ["darkened edges", "dark corners", "vignetted"]
+      description: "Darkened edge vignette"
+      explicit: false
+      weight: 1.0
+
+    - id: cam_effect_grain
+      label: "film grain"
+      aliases: ["grainy", "film texture", "analog grain"]
+      description: "Visible film grain"
+      explicit: false
+      weight: 1.0
+
+  film_stock:
+    - id: film_kodak_portra
+      label: "Kodak Portra"
+      aliases: ["Portra 400", "Portra 160", "warm film tones"]
+      description: "Kodak Portra film emulation"
+      explicit: false
+      weight: 1.0
+
+    - id: film_kodak_gold
+      label: "Kodak Gold"
+      aliases: ["Gold 200", "warm vintage film"]
+      description: "Kodak Gold film emulation"
+      explicit: false
+      weight: 1.0
+
+    - id: film_fuji_velvia
+      label: "Fuji Velvia"
+      aliases: ["Velvia 50", "vivid slide film", "saturated film"]
+      description: "Fuji Velvia slide film"
+      explicit: false
+      weight: 1.0
+
+    - id: film_fuji_provia
+      label: "Fuji Provia"
+      aliases: ["Provia 100F", "neutral film"]
+      description: "Fuji Provia film"
+      explicit: false
+      weight: 1.0
+
+    - id: film_ilford
+      label: "Ilford HP5"
+      aliases: ["black and white film", "BW film", "monochrome film"]
+      description: "Ilford HP5 B&W film"
+      explicit: false
+      weight: 1.0
+
+    - id: film_cinestill
+      label: "CineStill 800T"
+      aliases: ["tungsten film", "cinema film", "halation"]
+      description: "CineStill 800T tungsten film"
+      explicit: false
+      weight: 1.0
+
+    - id: film_polaroid
+      label: "Polaroid"
+      aliases: ["instant film", "Polaroid photo", "instant camera"]
+      description: "Polaroid instant film"
+      explicit: false
+      weight: 1.0
+
+    - id: film_expired
+      label: "expired film"
+      aliases: ["outdated film", "cross-processed", "color shift"]
+      description: "Expired film with color shifts"
+      explicit: false
+      weight: 1.0
+
+    - id: film_daguerreotype
+      label: "daguerreotype"
+      aliases: ["early photography", "1800s photo", "tintype"]
+      description: "19th century daguerreotype style"
+      explicit: false
+      weight: 1.0
+
+lighting:
+  quality:
+    - id: light_hard
+      label: "hard light"
+      aliases: ["direct light", "harsh shadows", "specular highlights"]
+      description: "Hard, direct lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_soft
+      label: "soft light"
+      aliases: ["diffused light", "gentle lighting", "soft shadows"]
+      description: "Soft, diffused lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_dramatic
+      label: "dramatic lighting"
+      aliases: ["high contrast", "strong shadows", "theatrical light"]
+      description: "Dramatic, high-contrast lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_flat
+      label: "flat lighting"
+      aliases: ["even lighting", "no shadows", "uniform light"]
+      description: "Flat, even lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_volumetric
+      label: "volumetric lighting"
+      aliases: ["god rays", "light beams", "crepuscular rays"]
+      description: "Volumetric light beams"
+      explicit: false
+      weight: 1.0
+
+  direction:
+    - id: light_front
+      label: "front lighting"
+      aliases: ["frontal light", "direct front light"]
+      description: "Light from the front"
+      explicit: false
+      weight: 1.0
+
+    - id: light_side
+      label: "side lighting"
+      aliases: ["lateral light", "split lighting"]
+      description: "Light from the side"
+      explicit: false
+      weight: 1.0
+
+    - id: light_back
+      label: "backlighting"
+      aliases: ["backlit", "rim lighting", "silhouette light"]
+      description: "Light from behind subject"
+      explicit: false
+      weight: 1.0
+
+    - id: light_top
+      label: "top lighting"
+      aliases: ["overhead light", "light from above", "downlighting"]
+      description: "Light from above"
+      explicit: false
+      weight: 1.0
+
+    - id: light_bottom
+      label: "under lighting"
+      aliases: ["light from below", "uplighting", "horror lighting"]
+      description: "Light from below"
+      explicit: false
+      weight: 1.0
+
+    - id: light_rim
+      label: "rim lighting"
+      aliases: ["edge lighting", "hair light", "outline glow"]
+      description: "Light outlining subject edges"
+      explicit: false
+      weight: 1.0
+
+  setup:
+    - id: light_rembandt
+      label: "Rembrandt lighting"
+      aliases: ["Rembrandt triangle", "classic portrait lighting"]
+      description: "Classic Rembrandt portrait lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_butterfly
+      label: "butterfly lighting"
+      aliases: ["paramount lighting", "beauty lighting"]
+      description: "Butterfly/beauty lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_loop
+      label: "loop lighting"
+      aliases: ["portrait loop", "standard portrait light"]
+      description: "Loop portrait lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_split
+      label: "split lighting"
+      aliases: ["half lit", "half face shadow"]
+      description: "Split face lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_chiaroscuro
+      label: "chiaroscuro"
+      aliases: ["extreme contrast", "light and dark", "Caravaggio lighting"]
+      description: "Extreme light/dark contrast"
+      explicit: false
+      weight: 1.0
+
+    - id: light_high_key
+      label: "high key lighting"
+      aliases: ["bright lighting", "overexposed", "white background"]
+      description: "Bright, high-key lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_low_key
+      label: "low key lighting"
+      aliases: ["dark lighting", "moody lighting", "shadow-heavy"]
+      description: "Dark, low-key lighting"
+      explicit: false
+      weight: 1.0
+
+  source:
+    - id: light_source_natural
+      label: "natural light"
+      aliases: ["sunlight", "window light", "daylight"]
+      description: "Natural sunlight"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_candle
+      label: "candlelight"
+      aliases: ["candle lit", "candle glow", "warm candlelight"]
+      description: "Candlelight illumination"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_fire
+      label: "firelight"
+      aliases: ["fireplace light", "campfire glow", "flame light"]
+      description: "Fire/fireplace lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_moonlight
+      label: "moonlight"
+      aliases: ["moonlit", "lunar light", "night moon"]
+      description: "Moonlight illumination"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_neon
+      label: "neon lighting"
+      aliases: ["neon glow", "neon signs", "colored neon"]
+      description: "Neon light illumination"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_studio
+      label: "studio lighting"
+      aliases: ["studio lights", "professional lighting", "softbox"]
+      description: "Professional studio lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_source_bioluminescent
+      label: "bioluminescent"
+      aliases: ["glowing organisms", "natural glow", "bio glow"]
+      description: "Bioluminescent lighting"
+      explicit: false
+      weight: 1.0
+
+  color:
+    - id: light_color_warm
+      label: "warm lighting"
+      aliases: ["golden light", "warm tones", "amber light"]
+      description: "Warm-toned lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_cool
+      label: "cool lighting"
+      aliases: ["blue light", "cool tones", "cold light"]
+      description: "Cool-toned lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_red
+      label: "red lighting"
+      aliases: ["red light", "crimson light", "red glow"]
+      description: "Red-tinted lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_blue
+      label: "blue lighting"
+      aliases: ["blue light", "azure glow", "blue tint"]
+      description: "Blue-tinted lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_green
+      label: "green lighting"
+      aliases: ["green light", "emerald glow", "green tint"]
+      description: "Green-tinted lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_purple
+      label: "purple lighting"
+      aliases: ["purple light", "violet glow", "purple tint"]
+      description: "Purple-tinted lighting"
+      explicit: false
+      weight: 1.0
+
+    - id: light_color_teal_orange
+      label: "teal and orange"
+      aliases: ["blockbuster lighting", "color graded", "cinematic color"]
+      description: "Teal and orange color grading"
+      explicit: false
+      weight: 1.0
+
+art_styles:
+  classical:
+    - id: style_renaissance
+      label: "Renaissance style"
+      aliases: ["Renaissance painting", "classical Renaissance", "15th century art"]
+      description: "Renaissance art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_baroque
+      label: "Baroque style"
+      aliases: ["Baroque painting", "ornate Baroque", "dramatic Baroque"]
+      description: "Baroque art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_romanticism
+      label: "Romanticism"
+      aliases: ["Romantic art", "Romantic painting", "emotional art"]
+      description: "Romanticism art movement"
+      explicit: false
+      weight: 1.0
+
+    - id: style_neoclassical
+      label: "Neoclassical"
+      aliases: ["Neoclassical art", "classical revival"]
+      description: "Neoclassical art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_impressionism
+      label: "Impressionism"
+      aliases: ["Impressionist painting", "Monet style", "loose brushwork"]
+      description: "Impressionist art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_art_nouveau
+      label: "Art Nouveau"
+      aliases: ["Mucha style", "decorative art", "organic lines"]
+      description: "Art Nouveau style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_pre_raphaelite
+      label: "Pre-Raphaelite"
+      aliases: ["Pre-Raphaelite Brotherhood", "PRB style"]
+      description: "Pre-Raphaelite art style"
+      explicit: false
+      weight: 1.0
+
+  modern:
+    - id: style_art_deco
+      label: "Art Deco"
+      aliases: ["Deco style", "1920s art", "geometric art"]
+      description: "Art Deco style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_cubism
+      label: "Cubism"
+      aliases: ["Cubist art", "Picasso style", "geometric abstraction"]
+      description: "Cubist art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_surrealism
+      label: "Surrealism"
+      aliases: ["Surrealist art", "Dali style", "dreamlike"]
+      description: "Surrealist art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_expressionism
+      label: "Expressionism"
+      aliases: ["Expressionist art", "emotional distortion"]
+      description: "Expressionist art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_pop_art
+      label: "Pop Art"
+      aliases: ["Warhol style", "comic art", "bold colors"]
+      description: "Pop Art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_minimalism
+      label: "Minimalism"
+      aliases: ["minimalist art", "simple art", "clean design"]
+      description: "Minimalist art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_abstract
+      label: "Abstract"
+      aliases: ["abstract art", "non-representational", "abstract expressionism"]
+      description: "Abstract art style"
+      explicit: false
+      weight: 1.0
+
+  contemporary:
+    - id: style_digital_painting
+      label: "digital painting"
+      aliases: ["digital art", "digital illustration", "painted digitally"]
+      description: "Digital painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_concept_art
+      label: "concept art"
+      aliases: ["game concept art", "character concept", "environment concept"]
+      description: "Concept art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_matte_painting
+      label: "matte painting"
+      aliases: ["film matte painting", "environment matte", "digital matte"]
+      description: "Matte painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_photobash
+      label: "photobash"
+      aliases: ["photo manipulation", "photo composite", "photo collage"]
+      description: "Photobash art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_pixel_art
+      label: "pixel art"
+      aliases: ["8-bit", "16-bit", "retro pixel", "pixelated"]
+      description: "Pixel art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_voxel_art
+      label: "voxel art"
+      aliases: ["3D pixel art", "voxel rendering", "blocky 3D"]
+      description: "Voxel art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_low_poly
+      label: "low poly"
+      aliases: ["low polygon", "faceted", "geometric 3D"]
+      description: "Low poly 3D style"
+      explicit: false
+      weight: 1.0
+
+  eastern:
+    - id: style_ukiyo_e
+      label: "Ukiyo-e"
+      aliases: ["Japanese woodblock", "Hokusai style", "ukiyo-e print"]
+      description: "Japanese Ukiyo-e style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_sumi_e
+      label: "Sumi-e"
+      aliases: ["ink wash painting", "Chinese ink", "brush painting"]
+      description: "Chinese/Japanese ink wash"
+      explicit: false
+      weight: 1.0
+
+    - id: style_anime
+      label: "anime"
+      aliases: ["anime style", "Japanese animation", "anime art"]
+      description: "Anime art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_manga
+      label: "manga"
+      aliases: ["manga style", "Japanese comic", "black and white manga"]
+      description: "Manga art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_cel_shaded
+      label: "cel shaded"
+      aliases: ["cel shading", "toon shading", "anime 3D"]
+      description: "Cel-shaded 3D style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_chibi
+      label: "chibi"
+      aliases: ["super deformed", "SD", "cute small"]
+      description: "Chibi/super-deformed style"
+      explicit: false
+      weight: 1.0
+
+  illustration:
+    - id: style_watercolor
+      label: "watercolor"
+      aliases: ["watercolor painting", "watercolor illustration", "wet on wet"]
+      description: "Watercolor painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_oil_painting
+      label: "oil painting"
+      aliases: ["oil on canvas", "oil paint", "classical oil"]
+      description: "Oil painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_acrylic
+      label: "acrylic painting"
+      aliases: ["acrylic paint", "acrylic art"]
+      description: "Acrylic painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_gouache
+      label: "gouache"
+      aliases: ["gouache painting", "opaque watercolor"]
+      description: "Gouache painting style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_charcoal
+      label: "charcoal drawing"
+      aliases: ["charcoal sketch", "charcoal art", "carbon drawing"]
+      description: "Charcoal drawing style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_pencil_sketch
+      label: "pencil sketch"
+      aliases: ["pencil drawing", "graphite sketch", "pencil art"]
+      description: "Pencil sketch style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_ink_drawing
+      label: "ink drawing"
+      aliases: ["ink illustration", "pen and ink", "line art"]
+      description: "Ink drawing style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_comic
+      label: "comic book"
+      aliases: ["comic style", "comic art", "superhero comic"]
+      description: "Comic book art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_graphic_novel
+      label: "graphic novel"
+      aliases: ["graphic novel style", "detailed comic", "mature comic"]
+      description: "Graphic novel art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_vector_art
+      label: "vector art"
+      aliases: ["vector illustration", "flat vector", "clean vector"]
+      description: "Vector art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_stained_glass
+      label: "stained glass"
+      aliases: ["stained glass window", "church glass", "colored glass"]
+      description: "Stained glass art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_mosaic
+      label: "mosaic"
+      aliases: ["mosaic art", "tile mosaic", "tessera"]
+      description: "Mosaic art style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_woodcut
+      label: "woodcut"
+      aliases: ["woodblock print", "linocut", "relief print"]
+      description: "Woodcut print style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_lithograph
+      label: "lithograph"
+      aliases: ["lithography", "stone print"]
+      description: "Lithograph print style"
+      explicit: false
+      weight: 1.0
+
+  photography:
+    - id: style_portrait_photography
+      label: "portrait photography"
+      aliases: ["studio portrait", "professional portrait", "headshot"]
+      description: "Portrait photography style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_fashion_photography
+      label: "fashion photography"
+      aliases: ["fashion shoot", "editorial fashion", "vogue style"]
+      description: "Fashion photography style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_street_photography
+      label: "street photography"
+      aliases: ["candid street", "urban candid", "documentary street"]
+      description: "Street photography style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_documentary
+      label: "documentary photography"
+      aliases: ["documentary style", "photojournalism", "reportage"]
+      description: "Documentary photography"
+      explicit: false
+      weight: 1.0
+
+    - id: style_fine_art_photo
+      label: "fine art photography"
+      aliases: ["artistic photography", "fine art photo", "gallery photo"]
+      description: "Fine art photography"
+      explicit: false
+      weight: 1.0
+
+    - id: style_glamour
+      label: "glamour photography"
+      aliases: ["glamour shot", "pin-up photography", "beauty photography"]
+      description: "Glamour photography style"
+      explicit: false
+      weight: 1.0
+
+    - id: style_boudoir
+      label: "boudoir photography"
+      aliases: ["boudoir shoot", "intimate photography", "sensual portrait"]
+      description: "Boudoir photography style"
+      explicit: true
+      weight: 1.0
+
+    - id: style_boudoir_artistic
+      label: "artistic boudoir"
+      aliases: ["artistic nude", "tasteful nude", "artistic intimate"]
+      description: "Artistic boudoir photography"
+      explicit: true
+      weight: 1.0
+
+  genre:
+    - id: genre_cyberpunk
+      label: "cyberpunk"
+      aliases: ["cyberpunk aesthetic", "neon dystopia", "high tech low life"]
+      description: "Cyberpunk aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_steampunk
+      label: "steampunk"
+      aliases: ["steampunk aesthetic", "Victorian sci-fi", "brass and gears"]
+      description: "Steampunk aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_solarpunk
+      label: "solarpunk"
+      aliases: ["solarpunk aesthetic", "eco-futurism", "green technology"]
+      description: "Solarpunk aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_dieselpunk
+      label: "dieselpunk"
+      aliases: ["dieselpunk aesthetic", "WWII-era futurism", "retro-futuristic"]
+      description: "Dieselpunk aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_fantasy
+      label: "fantasy"
+      aliases: ["high fantasy", "epic fantasy", "fantasy art"]
+      description: "Fantasy art style"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_dark_fantasy
+      label: "dark fantasy"
+      aliases: ["grimdark", "dark fantasy art", "grim fantasy"]
+      description: "Dark fantasy art style"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_horror
+      label: "horror"
+      aliases: ["horror art", "scary art", "macabre"]
+      description: "Horror art style"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_gothic
+      label: "Gothic"
+      aliases: ["Gothic art", "dark Gothic", "Gothic aesthetic"]
+      description: "Gothic art style"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_post_apocalyptic
+      label: "post-apocalyptic"
+      aliases: ["post-apoc", "wasteland", "after the end"]
+      description: "Post-apocalyptic aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_retro_futurism
+      label: "retro-futurism"
+      aliases: ["retro future", "1950s future", "atomic age future"]
+      description: "Retro-futuristic aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_vaporwave
+      label: "vaporwave"
+      aliases: ["vaporwave aesthetic", "aesthetic", "vapor aesthetic"]
+      description: "Vaporwave aesthetic"
+      explicit: false
+      weight: 1.0
+
+    - id: genre_synthwave
+      label: "synthwave"
+      aliases: ["synthwave aesthetic", "outrun", "retrowave"]
+      description: "Synthwave aesthetic"
+      explicit: false
+      weight: 1.0
+
+quality:
+  resolution:
+    - id: q_4k
+      label: "4K resolution"
+      aliases: ["4K", "ultra HD", "3840x2160"]
+      description: "4K resolution quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_8k
+      label: "8K resolution"
+      aliases: ["8K", "7680x4320", "ultra high res"]
+      description: "8K resolution quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_ultra_detailed
+      label: "ultra detailed"
+      aliases: ["highly detailed", "extremely detailed", "incredibly detailed"]
+      description: "Ultra-detailed rendering"
+      explicit: false
+      weight: 1.0
+
+    - id: q_hyper_detailed
+      label: "hyper detailed"
+      aliases: ["hyper-detailed", "maximum detail", "insane detail"]
+      description: "Hyper-detailed rendering"
+      explicit: false
+      weight: 1.0
+
+  render:
+    - id: q_octane
+      label: "Octane Render"
+      aliases: ["OctaneRender", "octane rendered"]
+      description: "Octane Render quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_unreal
+      label: "Unreal Engine"
+      aliases: ["UE5", "Unreal Engine 5", "UE rendered"]
+      description: "Unreal Engine quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_blender
+      label: "Blender Cycles"
+      aliases: ["Blender render", "Cycles render"]
+      description: "Blender Cycles render quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_redshift
+      label: "Redshift"
+      aliases: ["Redshift render", "RS render"]
+      description: "Redshift render quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_vray
+      label: "V-Ray"
+      aliases: ["V-Ray render", "VRay"]
+      description: "V-Ray render quality"
+      explicit: false
+      weight: 1.0
+
+  artistic:
+    - id: q_masterpiece
+      label: "masterpiece"
+      aliases: ["masterwork", "magnum opus", "best quality"]
+      description: "Masterpiece quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_photorealistic
+      label: "photorealistic"
+      aliases: ["photo-realistic", "photorealism", "photo realistic"]
+      description: "Photorealistic rendering"
+      explicit: false
+      weight: 1.0
+
+    - id: q_hyperrealistic
+      label: "hyperrealistic"
+      aliases: ["hyper-realistic", "hyperrealism", "super realistic"]
+      description: "Hyperrealistic rendering"
+      explicit: false
+      weight: 1.0
+
+    - id: q_cinematic
+      label: "cinematic"
+      aliases: ["cinematic quality", "movie quality", "film quality"]
+      description: "Cinematic quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_award_winning
+      label: "award-winning"
+      aliases: ["award winning photography", "prize-winning"]
+      description: "Award-winning quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_trending
+      label: "trending on ArtStation"
+      aliases: ["ArtStation trending", "popular on ArtStation"]
+      description: "ArtStation trending quality"
+      explicit: false
+      weight: 1.0
+
+    - id: q_8k_wallpaper
+      label: "8K wallpaper"
+      aliases: ["desktop wallpaper", "8K wallpaper quality"]
+      description: "8K wallpaper quality"
+      explicit: false
+      weight: 1.0
+
+camera_types:
+  - id: cam_dslr
+    label: "DSLR camera"
+    aliases: ["digital SLR", "professional camera"]
+    description: "DSLR camera type"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_mirrorless
+    label: "mirrorless camera"
+    aliases: ["MILC", "compact system camera"]
+    description: "Mirrorless camera type"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_medium_format
+    label: "medium format"
+    aliases: ["120 film", "Hasselblad", "Phase One"]
+    description: "Medium format camera"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_instant
+    label: "instant camera"
+    aliases: ["Polaroid", "Instax", "SX-70"]
+    description: "Instant film camera"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_pinhole
+    label: "pinhole camera"
+    aliases: ["camera obscura", "no lens"]
+    description: "Pinhole camera"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_stereoscopic
+    label: "stereoscopic camera"
+    aliases: ["3D camera", "View-Master", "stereo pair"]
+    description: "Stereoscopic 3D camera"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_smartphone
+    label: "smartphone camera"
+    aliases: ["phone camera", "iPhone photo"]
+    description: "Smartphone camera"
+    explicit: false
+    weight: 1.0
+
+camera_movements:
+  - id: cam_move_pan
+    label: "pan"
+    aliases: ["panning shot", "horizontal sweep"]
+    description: "Pan camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_tilt
+    label: "tilt"
+    aliases: ["tilting shot", "vertical pan"]
+    description: "Tilt camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_dolly
+    label: "dolly shot"
+    aliases: ["dolly in", "dolly out", "tracking"]
+    description: "Dolly camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_truck
+    label: "truck shot"
+    aliases: ["lateral dolly", "side tracking"]
+    description: "Truck camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_pedestal
+    label: "pedestal shot"
+    aliases: ["pedestal up", "pedestal down"]
+    description: "Pedestal camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_zoom
+    label: "zoom shot"
+    aliases: ["dolly zoom", "Vertigo effect", "zolly"]
+    description: "Zoom camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_tracking
+    label: "tracking shot"
+    aliases: ["follow shot", "camera truck"]
+    description: "Tracking camera movement"
+    explicit: false
+    weight: 1.0
+
+  - id: cam_move_crane
+    label: "crane shot"
+    aliases: ["jib shot", "swing"]
+    description: "Crane camera movement"
+    explicit: false
+    weight: 1.0
+
+film_stocks_expanded:
+  - id: film_super8
+    label: "Super 8"
+    aliases: ["8mm film", "home movie"]
+    description: "Super 8 film stock"
+    explicit: false
+    weight: 1.0
+
+  - id: film_16mm
+    label: "16mm film"
+    aliases: ["16mm", "cinematic 16mm"]
+    description: "16mm film stock"
+    explicit: false
+    weight: 1.0
+
+  - id: film_35mm
+    label: "35mm film"
+    aliases: ["35mm", "analog film"]
+    description: "35mm film stock"
+    explicit: false
+    weight: 1.0
+
+  - id: film_kodak_portra_800
+    label: "Kodak Portra 800"
+    aliases: ["Portra 800", "professional color"]
+    description: "Kodak Portra 800 film"
+    explicit: false
+    weight: 1.0
+
+  - id: film_kodak_tri_x
+    label: "Kodak Tri-X"
+    aliases: ["Tri-X 400", "black and white"]
+    description: "Kodak Tri-X black and white film"
+    explicit: false
+    weight: 1.0
+
+  - id: film_ilford_hp5
+    label: "Ilford HP5"
+    aliases: ["HP5 Plus", "black and white"]
+    description: "Ilford HP5 black and white film"
+    explicit: false
+    weight: 1.0
+
+  - id: film_cinestill_800t
+    label: "CineStill 800T"
+    aliases: ["CineStill", "tungsten film"]
+    description: "CineStill 800T film stock"
+    explicit: false
+    weight: 1.0
+
+  - id: film_fuji_superia
+    label: "Fuji Superia"
+    aliases: ["Fuji consumer", "color negative"]
+    description: "Fuji Superia film stock"
+    explicit: false
+    weight: 1.0
+
+  - id: film_leica
+    label: "Leica M"
+    aliases: ["Leica film", "M-Mount"]
+    description: "Leica M series film"
+    explicit: false
+    weight: 1.0
+
+lighting_modifiers:
+  - id: light_mod_softbox
+    label: "softbox"
+    aliases: ["soft box", "diffused light"]
+    description: "Softbox lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_umbrella
+    label: "umbrella"
+    aliases: ["photography umbrella", "shoot-through umbrella"]
+    description: "Umbrella lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_beauty_dish
+    label: "beauty dish"
+    aliases: ["beauty light", "reflective dish"]
+    description: "Beauty dish lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_snoot
+    label: "snoot"
+    aliases: ["spotlight modifier", "focused light"]
+    description: "Snoot lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_grid
+    label: "grid"
+    aliases: ["honeycomb grid", "egg crate"]
+    description: "Grid/egg crate lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_gel
+    label: "color gel"
+    aliases: ["color filter", "gel sheet"]
+    description: "Color gel lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_flags
+    label: "flags"
+    aliases: ["lighting flags", "black flags"]
+    description: "Flag lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_reflector
+    label: "reflector"
+    aliases: ["bounce card", "white reflector"]
+    description: "Reflector lighting modifier"
+    explicit: false
+    weight: 1.0
+
+  - id: light_mod_diffuser
+    label: "diffuser"
+    aliases: ["diffusion panel", "soft diffusion"]
+    description: "Diffuser lighting modifier"
+    explicit: false
+    weight: 1.0
+
+lighting_setups_expanded:
+  - id: light_setup_three_point
+    label: "three-point lighting"
+    aliases: ["key fill rim", "standard three light"]
+    description: "Three-point lighting setup"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_broad
+    label: "broad lighting"
+    aliases: ["broad light setup", "short lighting"]
+    description: "Broad lighting setup"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_short
+    label: "short lighting"
+    aliases: ["short light setup", "broad lighting"]
+    description: "Short lighting setup"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_kicker
+    label: "kicker light"
+    aliases: ["accent light", "edge light"]
+    description: "Kicker accent light"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_hair_light
+    label: "hair light"
+    aliases: ["rim light hair", "separation light"]
+    description: "Hair light for separation"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_catchlight
+    label: "catchlight"
+    aliases: ["eye light", "reflection catch"]
+    description: "Catchlight in eyes"
+    explicit: false
+    weight: 1.0
+
+  - id: light_setup_practical
+    label: "practical light"
+    aliases: ["in-scene light", "practical lamp"]
+    description: "Practical in-scene lighting"
+    explicit: false
+    weight: 1.0
+
+animation_styles:
+  - id: anim_motion_graphics
+    label: "motion graphics"
+    aliases: ["AE style", "kinetic typography"]
+    description: "Motion graphics style"
+    explicit: false
+    weight: 1.0
+
+  - id: anim_2d_classic
+    label: "classic 2D animation"
+    aliases: ["hand-drawn animation", "cel animation"]
+    description: "Classic 2D animation"
+    explicit: false
+    weight: 1.0
+
+  - id: anim_rotoscope
+    label: "rotoscope"
+    aliases: ["rotoscoped animation", "realistic motion"]
+    description: "Rotoscope animation"
+    explicit: false
+    weight: 1.0
+
+  - id: anim_cutout_style
+    label: "cutout animation"
+    aliases: ["paper cutout", "silhouette animation"]
+    description: "Cutout animation style"
+    explicit: false
+    weight: 1.0
+
+  - id: anim_3d_render
+    label: "3D render animation"
+    aliases: ["CGI animation", "rendered animation"]
+    description: "3D render animation style"
+    explicit: false
+    weight: 1.0
+
+  - id: anim_live_motion
+    label: "live motion"
+    aliases: ["live action mixed", "hybrid animation"]
+    description: "Live action motion style"
+    explicit: false
+    weight: 1.0

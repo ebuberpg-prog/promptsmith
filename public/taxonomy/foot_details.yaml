@@ -1,0 +1,382 @@
+# PROMPTSMITH TAXONOMY - FOOT DETAILS & LOWER LEG
+
+foot_positions:
+  standing:
+    - id: foot_standing_flat
+      label: "flat footed"
+      aliases: ["standing flat", "feet flat", "flat on ground"]
+      description: "Standing flat footed"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_standing_tiptoe
+      label: "tiptoe"
+      aliases: ["on tiptoes", "elevated heels", "pointed toes standing"]
+      description: "Standing on tiptoes"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_one_heel_raised
+      label: "one heel raised"
+      aliases: ["one foot tiptoe", "asymmetric stance"]
+      description: "One heel raised"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_crossed_toes
+      label: "crossed toes"
+      aliases: ["toes crossed", "ankles crossed"]
+      description: "Feet crossed at ankles with toes crossed"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_wide_stance
+      label: "wide stance"
+      aliases: ["feet apart", "broad stance"]
+      description: "Wide leg stance"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_narrow_stance
+      label: "narrow stance"
+      aliases: ["feet together", "tight stance"]
+      description: "Narrow leg stance"
+      explicit: false
+      weight: 1.0
+
+  walking:
+    - id: foot_walking
+      label: "walking"
+      aliases: ["mid-stride", "stepping"]
+      description: "Walking foot position"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_running
+      label: "running"
+      aliases: ["jogging", "sprint", "mid-run"]
+      description: "Running foot position"
+      explicit: false
+      weight: 1.0
+
+  sitting:
+    - id: foot_sitting_crossed
+      label: "legs crossed"
+      aliases: ["crossed legs", "Indian style", "seiza"]
+      description: "Sitting with legs crossed"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_sitting_under
+      label: "tucked under"
+      aliases: ["feet under", "seated tucked"]
+      description: "Sitting with feet tucked under"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_sitting_legs_out
+      label: "legs out"
+      aliases: ["legs extended", "sitting legs forward"]
+      description: "Sitting with legs extended out"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_foot_on_thigh
+      label: "foot on thigh"
+      aliases: ["footrest position", "ankle on knee", "figure four"]
+      description: "Foot resting on opposite thigh"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_foot_on_foot
+      label: "foot on foot"
+      aliases: ["ankle cross", "crossed ankles"]
+      description: "One foot resting on other foot"
+      explicit: false
+      weight: 1.0
+
+  lying:
+    - id: foot_lying_down
+      label: "feet down"
+      aliases: ["supine feet", "lying flat"]
+      description: "Lying down feet down"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_lying_up
+      label: "feet up"
+      aliases: ["legs up", "elevated feet"]
+      description: "Lying with feet pointing up"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_lying_side
+      label: "side position"
+      aliases: ["lateral", "lying on side"]
+      description: "Lying on side foot position"
+      explicit: false
+      weight: 1.0
+
+footwear_states:
+  barefoot:
+    - id: foot_barefoot
+      label: "barefoot"
+      aliases: ["no shoes", "bare feet", "shoeless"]
+      description: "Completely barefoot"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_barefoot_dirty
+      label: "dirty feet"
+      aliases: ["grimy feet", "unclean bare feet"]
+      description: "Bare dirty feet"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_barefoot_clean
+      label: "clean bare feet"
+      aliases: ["washed feet", "pristine bare feet"]
+      description: "Clean bare feet"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_barefoot_pedicure
+      label: "pedicured feet"
+      aliases: ["polished toes", "spa feet"]
+      description: "Pedicured bare feet"
+      explicit: false
+      weight: 1.0
+
+  with_footwear:
+    - id: foot_in_shoes
+      label: "wearing shoes"
+      aliases: ["shod", "shoes on"]
+      description: "Wearing shoes"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_in_heels
+      label: "in heels"
+      aliases: ["high heels", "stilettos", "elevated"]
+      description: "Wearing high heels"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_in_boots
+      label: "in boots"
+      aliases: ["boot clad", "wearing boots"]
+      description: "Wearing boots"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_in_sneakers
+      label: "in sneakers"
+      aliases: ["trainers", "athletic shoes"]
+      description: "Wearing sneakers"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_in_sandals
+      label: "in sandals"
+      aliases: ["open toe shoes", "strappy"]
+      description: "Wearing sandals"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_in_socks
+      label: "in socks"
+      aliases: ["sock covered", "footwear socks"]
+      description: "Wearing socks only"
+      explicit: false
+      weight: 1.0
+
+    - id: foot_shoes_off
+      label: "shoes off"
+      aliases: ["shoes removed", "footwear removed"]
+      description: "Shoes removed (feet bare or socked)"
+      explicit: false
+      weight: 1.0
+
+toe_styles:
+  - id: foot_toes_natural
+    label: "natural toes"
+    aliases: ["bare toes", "unpolished"]
+    description: "Natural unpainted toes"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_painted
+    label: "painted toes"
+    aliases: ["polished toes", "nail polish feet"]
+    description: "Painted toenails"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_red
+    label: "red painted toes"
+    aliases: ["red pedicure", "classic red toes"]
+    description: "Red painted toenails"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_pastel
+    label: "pastel toes"
+    aliases: ["soft colored pedicure", "light pink toes"]
+    description: "Pastel painted toes"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_black
+    label: "black painted toes"
+    aliases: ["dark pedicure", "gothic toes"]
+    description: "Black painted toenails"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_french
+    label: "French pedicure"
+    aliases: ["toe tips white", "french toes"]
+    description: "French tip pedicure"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_ Stiletto
+    label: "stiletto pedicure"
+    aliases: ["pointed toe nails", "sharp pedicure"]
+    description: "Stiletto shaped toenails"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_toes_almond
+    label: "almond pedicure"
+    aliases: ["oval toes", "soft pointed pedicure"]
+    description: "Almond shaped toenails"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_big_toe_separated
+    label: "big toe separated"
+    aliases: ["toe gap", "space between toes"]
+    description: "Big toe separated from others"
+    explicit: false
+    weight: 1.0
+
+foot_details:
+  - id: foot_arch_high
+    label: "high arch"
+    aliases: ["high instep", "curved arch"]
+    description: "High foot arch"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_arch_flat
+    label: "flat foot"
+    aliases: ["low arch", "flat instep"]
+    description: "Flat foot arch"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_ankle_thin
+    label: "thin ankles"
+    aliases: ["slim ankles", "delicate ankles"]
+    description: "Thin slender ankles"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_ankle_thick
+    label: "thick ankles"
+    aliases: ["chunky ankles", "strong ankles"]
+    description: "Thick strong ankles"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_anklet
+    label: "anklet"
+    aliases: ["ankle bracelet", "ankle jewelry"]
+    description: "Anklet jewelry"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_tattoo
+    label: "foot tattoo"
+    aliases: ["ankle tattoo", "feet tattoos"]
+    description: "Tattoo on foot or ankle"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_piercing
+    label: "foot piercing"
+    aliases: ["toe piercing", "ankle piercing"]
+    description: "Piercing on foot"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_calluses
+    label: "calluses"
+    aliases: ["rough heels", "hard skin"]
+    description: "Visible calluses on feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_sweaty
+    label: "sweaty feet"
+    aliases: ["moist feet", "clammy", "sweat"]
+    description: "Sweaty feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_smelly
+    label: "smelly feet"
+    aliases: ["odor", "stinky feet"]
+    description: "Smelly/stinky feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_tan_lines
+    label: "tan lines feet"
+    aliases: ["sock tan", "sandal tan"]
+    description: "Tan lines on feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_wrinkled
+    label: "wrinkled feet"
+    aliases: ["aged feet", "elderly feet"]
+    description: "Wrinkled aged feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_young
+    label: "young feet"
+    aliases: ["smooth feet", "youthful feet"]
+    description: "Young smooth feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_blister
+    label: "blister"
+    aliases: ["blister on foot", "sore"]
+    description: "Blister on foot"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_bruise
+    label: "bruised foot"
+    aliases: ["bruise on foot", "injured foot"]
+    description: "Bruise on foot"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_long
+    label: "long feet"
+    aliases: ["large feet", "size 10 plus"]
+    description: "Long large feet"
+    explicit: false
+    weight: 1.0
+
+  - id: foot_short
+    label: "short feet"
+    aliases: ["small feet", "petite feet"]
+    description: "Short small feet"
+    explicit: false
+    weight: 1.0

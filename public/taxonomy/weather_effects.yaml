@@ -1,0 +1,419 @@
+# PROMPTSMITH TAXONOMY - WEATHER & ATMOSPHERIC EFFECTS
+
+precipitation:
+  rain:
+    - id: weather_light_rain
+      label: "light rain"
+      aliases: ["drizzle", "misting", "sprinkling"]
+      description: "Light rain/drizzle"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_rain
+      label: "rain"
+      aliases: ["rainy", "shower", "wet weather"]
+      description: "Regular rain"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_heavy_rain
+      label: "heavy rain"
+      aliases: ["downpour", "torrential", "storm rain"]
+      description: "Heavy rain/downpour"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_rain_burst
+      label: "rain burst"
+      aliases: ["sudden downpour", "burst of rain"]
+      description: "Sudden rain burst"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_rain_streaks
+      label: "rain streaks"
+      aliases: ["rain on glass", "streaking rain"]
+      description: "Rain streaks on surface"
+      explicit: false
+      weight: 1.0
+
+  snow:
+    - id: weather_light_snow
+      label: "light snow"
+      aliases: ["snowflakes", "dusting", "flurries"]
+      description: "Light snow/dusting"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_snow
+      label: "snowing"
+      aliases: ["snowstorm", "heavy snow", "blizzard"]
+      description: "Active snowfall"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_heavy_snow
+      label: "heavy snowfall"
+      aliases: ["blizzard conditions", "whiteout", "snowstorm"]
+      description: "Heavy blizzard conditions"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_snow_on_ground
+      label: "snow on ground"
+      aliases: ["snowy ground", "snow covered", "accumulated snow"]
+      description: "Snow on the ground"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_snow_capped
+      label: "snow capped"
+      aliases: ["snow on rooftops", "snow on trees", "winter landscape"]
+      description: "Snow on surfaces"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_freezing_rain
+      label: "freezing rain"
+      aliases: ["ice rain", "sleet", "hail"]
+      description: "Freezing rain/ice"
+      explicit: false
+      weight: 1.0
+
+  other:
+    - id: weather_hail
+      label: "hail"
+      aliases: ["hailstones", "ice pellets"]
+      description: "Hail falling"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_sleet
+      label: "sleet"
+      aliases: ["ice pellets", "freezing drizzle"]
+      description: "Sleet/ice pellets"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_fog_drizzle
+      label: "foggy drizzle"
+      aliases: ["mist", "misty rain", "sea mist"]
+      description: "Foggy with drizzle"
+      explicit: false
+      weight: 1.0
+
+wind:
+  - id: weather_calm
+    label: "calm wind"
+    aliases: ["still air", "no wind", "quiet"]
+    description: "Calm no wind"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_light_breeze
+    label: "light breeze"
+    aliases: ["gentle wind", "soft breeze"]
+    description: "Light gentle breeze"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_windy
+    label: "windy"
+    aliases: ["breezy", "strong breeze", "blustery"]
+    description: "Windy conditions"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_strong_wind
+    label: "strong wind"
+    aliases: ["gale force", "howling wind", "storm wind"]
+    description: "Strong howling wind"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_wind_gusts
+    label: "wind gusts"
+    aliases: ["gusting", "sudden bursts", "gusts"]
+    description: "Gusty wind bursts"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_wind_effects
+    label: "wind effects"
+    aliases: ["hair blowing", "clothes flowing", "leaves blowing"]
+    description: "Wind affecting scene elements"
+    explicit: false
+    weight: 1.0
+
+clouds:
+  - id: weather_clear_sky
+    label: "clear sky"
+    aliases: ["cloudless", "blue sky", "sunny"]
+    description: "Clear cloudless sky"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_few_clouds
+    label: "few clouds"
+    aliases: ["partly cloudy", "scattered clouds"]
+    description: "Few scattered clouds"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_cloudy
+    label: "cloudy"
+    aliases: ["overcast", "gray clouds", "cover"]
+    description: "Cloudy overcast"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_heavy_clouds
+    label: "heavy clouds"
+    aliases: ["dark clouds", "storm clouds", "thunderheads"]
+    description: "Heavy dark storm clouds"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_rolling_clouds
+    label: "rolling clouds"
+    aliases: ["wave clouds", "undulating"]
+    description: "Rolling wave-like clouds"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_cloudy_pink
+    label: "pink clouds"
+    aliases: ["cotton candy sky", "rosy"]
+    description: "Pink colored clouds"
+    explicit: false
+    weight: 1.0
+
+atmospheric:
+  fog:
+    - id: weather_light_fog
+      label: "light fog"
+      aliases: ["haze", "mist", "misty"]
+      description: "Light atmospheric fog"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_fog
+      label: "foggy"
+      aliases: ["dense fog", "murky", "grey"]
+      description: "Thick fog"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_heavy_fog
+      label: "heavy fog"
+      aliases: ["thick fog", "near zero visibility"]
+      description: "Heavy dense fog"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_ground_fog
+      label: "ground fog"
+      aliases: ["low lying fog", "mist on ground"]
+      description: "Fog hugging the ground"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_sea_fog
+      label: "sea fog"
+      aliases: ["coastal fog", "marine layer"]
+      description: "Sea/coastal fog"
+      explicit: false
+      weight: 1.0
+
+  smoke_haze:
+    - id: weather_smoke
+      label: "smoky"
+      aliases: ["smoke filled", "hazy smoke"]
+      description: "Smoky atmosphere"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_haze
+      label: "hazy"
+      aliases: ["humid haze", "summer haze", "dust haze"]
+      description: "Atmospheric haze"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_pollution
+      label: "pollution haze"
+      aliases: ["smog", "industrial haze", "brown haze"]
+      description: "Pollution smog haze"
+      explicit: false
+      weight: 1.0
+
+    - id: weather_dust
+      label: "dusty"
+      aliases: ["dust storm", "sandstorm", "dusty haze"]
+      description: "Dusty atmosphere"
+      explicit: false
+      weight: 1.0
+
+particles:
+  - id: weather_particles_snow
+    label: "snow particles"
+    aliases: ["floating snow", "snow flurries"]
+    description: "Individual snow particles"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_rain
+    label: "rain particles"
+    aliases: ["rain drops", "falling rain"]
+    description: "Individual rain drops"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_leaves
+    label: "falling leaves"
+    aliases: ["autumn leaves", "drifting leaves"]
+    description: "Falling leaves in air"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_pollen
+    label: "pollen"
+    aliases: ["yellow pollen", "allergy season"]
+    description: "Pollen particles floating"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_ash
+    label: "ash particles"
+    aliases: ["volcanic ash", "fireplace ash"]
+    description: "Ash particles in air"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_fireflies
+    label: "fireflies"
+    aliases: ["lightning bugs", "glowing particles"]
+    description: "Glowing firefly particles"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_sparkles
+    label: "magic sparkles"
+    aliases: ["glitter particles", "fairy dust"]
+    description: "Magical sparkle particles"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_particles_stardust
+    label: "stardust"
+    aliases: ["cosmic particles", "star particles"]
+    description: "Stardust particles"
+    explicit: false
+    weight: 1.0
+
+celestial:
+  - id: weather_rainbow
+    label: "rainbow"
+    aliases: ["prism colors", "arc"]
+    description: "Rainbow in sky"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_double_rainbow
+    label: "double rainbow"
+    aliases: ["rainbow pair", "double arc"]
+    description: "Double rainbow"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_aurora
+    label: "aurora borealis"
+    aliases: ["northern lights", "aurora"]
+    description: "Aurora borealis"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_aurora_southern
+    label: "aurora australis"
+    aliases: ["southern lights", "southern aurora"]
+    description: "Southern hemisphere aurora"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_storm_lightning
+    label: "lightning"
+    aliases: ["thunderstorm", "electrical storm"]
+    description: "Lightning bolts"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_lightning_strike
+    label: "lightning strike"
+    aliases: ["bolt hitting", "struck by lightning"]
+    description: "Lightning striking"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_waterspout
+    label: "waterspout"
+    aliases: ["sea tornado", "spout"]
+    description: "Waterspout tornado over water"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_tornado
+    label: "tornado"
+    aliases: ["twister", "funnel cloud"]
+    description: "Tornado funnel"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_heat_shimmer
+    label: "heat shimmer"
+    aliases: ["heat waves", "mirage effect"]
+    description: "Heat distortion shimmer"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_mirage
+    label: "mirage"
+    aliases: ["desert illusion", "fake water"]
+    description: "Mirage effect"
+    explicit: false
+    weight: 1.0
+
+extreme:
+  - id: weather_tropical
+    label: "tropical storm"
+    aliases: ["hurricane", "cyclone", "typhoon"]
+    description: "Tropical storm/hurricane"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_monsoon
+    label: "monsoon"
+    aliases: ["tropical rain season", "heavy tropical"]
+    description: "Monsoon conditions"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_icestorm
+    label: "ice storm"
+    aliases: ["freezing rain storm", "glaze"]
+    description: "Ice storm freezing"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_sandstorm
+    label: "sandstorm"
+    aliases: ["dust storm", "desert storm"]
+    description: "Sand/dust storm"
+    explicit: false
+    weight: 1.0
+
+  - id: weather_wildfire
+    label: "wildfire smoke"
+    aliases: ["forest fire haze", "burning"]
+    description: "Wildfire smoke haze"
+    explicit: false
+    weight: 1.0

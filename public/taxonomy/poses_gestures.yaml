@@ -1,0 +1,1328 @@
+# PROMPTSMITH TAXONOMY - POSES & GESTURES
+# Explicit content marked with explicit: true
+
+standing_poses:
+  - id: pose_standing_relaxed
+    label: "standing relaxed"
+    aliases: ["casual stance", "at ease", "natural standing"]
+    description: "Natural, relaxed standing position"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_contrapposto
+    label: "contrapposto"
+    aliases: ["weight on one leg", "classical stance", "hip shot"]
+    description: "Weight shifted to one leg, hip popped"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_power
+    label: "power stance"
+    aliases: ["legs apart", "confident stance", "dominant pose"]
+    description: "Wide-legged confident stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_leaning_wall
+    label: "leaning against wall"
+    aliases: ["wall lean", "propped against wall"]
+    description: "Casually leaning against a wall"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_leaning_object
+    label: "leaning on object"
+    aliases: ["leaning on table", "leaning on car", "leaning on bar"]
+    description: "Leaning against an object"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_hands_hips
+    label: "hands on hips"
+    aliases: ["akimbo", "hands on waist", "power pose"]
+    description: "Standing with hands on hips"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_arms_crossed
+    label: "arms crossed"
+    aliases: ["folded arms", "crossed arms stance"]
+    description: "Standing with arms crossed"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_one_leg
+    label: "standing on one leg"
+    aliases: ["flamingo pose", "single leg stance"]
+    description: "Balancing on one leg"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_back_to_camera
+    label: "back to camera"
+    aliases: ["facing away", "rear view", "looking over shoulder"]
+    description: "Standing with back to viewer"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_standing_profile
+    label: "profile stance"
+    aliases: ["side view", "sideways standing"]
+    description: "Standing sideways to viewer"
+    explicit: false
+    weight: 1.0
+
+sitting_poses:
+  - id: pose_sitting_crossed_legs
+    label: "sitting cross-legged"
+    aliases: ["lotus position", "indian style", "cross-legged on floor"]
+    description: "Sitting with legs crossed"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_legs_together
+    label: "sitting legs together"
+    aliases: ["knees together", "prim sitting", "ladylike sitting"]
+    description: "Sitting with knees pressed together"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_legs_apart
+    label: "sitting legs apart"
+    aliases: ["manspreading", "wide legged sitting", "open legged sitting"]
+    description: "Sitting with legs spread apart"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_one_leg_crossed
+    label: "sitting one leg crossed"
+    aliases: ["figure four sitting", "ankle on knee"]
+    description: "Sitting with one ankle on opposite knee"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_edge_chair
+    label: "sitting on edge of chair"
+    aliases: ["perched", "sitting forward", "leaning forward"]
+    description: "Sitting on the edge of a seat"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_reclined
+    label: "sitting reclined"
+    aliases: ["leaning back in chair", "slouched sitting"]
+    description: "Sitting in a reclined position"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_throne
+    label: "sitting on throne"
+    aliases: ["regal sitting", "commanding seat", "power sitting"]
+    description: "Sitting in a commanding, regal manner"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_kneeling
+    label: "kneeling"
+    aliases: ["on knees", "kneeling position", "seiza"]
+    description: "Kneeling on the ground"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_kneeling_forward
+    label: "kneeling leaning forward"
+    aliases: ["kneeling and reaching", "kneeling submission"]
+    description: "Kneeling while leaning forward"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sitting_straddling
+    label: "straddling chair"
+    aliases: ["sitting backwards on chair", "straddle sit"]
+    description: "Sitting backwards straddling a chair"
+    explicit: false
+    weight: 1.0
+
+lying_poses:
+  - id: pose_lying_back
+    label: "lying on back"
+    aliases: ["supine", "flat on back", "lying flat"]
+    description: "Lying flat on back"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_side
+    label: "lying on side"
+    aliases: ["side lying", "reclining on side"]
+    description: "Lying on one side"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_stomach
+    label: "lying on stomach"
+    aliases: ["prone", "face down", "lying flat stomach"]
+    description: "Lying face down on stomach"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_stomach_propped
+    label: "lying on stomach propped up"
+    aliases: ["lying on stomach reading", "propped on elbows"]
+    description: "Lying on stomach, propped up on elbows"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_curled
+    label: "curled up"
+    aliases: ["fetal position", "ball position", "curled up sleeping"]
+    description: "Lying curled in fetal position"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_starfish
+    label: "starfish pose"
+    aliases: ["spread eagle", "arms and legs spread"]
+    description: "Lying with arms and legs spread wide"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_lying_head_propped
+    label: "lying head propped"
+    aliases: ["lying on pillow", "head on hand"]
+    description: "Lying with head propped up"
+    explicit: false
+    weight: 1.0
+
+reclining_poses:
+  - id: pose_reclining_lounging
+    label: "lounging"
+    aliases: ["reclining casually", "lounge pose"]
+    description: "Casual reclining position"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_reclining_sofa
+    label: "reclining on sofa"
+    aliases: ["couch lounging", "sofa pose"]
+    description: "Reclining on a sofa"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_reclining_bed_seductive
+    label: "reclining on bed seductively"
+    aliases: ["seductive bed pose", "alluring reclining", "bedroom eyes pose"]
+    description: "Seductive reclining on bed"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_reclining_chaise
+    label: "chaise lounge pose"
+    aliases: ["odalisque pose", "reclining nude pose"]
+    description: "Classical reclining pose on chaise"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_reclining_arched_back
+    label: "reclining arched back"
+    aliases: ["back arched while reclining", "arched reclining"]
+    description: "Reclining with back arched"
+    explicit: false
+    weight: 1.0
+
+action_poses:
+  - id: pose_running
+    label: "running"
+    aliases: ["sprinting", "jogging", "in motion running"]
+    description: "Dynamic running pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_jumping
+    label: "jumping"
+    aliases: ["mid-air", "leaping", "in the air"]
+    description: "Jumping or leaping pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_dancing
+    label: "dancing"
+    aliases: ["dance pose", "mid-dance", "twirling"]
+    description: "Dancing pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_fighting_stance
+    label: "fighting stance"
+    aliases: ["combat ready", "battle pose", "martial arts stance"]
+    description: "Ready to fight stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_mid_punch
+    label: "mid punch"
+    aliases: ["throwing punch", "striking"]
+    description: "Throwing a punch"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_mid_kick
+    label: "mid kick"
+    aliases: ["high kick", "kicking pose"]
+    description: "Executing a kick"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_drawing_weapon
+    label: "drawing weapon"
+    aliases: ["unsheathing sword", "pulling gun", "reaching for weapon"]
+    description: "Drawing a weapon"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_wielding_sword
+    label: "wielding sword"
+    aliases: ["sword stance", "holding sword ready"]
+    description: "Holding sword in combat stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_aiming_gun
+    label: "aiming gun"
+    aliases: ["pointing gun", "gun ready", "holding firearm"]
+    description: "Aiming a firearm"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_celebrating
+    label: "celebrating"
+    arms: ["arms raised", "fist pump", "victory pose"]
+    description: "Celebratory pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_surrendering
+    label: "surrendering"
+    aliases: ["hands up", "giving up", "capitulating"]
+    description: "Surrender pose, hands raised"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_defiant
+    label: "defiant pose"
+    aliases: ["defiant stance", "challenging pose", "confrontational"]
+    description: "Defiant, challenging stance"
+    explicit: false
+    weight: 1.0
+
+intimate_poses:
+  - id: pose_arching_back
+    label: "arching back"
+    aliases: ["back arched", "arched posture", "presenting"]
+    description: "Back arched, chest forward"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_bent_over
+    label: "bent over"
+    aliases: ["bending forward", "leaning over", "bent at waist"]
+    description: "Bent over at the waist"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_on_all_fours
+    label: "on all fours"
+    aliases: ["hands and knees", "crawling position", "quadruped pose"]
+    description: "Position on hands and knees"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_presenting
+    label: "presenting"
+    aliases: ["presenting rear", "showing off", "displaying"]
+    description: "Presenting body to viewer"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_spreading_legs
+    label: "spreading legs"
+    aliases: ["legs spread", "open legged", "legs apart"]
+    description: "Legs spread apart"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_legs_up
+    label: "legs up"
+    aliases: ["legs in air", "legs raised", "legs over shoulders"]
+    description: "Legs raised in air"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_cowgirl
+    label: "cowgirl position"
+    aliases: ["straddling", "riding position", "on top"]
+    description: "Straddling position, on top"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_reverse_cowgirl
+    label: "reverse cowgirl"
+    aliases: ["reverse straddle", "facing away on top"]
+    description: "Straddling facing away"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_doggy_style
+    label: "doggy style"
+    aliases: ["from behind", "rear entry position", "all fours position"]
+    description: "On all fours, rear entry position"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_missionary
+    label: "missionary position"
+    aliases: ["face to face lying", "traditional position"]
+    description: "Face-to-face lying position"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_spooning
+    label: "spooning"
+    aliases: ["spoon position", "cuddling from behind", "side by side"]
+    description: "Cuddling from behind, side position"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_grinding
+    label: "grinding"
+    aliases: ["dry humping", "rubbing against", "gyrating"]
+    description: "Grinding against partner or object"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_striptease
+    label: "striptease pose"
+    aliases: ["stripping", "removing clothes", "teasing pose"]
+    description: "Pose while removing clothing"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_self_touch
+    label: "touching self"
+    aliases: ["self pleasuring", "masturbating", "hand between legs"]
+    description: "Self-touching, intimate"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_spread_ass
+    label: "spreading butt cheeks"
+    aliases: ["spreading ass", "cheek spread", "showing asshole"]
+    description: "Spreading buttocks to expose"
+    explicit: true
+    weight: 1.0
+
+intimate_gestures:
+  - id: gesture_hand_on_breast
+    label: "hand on breast"
+    aliases: ["cupping breast", "holding breast", "grabbing boob"]
+    description: "Hand placed on breast"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_cupping_breasts
+    label: "cupping breasts"
+    aliases: ["holding both breasts", "squeezing breasts", "grabbing boobs"]
+    description: "Both hands cupping breasts"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_pinching_nipple
+    label: "pinching nipple"
+    aliases: ["playing with nipple", "nipple play", "twisting nipple"]
+    description: "Pinching or playing with nipple"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_hand_on_ass
+    label: "hand on ass"
+    aliases: ["hand on butt", "grabbing ass", "grabbing butt", "grabbing buttocks", "squeezing ass", "squeezing butt"]
+    description: "Hand placed on buttocks"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_spanking
+    label: "spanking"
+    aliases: ["slapping ass", "slapping butt", "spanking pose"]
+    description: "Spanking gesture"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_hand_between_legs
+    label: "hand between legs"
+    aliases: ["hand in crotch", "touching crotch", "hand on groin"]
+    description: "Hand placed in crotch area"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_grabbing_hips
+    label: "grabbing hips"
+    aliases: ["holding hips", "hands on hips", "gripping hips"]
+    description: "Hands gripping hips"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_holding_waist
+    label: "holding waist"
+    aliases: ["hands on waist", "embracing waist"]
+    description: "Hands holding waist"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_pulling_hair
+    label: "pulling hair"
+    aliases: ["hair pulling", "grabbing hair", "tugging hair"]
+    description: "Pulling hair gesture"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_cupping_face
+    label: "cupping face"
+    aliases: ["holding face", "cradling face", "hands on cheeks"]
+    description: "Gently cupping face"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_holding_chin
+    label: "holding chin"
+    aliases: ["chin lift", "tilting chin", "grabbing chin"]
+    description: "Holding or tilting chin"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_touching_neck
+    label: "touching neck"
+    aliases: ["hand on neck", "caressing neck", "grabbing throat"]
+    description: "Hand on neck area"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_pinning_arms
+    label: "pinning arms"
+    aliases: ["arms pinned", "restrained arms", "holding wrists down"]
+    description: "Arms being pinned down"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_undressing
+    label: "undressing"
+    aliases: ["removing clothes", "taking off clothes", "clothes coming off"]
+    description: "In the act of removing clothing"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_embracing
+    label: "embracing"
+    aliases: ["hugging", "holding close", "cuddling"]
+    description: "Embracing another person"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_kissing
+    label: "kissing"
+    aliases: ["making out", "passionate kiss", "deep kiss"]
+    description: "Kissing another person"
+    explicit: false
+    weight: 1.0
+
+  - id: gesture_fondling
+    label: "fondling"
+    aliases: ["groping", "caressing intimately", "feeling up"]
+    description: "Intimate touching/groping"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_oral_implied
+    label: "oral sex implied"
+    aliases: ["going down", "head", "oral position"]
+    description: "Position implying oral sex"
+    explicit: true
+    weight: 1.0
+
+  - id: gesture_foreplay
+    label: "foreplay"
+    aliases: ["intimate touching", "making out", "petting"]
+    description: "Foreplay activity"
+    explicit: true
+    weight: 1.0
+
+hand_gestures:
+  - id: hand_pointing
+    label: "pointing"
+    aliases: ["pointing finger", "indicating"]
+    description: "Pointing gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_beckoning
+    label: "beckoning"
+    aliases: ["come here gesture", "finger curl", "come closer"]
+    description: "Beckoning gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_peace_sign
+    label: "peace sign"
+    aliases: ["V sign", "two fingers up"]
+    description: "Peace sign gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_middle_finger
+    label: "middle finger"
+    aliases: ["flipping off", "fuck you gesture", "giving the bird"]
+    description: "Middle finger gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_thumbs_up
+    label: "thumbs up"
+    aliases: ["approval gesture", "good job sign"]
+    description: "Thumbs up gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_ok_sign
+    label: "OK sign"
+    aliases: ["okay gesture", "circle fingers"]
+    description: "OK hand gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_covering_mouth
+    label: "covering mouth"
+    aliases: ["hand over mouth", "gasp gesture", "surprised hand"]
+    description: "Hand covering mouth"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_biting_lip
+    label: "biting lip"
+    aliases: ["lip bite", "chewing lip", "nervous lip bite"]
+    description: "Biting lower lip"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_caressing_cheek
+    label: "caressing cheek"
+    aliases: ["touching cheek", "hand on face", "stroking face"]
+    description: "Gently caressing own or another's cheek"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_behind_head
+    label: "hands behind head"
+    aliases: ["relaxed hands behind head", "leaning back hands behind head"]
+    description: "Hands clasped behind head"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_in_hair
+    label: "hand in hair"
+    aliases: ["running fingers through hair", "playing with hair", "messing up hair"]
+    description: "Hand running through hair"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_adjusting_clothes
+    label: "adjusting clothes"
+    aliases: ["fixing outfit", "pulling down skirt", "adjusting top"]
+    description: "Adjusting or fixing clothing"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_ahegao
+    label: "ahegao hand sign"
+    aliases: ["double peace sign ahegao", "ahegao pose hands"]
+    description: "Ahegao expression with hand sign"
+    explicit: true
+    weight: 1.0
+
+  - id: hand_v_sign_mouth
+    label: "V sign over mouth"
+    aliases: ["peace sign on lips", "V over mouth"]
+    description: "V sign positioned over mouth"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_finger_lips
+    label: "finger on lips"
+    aliases: ["shushing", "quiet gesture", "finger to mouth"]
+    description: "Finger pressed to lips"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_writing
+    label: "writing gesture"
+    aliases: ["holding pen", "taking notes", "writing pose"]
+    description: "Holding pen, writing"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_holding_object
+    label: "holding object"
+    aliases: ["carrying", "gripping", "holding item"]
+    description: "Holding an object"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_saluting
+    label: "saluting"
+    aliases: ["military salute", "respect gesture"]
+    description: "Military salute gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_praying
+    label: "praying hands"
+    aliases: ["hands together", "namaste", "prayer pose"]
+    description: "Hands pressed together in prayer"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_fists_clenched
+    label: "fists clenched"
+    aliases: ["angry fists", "determined fists", "ready to fight"]
+    description: "Fists clenched tightly"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_open_palms
+    label: "open palms"
+    aliases: ["palms up", "open hands", "showing palms"]
+    description: "Palms open and visible"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_waving
+    label: "waving"
+    aliases: ["hello wave", "goodbye wave", "waving hand"]
+    description: "Waving hand gesture"
+    explicit: false
+    weight: 1.0
+
+  - id: hand_heart_shape
+    label: "heart shape with hands"
+    aliases: ["hand heart", "finger heart", "making heart"]
+    description: "Making heart shape with hands"
+    explicit: false
+    weight: 1.0
+
+facial_expressions:
+  - id: expr_smile
+    label: "smiling"
+    aliases: ["happy expression", "grinning", "warm smile"]
+    description: "Happy, smiling expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_smirk
+    label: "smirking"
+    aliases: ["cocky smile", "knowing smile", "smug expression"]
+    description: "Smug or knowing smile"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_seductive
+    label: "seductive expression"
+    aliases: ["sultry look", "alluring gaze", "bedroom eyes", "come hither look"]
+    description: "Seductive, alluring expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_angry
+    label: "angry"
+    aliases: ["furious", "rage", "mad expression"]
+    description: "Angry expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_sad
+    label: "sad"
+    aliases: ["melancholy", "dejected", "downcast"]
+    description: "Sad expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_crying
+    label: "crying"
+    aliases: ["tears", "weeping", "sobbing", "teary eyed"]
+    description: "Crying expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_surprised
+    label: "surprised"
+    aliases: ["shocked", "astonished", "wide eyed"]
+    description: "Surprised expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_fearful
+    label: "fearful"
+    aliases: ["scared", "terrified", "afraid", "frightened"]
+    description: "Fearful expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_determined
+    label: "determined"
+    aliases: ["focused", "resolute", "serious expression"]
+    description: "Determined expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_coy
+    label: "coy"
+    aliases: ["shy smile", "bashful", "demure", "modest"]
+    description: "Coy, shy expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_dominant
+    label: "dominant expression"
+    aliases: ["commanding look", "superior gaze", "alpha expression"]
+    description: "Dominant, commanding expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_submissive
+    label: "submissive expression"
+    aliases: ["submissive look", "yielding", "deferential"]
+    description: "Submissive expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_mischievous
+    label: "mischievous"
+    aliases: ["playful", "cheeky", "troublemaker grin"]
+    description: "Mischievous expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_ahegao
+    label: "ahegao"
+    aliases: ["O-face", "orgasm face", "rolled back eyes", "tongue out pleasure"]
+    description: "Exaggerated pleasure expression"
+    explicit: true
+    weight: 1.0
+
+  - id: expr_blushing
+    label: "blushing"
+    aliases: ["flushed", "embarrassed", "red faced", "bashful blush"]
+    description: "Blushing expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_pouting
+    label: "pouting"
+    aliases: ["pouty lips", "sulking", "duck face"]
+    description: "Pouting expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_winking
+    label: "winking"
+    aliases: ["one eye closed", "flirtatious wink", "playful wink"]
+    description: "Winking expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_raising_eyebrow
+    label: "raising eyebrow"
+    aliases: ["one eyebrow raised", "skeptical look", "questioning expression"]
+    description: "One eyebrow raised"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_furrowing_brow
+    label: "furrowing brow"
+    aliases: ["frowning", "concerned expression", "worried brow"]
+    description: "Brow furrowed in concern"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_rolling_eyes
+    label: "rolling eyes"
+    aliases: ["eye roll", "annoyed expression", "dismissive look"]
+    description: "Eyes rolled upward"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_tongue_out
+    label: "tongue out"
+    aliases: ["sticking tongue out", "blep", "playful tongue"]
+    description: "Tongue sticking out"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_open_mouth
+    label: "open mouth"
+    aliases: ["mouth open", "parted lips", "slightly open mouth"]
+    description: "Mouth slightly open"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_grimacing
+    label: "grimacing"
+    aliases: ["wincing", "pain expression", "disgusted face"]
+    description: "Grimacing expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_laughing
+    label: "laughing"
+    aliases: ["laughing out loud", "giggling", "cackling", "joyful laugh"]
+    description: "Laughing expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_screaming
+    label: "screaming"
+    aliases: ["yelling", "shouting", "open mouth scream"]
+    description: "Screaming expression"
+    explicit: false
+    weight: 1.0
+
+  - id: expr_seductive_bite_lip
+    label: "seductively biting lip"
+    aliases: ["sexy lip bite", "alluring lip bite", "biting lower lip seductively"]
+    description: "Seductive lip biting"
+    explicit: true
+    weight: 1.0
+
+yoga_poses:
+  - id: pose_lotus
+    label: "lotus pose"
+    aliases: ["padmasana", "seated meditation", "cross-legged"]
+    description: "Lotus yoga meditation pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_warrior_i
+    label: "warrior I pose"
+    aliases: ["virabhadrasana I", "warrior pose"]
+    description: "Warrior I yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_warrior_ii
+    label: "warrior II pose"
+    aliases: ["virabhadrasana II", "side warrior"]
+    description: "Warrior II yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_warrior_iii
+    label: "warrior III pose"
+    aliases: ["virabhadrasana III", "balancing warrior"]
+    description: "Warrior III yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_tree
+    label: "tree pose"
+    aliases: ["vrksasana", "one-legged balance"]
+    description: "Tree yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_downward_dog
+    label: "downward facing dog"
+    aliases: ["adho mukha svanasana", "yoga inverted V"]
+    description: "Downward facing dog pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_cobra
+    label: "cobra pose"
+    aliases: ["bhujangasana", "snake pose", "upward cobra"]
+    description: "Cobra yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_child
+    label: "child's pose"
+    aliases: ["balasana", "fetal position yoga"]
+    description: "Child's yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_corpse
+    label: "corpse pose"
+    aliases: ["savasana", "lying flat", "dead body pose"]
+    description: "Corpse yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_cat_cow
+    label: "cat-cow stretch"
+    aliases: ["marjaryasana-bitilasana", "arched back stretch"]
+    description: "Cat-cow yoga stretch"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_triangle
+    label: "triangle pose"
+    aliases: ["trikonasana", "lateral stretch"]
+    description: "Triangle yoga pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_bridge
+    label: "bridge pose"
+    aliases: ["setu bandha", "back bend bridge"]
+    description: "Bridge yoga pose"
+    explicit: false
+    weight: 1.0
+
+martial_arts:
+  - id: pose_mma_stance
+    label: "MMA fighting stance"
+    aliases: ["mixed martial arts stance", "combat ready"]
+    description: "MMA combat fighting stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_karate_stance
+    label: "karate stance"
+    aliases: ["martial arts ready", "fighting form"]
+    description: "Karate fighting stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_kung_fu_stance
+    label: "kung fu stance"
+    aliases: ["horse stance", "kung fu ready"]
+    description: "Kung fu martial arts stance"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_kick_high
+    label: "high kick"
+    aliases: ["side kick high", "leg up kick"]
+    description: "High kick martial arts pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_punch_throw
+    label: "throwing punch"
+    aliases: ["punching", "strike pose"]
+    description: "Punching pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_kick_block
+    label: "blocking kick"
+    aliases: ["defensive kick", "guard kick"]
+    description: "Blocking defensive kick"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_kata
+    label: "kata form"
+    aliases: ["martial arts form", "poomsae", "pattern"]
+    description: "Martial arts kata form"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_bow
+    label: "martial arts bow"
+    aliases: ["respect bow", "dachi bow"]
+    description: "Martial arts bow"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_sparring
+    label: "sparring"
+    aliases: ["fighting practice", "training combat"]
+    description: "Sparring martial arts"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_meditation_martial
+    label: "zen meditation"
+    aliases: ["martial meditation", "combat stillness"]
+    description: "Martial arts zen meditation"
+    explicit: false
+    weight: 1.0
+
+everyday_poses:
+  - id: pose_walking
+    label: "walking"
+    aliases: ["mid-stride walk", "steps"]
+    description: "Walking pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_crouching
+    label: "crouching"
+    aliases: ["squatting low", "hunkered down"]
+    description: "Crouching pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_squatting
+    label: "squatting"
+    aliases: ["deep squat", "resting squat"]
+    description: "Squatting pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_stretching
+    label: "stretching"
+    aliases: ["limbering up", "stretch"]
+    description: "Stretching pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_typing
+    label: "typing"
+    aliases: ["computer work", "keyboard"]
+    description: "Typing at keyboard pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_writing
+    label: "writing"
+    aliases: ["holding pen", "note taking"]
+    description: "Writing pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_cooking
+    label: "cooking"
+    aliases: ["kitchen activity", "chef pose"]
+    description: "Cooking pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_cleaning
+    label: "cleaning"
+    aliases: ["mopping", "vacuuming", "housework"]
+    description: "Cleaning pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_driving
+    label: "driving"
+    aliases: ["car steering", "behind wheel"]
+    description: "Driving pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_riding
+    label: "horse riding"
+    aliases: ["mounted", "equestrian"]
+    description: "Horse riding pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_biking
+    label: "biking"
+    aliases: ["cycling", "on bicycle"]
+    description: "Biking pose"
+    explicit: false
+    weight: 1.0
+
+fashion_poses:
+  - id: pose_hand_on_hip
+    label: "hand on hip"
+    aliases: ["akimbo", "hand at waist"]
+    description: "Fashion hand on hip pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_leg_pop
+    label: "leg pop"
+    aliases: [" hipshot", "weight on one leg"]
+    description: "Fashion leg pop pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_s_curve
+    label: "S-curve"
+    aliases: ["fashion S-curve", "model pose"]
+    description: "Fashion S-curve pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_g_curve
+    label: "G-curve"
+    aliases: ["fashion G-curve", "contrapposto"]
+    description: "Fashion G-curve pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_pigeon_toe
+    label: "pigeon toe"
+    aliases: ["toes in", "inward feet"]
+    description: "Pigeon toe fashion pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_looking_over_shoulder
+    label: "looking over shoulder"
+    aliases: ["back glance", "over the shoulder look"]
+    description: "Looking over shoulder pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_arm_behind_head
+    label: "arm behind head"
+    aliases: ["fashion arm", "glamour pose"]
+    description: "Arm behind head pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_leaning_forward
+    label: "leaning forward"
+    aliases: ["forward lean", "bent forward"]
+    description: "Leaning forward fashion pose"
+    explicit: false
+    weight: 1.0
+
+couple_poses:
+  - id: pose_holding_hands
+    label: "holding hands"
+    aliases: ["hand in hand", "couple hands"]
+    description: "Couple holding hands pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_piggyback
+    label: "piggyback"
+    aliases: ["carrying", "on back"]
+    description: "Piggyback pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_dancing_together
+    label: "slow dancing"
+    aliases: ["dancing", "ballroom hold"]
+    description: "Slow dancing together pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_hugging
+    label: "hugging"
+    aliases: ["embrace", "arms around"]
+    description: "Hugging pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_kissing
+    label: "kissing"
+    aliases: ["lips meeting", "peck", "making out"]
+    description: "Kissing pose"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_forehead_touch
+    label: "forehead touching"
+    aliases: ["intimate forehead", "couple touch"]
+    description: "Forehead touching pose"
+    explicit: false
+    weight: 1.0
+
+animal_poses:
+  - id: pose_all_fours_animal
+    label: "all fours animal"
+    aliases: ["hands and knees", "quadruped"]
+    description: "All fours animal pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_pouncing
+    label: "pouncing"
+    aliases: ["springing", "leap ready"]
+    description: "Pouncing animal pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_crawling
+    label: "crawling"
+    aliases: ["moving on all fours", "animal crawl"]
+    description: "Crawling pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_stretching_cat
+    label: "stretching like cat"
+    aliases: ["cat stretch", "arched back stretch"]
+    description: "Cat-like stretching pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_curled_up
+    label: "curled up"
+    aliases: ["fetal position", "curled like animal"]
+    description: "Curled up pose"
+    explicit: false
+    weight: 1.0
+
+bound_restraint:
+  - id: pose_tied_hands
+    label: "hands tied"
+    aliases: ["bound wrists", "tied up hands"]
+    description: "Hands tied pose"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_chained
+    label: "chained"
+    aliases: ["in chains", "shackled"]
+    description: "Chained pose"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_handcuffed
+    label: "handcuffed"
+    aliases: ["cuffed wrists", "police cuffs"]
+    description: "Handcuffed pose"
+    explicit: true
+    weight: 1.0
+
+  - id: pose_roped
+    label: "rope bound"
+    aliases: ["rope tied", "bondage rope"]
+    description: "Rope bound pose"
+    explicit: true
+    weight: 1.0
+
+worship_religion:
+  - id: pose_praying_hands
+    label: "praying hands"
+    aliases: ["prayer", "clasped hands"]
+    description: "Praying hands pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_meditating
+    label: "meditating"
+    aliases: ["zen", "lotus meditation"]
+    description: "Meditating pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_prostration
+    label: "prostration"
+    aliases: ["bowing low", "worship pose"]
+    description: "Prostration worship pose"
+    explicit: false
+    weight: 1.0
+
+  - id: pose_ritual
+    label: "ritual pose"
+    aliases: ["ceremonial", "religious ceremony"]
+    description: "Ritual pose"
+    explicit: false
+    weight: 1.0

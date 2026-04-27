@@ -1,0 +1,420 @@
+# PROMPTSMITH TAXONOMY - MOOD & EMOTION
+
+positive:
+  happy:
+    - id: mood_happy
+      label: "happy"
+      aliases: ["joyful", "cheerful", "delighted"]
+      description: "Happy, joyful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_joyful
+      label: "joyful"
+      aliases: ["ecstatic", "elated", "gleeful"]
+      description: "Joyful, elated mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_content
+      label: "content"
+      aliases: ["satisfied", "at peace", "serene"]
+      description: "Content, satisfied mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_excited
+      label: "excited"
+      aliases: ["thrilled", "energetic", "enthusiastic"]
+      description: "Excited, energetic mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_playful
+      label: "playful"
+      aliases: ["mischievous", "teasing", "frolicsome"]
+      description: "Playful, mischievous mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_cheerful
+      label: "cheerful"
+      aliases: ["bright", "sunny", "optimistic"]
+      description: "Cheerful, optimistic mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_elated
+      label: "elated"
+      aliases: ["overjoyed", "on cloud nine", "blissful"]
+      description: "Elated, blissful mood"
+      explicit: false
+      weight: 1.0
+
+  romantic:
+    - id: mood_romantic
+      label: "romantic"
+      aliases: ["loving", "affectionate", "intimate mood"]
+      description: "Romantic, loving mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_seductive
+      label: "seductive"
+      aliases: ["alluring", "captivating", "tempting"]
+      description: "Seductive, alluring mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_passionate
+      label: "passionate"
+      aliases: ["intense", "ardent", "fervent"]
+      description: "Passionate, intense mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_erotic
+      label: "erotic"
+      aliases: ["sensual", "seductive", "intimate"]
+      description: "Erotic, sensual mood"
+      explicit: true
+      weight: 1.0
+
+    - id: mood_tender
+      label: "tender"
+      aliases: ["gentle", "caring", "warm affection"]
+      description: "Tender, gentle mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_yearning
+      label: "yearning"
+      aliases: ["longing", "pining", "wistful desire"]
+      description: "Yearning, longing mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_wooing
+      label: "wooing"
+      aliases: ["courting", "charming", "flirtatious"]
+      description: "Wooing, courting mood"
+      explicit: false
+      weight: 1.0
+
+negative:
+  sad:
+    - id: mood_sad
+      label: "sad"
+      aliases: ["unhappy", "sorrowful", "melancholy"]
+      description: "Sad, sorrowful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_melancholy
+      label: "melancholy"
+      aliases: ["pensive", " wistful", "sadly thoughtful"]
+      description: "Melancholy, wistful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_gloomy
+      label: "gloomy"
+      aliases: ["dark", "dreary", "somber"]
+      description: "Gloomy, dreary mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_dejected
+      label: "dejected"
+      aliases: ["crestfallen", "disheartened", "downcast"]
+      description: "Dejected, crestfallen mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_despondent
+      label: "despondent"
+      aliases: ["hopeless", "desperate", "in despair"]
+      description: "Despondent, hopeless mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_grief
+      label: "grief"
+      aliases: ["mourning", "bereaved", "heartbroken"]
+      description: "Grief, mourning mood"
+      explicit: false
+      weight: 1.0
+
+  angry:
+    - id: mood_angry
+      label: "angry"
+      aliases: ["furious", "irate", "enraged"]
+      description: "Angry, furious mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_furious
+      label: "furious"
+      aliases: ["infuriated", "livid", "raging"]
+      description: "Furious, raging mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_irritable
+      label: "irritable"
+      aliases: ["annoyed", "grumpy", "testy"]
+      description: "Irritable, annoyed mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_frustrated
+      label: "frustrated"
+      aliases: ["exasperated", "irked", "vexed"]
+      description: "Frustrated, exasperated mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_hostile
+      label: "hostile"
+      aliases: ["aggressive", "antagonistic", "confrontational"]
+      description: "Hostile, aggressive mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_bitter
+      label: "bitter"
+      aliases: ["resentful", "acidic", "jaundiced"]
+      description: "Bitter, resentful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_vengeful
+      label: "vengeful"
+      aliases: ["vindictive", "revengeful", "spiteful"]
+      description: "Vengeful, vindictive mood"
+      explicit: false
+      weight: 1.0
+
+fearful:
+  - id: mood_scared
+    label: "scared"
+    aliases: ["afraid", "frightened", "fearful"]
+    description: "Scared, frightened mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_terrified
+    label: "terrified"
+    aliases: ["horrified", "petrified", "scared stiff"]
+    description: "Terrified, horrified mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_anxious
+    label: "anxious"
+    aliases: ["worried", "nervous", "apprehensive"]
+    description: "Anxious, worried mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_uneasy
+    label: "uneasy"
+    aliases: ["restless", " unsettled", "disquieted"]
+    description: "Uneasy, restless mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_tense
+    label: "tense"
+    aliases: ["nervous", "uptight", "high-strung"]
+    description: "Tense, nervous mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_paranoid
+    label: "paranoid"
+    aliases: ["suspicious", "distrustful", "anxious"]
+    description: "Paranoid, suspicious mood"
+    explicit: false
+    weight: 1.0
+
+  - id: mood_dread
+    label: "dread"
+    aliases: ["looming fear", "apprehension", "foreboding"]
+    description: "Dread, foreboding mood"
+    explicit: false
+    weight: 1.0
+
+neutral:
+  contemplative:
+    - id: mood_contemplative
+      label: "contemplative"
+      aliases: ["thoughtful", "meditative", "pensive"]
+      description: "Contemplative, thoughtful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_reflective
+      label: "reflective"
+      aliases: ["introspective", "self-examining", "thoughtful"]
+      description: "Reflective, introspective mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_peaceful
+      label: "peaceful"
+      aliases: ["tranquil", "calm", "serene"]
+      description: "Peaceful, tranquil mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_zen
+      label: "zen"
+      aliases: ["enlightened", "centered", "mindful"]
+      description: "Zen, centered mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_mysterious
+      label: "mysterious"
+      aliases: ["enigmatic", "cryptic", "puzzling"]
+      description: "Mysterious, enigmatic mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_enigmatic
+      label: "enigmatic"
+      aliases: ["mysterious", "inscrutable", "baffling"]
+      description: "Enigmatic mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_ambiguous
+      label: "ambiguous"
+      aliases: ["vague", "uncertain", "cryptic"]
+      description: "Ambiguous, vague mood"
+      explicit: false
+      weight: 1.0
+
+  apathetic:
+    - id: mood_indifferent
+      label: "indifferent"
+      aliases: ["apathetic", "unconcerned", "nonchalant"]
+      description: "Indifferent, apathetic mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_bored
+      label: "bored"
+      aliases: ["listless", " uninterested", "jaded"]
+      description: "Bored, listless mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_numb
+      label: "numb"
+      aliases: ["emotionless", "distant", "detached"]
+      description: "Numb, emotionless mood"
+      explicit: false
+      weight: 1.0
+
+complex:
+  dark:
+    - id: mood_dark
+      label: "dark mood"
+      aliases: ["gloomy", "shadowy", "bleak"]
+      description: "Dark, bleak mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_morbid
+      label: "morbid"
+      aliases: ["macabre", "grim", "darkly humorous"]
+      description: "Morbid, macabre mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_ominous
+      label: "ominous"
+      aliases: [" foreboding", "threatening", "inauspicious"]
+      description: "Ominous, foreboding mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_eerie
+      label: "eerie"
+      aliases: ["creepy", "unsettling", "spooky"]
+      description: "Eerie, creepy mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_macabre
+      label: "macabre"
+      aliases: ["death-themed", "ghoulish", "gruesome"]
+      description: "Macabre, ghoulish mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_disturbing
+      label: "disturbing"
+      aliases: ["unsettling", "disturbing imagery"]
+      description: "Disturbing, unsettling mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_unsettling
+      label: "unsettling"
+      aliases: ["unnerve", "disturbed", "discomforting"]
+      description: "Unsettling, discomforting mood"
+      explicit: false
+      weight: 1.0
+
+  intense:
+    - id: mood_intense
+      label: "intense"
+      aliases: ["powerful", "overwhelming", "potent"]
+      description: "Intense, powerful mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_dramatic
+      label: "dramatic"
+      aliases: ["theatrical", "melodramatic", "histrionic"]
+      description: "Dramatic, theatrical mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_epic
+      label: "epic"
+      aliases: ["grand", "heroic", "monumental"]
+      description: "Epic, grand mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_triumphant
+      label: "triumphant"
+      aliases: ["victorious", "successful", "exultant"]
+      description: "Triumphant, victorious mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_heroic
+      label: "heroic"
+      aliases: ["valiant", "brave", "courageous"]
+      description: "Heroic, valiant mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_powerful
+      label: "powerful"
+      aliases: ["mighty", "formidable", " commanding"]
+      description: "Powerful, mighty mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_primal
+      label: "primal"
+      aliases: ["raw", "instinctive", "visceral"]
+      description: "Primal, raw mood"
+      explicit: false
+      weight: 1.0

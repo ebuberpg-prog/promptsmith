@@ -1,0 +1,182 @@
+# PROMPTSMITH NEGATIVE PROMPTS DATABASE
+
+universal:
+  quality:
+    - "lowres"
+    - "bad anatomy"
+    - "bad hands"
+    - "text"
+    - "error"
+    - "missing fingers"
+    - "extra digit"
+    - "fewer digits"
+    - "cropped"
+    - "worst quality"
+    - "low quality"
+    - "normal quality"
+    - "jpeg artifacts"
+    - "signature"
+    - "watermark"
+    - "username"
+    - "blurry"
+    - "artist name"
+
+  anatomy:
+    - "bad anatomy"
+    - "bad proportions"
+    - "extra limbs"
+    - "disfigured"
+    - "gross proportions"
+    - "malformed limbs"
+    - "missing arms"
+    - "missing legs"
+    - "extra arms"
+    - "extra legs"
+    - "fused fingers"
+    - "too many fingers"
+    - "long neck"
+    - "mutated hands"
+    - "poorly drawn hands"
+    - "poorly drawn face"
+
+  composition:
+    - "out of frame"
+    - "duplicate"
+    - "deformed"
+    - "ugly"
+    - "cloned face"
+    - "bad composition"
+    - "poor composition"
+
+character_specific:
+  face:
+    - "deformed face"
+    - "disfigured face"
+    - "poorly drawn face"
+    - "mutated face"
+    - "extra face"
+    - "duplicate face"
+    - "cross-eyed"
+    - "asymmetric eyes"
+    - "bad teeth"
+    - "extra teeth"
+    - "missing teeth"
+
+  body:
+    - "bad body"
+    - "disfigured body"
+    - "mutated body"
+    - "extra body parts"
+    - "missing body parts"
+    - "conjoined"
+    - "bad feet"
+    - "poorly drawn feet"
+    - "extra toes"
+    - "missing toes"
+    - "bad fingers"
+    - "poorly drawn fingers"
+
+  hands:
+    - "bad hands"
+    - "mutated hands"
+    - "poorly drawn hands"
+    - "extra fingers"
+    - "missing fingers"
+    - "fused fingers"
+    - "too many fingers"
+    - "too few fingers"
+    - "deformed hands"
+    - "claw hands"
+    - "mangled fingers"
+
+style_specific:
+  photorealistic:
+    - "cartoon"
+    - "3d"
+    - "render"
+    - "anime"
+    - "drawing"
+    - "painting"
+    - "illustration"
+    - "sketch"
+    - "CGI"
+    - "digital art"
+
+  anime:
+    - "photorealistic"
+    - "realistic"
+    - "3d"
+    - "western cartoon"
+    - "live action"
+
+  realistic:
+    - "cartoon"
+    - "anime"
+    - "illustration"
+    - "painting"
+    - "drawing"
+    - "sketch"
+    - "CGI"
+    - "3D"
+    - "render"
+
+  illustration:
+    - "photo"
+    - "photograph"
+    - "photorealistic"
+    - "realistic"
+    - "3D"
+
+model_specific:
+  stable_diffusion:
+    - "lowres"
+    - "bad anatomy"
+    - "bad hands"
+    - "text"
+    - "error"
+    - "missing fingers"
+    - "extra digit"
+    - "fewer digits"
+    - "cropped"
+    - "worst quality"
+    - "low quality"
+    - "normal quality"
+    - "jpeg artifacts"
+    - "signature"
+    - "watermark"
+    - "username"
+    - "blurry"
+    - "artist name"
+    - "deformed"
+    - "ugly"
+    - "duplicate"
+    - "mutation"
+    - "poorly drawn"
+    - "bad proportions"
+    - "gross proportions"
+    - "malformed"
+    - "disfigured"
+
+  flux:
+    - "blurry"
+    - "bad quality"
+    - "worst quality"
+    - "low quality"
+    - "deformed"
+    - "disfigured"
+    - "ugly"
+    - "duplicate"
+    - "mutated"
+
+  midjourney:
+    - ""
+
+  dall_e_3:
+    - ""
+
+  ideogram:
+    - "blurry"
+    - "bad quality"
+    - "worst quality"
+    - "deformed"
+    - "disfigured"

@@ -1,0 +1,268 @@
+# PROMPTSMITH TAXONOMY - COMPOSITION & FRAMING
+
+rule_of_thirds:
+  - id: comp_rule_thirds
+    label: "rule of thirds"
+    aliases: ["thirds composition", "classical thirds"]
+    description: "Rule of thirds composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_thirds_horizontal
+    label: "horizontal thirds"
+    aliases: ["landscape thirds", "horizontal split"]
+    description: "Horizontal thirds composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_thirds_vertical
+    label: "vertical thirds"
+    aliases: ["portrait thirds", "vertical split"]
+    description: "Vertical thirds composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_centered
+    label: "centered composition"
+    aliases: ["center frame", "symmetrical", "bullseye"]
+    description: "Centered composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_off_center
+    label: "off-center"
+    aliases: ["asymmetric", "weighted to side"]
+    description: "Off-center composition"
+    explicit: false
+    weight: 1.0
+
+framing:
+  - id: comp_frame_within_frame
+    label: "frame within frame"
+    aliases: ["window frame", "door frame", "archway"]
+    description: "Frame within frame composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_edge_framing
+    label: "edge framing"
+    aliases: ["edge of frame", "bordered"]
+    description: "Edge framing composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_corner_framing
+    label: "corner framing"
+    aliases: ["L-frame", "corner composition"]
+    description: "Corner framing composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_natural_framing
+    label: "natural framing"
+    aliases: ["foliage frame", "rock arch", "environmental"]
+    description: "Natural framing with environment"
+    explicit: false
+    weight: 1.0
+
+perspective:
+  - id: comp_one_point
+    label: "one-point perspective"
+    aliases: ["vanishing point", "central perspective"]
+    description: "One-point perspective composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_two_point
+    label: "two-point perspective"
+    aliases: ["corner perspective", "angular perspective"]
+    description: "Two-point perspective composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_three_point
+    label: "three-point perspective"
+    aliases: ["multi-point", "complex perspective"]
+    description: "Three-point perspective composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_forced_perspective
+    label: "forced perspective"
+    aliases: ["Trompe-l'œil", "illusionary scale"]
+    description: "Forced perspective composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_aerial_view
+    label: "bird's eye view"
+    aliases: ["top-down", "overhead", "aerial"]
+    description: "Bird's eye view composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_ground_view
+    label: "worm's eye view"
+    aliases: ["ground level", "from below", "low angle extreme"]
+    description: "Worm's eye view composition"
+    explicit: false
+    weight: 1.0
+
+leading_lines:
+  - id: comp_leading_lines
+    label: "leading lines"
+    aliases: ["lines to subject", "visual path"]
+    description: "Leading lines composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_diagonal_lines
+    label: "diagonal lines"
+    aliases: ["dynamic lines", "energy lines"]
+    description: "Diagonal lines composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_horizontal_lines
+    label: "horizontal lines"
+    aliases: ["horizon", "stability", "calm"]
+    description: "Horizontal lines composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_vertical_lines
+    label: "vertical lines"
+    aliases: ["upward energy", "strength", "power"]
+    description: "Vertical lines composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_curved_lines
+    label: "curved lines"
+    aliases: ["S-curve", "flowing", "organic"]
+    description: "Curved lines composition"
+    explicit: false
+    weight: 1.0
+
+balance:
+  - id: comp_symmetrical
+    label: "symmetrical"
+    aliases: ["mirror balance", "even", "formal"]
+    description: "Symmetrical composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_asymmetrical
+    label: "asymmetrical"
+    aliases: ["uneven balance", "visual weight"]
+    description: "Asymmetrical composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_radial
+    label: "radial"
+    aliases: ["centered radiate", "spoke pattern"]
+    description: "Radial composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_golden_ratio
+    label: "golden ratio"
+    aliases: ["golden spiral", "φ composition"]
+    description: "Golden ratio composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_fibonacci
+    label: "Fibonacci spiral"
+    aliases: ["Fibonacci", "natural spiral"]
+    description: "Fibonacci spiral composition"
+    explicit: false
+    weight: 1.0
+
+depth:
+  - id: comp_deep_depth
+    label: "deep depth"
+    aliases: ["foreground midground background", "layered"]
+    description: "Deep depth composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_shallow_depth
+    label: "shallow depth"
+    aliases: ["bokeh background", "selective focus"]
+    description: "Shallow depth composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_flat_2d
+    label: "flat 2D"
+    aliases: ["2D plane", "graphic", "poster-like"]
+    description: "Flat 2D composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_negative_space
+    label: "negative space"
+    aliases: ["empty space", "minimalist composition"]
+    description: "Negative space composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_positive_space
+    label: "positive space"
+    aliases: ["filled frame", "abundant", "dense"]
+    description: "Positive space dominant composition"
+    explicit: false
+    weight: 1.0
+
+cropping:
+  - id: comp_close_crop
+    label: "close crop"
+    aliases: ["tight crop", "headshot", "detail"]
+    description: "Close crop composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_loose_crop
+    label: "loose crop"
+    aliases: ["full frame", "breathing room"]
+    description: "Loose crop with space"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_edge_crop
+    label: "edge crop"
+    aliases: ["cut off", "partial", "truncated"]
+    description: "Edge crop composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_bleed
+    label: "full bleed"
+    aliases: ["edge to edge", "no margins", "complete"]
+    description: "Full bleed composition"
+    explicit: false
+    weight: 1.0
+
+dynamic:
+  - id: comp_dynamic_angle
+    label: "dynamic angle"
+    aliases: ["tilted", "Dutch angle", "canted"]
+    description: "Dynamic tilted angle"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_centered_face
+    label: "face centered"
+    aliases: ["portrait center", "face focus"]
+    description: "Face centered composition"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_eye_level
+    label: "eye level"
+    aliases: ["straight on", "horizon at eye"]
+    description: "Eye level composition"
+    explicit: false
+    weight: 1.0
