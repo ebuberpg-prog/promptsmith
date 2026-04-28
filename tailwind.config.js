@@ -46,11 +46,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Firecrawl surface hierarchy — pure black to near-black
+        // Warm surface hierarchy — respects light/dark theme via CSS vars
         surface: {
-          DEFAULT: "#000000",
-          elevated: "#0d0d0d",
-          highlight: "#1a1a1a",
+          DEFAULT: "var(--ui-surface)",
+          elevated: "var(--ui-surface-elevated)",
+          highlight: "var(--ui-surface-soft)",
         },
         // Retained for any legacy usage — will be treated as white
         velocity: {

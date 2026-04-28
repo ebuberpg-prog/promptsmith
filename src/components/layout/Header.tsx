@@ -23,6 +23,12 @@ import type { SupportedModel } from '@/types'
 import { AISettingsPanel } from '@/components/settings/AISettingsPanel'
 import { LMPromptEnhancer } from '@/components/ai/LMPromptEnhancer'
 import { MODEL_GROUPS, getModelConfig } from '@/data/model-configs'
+import { VersionHistory } from '@/components/versions/VersionHistory'
+import { PromptDiff } from '@/components/diff/PromptDiff'
+import { ABTesting } from '@/components/abtest/ABTesting'
+import { StyleTransferMatrix } from '@/components/style/StyleTransferMatrix'
+import { BatchGeneration } from '@/components/batch/BatchGeneration'
+import { DNARecipeManager } from '@/components/dna/DNARecipeManager'
 
 interface HeaderProps {
   theme: 'light' | 'dark'
@@ -200,6 +206,18 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
           </button>
         </div>
 
+        {/* Tool buttons */}
+        <div className="hidden sm:flex items-center gap-1">
+          <VersionHistory />
+          <PromptDiff />
+          <ABTesting />
+        </div>
+        <div className="hidden md:flex items-center gap-1">
+          <StyleTransferMatrix />
+          <DNARecipeManager />
+          <BatchGeneration />
+        </div>
+
         {/* AI Enhance */}
         <LMPromptEnhancer />
 
@@ -246,7 +264,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
         </button>
 
         {/* More menu */}
-        <div className="relative hidden sm:block" ref={moreRef}>
+        <div className="relative" ref={moreRef}>
           <button
             onClick={() => setMoreOpen(o => !o)}
             className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
@@ -256,13 +274,30 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
           </button>
 
           {moreOpen && (
-            <div className="absolute top-full right-0 mt-2 py-1.5 min-w-[160px] border rounded-xl shadow-lg z-50" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
+            <div className="absolute top-full right-0 mt-2 py-1.5 min-w-[180px] border rounded-xl shadow-lg z-50" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
+              {/* Tools — shown on mobile/tablet where header buttons are hidden */}
+              <div className="sm:hidden">
+                <div className="px-3 py-1 text-[9px] uppercase tracking-wider font-medium" style={{ color: 'var(--ui-muted-text-faint)' }}>Tools</div>
+                <div onClick={() => setMoreOpen(false)}><VersionHistory /></div>
+                <div onClick={() => setMoreOpen(false)}><PromptDiff /></div>
+                <div onClick={() => setMoreOpen(false)}><ABTesting /></div>
+                <div onClick={() => setMoreOpen(false)}><StyleTransferMatrix /></div>
+                <div onClick={() => setMoreOpen(false)}><DNARecipeManager /></div>
+                <div onClick={() => setMoreOpen(false)}><BatchGeneration /></div>
+                <div className="my-1" style={{ borderTop: '1px solid var(--ui-border-faint)' }} />
+              </div>
+              <div className="md:hidden hidden sm:block">
+                <div className="px-3 py-1 text-[9px] uppercase tracking-wider font-medium" style={{ color: 'var(--ui-muted-text-faint)' }}>Tools</div>
+                <div onClick={() => setMoreOpen(false)}><StyleTransferMatrix /></div>
+                <div onClick={() => setMoreOpen(false)}><DNARecipeManager /></div>
+                <div onClick={() => setMoreOpen(false)}><BatchGeneration /></div>
+                <div className="my-1" style={{ borderTop: '1px solid var(--ui-border-faint)' }} />
+              </div>
               <MenuItem icon={<FloppyDisk weight="regular" className="w-3.5 h-3.5" />} label="Save workspace" />
               <MenuItem icon={<FolderOpen weight="regular" className="w-3.5 h-3.5" />} label="Open project" />
               <MenuItem icon={<ClockCounterClockwise weight="regular" className="w-3.5 h-3.5" />} label="History" />
               <div className="my-1" style={{ borderTop: '1px solid var(--ui-border-faint)' }} />
               <MenuItem icon={<Download weight="regular" className="w-3.5 h-3.5" />} label="Export" />
-              <MenuItem icon={<Stack weight="regular" className="w-3.5 h-3.5" />} label="Batch generate" />
             </div>
           )}
         </div>

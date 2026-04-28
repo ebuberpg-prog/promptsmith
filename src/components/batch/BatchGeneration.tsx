@@ -79,67 +79,77 @@ export function BatchGeneration() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated border hover:text-[var(--ui-text)] transition-colors"
+        style={{ color: 'var(--ui-muted-text)', borderColor: 'var(--ui-border)' }}
       >
         <Flask weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Batch</span>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface border border-border rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'var(--ui-overlay)' }}>
+          <div className="border rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--ui-border)' }}>
               <div className="flex items-center gap-2">
-                <Flask weight="regular" className="w-5 h-5" style={{ color: 'hsl(142, 71%, 45%)' }} />
-                <h2 className="text-lg font-semibold text-foreground">Batch Generation</h2>
+                <Flask weight="regular" className="w-5 h-5" style={{ color: 'var(--ui-muted-text)' }} />
+                <h2 className="text-lg font-semibold" style={{ color: 'var(--ui-text)' }}>Batch Generation</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
+                className="p-1.5 rounded-lg transition-colors"
+                style={{ color: 'var(--ui-muted-text)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-surface-elevated)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
                 <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              <div className="bg-surface-elevated border border-border rounded-lg p-3">
+              <div className="border rounded-lg p-3" style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                   <div>
-                    <label className="text-xs text-muted-foreground">Batch Name</label>
+                    <label className="text-xs" style={{ color: 'var(--ui-muted-text)' }}>Batch Name</label>
                     <input
                       type="text"
                       value={batchName}
                       onChange={(e) => setBatchName(e.target.value)}
                       placeholder="My batch"
-                      className="w-full mt-1 px-2 py-1.5 bg-background border border-border rounded text-sm"
+                      className="w-full mt-1 px-2 py-1.5 border rounded text-sm outline-none"
+                      style={{ backgroundColor: 'var(--ui-bg)', borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
                     />
                   </div>
                   <div className="flex items-end">
                     <button
                       onClick={() => setBasePrompt(generatePrompt())}
-                      className="w-full py-1.5 bg-background border border-border rounded text-sm hover:bg-surface-elevated"
+                      className="w-full py-1.5 border rounded text-sm transition-colors"
+                      style={{ backgroundColor: 'var(--ui-bg)', borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-surface-elevated)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-bg)')}
                     >
                       Use Current Prompt
                     </button>
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs text-muted-foreground">Base Prompt</label>
+                  <label className="text-xs" style={{ color: 'var(--ui-muted-text)' }}>Base Prompt</label>
                   <textarea
                     value={basePrompt}
                     onChange={(e) => setBasePrompt(e.target.value)}
                     placeholder="A beautiful {subject} with {feature}"
-                    className="w-full mt-1 px-2 py-1.5 bg-background border border-border rounded text-sm resize-none h-20"
+                    className="w-full mt-1 px-2 py-1.5 border rounded text-sm resize-none h-20 outline-none"
+                    style={{ backgroundColor: 'var(--ui-bg)', borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
                   />
                 </div>
               </div>
 
-              <div className="bg-surface-elevated border border-border rounded-lg p-3">
+              <div className="border rounded-lg p-3" style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-medium text-foreground">Variables</h3>
+                  <h3 className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>Variables</h3>
                   <button
                     onClick={addVariable}
-                    className="flex items-center gap-1 px-2 py-1 bg-green-600 text-white rounded text-xs"
+                    className="flex items-center gap-1 px-2 py-1 rounded text-xs transition-opacity"
+                    style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
                   >
                     <Plus weight="regular" className="w-3 h-3" />
                     Add Variable
@@ -147,25 +157,29 @@ export function BatchGeneration() {
                 </div>
                 
                 {variables.length === 0 && (
-                  <p className="text-xs text-muted-foreground text-center py-4">
+                  <p className="text-xs text-center py-4" style={{ color: 'var(--ui-muted-text)' }}>
                     Add variables to create prompt permutations.<br />
                     Use {"{variable_name}"} in your base prompt.
                   </p>
                 )}
 
                 {variables.map((variable, varIdx) => (
-                  <div key={varIdx} className="mb-3 p-2 bg-background rounded border border-border">
+                  <div key={varIdx} className="mb-3 p-2 rounded border" style={{ backgroundColor: 'var(--ui-bg)', borderColor: 'var(--ui-border)' }}>
                     <div className="flex items-center gap-2 mb-2">
                       <input
                         type="text"
                         value={variable.name}
                         onChange={(e) => updateVariable(varIdx, 'name', e.target.value)}
                         placeholder="variable_name"
-                        className="flex-1 px-2 py-1 bg-surface-elevated border border-border rounded text-sm font-mono"
+                        className="flex-1 px-2 py-1 border rounded text-sm font-mono outline-none"
+                        style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
                       />
                       <button
                         onClick={() => removeVariable(varIdx)}
-                        className="p-1 rounded hover:bg-error/10 text-muted-foreground hover:text-error"
+                        className="p-1 rounded transition-colors"
+                        style={{ color: 'var(--ui-muted-text)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'hsl(var(--destructive) / 0.1)', e.currentTarget.style.color = 'hsl(var(--destructive))')}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent', e.currentTarget.style.color = 'var(--ui-muted-text)')}
                       >
                         <Trash weight="regular" className="w-3 h-3" />
                       </button>
@@ -178,13 +192,17 @@ export function BatchGeneration() {
                             value={value}
                             onChange={(e) => updateValue(varIdx, valIdx, e.target.value)}
                             placeholder={`value ${valIdx + 1}`}
-                            className="flex-1 px-2 py-1 bg-surface-elevated border border-border rounded text-xs"
+                            className="flex-1 px-2 py-1 border rounded text-xs outline-none"
+                            style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
                           />
                         </div>
                       ))}
                       <button
                         onClick={() => addValue(varIdx)}
-                        className="text-xs text-green-500 hover:text-green-400"
+                        className="text-xs transition-colors"
+                        style={{ color: 'var(--ui-muted-text)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-text)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
                       >
                         + Add value
                       </button>
@@ -196,7 +214,8 @@ export function BatchGeneration() {
               <button
                 onClick={handleGenerate}
                 disabled={!basePrompt.trim() || variables.length === 0}
-                className="w-full py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-500 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-2 rounded-lg text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2 transition-opacity"
+                style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
               >
                 <Play weight="regular" className="w-4 h-4" />
                 Generate Prompts
@@ -205,20 +224,26 @@ export function BatchGeneration() {
               {generatedPrompts.length > 0 && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-foreground">
+                    <h3 className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>
                       Generated ({generatedPrompts.length})
                     </h3>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={copyAll}
-                        className="p-1.5 rounded hover:bg-surface-elevated text-muted-foreground"
+                        className="p-1.5 rounded transition-colors"
+                        style={{ color: 'var(--ui-muted-text)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-surface-elevated)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                         title="Copy all"
                       >
                         <Copy weight="regular" className="w-4 h-4" />
                       </button>
                       <button
                         onClick={exportAll}
-                        className="p-1.5 rounded hover:bg-surface-elevated text-muted-foreground"
+                        className="p-1.5 rounded transition-colors"
+                        style={{ color: 'var(--ui-muted-text)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-surface-elevated)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                         title="Export"
                       >
                         <DownloadSimple weight="regular" className="w-4 h-4" />
@@ -229,10 +254,11 @@ export function BatchGeneration() {
                     {generatedPrompts.map((prompt, idx) => (
                       <div
                         key={idx}
-                        className="p-2 bg-surface-elevated border border-border rounded text-xs"
+                        className="p-2 border rounded text-xs"
+                        style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}
                       >
-                        <span className="text-muted-foreground mr-2">{idx + 1}.</span>
-                        {prompt}
+                        <span className="mr-2" style={{ color: 'var(--ui-muted-text)' }}>{idx + 1}.</span>
+                        <span style={{ color: 'var(--ui-text)' }}>{prompt}</span>
                       </div>
                     ))}
                   </div>

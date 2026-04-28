@@ -21,9 +21,6 @@ import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { imageGenService, type ImageGenState } from '@/services/image-gen-service'
 import { NegativePromptIntelligence } from '@/components/negative/NegativePromptIntelligence'
-import { VersionHistory } from '@/components/versions/VersionHistory'
-import { PromptDiff } from '@/components/diff/PromptDiff'
-import { ABTesting } from '@/components/abtest/ABTesting'
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -133,9 +130,6 @@ export function PromptOutput() {
         </div>
         <div className="flex items-center gap-2">
           <NegativePromptIntelligence />
-          <VersionHistory />
-          <PromptDiff />
-          <ABTesting />
           <button
             onClick={() => setExpertMode(e => !e)}
             className="text-xs font-medium px-3 py-1 rounded-full border transition-colors duration-150"

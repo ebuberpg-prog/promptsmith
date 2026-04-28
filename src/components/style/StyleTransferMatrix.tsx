@@ -38,23 +38,27 @@ export function StyleTransferMatrix() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated border hover:text-[var(--ui-text)] transition-colors"
+        style={{ color: 'var(--ui-muted-text)', borderColor: 'var(--ui-border)' }}
       >
         <Stack weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Style Matrix</span>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface border border-border rounded-xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'var(--ui-overlay)' }}>
+          <div className="border rounded-xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
+            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: 'var(--ui-border)' }}>
               <div className="flex items-center gap-2">
-                <Stack weight="regular" className="w-5 h-5" style={{ color: 'hsl(250, 95%, 66%)' }} />
-                <h2 className="text-lg font-semibold text-foreground">Style Transfer Matrix</h2>
+                <Stack weight="regular" className="w-5 h-5" style={{ color: 'var(--ui-muted-text)' }} />
+                <h2 className="text-lg font-semibold" style={{ color: 'var(--ui-text)' }}>Style Transfer Matrix</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
+                className="p-1.5 rounded-lg transition-colors"
+                style={{ color: 'var(--ui-muted-text)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ui-surface-elevated)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
                 <X weight="bold" className="w-4 h-4" />
               </button>
@@ -62,18 +66,18 @@ export function StyleTransferMatrix() {
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-surface-elevated border border-border rounded-lg p-3">
-                  <h3 className="text-sm font-medium text-foreground mb-2">Source Styles</h3>
+                <div className="border rounded-lg p-3" style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}>
+                  <h3 className="text-sm font-medium mb-2" style={{ color: 'var(--ui-text)' }}>Source Styles</h3>
                   <div className="flex flex-wrap gap-1">
                     {STYLE_PRESETS.map((style) => (
                       <button
                         key={style}
                         onClick={() => toggleStyle(style, 'source')}
-                        className={`px-2 py-1 text-xs rounded transition-colors ${
-                          sourceStyles.includes(style)
-                            ? 'bg-indigo-500 text-white'
-                            : 'bg-background text-muted-foreground hover:text-foreground'
-                        }`}
+                        className="px-2 py-1 text-xs rounded transition-colors"
+                        style={{
+                          backgroundColor: sourceStyles.includes(style) ? 'var(--ui-text)' : 'var(--ui-bg)',
+                          color: sourceStyles.includes(style) ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
+                        }}
                       >
                         {style.replace('_', ' ')}
                       </button>
@@ -81,18 +85,18 @@ export function StyleTransferMatrix() {
                   </div>
                 </div>
 
-                <div className="bg-surface-elevated border border-border rounded-lg p-3">
-                  <h3 className="text-sm font-medium text-foreground mb-2">Target Styles</h3>
+                <div className="border rounded-lg p-3" style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}>
+                  <h3 className="text-sm font-medium mb-2" style={{ color: 'var(--ui-text)' }}>Target Styles</h3>
                   <div className="flex flex-wrap gap-1">
                     {STYLE_PRESETS.map((style) => (
                       <button
                         key={style}
                         onClick={() => toggleStyle(style, 'target')}
-                        className={`px-2 py-1 text-xs rounded transition-colors ${
-                          targetStyles.includes(style)
-                            ? 'bg-pink-500 text-white'
-                            : 'bg-background text-muted-foreground hover:text-foreground'
-                        }`}
+                        className="px-2 py-1 text-xs rounded transition-colors"
+                        style={{
+                          backgroundColor: targetStyles.includes(style) ? 'var(--ui-text)' : 'var(--ui-bg)',
+                          color: targetStyles.includes(style) ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
+                        }}
                       >
                         {style.replace('_', ' ')}
                       </button>
@@ -104,7 +108,8 @@ export function StyleTransferMatrix() {
               <button
                 onClick={handleAnalyze}
                 disabled={sourceStyles.length === 0 || targetStyles.length === 0}
-                className="w-full py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-500 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-2 rounded-lg text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2 transition-opacity"
+                style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
               >
                 <Lightning weight="regular" className="w-4 h-4" />
                 Analyze Compatibility
@@ -113,15 +118,15 @@ export function StyleTransferMatrix() {
               {styleMatrix.length > 0 && (
                 <div className="space-y-2">
                   {styleMatrix.slice().reverse().map((matrix) => (
-                    <div key={matrix.id} className="bg-surface-elevated border border-border rounded-lg p-3">
-                      <h3 className="text-sm font-medium text-foreground mb-2">Compatibility Matrix</h3>
+                    <div key={matrix.id} className="border rounded-lg p-3" style={{ backgroundColor: 'var(--ui-surface-elevated)', borderColor: 'var(--ui-border)' }}>
+                      <h3 className="text-sm font-medium mb-2" style={{ color: 'var(--ui-text)' }}>Compatibility Matrix</h3>
                       <div className="overflow-x-auto">
                         <table className="w-full text-xs">
                           <thead>
                             <tr>
-                              <th className="text-left p-1 text-muted-foreground"></th>
+                              <th className="text-left p-1" style={{ color: 'var(--ui-muted-text)' }}></th>
                               {matrix.targetStyles.map((s) => (
-                                <th key={s} className="text-left p-1 text-muted-foreground">
+                                <th key={s} className="text-left p-1" style={{ color: 'var(--ui-muted-text)' }}>
                                   {s.replace('_', ' ')}
                                 </th>
                               ))}
@@ -130,7 +135,7 @@ export function StyleTransferMatrix() {
                           <tbody>
                             {matrix.sourceStyles.map((source, i) => (
                               <tr key={source}>
-                                <td className="text-left p-1 text-muted-foreground">
+                                <td className="text-left p-1" style={{ color: 'var(--ui-muted-text)' }}>
                                   {source.replace('_', ' ')}
                                 </td>
                                 {matrix.compatibilityScores[i]?.map((score, j) => (
@@ -138,8 +143,8 @@ export function StyleTransferMatrix() {
                                     <div
                                       className="px-2 py-1 rounded text-center"
                                       style={{
-                                        backgroundColor: `rgba(139, 92, 246, ${score})`,
-                                        color: score > 0.5 ? 'white' : 'inherit',
+                                        backgroundColor: `color-mix(in oklab, var(--ui-text) ${Math.round(score * 100)}%, transparent)`,
+                                        color: score > 0.5 ? 'var(--ui-bg)' : 'var(--ui-text)',
                                       }}
                                     >
                                       {Math.round(score * 100)}%

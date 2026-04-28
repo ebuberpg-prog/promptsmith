@@ -64,7 +64,7 @@ MUSE (codenamed *PromptSmith*) is a professional-grade, unfiltered, open-source 
 
 Live deployment is powered by GitHub Pages:
 
-🔗 **[https://your-username.github.io/promptsmith](https://your-username.github.io/promptsmith)** *(update with your actual URL)*
+🔗 **[https://ebuberpg-prog.github.io/promptsmith](https://ebuberpg-prog.github.io/promptsmith)** 
 
 ---
 
@@ -96,7 +96,7 @@ Live deployment is powered by GitHub Pages:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/promptsmith.git
+git clone https://github.com/ebuberpg-prog/promptsmith.git
 cd promptsmith
 
 # Install dependencies
@@ -106,7 +106,7 @@ npm install
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173/promptsmith/`.
+The app will be available at `http://localhost:5173/`.
 
 ### Build for Production
 

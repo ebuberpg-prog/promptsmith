@@ -13,11 +13,7 @@ import { EntityPresets } from './components/entities/EntityPresets'
 import { RandomizerPanel } from './components/randomizer/RandomizerPanel'
 import { VersionHistory } from './components/versions/VersionHistory'
 import { PromptDiff } from './components/diff/PromptDiff'
-import { StyleTransferMatrix } from './components/style/StyleTransferMatrix'
-import { BatchGeneration } from './components/batch/BatchGeneration'
-import { ABTesting } from './components/abtest/ABTesting'
 import { ReferenceUploader } from './components/reference/ReferenceUploader'
-import { DNARecipeManager } from './components/dna/DNARecipeManager'
 import { loadTaxonomy } from './utils/taxonomy-loader'
 import { usePromptSmithStore } from './store/prompt-store'
 import { useBreakpoint } from './hooks/useBreakpoint'
@@ -236,11 +232,6 @@ function App() {
                 <PromptDNA />
                 <EntityPresets />
                 <ReferenceUploader />
-                <div className="flex flex-wrap items-center gap-2">
-                  <StyleTransferMatrix />
-                  <DNARecipeManager />
-                  <BatchGeneration />
-                </div>
               </div>
             )}
           </div>
@@ -328,11 +319,6 @@ function App() {
               <PromptDNA />
               <EntityPresets />
               <ReferenceUploader />
-              <div className="flex flex-wrap items-center gap-2">
-                <StyleTransferMatrix />
-                <DNARecipeManager />
-                <BatchGeneration />
-              </div>
             </div>
           </div>
         </main>
