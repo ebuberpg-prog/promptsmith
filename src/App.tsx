@@ -25,10 +25,19 @@ function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('templates')
   const [heroQuery, setHeroQuery] = useState('')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const stored = window.localStorage.getItem('promptsmith-theme')
+    return stored === 'light' ? 'light' : 'dark'
+  })
 
   useEffect(() => {
     loadTaxonomy().then(() => setLoading(false))
   }, [])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    window.localStorage.setItem('promptsmith-theme', theme)
+  }, [theme])
 
   const handleHeroSearch = (value: string) => {
     setHeroQuery(value)
@@ -62,7 +71,10 @@ function App() {
     <div className="h-screen flex flex-col bg-black text-[#f5f5f5] overflow-hidden font-sans">
 
       {/* Header */}
-      <Header />
+      <Header
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+      />
 
       {/* Two-panel layout */}
       <main className="flex flex-1 overflow-hidden min-h-0 relative">

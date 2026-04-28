@@ -12,6 +12,8 @@ import {
   ClockCounterClockwise,
   Download,
   Stack,
+  Moon,
+  Sun,
 } from '@phosphor-icons/react'
 import { useState, useEffect, useRef } from 'react'
 import type { SupportedModel } from '@/types'
@@ -19,7 +21,13 @@ import { AISettingsPanel } from '@/components/settings/AISettingsPanel'
 import { LMPromptEnhancer } from '@/components/ai/LMPromptEnhancer'
 import { MODEL_GROUPS, getModelConfig } from '@/data/model-configs'
 
-export function Header() {
+export function Header({
+  theme,
+  onToggleTheme,
+}: {
+  theme: 'light' | 'dark'
+  onToggleTheme: () => void
+}) {
   const showExplicit = usePromptSmithStore((s) => s.showExplicit)
   const toggleExplicit = usePromptSmithStore((s) => s.toggleExplicit)
   const selectedModel = usePromptSmithStore((s) => s.selectedModel)
@@ -138,6 +146,17 @@ export function Header() {
         <LMPromptEnhancer />
 
         <div className="w-px h-4 bg-[#333]" />
+
+        <button
+          onClick={onToggleTheme}
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent text-[#c2c2c2] hover:text-[#f5f5f5] hover:border-[#333] transition-colors duration-150"
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark'
+            ? <Sun weight="regular" className="w-4 h-4" />
+            : <Moon weight="regular" className="w-4 h-4" />}
+        </button>
 
         {/* Safe mode toggle */}
         <button

@@ -4,32 +4,77 @@
 
 @layer base {
   :root {
-    /* Firecrawl dark mode — pure black canvas, white text, warm grey secondary */
-    --background: 0 0% 0%;             /* #000000 */
-    --foreground: 0 0% 96%;            /* #f5f5f5 */
-    --card: 0 0% 5%;                   /* #0d0d0d */
+    /* Cursor-inspired warm light theme */
+    --background: 45 12% 94%;          /* #f2f1ed */
+    --foreground: 45 12% 13%;          /* #26251e */
+    --card: 42 12% 90%;                /* #e6e5e0 */
+    --card-foreground: 45 12% 13%;
+    --popover: 43 13% 92%;             /* #ebeae5 */
+    --popover-foreground: 45 12% 13%;
+    --primary: 17 98% 48%;             /* #f54e00 */
+    --primary-foreground: 45 12% 96%;
+    --primary-hover: 17 98% 44%;
+    --secondary: 43 13% 92%;           /* #ebeae5 */
+    --secondary-foreground: 45 12% 13%;
+    --muted: 42 9% 88%;                /* #e1e0db */
+    --muted-foreground: 45 8% 33%;
+    --accent: 17 98% 48%;
+    --accent-foreground: 45 12% 96%;
+    --destructive: 341 64% 49%;        /* #cf2d56 */
+    --destructive-foreground: 45 12% 96%;
+    --border: 45 12% 13% / 0.14;
+    --border-hover: 45 12% 13% / 0.24;
+    --explicit: 0 72% 51%;
+    --success: 159 63% 33%;            /* #1f8a65 */
+    --warning: 33 58% 47%;             /* #c08532 */
+    --input: 43 13% 92%;
+    --ring: 17 98% 48%;
+    --radius: 0.5rem;
+
+    --ui-bg: #f2f1ed;
+    --ui-surface: #e6e5e0;
+    --ui-surface-soft: #ebeae5;
+    --ui-text: #26251e;
+    --ui-muted-text: rgba(38, 37, 30, 0.65);
+    --ui-border: rgba(38, 37, 30, 0.14);
+    --ui-border-strong: rgba(38, 37, 30, 0.28);
+    --ui-overlay: rgba(38, 37, 30, 0.22);
+  }
+
+  [data-theme='dark'] {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 5%;
     --card-foreground: 0 0% 96%;
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 96%;
-    --primary: 0 0% 96%;               /* white — primary actions */
-    --primary-foreground: 0 0% 0%;     /* black — text on primary */
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 0%;
     --primary-hover: 0 0% 88%;
-    --secondary: 0 0% 5%;              /* #0d0d0d — elevated surface */
+    --secondary: 0 0% 5%;
     --secondary-foreground: 0 0% 96%;
     --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 76%;      /* #c2c2c2 — exact Firecrawl warm grey */
-    --accent: 0 0% 76%;                /* warm grey as accent */
+    --muted-foreground: 0 0% 76%;
+    --accent: 0 0% 76%;
     --accent-foreground: 0 0% 0%;
-    --destructive: 0 62.8% 50%;        /* keep red for 18+ only */
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 96%;
-    --border: 0 0% 20%;                /* #333333 — Firecrawl dark border */
-    --border-hover: 0 0% 33%;          /* #555555 */
+    --border: 0 0% 20%;
+    --border-hover: 0 0% 33%;
     --explicit: 0 72% 51%;
     --success: 142 70% 45%;
     --warning: 48 96% 53%;
     --input: 0 0% 10%;
     --ring: 0 0% 50%;
-    --radius: 0.5rem;
+
+    --ui-bg: #000000;
+    --ui-surface: #0d0d0d;
+    --ui-surface-soft: #111111;
+    --ui-text: #f5f5f5;
+    --ui-muted-text: #c2c2c2;
+    --ui-border: #333333;
+    --ui-border-strong: #555555;
+    --ui-overlay: rgba(0, 0, 0, 0.6);
   }
 
   * {
@@ -38,8 +83,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    /* Pure flat black — no decorative gradients */
-    background-color: #000000;
+    background-color: var(--ui-bg);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -70,17 +114,73 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #333333;
+    background-color: var(--ui-border);
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #555555;
+    background-color: var(--ui-border-strong);
   }
 
   ::selection {
-    background-color: rgba(245, 245, 245, 0.15);
-    color: #f5f5f5;
+    background-color: color-mix(in oklab, var(--ui-text) 18%, transparent);
+    color: var(--ui-text);
+  }
+}
+
+@layer utilities {
+  [data-theme='light'] .bg-black,
+  [data-theme='light'] .bg-\[\#000000\] {
+    background-color: var(--ui-bg) !important;
+  }
+
+  [data-theme='light'] .bg-\[\#0d0d0d\] {
+    background-color: var(--ui-surface) !important;
+  }
+
+  [data-theme='light'] .border-\[\#333\],
+  [data-theme='light'] .border-\[\#333333\] {
+    border-color: var(--ui-border) !important;
+  }
+
+  [data-theme='light'] .border-\[\#1a1a1a\] {
+    border-color: color-mix(in oklab, var(--ui-text) 12%, transparent) !important;
+  }
+
+  [data-theme='light'] .hover\:border-\[\#555\]:hover {
+    border-color: var(--ui-border-strong) !important;
+  }
+
+  [data-theme='light'] .text-\[\#f5f5f5\],
+  [data-theme='light'] .text-\[\#f5f5f5\]\/80,
+  [data-theme='light'] .text-\[\#f5f5f5\]\/70 {
+    color: var(--ui-text) !important;
+  }
+
+  [data-theme='light'] .text-\[\#c2c2c2\],
+  [data-theme='light'] .text-\[\#c2c2c2\]\/60,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/50,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/40,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/30,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/25,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/20,
+  [data-theme='light'] .text-\[\#c2c2c2\]\/15 {
+    color: var(--ui-muted-text) !important;
+  }
+
+  [data-theme='light'] .bg-white\/5,
+  [data-theme='light'] .bg-white\/10 {
+    background-color: color-mix(in oklab, var(--ui-text) 8%, transparent) !important;
+  }
+
+  [data-theme='light'] .text-black {
+    color: var(--ui-text) !important;
+  }
+
+  [data-theme='light'] .bg-black\/60,
+  [data-theme='light'] .bg-black\/50,
+  [data-theme='light'] .bg-black\/80 {
+    background-color: var(--ui-overlay) !important;
   }
 }
 
