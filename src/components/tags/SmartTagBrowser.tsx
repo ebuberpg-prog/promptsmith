@@ -15,6 +15,7 @@ import {
   Cube,
   Smiley,
   GridFour,
+  PushPin,
 } from '@phosphor-icons/react'
 import type { TaxonomyCategory, TaxonomyTag } from '@/types'
 import { clsx, type ClassValue } from 'clsx'
@@ -217,12 +218,13 @@ export function SmartTagBrowser({ externalSearch }: { externalSearch?: string })
 
   const toggleCategory = (id: string) => {
     setExpandedCategories(prev => {
-      // If already open, close it (collapse all)
-      if (prev.has(id)) {
-        return new Set()
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
       }
-      // Otherwise, close all others and open only this one (accordion behavior)
-      return new Set([id])
+      return next
     })
   }
 
@@ -234,14 +236,15 @@ export function SmartTagBrowser({ externalSearch }: { externalSearch?: string })
         return metaDef?.categoryIds.includes(cat.id) ?? false
       })
 
-  // Reset expanded category when filter changes
+  // Reset expanded categories when filter changes, preserving valid ones
   useEffect(() => {
-    if (filteredTaxonomy.length > 0) {
-      setExpandedCategories(new Set([filteredTaxonomy[0].id]))
-    } else {
-      setExpandedCategories(new Set())
-    }
-  }, [activeMetaCategory, filteredTaxonomy])
+    setExpandedCategories(prev => {
+      const validIds = new Set(filteredTaxonomy.map(c => c.id))
+      const preserved = new Set([...prev].filter(id => validIds.has(id)))
+      if (preserved.size > 0) return preserved
+      return filteredTaxonomy.length > 0 ? new Set([filteredTaxonomy[0].id]) : new Set()
+    })
+  }, [activeMetaCategory])
 
   // Fuse-based fuzzy search via tag index
   const searchResults = searchQuery.trim()
@@ -307,7 +310,7 @@ export function SmartTagBrowser({ externalSearch }: { externalSearch?: string })
             return (
               <button
                 key={meta.id}
-                onClick={() => setActiveMetaCategory(meta.id)}
+                onClick={() => setActiveMetaCategory(prev => prev === meta.id ? 'all' : meta.id)}
                 className={cn(
                   "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border",
                   isActive
@@ -420,6 +423,13 @@ function CategorySection({
   const [loadingLazy, setLoadingLazy] = useState(false)
   const loadedRef = useRef(false)
 
+  // Reset loadedRef when category changes
+  useEffect(() => {
+    loadedRef.current = false
+    setLazyTags(category.tags ?? [])
+    setLazyChildren(category.children ?? [])
+  }, [category.id])
+
   const tags = lazyTags.filter(tag => showExplicit || !tag.explicit)
   const selectedCount = tags.filter(t => selectedIds.has(t.id)).length
 
@@ -432,7 +442,6 @@ function CategorySection({
       const fileKey = `/taxonomy/${category.id}.yaml`
       const loaded = await loadCategoryTags(fileKey)
       if (loaded.length > 0) {
-        // Flatten all tags from the loaded category structure
         const flatTags: TaxonomyTag[] = []
         const flatCats: TaxonomyCategory[] = []
         const flatten = (cats: TaxonomyCategory[]) => {
@@ -459,8 +468,7 @@ function CategorySection({
   }
 
   if (tags.length === 0 && !lazyChildren.length && !category.children?.length) {
-    // Still show collapsed with lazy loading available for YAML-backed categories
-    const hasFile = !category.id.includes('_') // top-level IDs map to files
+    const hasFile = !category.id.includes('_')
     if (!hasFile) return null
   }
 
@@ -500,60 +508,52 @@ function CategorySection({
 
       <div className="h-px bg-[#1a1a1a]" />
 
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            {tags.length > 20 ? (
-              <div className="py-4">
-                <VirtualTagGrid
-                  tags={tags}
-                  selectedIds={selectedIds}
-                  onToggle={toggleTag}
-                  pinnedIds={pinnedIds}
-                  onPin={onPin}
+      {isExpanded && (
+        <div>
+          {tags.length > 20 ? (
+            <div className="py-4">
+              <VirtualTagGrid
+                tags={tags}
+                selectedIds={selectedIds}
+                onToggle={toggleTag}
+                pinnedIds={pinnedIds}
+                onPin={onPin}
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 py-4">
+              {tags.map(tag => (
+                <TagChip
+                  key={tag.id}
+                  tag={tag}
+                  isSelected={selectedIds.has(tag.id)}
+                  isPinned={pinnedIds.has(tag.id)}
+                  onToggle={() => toggleTag(tag)}
+                  onPin={() => onPin(tag.id)}
                 />
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 py-4">
-                {tags.map(tag => (
-                  <TagChip
-                    key={tag.id}
-                    tag={tag}
-                    isSelected={selectedIds.has(tag.id)}
-                    isPinned={pinnedIds.has(tag.id)}
-                    onToggle={() => toggleTag(tag)}
-                    onPin={() => onPin(tag.id)}
-                  />
-                ))}
-              </div>
-            )}
+              ))}
+            </div>
+          )}
 
-            {lazyChildren.length > 0 && (
-              <div className="pl-4 border-l border-[#1a1a1a] space-y-4 mb-2">
-                {lazyChildren.map(child => (
-                  <CategorySection
-                    key={child.id}
-                    category={child}
-                    isExpanded={true}
-                    onToggle={() => {}}
-                    selectedIds={selectedIds}
-                    pinnedIds={pinnedIds}
-                    toggleTag={toggleTag}
-                    onPin={onPin}
-                    showExplicit={showExplicit}
-                  />
-                ))}
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {lazyChildren.length > 0 && (
+            <div className="pl-4 border-l border-[#1a1a1a] space-y-4 mb-2">
+              {lazyChildren.map(child => (
+                <CategorySection
+                  key={child.id}
+                  category={child}
+                  isExpanded={true}
+                  onToggle={() => {}}
+                  selectedIds={selectedIds}
+                  pinnedIds={pinnedIds}
+                  toggleTag={toggleTag}
+                  onPin={onPin}
+                  showExplicit={showExplicit}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -587,7 +587,7 @@ function TagChip({
         {isSelected
           ? <Check weight="bold" className="w-3 h-3 text-[#f5f5f5]" />
           : isPinned
-            ? <span className="text-[9px] text-[#c2c2c2]/60">📌</span>
+            ? <PushPin weight="fill" className="w-3 h-3 text-[#c2c2c2]/60" />
             : tag.explicit
               ? <span className="text-[9px] font-bold text-red-500/60 uppercase">18+</span>
               : null

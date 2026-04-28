@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { searchTagIndex } from '@/utils/tag-index'
-import { X, ArrowRight, ArrowLeft, Check } from '@phosphor-icons/react'
+import { X, ArrowRight, ArrowLeft, Check, User, Image, Sword, Presentation, Palette, Package, Lightning, Bird, Confetti, Moon, Sun, CloudRain, Mountains, Flower, Camera, PencilSimple, PaintBrush, GameController, Cube } from '@phosphor-icons/react'
 import type { SelectedTag } from '@/types'
 
 interface WizardStep {
@@ -19,32 +19,32 @@ const STEPS: WizardStep[] = [
 ]
 
 const GENRES = [
-  { id: 'portrait', label: 'Portrait', emoji: '👤', promptHint: 'close-up portrait, person' },
-  { id: 'landscape', label: 'Landscape', emoji: '🌄', promptHint: 'wide landscape, scenic environment' },
-  { id: 'character', label: 'Character', emoji: '⚔️', promptHint: 'full body character design' },
-  { id: 'scene', label: 'Scene', emoji: '🎭', promptHint: 'environmental scene, setting' },
-  { id: 'abstract', label: 'Abstract', emoji: '🎨', promptHint: 'abstract art, non-representational' },
-  { id: 'product', label: 'Product', emoji: '📦', promptHint: 'product shot, clean background' },
+  { id: 'portrait', label: 'Portrait', icon: User, promptHint: 'close-up portrait, person' },
+  { id: 'landscape', label: 'Landscape', icon: Image, promptHint: 'wide landscape, scenic environment' },
+  { id: 'character', label: 'Character', icon: Sword, promptHint: 'full body character design' },
+  { id: 'scene', label: 'Scene', icon: Presentation, promptHint: 'environmental scene, setting' },
+  { id: 'abstract', label: 'Abstract', icon: Palette, promptHint: 'abstract art, non-representational' },
+  { id: 'product', label: 'Product', icon: Package, promptHint: 'product shot, clean background' },
 ]
 
 const MOODS = [
-  { id: 'dramatic', label: 'Dramatic', emoji: '⚡', keywords: ['dramatic', 'intense', 'moody'] },
-  { id: 'peaceful', label: 'Peaceful', emoji: '🕊️', keywords: ['peaceful', 'serene', 'calm'] },
-  { id: 'playful', label: 'Playful', emoji: '🎪', keywords: ['playful', 'whimsical', 'fun'] },
-  { id: 'dark', label: 'Dark', emoji: '🌑', keywords: ['dark', 'shadow', 'mysterious'] },
-  { id: 'bright', label: 'Bright', emoji: '☀️', keywords: ['bright', 'vibrant', 'energetic'] },
-  { id: 'mysterious', label: 'Mysterious', emoji: '🌙', keywords: ['mysterious', 'ethereal', 'mystical'] },
-  { id: 'romantic', label: 'Romantic', emoji: '🌹', keywords: ['romantic', 'soft', 'warm'] },
-  { id: 'epic', label: 'Epic', emoji: '🏔️', keywords: ['epic', 'grand', 'majestic'] },
+  { id: 'dramatic', label: 'Dramatic', icon: Lightning, keywords: ['dramatic', 'intense', 'moody'] },
+  { id: 'peaceful', label: 'Peaceful', icon: Bird, keywords: ['peaceful', 'serene', 'calm'] },
+  { id: 'playful', label: 'Playful', icon: Confetti, keywords: ['playful', 'whimsical', 'fun'] },
+  { id: 'dark', label: 'Dark', icon: Moon, keywords: ['dark', 'shadow', 'mysterious'] },
+  { id: 'bright', label: 'Bright', icon: Sun, keywords: ['bright', 'vibrant', 'energetic'] },
+  { id: 'mysterious', label: 'Mysterious', icon: CloudRain, keywords: ['mysterious', 'ethereal', 'mystical'] },
+  { id: 'romantic', label: 'Romantic', icon: Flower, keywords: ['romantic', 'soft', 'warm'] },
+  { id: 'epic', label: 'Epic', icon: Mountains, keywords: ['epic', 'grand', 'majestic'] },
 ]
 
 const STYLES = [
-  { id: 'photo', label: 'Photography', emoji: '📷', keywords: ['photorealistic', 'photograph', 'realistic'] },
-  { id: 'illustration', label: 'Illustration', emoji: '✏️', keywords: ['illustration', 'digital art', 'artwork'] },
-  { id: 'painting', label: 'Painting', emoji: '🖌️', keywords: ['oil painting', 'painterly', 'brushstroke'] },
-  { id: 'concept-art', label: 'Concept Art', emoji: '🎮', keywords: ['concept art', 'professional', 'detailed'] },
-  { id: 'anime', label: 'Anime', emoji: '🌸', keywords: ['anime', 'manga', 'japanese animation'] },
-  { id: '3d', label: '3D Render', emoji: '🧊', keywords: ['3d render', 'cgi', 'octane render'] },
+  { id: 'photo', label: 'Photography', icon: Camera, keywords: ['photorealistic', 'photograph', 'realistic'] },
+  { id: 'illustration', label: 'Illustration', icon: PencilSimple, keywords: ['illustration', 'digital art', 'artwork'] },
+  { id: 'painting', label: 'Painting', icon: PaintBrush, keywords: ['oil painting', 'painterly', 'brushstroke'] },
+  { id: 'concept-art', label: 'Concept Art', icon: GameController, keywords: ['concept art', 'professional', 'detailed'] },
+  { id: 'anime', label: 'Anime', icon: Flower, keywords: ['anime', 'manga', 'japanese animation'] },
+  { id: '3d', label: '3D Render', icon: Cube, keywords: ['3d render', 'cgi', 'octane render'] },
 ]
 
 interface TemplateWizardProps {
@@ -205,7 +205,7 @@ export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
                           <OptionCard
                             key={g.id}
                             label={g.label}
-                            emoji={g.emoji}
+                            Icon={g.icon}
                             selected={selectedGenre === g.id}
                             onClick={() => setSelectedGenre(g.id)}
                           />
@@ -219,7 +219,7 @@ export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
                           <OptionCard
                             key={m.id}
                             label={m.label}
-                            emoji={m.emoji}
+                            Icon={m.icon}
                             selected={selectedMood === m.id}
                             onClick={() => setSelectedMood(m.id)}
                             compact
@@ -234,7 +234,7 @@ export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
                           <OptionCard
                             key={s.id}
                             label={s.label}
-                            emoji={s.emoji}
+                            Icon={s.icon}
                             selected={selectedStyle === s.id}
                             onClick={() => setSelectedStyle(s.id)}
                           />
@@ -328,10 +328,10 @@ export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
 }
 
 function OptionCard({
-  label, emoji, selected, onClick, compact,
+  label, Icon, selected, onClick, compact,
 }: {
   label: string
-  emoji: string
+  Icon: React.ElementType
   selected: boolean
   onClick: () => void
   compact?: boolean
@@ -345,7 +345,7 @@ function OptionCard({
           : 'border-[#222] text-[#c2c2c2] hover:border-[#444] hover:text-[#f5f5f5]'
       }`}
     >
-      <span className={compact ? 'text-lg' : 'text-2xl'}>{emoji}</span>
+      <Icon weight={selected ? 'fill' : 'regular'} className={compact ? 'w-4 h-4' : 'w-6 h-6'} />
       <span className={`font-medium leading-snug text-center ${compact ? 'text-[9px]' : 'text-xs'}`}>{label}</span>
     </button>
   )

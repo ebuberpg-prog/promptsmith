@@ -17,20 +17,14 @@ import { useState, useEffect, useRef } from 'react'
 import type { SupportedModel } from '@/types'
 import { AISettingsPanel } from '@/components/settings/AISettingsPanel'
 import { LMPromptEnhancer } from '@/components/ai/LMPromptEnhancer'
-
-const MODELS: { id: SupportedModel; label: string; version: string }[] = [
-  { id: 'midjourney', label: 'Midjourney', version: 'v6' },
-  { id: 'stable-diffusion', label: 'SDXL', version: '1.0' },
-  { id: 'dalle-3', label: 'DALL-E', version: '3' },
-  { id: 'flux', label: 'FLUX', version: '1.0' },
-  { id: 'ideogram', label: 'Ideogram', version: '2.0' },
-]
+import { MODEL_GROUPS, getModelConfig } from '@/data/model-configs'
 
 export function Header() {
   const showExplicit = usePromptSmithStore((s) => s.showExplicit)
   const toggleExplicit = usePromptSmithStore((s) => s.toggleExplicit)
   const selectedModel = usePromptSmithStore((s) => s.selectedModel)
   const setSelectedModel = usePromptSmithStore((s) => s.setSelectedModel)
+  const aiSettings = usePromptSmithStore((s) => s.aiSettings)
 
   const [modelOpen, setModelOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -47,7 +41,7 @@ export function Header() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const currentModel = MODELS.find(m => m.id === selectedModel) || MODELS[0]
+  const currentModel = getModelConfig(selectedModel)
 
   return (
     <>
@@ -67,35 +61,73 @@ export function Header() {
 
       <div className="w-px h-4 bg-[#333]" />
 
-      {/* Model selector — pill, click to open */}
+      {/* Model selector — grouped by kind */}
       <div className="relative" ref={modelRef}>
         <button
           onClick={() => setModelOpen(o => !o)}
           className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#333] hover:border-[#555] transition-colors duration-150 text-sm"
         >
-          <span className="text-[#f5f5f5] font-medium">{currentModel.label}</span>
+          <span className="text-[#f5f5f5] font-medium">{currentModel.name}</span>
           <span className="text-[10px] text-[#c2c2c2] font-mono">{currentModel.version}</span>
           <CaretDown weight="bold" className={`w-3 h-3 text-[#c2c2c2] transition-transform duration-150 ${modelOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {modelOpen && (
-          <div className="absolute top-full left-0 mt-2 py-1.5 min-w-[180px] bg-[#0d0d0d] border border-[#333] rounded-xl shadow-editorial z-50">
-            {MODELS.map(m => (
-              <button
-                key={m.id}
-                onClick={() => { setSelectedModel(m.id); setModelOpen(false) }}
-                className="w-full flex items-center gap-3 px-4 py-2 text-sm text-[#c2c2c2] hover:text-[#f5f5f5] hover:bg-white/5 transition-colors"
-              >
-                <span className="font-medium">{m.label}</span>
-                <span className="ml-1 text-[10px] font-mono text-[#c2c2c2]/50">{m.version}</span>
-                {selectedModel === m.id && (
-                  <CheckCircle weight="fill" className="ml-auto w-3.5 h-3.5 text-[#f5f5f5]" />
-                )}
-              </button>
+          <div className="absolute top-full left-0 mt-2 py-2 min-w-[220px] bg-[#0d0d0d] border border-[#333] rounded-xl shadow-editorial z-50">
+            {MODEL_GROUPS.map(group => (
+              <div key={group.label} className="mb-1 last:mb-0">
+                <div className="px-4 py-1 text-[9px] text-[#c2c2c2]/40 uppercase tracking-wider font-medium">{group.label}</div>
+                {group.models.map(m => {
+                  const cfg = getModelConfig(m)
+                  return (
+                    <button
+                      key={m}
+                      onClick={() => { setSelectedModel(m); setModelOpen(false) }}
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-[#c2c2c2] hover:text-[#f5f5f5] hover:bg-white/5 transition-colors"
+                    >
+                      <span className="font-medium">{cfg.name}</span>
+                      <span className="ml-1 text-[10px] font-mono text-[#c2c2c2]/50">{cfg.version}</span>
+                      {selectedModel === m && (
+                        <CheckCircle weight="fill" className="ml-auto w-3.5 h-3.5 text-[#f5f5f5]" />
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
             ))}
           </div>
         )}
       </div>
+
+      {/* AI Provider quick-switch */}
+      {aiSettings.preferredAIProvider && (
+        <>
+          <div className="w-px h-4 bg-[#333]" />
+          <div className="relative">
+            <button
+              onClick={() => {
+                const providers = ['ollama', 'lmstudio', 'openai'].filter(p => {
+                  if (p === 'ollama') return true
+                  if (p === 'lmstudio') return true
+                  if (p === 'openai') return aiSettings.openaiUrl && aiSettings.openaiApiKey
+                  return false
+                })
+                if (providers.length > 1) {
+                  // Cycle through available providers
+                  const currentIdx = providers.indexOf(aiSettings.preferredAIProvider!)
+                  const nextIdx = (currentIdx + 1) % providers.length
+                  usePromptSmithStore.getState().updateAISettings({ preferredAIProvider: providers[nextIdx] as 'ollama' | 'lmstudio' | 'openai' })
+                }
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#333] text-[10px] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-colors duration-150"
+              title="Click to cycle AI provider"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500/70" />
+              <span className="uppercase tracking-wider">{aiSettings.preferredAIProvider}</span>
+            </button>
+          </div>
+        </>
+      )}
 
       <div className="flex-1" />
 

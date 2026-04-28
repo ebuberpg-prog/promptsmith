@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { aiService, type AIServiceState } from '@/services/local-ai-service'
-import { Brain, AlertTriangle, Info, Check, Loader2, AlertCircle, Sparkles } from 'lucide-react'
+import { Brain, Warning, Info, Check, CircleNotch, WarningCircle, Sparkle } from '@phosphor-icons/react'
 
-const CATEGORY_ICONS: Record<string, string> = {
-  quality: '✨',
-  anatomy: '🦴',
-  hands: '🖐',
-  artifacts: '🔴',
-  face: '👤',
+const CATEGORY_ICONS: Record<string, React.ElementType> = {
+  quality: Sparkle,
+  anatomy: Brain,
+  hands: Warning,
+  artifacts: WarningCircle,
+  face: Info,
 }
 
 interface NegativeSuggestion {
@@ -151,7 +151,7 @@ export function NegativePromptIntelligence() {
                 <span className="text-sm font-medium text-[#f5f5f5]">Negative Prompt Intelligence</span>
                 {isConnected && (
                   <span className="text-[9px] border border-green-500/30 text-green-500/70 rounded-full px-2 py-0.5 uppercase tracking-wider flex items-center gap-1">
-                    <Sparkles className="w-2.5 h-2.5" /> AI
+                    <Sparkle weight="fill" className="w-2.5 h-2.5" /> AI
                   </span>
                 )}
                 {!isConnected && !isChecking && (
@@ -177,7 +177,7 @@ export function NegativePromptIntelligence() {
 
               {error && (
                 <div className="flex items-center gap-2 p-3 border border-red-900/40 rounded-xl text-red-400 text-xs">
-                  <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                  <WarningCircle weight="regular" className="w-3.5 h-3.5 flex-shrink-0" />
                   {error} — falling back to heuristic analysis
                 </div>
               )}
@@ -208,7 +208,7 @@ export function NegativePromptIntelligence() {
 
               {isAnalyzing && (
                 <div className="flex items-center gap-3 py-6 justify-center">
-                  <Loader2 className="w-4 h-4 animate-spin text-orange-400" />
+                  <CircleNotch weight="regular" className="w-4 h-4 animate-spin text-orange-400" />
                   <span className="text-sm text-[#c2c2c2]/60">
                     {isConnected ? 'Analyzing with AI…' : 'Running heuristic analysis…'}
                   </span>
@@ -221,7 +221,7 @@ export function NegativePromptIntelligence() {
                   {analysis.detectedIssues.length > 0 && (
                     <div className="p-3 border border-orange-500/20 rounded-xl space-y-2">
                       <div className="flex items-center gap-2">
-                        <AlertTriangle className="w-3.5 h-3.5 text-orange-400" />
+                        <Warning weight="regular" className="w-3.5 h-3.5 text-orange-400" />
                         <span className="text-xs font-medium text-[#f5f5f5]">Detected Issues</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -259,7 +259,10 @@ export function NegativePromptIntelligence() {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <span className="text-base leading-none">{CATEGORY_ICONS[item.category] || '📝'}</span>
+                            {(() => {
+                              const Icon = CATEGORY_ICONS[item.category] || Info
+                              return <Icon weight="regular" className="w-4 h-4 text-[#c2c2c2]/50" />
+                            })()}
                             <span className="text-sm text-[#f5f5f5] font-medium">{item.text}</span>
                           </div>
                           <div className="flex items-center gap-2">

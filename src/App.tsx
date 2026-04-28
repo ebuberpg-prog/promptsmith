@@ -5,6 +5,7 @@ import { PromptOutput } from './components/prompt/PromptOutput'
 import { SmartTagBrowser } from './components/tags/SmartTagBrowser'
 import { TemplateGallery } from './components/templates/TemplateGallery'
 import { PromptDNA } from './components/dna/PromptDNA'
+import { EntityPresets } from './components/entities/EntityPresets'
 import { RandomizerPanel } from './components/randomizer/RandomizerPanel'
 import { loadTaxonomy } from './utils/taxonomy-loader'
 import {
@@ -14,6 +15,7 @@ import {
   MagnifyingGlass,
   Lightning,
   Shuffle,
+  X,
 } from '@phosphor-icons/react'
 
 type ViewMode = 'templates' | 'tags' | 'randomize' | 'guide'
@@ -22,6 +24,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState<ViewMode>('templates')
   const [heroQuery, setHeroQuery] = useState('')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     loadTaxonomy().then(() => setLoading(false))
@@ -62,14 +65,45 @@ function App() {
       <Header />
 
       {/* Two-panel layout */}
-      <main className="flex flex-1 overflow-hidden min-h-0">
+      <main className="flex flex-1 overflow-hidden min-h-0 relative">
 
         {/* Left — browsing content */}
         <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-y-auto scrollbar-hide">
-          <div className="px-8 py-8 space-y-8 pb-12">
+          <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-12">
 
-            {/* Hero Search */}
-            <div className="relative">
+            {/* Mobile: sidebar toggle + hero row */}
+            <div className="flex items-center gap-3 lg:hidden">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="p-2 rounded-lg border border-[#333] text-[#c2c2c2] hover:text-[#f5f5f5] hover:border-[#555] transition-colors"
+              >
+                <SquaresFour weight="regular" className="w-4 h-4" />
+              </button>
+              <div className="relative flex-1">
+                <MagnifyingGlass
+                  weight="regular"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#c2c2c2]"
+                />
+                <input
+                  type="text"
+                  value={heroQuery}
+                  onChange={(e) => handleHeroSearch(e.target.value)}
+                  placeholder="Describe what you want to create..."
+                  className="w-full pl-11 pr-12 py-2.5 bg-transparent border border-[#333] rounded-full outline-none focus:border-[#555] transition-colors duration-150 text-sm text-[#f5f5f5] placeholder:text-[#c2c2c2]/40"
+                />
+                {heroQuery && (
+                  <button
+                    onClick={() => { setHeroQuery(''); setViewMode('templates') }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#c2c2c2] hover:text-[#f5f5f5] transition-colors text-xs"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Desktop: hero search */}
+            <div className="hidden lg:block relative">
               <MagnifyingGlass
                 weight="regular"
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#c2c2c2]"
@@ -92,7 +126,7 @@ function App() {
             </div>
 
             {/* Tabs */}
-            <div className="flex items-center gap-1 border border-[#333] rounded-full p-1 w-fit">
+            <div className="flex items-center gap-1 border border-[#333] rounded-full p-1 w-fit overflow-x-auto scrollbar-hide">
               <ViewTab
                 active={viewMode === 'templates'}
                 onClick={() => setViewMode('templates')}
@@ -131,25 +165,63 @@ function App() {
                 {viewMode === 'templates' && <TemplateGallery />}
                 {viewMode === 'tags' && <SmartTagBrowser externalSearch={heroQuery} />}
                 {viewMode === 'randomize' && <RandomizerPanel />}
-                {viewMode === 'guide' && (
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-1"><PromptDNA /></div>
-                    <div className="lg:col-span-2"><PromptGuide /></div>
-                  </div>
-                )}
+                {viewMode === 'guide' && <PromptGuide />}
               </motion.div>
             </AnimatePresence>
 
           </div>
         </div>
 
-        {/* Vertical divider */}
-        <div className="w-px bg-[#1a1a1a] flex-shrink-0" />
+        {/* Vertical divider — desktop only */}
+        <div className="hidden lg:block w-px bg-[#1a1a1a] flex-shrink-0" />
 
-        {/* Right — prompt panel */}
-        <div className="w-[420px] flex-shrink-0 flex flex-col min-h-0 overflow-y-auto scrollbar-hide">
+        {/* Right — prompt panel (desktop) */}
+        <div className="hidden lg:flex w-[520px] flex-shrink-0 flex-col min-h-0 overflow-y-auto scrollbar-hide">
           <PromptOutput />
+          <div className="px-4 pb-8 space-y-4">
+            <PromptDNA />
+            <EntityPresets />
+          </div>
         </div>
+
+        {/* Mobile sidebar overlay */}
+        <AnimatePresence>
+          {sidebarOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+                onClick={() => setSidebarOpen(false)}
+              />
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-black border-l border-[#1a1a1a] z-50 lg:hidden flex flex-col min-h-0"
+              >
+                <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]">
+                  <span className="text-xs font-medium text-[#c2c2c2] uppercase tracking-widest">Prompt</span>
+                  <button
+                    onClick={() => setSidebarOpen(false)}
+                    className="p-1.5 rounded-lg text-[#c2c2c2]/50 hover:text-[#f5f5f5] transition-colors"
+                  >
+                    <X weight="bold" className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="flex-1 overflow-y-auto scrollbar-hide">
+                  <PromptOutput />
+                  <div className="px-4 pb-8 space-y-4">
+                    <PromptDNA />
+                    <EntityPresets />
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
       </main>
     </div>

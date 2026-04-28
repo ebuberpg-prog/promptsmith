@@ -1,49 +1,28 @@
 import type { SlotId } from './randomizer-slots'
 
 export type RandomizerMode =
-  | 'classic'
-  | 'intent-first'
-  | 'coherence-aware'
-  | 'slot-filled'
-  | 'story-driven'
+  | 'smart'
+  | 'wild'
 
 export interface RandomizerModeDef {
   id: RandomizerMode
   label: string
   description: string
-  emoji: string
+  icon: string
 }
 
 export const RANDOMIZER_MODES: RandomizerModeDef[] = [
   {
-    id: 'classic',
-    label: 'Classic',
-    description: 'Pure random per slot with vibe bias. May have incoherent combinations.',
-    emoji: '🎲',
+    id: 'smart',
+    label: 'Smart',
+    description: 'Coherence-driven. Pick a vibe, get a conflict-free prompt.',
+    icon: 'Sparkle',
   },
   {
-    id: 'intent-first',
-    label: 'Intent-First',
-    description: 'Pick a concept first, then select tags that serve that concept coherently.',
-    emoji: '🎯',
-  },
-  {
-    id: 'coherence-aware',
-    label: 'Coherence-Aware',
-    description: 'Random fill, then sanity-check and fix incoherent combos.',
-    emoji: '🧠',
-  },
-  {
-    id: 'slot-filled',
-    label: 'Slot-Filled',
-    description: 'Every slot gets at least 1 tag. No coherence logic, just coverage.',
-    emoji: '✅',
-  },
-  {
-    id: 'story-driven',
-    label: 'Story-Driven',
-    description: 'Enter a seed phrase, get tags that reinforce your story.',
-    emoji: '📖',
+    id: 'wild',
+    label: 'Wild',
+    description: 'Chaos-driven. Random combinations, no rules, pure surprise.',
+    icon: 'Shuffle',
   },
 ]
 

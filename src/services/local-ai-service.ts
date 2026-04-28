@@ -197,29 +197,57 @@ class OpenAICompatibleProvider implements AIProvider {
   name = 'OpenAI API'
   baseUrl: string
   apiKey: string
+  corsProxyUrl: string
 
-  constructor(baseUrl: string, apiKey: string) {
-    this.baseUrl = baseUrl.replace(/\/$/, '')
+  constructor(baseUrl: string, apiKey: string, corsProxyUrl: string) {
+    this.baseUrl = baseUrl.replace(/\/+$/, '')
     this.apiKey = apiKey
+    this.corsProxyUrl = corsProxyUrl.replace(/\/+$/, '')
   }
 
-  private headers(): Record<string, string> {
+  buildUrl(path: string): string {
+    const fullUrl = `${this.baseUrl}${path}`
+    if (this.corsProxyUrl) {
+      return `${this.corsProxyUrl}/?target=${encodeURIComponent(fullUrl)}`
+    }
+    return fullUrl
+  }
+
+  headers(): Record<string, string> {
     const h: Record<string, string> = { 'Content-Type': 'application/json' }
     if (this.apiKey) h.Authorization = `Bearer ${this.apiKey}`
     return h
   }
 
-  async isAvailable(timeout = 4000): Promise<boolean> {
+  async isAvailable(timeout = 5000): Promise<boolean> {
     if (!this.baseUrl || this.baseUrl === 'https://') return false
     try {
       const controller = new AbortController()
       const timer = setTimeout(() => controller.abort(), timeout)
-      const res = await fetch(`${this.baseUrl}/models`, {
+      let res = await fetch(this.buildUrl('/models'), {
         signal: controller.signal,
         headers: this.headers(),
-      })
+      }).catch(() => null)
       clearTimeout(timer)
-      return res.ok
+      if (res?.ok) return true
+
+      const controller2 = new AbortController()
+      const timer2 = setTimeout(() => controller2.abort(), timeout)
+      res = await fetch(this.buildUrl('/chat/completions'), {
+        method: 'POST',
+        signal: controller2.signal,
+        headers: this.headers(),
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [{ role: 'user', content: 'hi' }],
+          max_tokens: 1,
+        }),
+      }).catch(() => null)
+      clearTimeout(timer2)
+      if (res) {
+        return res.ok || res.status === 400 || res.status === 401 || res.status === 403 || res.status === 422
+      }
+      return false
     } catch {
       return false
     }
@@ -227,15 +255,29 @@ class OpenAICompatibleProvider implements AIProvider {
 
   async listModels(): Promise<AIModel[]> {
     try {
-      const res = await fetch(`${this.baseUrl}/models`, { headers: this.headers() })
-      if (!res.ok) return []
+      const res = await fetch(this.buildUrl('/models'), { headers: this.headers() })
+      if (!res.ok) {
+        console.warn('[OpenAI] /models returned', res.status)
+        return []
+      }
       const data = await res.json()
-      return (data.data ?? []).map((m: { id: string }) => ({
-        id: m.id,
-        name: m.id,
-        provider: 'openai' as const,
-      }))
-    } catch {
+      console.log('[OpenAI] /models response:', JSON.stringify(data).slice(0, 500))
+      // Handle both { data: [...] } and { models: [...] } and array responses
+      const rawModels = data.data ?? data.models ?? (Array.isArray(data) ? data : [])
+      return rawModels.map((m: { id: string; name?: string }) => {
+        let modelId = m.id
+        const prefixMatch = modelId.match(/^([a-z0-9-]+)\//i)
+        if (prefixMatch) {
+          modelId = modelId.slice(prefixMatch[0].length)
+        }
+        return {
+          id: modelId,
+          name: m.name ?? m.id,
+          provider: 'openai' as const,
+        }
+      })
+    } catch (e) {
+      console.error('[OpenAI] listModels error:', e)
       return []
     }
   }
@@ -263,7 +305,7 @@ class OpenAICompatibleProvider implements AIProvider {
       max_tokens: request.maxTokens ?? 500,
     }
 
-    const res = await fetch(`${this.baseUrl}/chat/completions`, {
+    const res = await fetch(this.buildUrl('/chat/completions'), {
       method: 'POST',
       headers: this.headers(),
       body: JSON.stringify(body),
@@ -360,10 +402,10 @@ class AIServiceManager {
     }
   }
 
-  setUrls(ollamaUrl: string, lmStudioUrl: string, openaiUrl: string, openaiApiKey: string) {
+  setUrls(ollamaUrl: string, lmStudioUrl: string, openaiUrl: string, openaiApiKey: string, corsProxyUrl?: string) {
     this.providers.set('ollama', new OllamaProvider(ollamaUrl))
     this.providers.set('lmstudio', new LMStudioProvider(lmStudioUrl))
-    this.providers.set('openai', new OpenAICompatibleProvider(openaiUrl, openaiApiKey))
+    this.providers.set('openai', new OpenAICompatibleProvider(openaiUrl, openaiApiKey, corsProxyUrl || ''))
   }
 
   async discover(preferredProvider?: 'ollama' | 'lmstudio' | 'openai' | null): Promise<void> {
@@ -404,11 +446,27 @@ class AIServiceManager {
     this.emit()
   }
 
-  async testProvider(id: 'ollama' | 'lmstudio' | 'openai'): Promise<{ ok: boolean; models: AIModel[] }> {
+  async testProvider(id: 'ollama' | 'lmstudio' | 'openai'): Promise<{ ok: boolean; models: AIModel[]; error?: string }> {
     const provider = this.providers.get(id)
-    if (!provider) return { ok: false, models: [] }
-    const ok = await provider.isAvailable(4000)
-    if (!ok) return { ok: false, models: [] }
+    if (!provider) return { ok: false, models: [], error: 'Provider not configured' }
+    const ok = await provider.isAvailable(5000)
+    if (!ok) {
+      if (id === 'openai') {
+        const p = provider as OpenAICompatibleProvider
+        try {
+          const res = await fetch(p.buildUrl('/models'), {
+            headers: p.headers(),
+          }).catch(() => null)
+          if (res?.status === 401) return { ok: false, models: [], error: 'Invalid API key (401 Unauthorized)' }
+          if (res?.status === 403) return { ok: false, models: [], error: 'Access forbidden (403). Check your API key and subscription.' }
+          if (res?.status === 404) return { ok: false, models: [], error: 'Endpoint not found (404). Check the URL.' }
+          if (!res) return { ok: false, models: [], error: 'Network error — the proxy or target server may be unreachable.' }
+        } catch {
+          return { ok: false, models: [], error: 'Connection failed. Check the URL and proxy.' }
+        }
+      }
+      return { ok: false, models: [], error: 'Could not reach the provider' }
+    }
     const models = await provider.listModels()
     return { ok: true, models }
   }

@@ -15,6 +15,17 @@ import {
   Upload,
   Download,
   Trash,
+  FilmSlate,
+  Sun,
+  Package,
+  Palette,
+  Sword,
+  Building,
+  Knife,
+  Dress,
+  Rocket,
+  Camera,
+  Image,
 } from '@phosphor-icons/react'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
@@ -22,6 +33,28 @@ import type { PromptTemplate } from '@/types'
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  Sparkle,
+  User,
+  FilmSlate,
+  Sun,
+  Image,
+  Package,
+  Palette,
+  Sword,
+  Building,
+  Knife,
+  Dress,
+  Rocket,
+  Camera,
+  MagnifyingGlass,
+}
+
+function renderIcon(name: string, className = 'w-4 h-4') {
+  const Icon = ICON_MAP[name] || Sparkle
+  return <Icon weight="regular" className={className} />
 }
 
 type GalleryTab = 'built-in' | 'my-templates'
@@ -184,7 +217,7 @@ export function TemplateGallery() {
                       : "border border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
                   )}
                 >
-                  <span className="text-base">{category.icon}</span>
+                  <span className="text-base">{renderIcon(category.icon, 'w-4 h-4')}</span>
                   <span>{category.name}</span>
                 </button>
               ))}
@@ -284,8 +317,8 @@ function BuiltInCard({
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center text-2xl group-hover:border-[#555] transition-colors duration-300">
-              {template.icon}
+            <div className="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center group-hover:border-[#555] transition-colors duration-300">
+              {renderIcon(template.icon, 'w-5 h-5')}
             </div>
             <div className="space-y-1">
               <h3 className="font-display text-xl font-normal text-[#f5f5f5] tracking-tight">

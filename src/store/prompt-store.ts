@@ -15,9 +15,12 @@ import type {
   ABTest,
   PromptVariation,
   PromptDiffResult,
+  SavedEntity,
+  EntityKind,
 } from '@/types'
 import { RandomizerEngine, type RandomizerResult } from '@/services/randomizer-engine'
 import type { RandomizerMode } from '@/data/randomizer-modes'
+import { getModelConfig } from '@/data/model-configs'
 
 export interface AISettings {
   ollamaUrl: string
@@ -30,6 +33,12 @@ export interface AISettings {
   preferredAIProvider: 'ollama' | 'lmstudio' | 'openai' | null
   preferredAIModel: string | null
   preferredImageProvider: 'a1111' | 'comfyui' | 'drawthings' | null
+  openaiModels: string[]
+  ollamaModels: string[]
+  lmstudioModels: string[]
+  openaiModelInputMode: 'auto' | 'manual'
+  openaiManualModel: string
+  corsProxyUrl: string
 }
 
 interface PromptSmithStore extends AppState {
@@ -93,6 +102,16 @@ interface PromptSmithStore extends AppState {
   // AI settings
   aiSettings: AISettings
   updateAISettings: (settings: Partial<AISettings>) => void
+  // Saved entities
+  savedEntities: SavedEntity[]
+  saveEntity: (name: string, kind: EntityKind, description?: string) => SavedEntity
+  loadEntity: (entity: SavedEntity, mode?: 'replace' | 'append') => void
+  deleteEntity: (id: string) => void
+  updateEntity: (id: string, updates: Partial<SavedEntity>) => void
+  exportEntities: () => string
+  importEntities: (json: string) => number
+  // Tag trigger words
+  setTagTriggerWords: (tagId: string, triggerWords: string[]) => void
 }
 
 export const usePromptSmithStore = create<PromptSmithStore>()(
@@ -124,7 +143,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       lastRandomizerVibe: null,
       lastRandomizerIntent: null,
       lastRandomizerStorySeed: null,
-      lastRandomizerMode: 'coherence-aware' as RandomizerMode,
+      lastRandomizerMode: 'smart' as RandomizerMode,
       lastRandomizerIntensity: 'light' as const,
       aiSettings: {
         ollamaUrl: 'http://localhost:11434',
@@ -137,7 +156,14 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         preferredAIProvider: null,
         preferredAIModel: null,
         preferredImageProvider: null,
+        openaiModels: [],
+        ollamaModels: [],
+        lmstudioModels: [],
+        openaiModelInputMode: 'auto',
+        openaiManualModel: '',
+        corsProxyUrl: '',
       },
+      savedEntities: [],
 
       addTag: (tag) =>
         set((state) => {
@@ -233,6 +259,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
 
       generatePrompt: () => {
         const state = get()
+        const modelConfig = getModelConfig(state.selectedModel)
         const parts: string[] = []
 
         const orderedTags = [...state.selectedTags].sort((a, b) => {
@@ -264,22 +291,30 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
           return (aOrder === -1 ? 99 : aOrder) - (bOrder === -1 ? 99 : bOrder)
         })
 
-        const labels = orderedTags.map((tag) => {
-          if (tag.customWeight && tag.customWeight !== 1.0) {
-            if (state.selectedModel === 'midjourney') {
-              return `(${tag.label}:${tag.customWeight.toFixed(1)})`
-            } else if (state.selectedModel === 'stable-diffusion') {
-              return `(${tag.label}:${tag.customWeight.toFixed(1)})`
-            } else if (state.selectedModel === 'z-image') {
-              return `[${tag.label}:${tag.customWeight.toFixed(1)}]`
-            }
-            return tag.label
+        const formatTag = (tag: typeof state.selectedTags[0]) => {
+          const triggerPrefix = tag.triggerWords && tag.triggerWords.length > 0
+            ? (modelConfig.triggerWordStyle === 'prefix'
+              ? tag.triggerWords.join(', ') + ', '
+              : modelConfig.triggerWordStyle === 'inline'
+              ? tag.triggerWords.join(' ') + ' '
+              : '')
+            : ''
+
+          let label = tag.label
+          if (tag.customWeight && tag.customWeight !== 1.0 && modelConfig.supportsWeighting) {
+            label = modelConfig.weightFormat(tag.label, tag.customWeight)
           }
-          return tag.label
-        })
+          return triggerPrefix + label
+        }
+
+        const labels = orderedTags.map(formatTag)
 
         if (labels.length > 0) {
-          parts.push(labels.join(', '))
+          if (modelConfig.promptStyle === 'prose') {
+            parts.push(labels.join(', '))
+          } else {
+            parts.push(labels.join(', '))
+          }
         }
 
         if (state.customText.trim()) {
@@ -288,16 +323,13 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
 
         let prompt = parts.join(', ')
 
-        if (state.selectedModel === 'midjourney') {
+        if (modelConfig.promptStyle === 'midjourney-params') {
           const params = state.modelParameters
           if (params.aspectRatio) prompt += ` --ar ${params.aspectRatio}`
           if (params.style) prompt += ` --s ${params.style}`
           if (params.chaos) prompt += ` --c ${params.chaos}`
           if (params.quality) prompt += ` --q ${params.quality}`
           if (!params.aspectRatio && !params.style) prompt += ' --ar 16:9'
-        } else if (state.selectedModel === 'stable-diffusion') {
-          const params = state.modelParameters
-          if (params.aspectRatio) prompt += `, aspect_ratio: ${params.aspectRatio}`
         }
 
         return prompt
@@ -669,6 +701,82 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
           aiSettings: { ...state.aiSettings, ...settings },
         })),
 
+      saveEntity: (name, kind, description) => {
+        const state = get()
+        const entity: SavedEntity = {
+          id: crypto.randomUUID(),
+          name,
+          kind,
+          description,
+          tags: [...state.selectedTags],
+          customText: state.customText,
+          model: state.selectedModel,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          isFavorite: false,
+        }
+        set((state) => ({ savedEntities: [...state.savedEntities, entity] }))
+        return entity
+      },
+
+      loadEntity: (entity, mode = 'replace') => {
+        set((state) => {
+          if (mode === 'replace') {
+            return {
+              selectedTags: entity.tags.map((t) => ({ ...t, selectedAt: Date.now() })),
+              customText: entity.customText,
+              selectedModel: entity.model,
+            }
+          }
+          const existingIds = new Set(state.selectedTags.map((t) => t.id))
+          const newTags = entity.tags.filter((t) => !existingIds.has(t.id))
+          return {
+            selectedTags: [
+              ...state.selectedTags,
+              ...newTags.map((t) => ({ ...t, selectedAt: Date.now() })),
+            ],
+          }
+        })
+      },
+
+      deleteEntity: (id) =>
+        set((state) => ({
+          savedEntities: state.savedEntities.filter((e) => e.id !== id),
+        })),
+
+      updateEntity: (id, updates) =>
+        set((state) => ({
+          savedEntities: state.savedEntities.map((e) =>
+            e.id === id ? { ...e, ...updates, updatedAt: Date.now() } : e
+          ),
+        })),
+
+      exportEntities: () => {
+        const state = get()
+        return JSON.stringify(state.savedEntities, null, 2)
+      },
+
+      importEntities: (json) => {
+        try {
+          const entities: SavedEntity[] = JSON.parse(json)
+          if (!Array.isArray(entities)) return 0
+          set((state) => ({
+            savedEntities: [...state.savedEntities, ...entities],
+          }))
+          return entities.length
+        } catch {
+          return 0
+        }
+      },
+
+      setTagTriggerWords: (tagId, triggerWords) => {
+        set((state) => ({
+          selectedTags: state.selectedTags.map((t) =>
+            t.id === tagId ? { ...t, triggerWords } : t
+          ),
+        }))
+      },
+
       compressPrompt: (prompt, maxTokens) => {
         const words = prompt.split(', ')
         if (words.length <= maxTokens) return prompt
@@ -713,6 +821,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         lastRandomizerMode: state.lastRandomizerMode,
         lastRandomizerIntensity: state.lastRandomizerIntensity,
         aiSettings: state.aiSettings,
+        savedEntities: state.savedEntities,
       }),
     }
   )

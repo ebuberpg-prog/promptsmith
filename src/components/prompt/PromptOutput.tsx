@@ -9,6 +9,8 @@ import {
   CaretDown,
   PencilSimple,
   ImageSquare,
+  TagSimple,
+  Lightning,
 } from '@phosphor-icons/react'
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -30,12 +32,15 @@ export function PromptOutput() {
   const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
   const customText = usePromptSmithStore((s) => s.customText)
   const setCustomText = usePromptSmithStore((s) => s.setCustomText)
+  const setTagTriggerWords = usePromptSmithStore((s) => s.setTagTriggerWords)
   const aiSettings = usePromptSmithStore((s) => s.aiSettings)
 
   const [copied, setCopied] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [showCustomInput, setShowCustomInput] = useState(false)
   const [expertMode, setExpertMode] = useState(false)
+  const [editingTriggers, setEditingTriggers] = useState<string | null>(null)
+  const [triggerInput, setTriggerInput] = useState('')
   const [imageGenState, setImageGenState] = useState<ImageGenState>(imageGenService.getState())
   const [generatedImage, setGeneratedImage] = useState<string | null>(null)
   const [imageError, setImageError] = useState<string | null>(null)
@@ -88,6 +93,18 @@ export function PromptOutput() {
       setImageError(String(err))
     }
   }, [prompt, negativePrompt, imageGenState.activeProvider, aiSettings.preferredImageProvider])
+
+  const startEditTriggers = (tagId: string, existing: string[]) => {
+    setEditingTriggers(tagId)
+    setTriggerInput(existing.join(', '))
+  }
+
+  const saveTriggers = (tagId: string) => {
+    const words = triggerInput.split(',').map(w => w.trim()).filter(Boolean)
+    setTagTriggerWords(tagId, words)
+    setEditingTriggers(null)
+    setTriggerInput('')
+  }
 
   return (
     <div className="flex flex-col h-full gap-3 p-4">
@@ -142,12 +159,28 @@ export function PromptOutput() {
       {/* Tag chips + inline custom text */}
       <div className="flex-1 min-h-[72px] border border-[#333] rounded-xl p-3 flex flex-wrap content-start gap-2 overflow-y-auto scrollbar-hide hover:border-[#444] transition-colors duration-150">
         {selectedTags.map((tag) => (
-          <TokenChip
-            key={tag.id}
-            tag={tag}
-            onRemove={() => removeTag(tag.id)}
-            showWeight={expertMode}
-          />
+          editingTriggers === tag.id ? (
+            <div key={tag.id} className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-[#555] bg-white/5">
+              <TagSimple weight="fill" className="w-3 h-3 text-[#c2c2c2]/50" />
+              <input
+                autoFocus
+                value={triggerInput}
+                onChange={(e) => setTriggerInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') saveTriggers(tag.id); if (e.key === 'Escape') setEditingTriggers(null) }}
+                onBlur={() => saveTriggers(tag.id)}
+                placeholder="trigger1, trigger2..."
+                className="bg-transparent text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none w-28"
+              />
+            </div>
+          ) : (
+            <TokenChip
+              key={tag.id}
+              tag={tag}
+              onRemove={() => removeTag(tag.id)}
+              showWeight={expertMode}
+              onEditTriggers={() => startEditTriggers(tag.id, tag.triggerWords || [])}
+            />
+          )
         ))}
 
         {/* Inline custom text input */}
@@ -231,6 +264,17 @@ export function PromptOutput() {
                       <WeightControl key={tag.id} tag={tag} onRemove={() => removeTag(tag.id)} expertMode={expertMode} />
                     ))}
                   </div>
+                </div>
+
+                {/* Trigger words help */}
+                <div>
+                  <p className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-widest mb-2">Trigger words</p>
+                  <p className="text-[10px] text-[#c2c2c2]/30 leading-relaxed mb-2">
+                    Trigger words are prepended to a tag in the final prompt. Useful for LoRA activations, style keywords, or model-specific syntax.
+                  </p>
+                  <p className="text-[10px] text-[#c2c2c2]/25 leading-relaxed">
+                    Click the <Lightning weight="regular" className="w-2.5 h-2.5 inline -mt-0.5" /> icon on any tag chip above to add or edit triggers.
+                  </p>
                 </div>
 
                 {negativePrompt && (
@@ -329,23 +373,43 @@ function TokenChip({
   tag,
   onRemove,
   showWeight,
+  onEditTriggers,
 }: {
-  tag: { id: string; label: string; customWeight?: number }
+  tag: { id: string; label: string; customWeight?: number; triggerWords?: string[] }
   onRemove: () => void
   showWeight?: boolean
+  onEditTriggers: () => void
 }) {
+  const hasTriggers = tag.triggerWords && tag.triggerWords.length > 0
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.15, ease: "easeOut" }}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#555] text-[#f5f5f5] text-xs font-medium hover:border-[#777] transition-colors group"
+      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-[#555] text-[#f5f5f5] text-xs font-medium hover:border-[#777] transition-colors group"
     >
       <span>{tag.label}</span>
+      {hasTriggers && (
+        <span className="text-[9px] font-mono text-[#c2c2c2]/30">
+          [{tag.triggerWords!.join(', ')}]
+        </span>
+      )}
       {showWeight && tag.customWeight && tag.customWeight !== 1.0 && (
         <span className="text-[10px] font-mono text-[#c2c2c2]/60">{tag.customWeight.toFixed(1)}</span>
       )}
-      <button onClick={onRemove} className="opacity-0 group-hover:opacity-100 text-[#c2c2c2] hover:text-[#f5f5f5] transition-all ml-0.5">
+      <button
+        onClick={(e) => { e.stopPropagation(); onEditTriggers() }}
+        className={cn(
+          "flex items-center justify-center w-4 h-4 rounded transition-all",
+          hasTriggers
+            ? "text-[#c2c2c2]/40 hover:text-[#c2c2c2] hover:bg-white/10"
+            : "opacity-0 group-hover:opacity-100 text-[#c2c2c2]/25 hover:text-[#c2c2c2]/60 hover:bg-white/5"
+        )}
+        title={hasTriggers ? 'Edit trigger words' : 'Add trigger words'}
+      >
+        <Lightning weight={hasTriggers ? "fill" : "regular"} className="w-2.5 h-2.5" />
+      </button>
+      <button onClick={onRemove} className="opacity-0 group-hover:opacity-100 text-[#c2c2c2] hover:text-[#f5f5f5] transition-all">
         <X weight="bold" className="w-2.5 h-2.5" />
       </button>
     </motion.div>

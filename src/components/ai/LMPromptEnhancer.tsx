@@ -180,7 +180,7 @@ export function LMPromptEnhancer() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-medium hover:from-purple-500 hover:to-pink-500 transition-all"
+        className="flex items-center gap-2 px-3 py-1.5 bg-[#f5f5f5] text-black rounded-lg text-sm font-medium hover:bg-[#e0e0e0] transition-all"
       >
         <Sparkles className="w-4 h-4" />
         <span className="hidden sm:inline">AI Enhance</span>
@@ -193,7 +193,7 @@ export function LMPromptEnhancer() {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a1a1a]">
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-purple-400" />
+                <Sparkles className="w-4 h-4 text-[#f5f5f5]" />
                 <span className="text-sm font-medium text-[#f5f5f5]">AI Tools</span>
                 <StatusPill status={isChecking ? 'checking' : isConnected ? 'connected' : 'disconnected'} provider={aiState.activeProvider} />
               </div>
@@ -274,18 +274,18 @@ export function LMPromptEnhancer() {
                     <button
                       onClick={handleEnhance}
                       disabled={isEnhancing || !fullPrompt.trim()}
-                      className="w-full py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-medium hover:from-purple-500 hover:to-pink-500 disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
+                      className="w-full py-2.5 bg-[#f5f5f5] text-black rounded-xl text-sm font-medium hover:bg-[#e0e0e0] disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
                     >
                       {isEnhancing ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Enhancing…</> : <><Sparkles className="w-3.5 h-3.5" /> Enhance with AI</>}
                     </button>
 
                     {enhancedPrompt && (
-                      <div className="p-3 border border-purple-500/30 rounded-xl space-y-2">
-                        <span className="text-[10px] text-purple-400 uppercase tracking-wider">Enhanced</span>
+                      <div className="p-3 border border-[#555] rounded-xl space-y-2">
+                        <span className="text-[10px] text-[#f5f5f5] uppercase tracking-wider">Enhanced</span>
                         <p className="text-xs text-[#f5f5f5]/80 leading-relaxed">{enhancedPrompt}</p>
                         <button
                           onClick={applyEnhancement}
-                          className="flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                          className="flex items-center gap-1.5 text-xs text-[#f5f5f5] hover:text-[#c2c2c2] transition-colors"
                         >
                           <Check className="w-3 h-3" /> Apply this enhancement
                         </button>
@@ -404,7 +404,7 @@ export function LMPromptEnhancer() {
                         onDragLeave={() => setIsDragging(false)}
                         onDrop={handleImageDrop}
                         className={`flex flex-col items-center justify-center gap-2 w-full h-28 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-150 ${
-                          isDragging ? 'border-purple-500/60 bg-purple-500/5' : 'border-[#2a2a2a] hover:border-[#444]'
+                          isDragging ? 'border-[#555] bg-white/5' : 'border-[#2a2a2a] hover:border-[#444]'
                         }`}
                       >
                         <UploadCloud className="w-5 h-5 text-[#c2c2c2]/30" />
@@ -429,15 +429,15 @@ export function LMPromptEnhancer() {
                     )}
 
                     {imagePreview && (
-                      <button
-                        onClick={handleImageToTags}
-                        disabled={isExtractingTags || !imageBase64}
-                        className="w-full py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-medium hover:from-purple-500 hover:to-pink-500 disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
-                      >
-                        {isExtractingTags
-                          ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Extracting…</>
-                          : <><ImageIcon className="w-3.5 h-3.5" /> Extract Tags</>}
-                      </button>
+                        <button
+                          onClick={handleImageToTags}
+                          disabled={isExtractingTags || !imageBase64}
+                          className="w-full py-2.5 bg-[#f5f5f5] text-black rounded-xl text-sm font-medium hover:bg-[#e0e0e0] disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
+                        >
+                          {isExtractingTags
+                            ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Extracting…</>
+                            : <><ImageIcon className="w-3.5 h-3.5" /> Extract Tags</>}
+                        </button>
                     )}
 
                     {imageTags.length > 0 && (

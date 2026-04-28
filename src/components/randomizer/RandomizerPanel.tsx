@@ -24,9 +24,36 @@ import {
   Warning,
   X,
   Trash,
+  Sparkle,
+  FilmSlate,
+  Buildings,
+  Moon,
+  Lightning,
+  Robot,
+  PawPrint,
+  Leaf,
+  Dress,
 } from '@phosphor-icons/react'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+
+const VIBE_ICON_MAP: Record<string, React.ElementType> = {
+  FilmSlate,
+  Sparkle,
+  Buildings,
+  Moon,
+  Lightning,
+  Camera,
+  Robot,
+  PawPrint,
+  Leaf,
+  Dress,
+}
+
+function renderVibeIcon(name: string) {
+  const Icon = VIBE_ICON_MAP[name] || Sparkle
+  return <Icon weight="regular" className="w-4 h-4" />
+}
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -55,9 +82,8 @@ interface LastResult {
 
 export function RandomizerPanel() {
   const [selectedVibe, setSelectedVibe] = useState<string | null>(null)
-  const [selectedIntent, setSelectedIntent] = useState<string | null>(null)
   const [storySeed, setStorySeed] = useState('')
-  const [mode, setMode] = useState<RandomizerMode>('coherence-aware')
+  const [mode, setMode] = useState<RandomizerMode>('smart')
   const [intensity, setIntensity] = useState<'light' | 'full'>('light')
   const [isRandomizing, setIsRandomizing] = useState(false)
   const [lastResult, setLastResult] = useState<LastResult | null>(null)
@@ -94,7 +120,7 @@ export function RandomizerPanel() {
     try {
       const result = randomizePrompt({
         vibe: selectedVibe ?? undefined,
-        intent: selectedIntent ?? undefined,
+        intent: undefined,
         storySeed: storySeed || undefined,
         intensity,
         mode,
@@ -109,7 +135,7 @@ export function RandomizerPanel() {
     setWarningsExpanded(false)
     const result = randomizePrompt({
       vibe: selectedVibe ?? undefined,
-      intent: selectedIntent ?? undefined,
+      intent: undefined,
       storySeed: storySeed || undefined,
       intensity,
       mode,
@@ -121,7 +147,7 @@ export function RandomizerPanel() {
   const handleReproduceSeed = (seed: number) => {
     const result = randomizePrompt({
       vibe: selectedVibe ?? undefined,
-      intent: selectedIntent ?? undefined,
+      intent: undefined,
       storySeed: storySeed || undefined,
       intensity,
       mode,
@@ -174,7 +200,7 @@ export function RandomizerPanel() {
                   : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
               )}
             >
-              <span>{mod.emoji}</span>
+              {mod.id === 'smart' ? <Sparkle weight="regular" className="w-4 h-4" /> : <Shuffle weight="regular" className="w-4 h-4" />}
               <span>{mod.label}</span>
             </button>
           ))}
@@ -194,57 +220,16 @@ export function RandomizerPanel() {
         )}
       </div>
 
-      {/* Intent-first: Intent selector */}
+      {/* Smart mode: seed text input */}
       <AnimatePresence>
-        {mode === 'intent-first' && (
+        {mode === 'smart' && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             className="space-y-3 overflow-hidden"
           >
-            <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Concept</h3>
-            <div className="flex flex-wrap gap-2">
-              {INTENTS.map(intent => (
-                <button
-                  key={intent.id}
-                  onClick={() => setSelectedIntent(intent.id === selectedIntent ? null : intent.id)}
-                  title={intent.description}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-full border text-sm font-medium transition-all duration-150",
-                    selectedIntent === intent.id
-                      ? "bg-white/10 border-[#f5f5f5]/30 text-[#f5f5f5]"
-                      : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-                  )}
-                >
-                  <span>🎯</span>
-                  <span>{intent.label}</span>
-                </button>
-              ))}
-            </div>
-            {selectedIntent && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-xs text-[#c2c2c2]/60"
-              >
-                {INTENTS.find(i => i.id === selectedIntent)?.description}
-              </motion.p>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Story-driven: Seed text input */}
-      <AnimatePresence>
-        {mode === 'story-driven' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="space-y-3 overflow-hidden"
-          >
-            <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Your Story</h3>
+            <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Seed (optional)</h3>
             <textarea
               value={storySeed}
               onChange={e => setStorySeed(e.target.value)}
@@ -256,63 +241,47 @@ export function RandomizerPanel() {
         )}
       </AnimatePresence>
 
-      {/* Vibe selector — hidden only for Intent-First (story-driven can combine with vibe) */}
-      <AnimatePresence>
-        {mode !== 'intent-first' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="space-y-3 overflow-hidden"
-          >
-            <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">
-              {mode === 'story-driven' ? 'Vibe Filter' : 'Vibe'}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedVibe(null)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
-                  selectedVibe === null
-                    ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
-                    : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-                )}
-              >
-                <span>🎲</span>
-                <span>Surprise me</span>
-              </button>
-              {VIBES.map(vibe => (
-                <button
-                  key={vibe.id}
-                  onClick={() => setSelectedVibe(vibe.id === selectedVibe ? null : vibe.id)}
-                  title={vibe.description}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
-                    selectedVibe === vibe.id
-                      ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
-                      : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-                  )}
-                >
-                  <span>{vibe.emoji}</span>
-                  <span>{vibe.label}</span>
-                </button>
-              ))}
-            </div>
-            {selectedVibe && (
-              <AnimatePresence>
-                <motion.p
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="text-xs text-[#c2c2c2]/60"
-                >
-                  {VIBES.find(v => v.id === selectedVibe)?.description}
-                </motion.p>
-              </AnimatePresence>
+      {/* Vibe selector */}
+      <div className="space-y-3">
+        <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">
+          {mode === 'wild' ? 'Vibe (optional)' : 'Vibe'}
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedVibe(null)}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
+              selectedVibe === null
+                ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
+                : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
             )}
-          </motion.div>
+          >
+            <Shuffle weight="regular" className="w-4 h-4" />
+            <span>Surprise me</span>
+          </button>
+          {VIBES.map(vibe => (
+            <button
+              key={vibe.id}
+              onClick={() => setSelectedVibe(vibe.id === selectedVibe ? null : vibe.id)}
+              title={vibe.description}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
+                selectedVibe === vibe.id
+                  ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
+                  : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+              )}
+            >
+              {renderVibeIcon(vibe.icon)}
+              <span>{vibe.label}</span>
+            </button>
+          ))}
+        </div>
+        {selectedVibe && (
+          <p className="text-xs text-[#c2c2c2]/60">
+            {VIBES.find(v => v.id === selectedVibe)?.description}
+          </p>
         )}
-      </AnimatePresence>
+      </div>
 
       {/* Intensity + action row */}
       <div className="flex flex-wrap items-center gap-4">
@@ -388,8 +357,11 @@ export function RandomizerPanel() {
                 {lastResult.tagCount} tag{lastResult.tagCount !== 1 ? 's' : ''} generated
                 {lastResult.vibe && (
                   <span className="text-[#c2c2c2]">
-                    {' · '}{VIBES.find(v => v.id === lastResult.vibe)?.emoji}{' '}
-                    {VIBES.find(v => v.id === lastResult.vibe)?.label}
+                    {' · '}
+                    {(() => {
+                      const v = VIBES.find(v => v.id === lastResult.vibe)
+                      return v ? <span className="inline-flex items-center gap-1">{renderVibeIcon(v.icon)} {v.label}</span> : null
+                    })()}
                   </span>
                 )}
                 {lastResult.intent && (

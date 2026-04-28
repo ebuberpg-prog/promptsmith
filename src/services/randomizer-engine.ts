@@ -53,22 +53,16 @@ export interface RandomizerOptions {
 
 export class RandomizerEngine {
   randomize(options: RandomizerOptions): RandomizerResult {
-    const mode = options.mode ?? 'coherence-aware'
+    const mode = options.mode ?? 'smart'
     const seed = options.seed
 
     switch (mode) {
-      case 'classic':
-        return this.randomizeClassic({ ...options, seed })
-      case 'intent-first':
-        return this.randomizeIntentFirst({ ...options, seed })
-      case 'coherence-aware':
-        return this.randomizeCoherenceAware({ ...options, seed })
-      case 'slot-filled':
-        return this.randomizeSlotFilled({ ...options, seed })
-      case 'story-driven':
-        return this.randomizeStoryDriven({ ...options, seed })
+      case 'smart':
+        return this.randomizeCoherenceAware({ ...options, seed, mode: 'smart' })
+      case 'wild':
+        return this.randomizeClassic({ ...options, seed, mode: 'wild' })
       default:
-        return this.randomizeCoherenceAware({ ...options, seed })
+        return this.randomizeCoherenceAware({ ...options, seed, mode: 'smart' })
     }
   }
 
@@ -82,7 +76,7 @@ export class RandomizerEngine {
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
     if (allTags.length === 0) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: 'classic' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: options.mode as RandomizerMode }
     }
 
     const vibe = options.vibe ? getVibeById(options.vibe) : null
@@ -118,17 +112,18 @@ export class RandomizerEngine {
       intent: null,
       slots: selectedBySlot,
       warnings,
-      mode: 'classic',
+      mode: options.mode as RandomizerMode,
     }
   }
 
   // ─── INTENT-FIRST ─────────────────────────────────────────────────────────
-  private randomizeIntentFirst(options: RandomizerOptions): RandomizerResult {
+  // @ts-ignore
+  private _randomizeIntentFirst(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
     if (allTags.length === 0) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: 'intent-first' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: options.mode as RandomizerMode }
     }
 
     const intent = options.intent
@@ -136,7 +131,7 @@ export class RandomizerEngine {
       : seededChoice(INTENTS, rng)
 
     if (!intent) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['No intent found'], mode: 'intent-first' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['No intent found'], mode: options.mode as RandomizerMode }
     }
 
     const warnings: string[] = []
@@ -165,7 +160,7 @@ export class RandomizerEngine {
       intent: intent.id,
       slots: selectedBySlot,
       warnings,
-      mode: 'intent-first',
+      mode: options.mode as RandomizerMode,
     }
   }
 
@@ -175,7 +170,7 @@ export class RandomizerEngine {
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
     if (allTags.length === 0) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: 'coherence-aware' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: options.mode as RandomizerMode }
     }
 
     const vibe = options.vibe ? getVibeById(options.vibe) : null
@@ -218,17 +213,18 @@ export class RandomizerEngine {
       intent: null,
       slots: selectedBySlot,
       warnings,
-      mode: 'coherence-aware',
+      mode: options.mode as RandomizerMode,
     }
   }
 
   // ─── SLOT-FILLED ────────────────────────────────────────────────────────────
-  private randomizeSlotFilled(options: RandomizerOptions): RandomizerResult {
+  // @ts-ignore
+  private _randomizeSlotFilled(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
     if (allTags.length === 0) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: 'slot-filled' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: options.mode as RandomizerMode }
     }
 
     const vibe = options.vibe ? getVibeById(options.vibe) : null
@@ -268,23 +264,24 @@ export class RandomizerEngine {
       intent: null,
       slots: selectedBySlot,
       warnings,
-      mode: 'slot-filled',
+      mode: options.mode as RandomizerMode,
     }
   }
 
   // ─── STORY-DRIVEN ───────────────────────────────────────────────────────────
-  private randomizeStoryDriven(options: RandomizerOptions): RandomizerResult {
+  // @ts-ignore
+  private _randomizeStoryDriven(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
     if (allTags.length === 0) {
-      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: 'story-driven' }
+      return { tags: [], seed: options.seed, vibe: null, intent: null, slots: {}, warnings: ['Tag index not loaded'], mode: options.mode as RandomizerMode }
     }
 
     const storySeed = options.storySeed?.trim() ?? ''
     // Fall back to coherence-aware when no story text is provided
     if (!storySeed) {
-      return this.randomizeCoherenceAware({ ...options, mode: 'coherence-aware' })
+      return this.randomizeCoherenceAware({ ...options, mode: options.mode as RandomizerMode })
     }
 
     const vibe = options.vibe ? getVibeById(options.vibe) : null
@@ -334,7 +331,7 @@ export class RandomizerEngine {
       intent: null,
       slots: selectedBySlot,
       warnings,
-      mode: 'story-driven',
+      mode: options.mode as RandomizerMode,
     }
   }
 

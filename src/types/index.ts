@@ -7,6 +7,7 @@ export interface TaxonomyTag {
   weight: number
   category?: string
   subcategory?: string
+  triggerWords?: string[]
 }
 
 export interface TaxonomyCategory {
@@ -52,6 +53,8 @@ export interface TemplateSlot {
   description?: string
 }
 
+export type ModelKind = 'natural-language' | 'tag-based' | 'midjourney'
+
 export type SupportedModel =
   | 'midjourney'
   | 'stable-diffusion'
@@ -66,13 +69,13 @@ export type SupportedModel =
 export interface ModelConfig {
   id: SupportedModel
   name: string
+  kind: ModelKind
   version: string
-  syntax: ModelSyntax
-  maxTokens: number
+  promptStyle: 'prose' | 'comma-separated' | 'midjourney-params'
   supportsNegative: boolean
   supportsWeighting: boolean
-  supportsImagePrompt: boolean
-  supportsLoRA: boolean
+  weightFormat: (tag: string, weight: number) => string
+  triggerWordStyle: 'prefix' | 'inline' | 'none'
   parameters: string[]
 }
 
@@ -84,6 +87,21 @@ export interface ModelSyntax {
   weighting: (tag: string, weight: number) => string
   lora: (loraName: string, weight: number) => string
   translatePrompt?: (prompt: string) => string
+}
+
+export type EntityKind = 'character' | 'environment' | 'style' | 'mood' | 'custom'
+
+export interface SavedEntity {
+  id: string
+  name: string
+  kind: EntityKind
+  description?: string
+  tags: SelectedTag[]
+  customText: string
+  model: SupportedModel
+  createdAt: number
+  updatedAt: number
+  isFavorite: boolean
 }
 
 export interface ReferenceImage {
