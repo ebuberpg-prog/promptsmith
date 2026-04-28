@@ -285,10 +285,13 @@ export interface PromptDiff {
 }
 
 export interface PromptDiffResult {
-  type: 'added' | 'removed' | 'modified'
+  type: 'added' | 'removed' | 'modified' | 'reordered'
   segment: string
   position: number
-  significance: 'high' | 'medium' | 'low'
+  significance: 'critical' | 'high' | 'medium' | 'low'
+  tagId?: string
+  category?: string
+  description?: string
 }
 
 export interface NegativePromptIntelligence {

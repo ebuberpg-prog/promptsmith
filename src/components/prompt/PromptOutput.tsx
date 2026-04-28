@@ -11,6 +11,9 @@ import {
   ImageSquare,
   TagSimple,
   Lightning,
+  ClockCounterClockwise,
+  GitDiff,
+  ChartBar,
 } from '@phosphor-icons/react'
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -18,6 +21,9 @@ import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { imageGenService, type ImageGenState } from '@/services/image-gen-service'
 import { NegativePromptIntelligence } from '@/components/negative/NegativePromptIntelligence'
+import { VersionHistory } from '@/components/versions/VersionHistory'
+import { PromptDiff } from '@/components/diff/PromptDiff'
+import { ABTesting } from '@/components/abtest/ABTesting'
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -112,11 +118,14 @@ export function PromptOutput() {
       {/* Top bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-[#c2c2c2] uppercase tracking-widest">Your Prompt</span>
+          <span className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--ui-muted-text)' }}>Your Prompt</span>
           {hasContent && (
             <button
               onClick={clearAllTags}
-              className="text-xs text-[#c2c2c2]/50 hover:text-red-400 transition-colors"
+              className="text-xs transition-colors"
+              style={{ color: 'var(--ui-muted-text-faint)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
             >
               Clear all
             </button>
@@ -124,14 +133,16 @@ export function PromptOutput() {
         </div>
         <div className="flex items-center gap-2">
           <NegativePromptIntelligence />
+          <VersionHistory />
+          <PromptDiff />
+          <ABTesting />
           <button
             onClick={() => setExpertMode(e => !e)}
-            className={cn(
-              "text-xs font-medium px-3 py-1 rounded-full border transition-colors duration-150",
-              expertMode
-                ? "border-[#f5f5f5]/40 text-[#f5f5f5]"
-                : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-            )}
+            className="text-xs font-medium px-3 py-1 rounded-full border transition-colors duration-150"
+            style={{
+              borderColor: expertMode ? 'var(--ui-text)' : 'var(--ui-border)',
+              color: expertMode ? 'var(--ui-text)' : 'var(--ui-muted-text)',
+            }}
           >
             {expertMode ? 'Expert' : 'Simple'}
           </button>
@@ -139,29 +150,32 @@ export function PromptOutput() {
             whileTap={{ scale: 0.97 }}
             onClick={handleCopy}
             disabled={!hasContent}
-            className={cn(
-              "flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border",
-              copied
-                ? "border-[#f5f5f5]/40 text-[#f5f5f5] bg-white/10"
-                : hasContent
-                  ? "bg-[#f5f5f5] text-black border-[#f5f5f5] hover:bg-[#e0e0e0]"
-                  : "border-[#333] text-[#c2c2c2]/40 cursor-not-allowed"
-            )}
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border"
+            style={{
+              borderColor: copied ? 'var(--ui-text)' : hasContent ? 'var(--ui-text)' : 'var(--ui-border-faint)',
+              color: copied || hasContent ? 'var(--ui-text)' : 'var(--ui-muted-text-faint)',
+              backgroundColor: copied ? 'color-mix(in oklab, var(--ui-text) 10%, transparent)' : hasContent ? 'var(--ui-text)' : 'transparent',
+            }}
           >
             {copied
-              ? <CheckCircleIcon weight="fill" className="w-3.5 h-3.5" />
-              : <Copy weight="regular" className="w-3.5 h-3.5" />}
+              ? <CheckCircleIcon weight="fill" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />
+              : <Copy weight="regular" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />}
             {copied ? 'Copied!' : 'Copy prompt'}
           </motion.button>
         </div>
       </div>
 
       {/* Tag chips + inline custom text */}
-      <div className="flex-1 min-h-[72px] border border-[#333] rounded-xl p-3 flex flex-wrap content-start gap-2 overflow-y-auto scrollbar-hide hover:border-[#444] transition-colors duration-150">
+      <div
+        className="flex-1 min-h-[72px] border rounded-xl p-3 flex flex-wrap content-start gap-2 overflow-y-auto scrollbar-hide transition-colors duration-150"
+        style={{ borderColor: 'var(--ui-border)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
+        onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
+      >
         {selectedTags.map((tag) => (
           editingTriggers === tag.id ? (
-            <div key={tag.id} className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-[#555] bg-white/5">
-              <TagSimple weight="fill" className="w-3 h-3 text-[#c2c2c2]/50" />
+            <div key={tag.id} className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full border" style={{ borderColor: 'var(--ui-border-strong)', backgroundColor: 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}>
+              <TagSimple weight="fill" className="w-3 h-3" style={{ color: 'var(--ui-muted-text)' }} />
               <input
                 autoFocus
                 value={triggerInput}
@@ -169,7 +183,8 @@ export function PromptOutput() {
                 onKeyDown={(e) => { if (e.key === 'Enter') saveTriggers(tag.id); if (e.key === 'Escape') setEditingTriggers(null) }}
                 onBlur={() => saveTriggers(tag.id)}
                 placeholder="trigger1, trigger2..."
-                className="bg-transparent text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none w-28"
+                className="bg-transparent text-xs outline-none w-28"
+                style={{ color: 'var(--ui-text)' }}
               />
             </div>
           ) : (
@@ -185,17 +200,18 @@ export function PromptOutput() {
 
         {/* Inline custom text input */}
         {showCustomInput ? (
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#555] min-w-[160px]">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border min-w-[160px]" style={{ borderColor: 'var(--ui-border-strong)' }}>
             <input
               autoFocus
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
               onBlur={() => { if (!customText.trim()) setShowCustomInput(false) }}
               placeholder="Add your own words..."
-              className="bg-transparent text-sm text-[#f5f5f5] placeholder:text-[#c2c2c2]/40 outline-none w-full min-w-[120px]"
+              className="bg-transparent text-sm outline-none w-full min-w-[120px]"
+              style={{ color: 'var(--ui-text)' }}
             />
             {customText && (
-              <button onClick={() => { setCustomText(''); setShowCustomInput(false) }} className="text-[#c2c2c2] hover:text-[#f5f5f5]">
+              <button onClick={() => { setCustomText(''); setShowCustomInput(false) }} style={{ color: 'var(--ui-muted-text)' }} onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-text)')} onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}>
                 <X weight="bold" className="w-3 h-3" />
               </button>
             )}
@@ -203,7 +219,10 @@ export function PromptOutput() {
         ) : (
           <button
             onClick={() => setShowCustomInput(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed border-[#333] text-[#c2c2c2]/40 hover:text-[#c2c2c2] hover:border-[#555] transition-colors duration-150 text-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed transition-colors duration-150 text-xs"
+            style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text-faint)' }}
           >
             <PencilSimple weight="regular" className="w-3 h-3" />
             {customText.trim() ? customText : 'Add your own words...'}
@@ -212,8 +231,8 @@ export function PromptOutput() {
 
         {!hasContent && !showCustomInput && (
           <div className="w-full flex items-center justify-center py-3">
-            <p className="text-xs text-[#c2c2c2]/30 font-sans">
-              Pick tags from the categories — your prompt builds here automatically
+            <p className="text-xs font-sans" style={{ color: 'var(--ui-muted-text-faint)' }}>
+              Pick tags from the categories -- your prompt builds here automatically
             </p>
           </div>
         )}
@@ -226,10 +245,10 @@ export function PromptOutput() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <p className="text-xs font-mono text-[#c2c2c2]/50 leading-relaxed border-t border-[#222] pt-2 line-clamp-2">
+            <p className="text-xs font-mono leading-relaxed border-t pt-2 line-clamp-2" style={{ color: 'var(--ui-muted-text)', borderColor: 'var(--ui-border-faint)' }}>
               {prompt}
             </p>
           </motion.div>
@@ -241,9 +260,12 @@ export function PromptOutput() {
         <div>
           <button
             onClick={() => setShowAdvanced(a => !a)}
-            className="flex items-center gap-1 text-[10px] text-[#c2c2c2]/40 hover:text-[#c2c2c2] uppercase tracking-widest transition-colors"
+            className="flex items-center gap-1 text-[10px] uppercase tracking-widest transition-colors"
+            style={{ color: 'var(--ui-muted-text-faint)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
           >
-            <CaretDown weight="bold" className={cn("w-2.5 h-2.5 transition-transform duration-150", showAdvanced && "rotate-180")} />
+            <CaretDown weight="bold" className={`w-2.5 h-2.5 transition-transform duration-150 ${showAdvanced && 'rotate-180'}`} />
             Advanced
           </button>
 
@@ -253,12 +275,11 @@ export function PromptOutput() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
                 className="overflow-hidden mt-3 space-y-4"
               >
-                {/* Weight controls */}
                 <div>
-                  <p className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-widest mb-2">Tag strength</p>
+                  <p className="text-[10px] uppercase tracking-widest mb-2" style={{ color: 'var(--ui-muted-text-faint)' }}>Tag strength</p>
                   <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto scrollbar-hide">
                     {selectedTags.map((tag) => (
                       <WeightControl key={tag.id} tag={tag} onRemove={() => removeTag(tag.id)} expertMode={expertMode} />
@@ -266,21 +287,20 @@ export function PromptOutput() {
                   </div>
                 </div>
 
-                {/* Trigger words help */}
                 <div>
-                  <p className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-widest mb-2">Trigger words</p>
-                  <p className="text-[10px] text-[#c2c2c2]/30 leading-relaxed mb-2">
+                  <p className="text-[10px] uppercase tracking-widest mb-2" style={{ color: 'var(--ui-muted-text-faint)' }}>Trigger words</p>
+                  <p className="text-[10px] leading-relaxed mb-2" style={{ color: 'var(--ui-muted-text-faint)' }}>
                     Trigger words are prepended to a tag in the final prompt. Useful for LoRA activations, style keywords, or model-specific syntax.
                   </p>
-                  <p className="text-[10px] text-[#c2c2c2]/25 leading-relaxed">
+                  <p className="text-[10px] leading-relaxed" style={{ color: 'var(--ui-muted-text-faint)', opacity: 0.75 }}>
                     Click the <Lightning weight="regular" className="w-2.5 h-2.5 inline -mt-0.5" /> icon on any tag chip above to add or edit triggers.
                   </p>
                 </div>
 
                 {negativePrompt && (
                   <div>
-                    <p className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-widest mb-1.5">Negative prompt</p>
-                    <p className="text-xs font-mono text-[#c2c2c2]/50 leading-relaxed border border-[#222] rounded-lg px-3 py-2">
+                    <p className="text-[10px] uppercase tracking-widest mb-1.5" style={{ color: 'var(--ui-muted-text-faint)' }}>Negative prompt</p>
+                    <p className="text-xs font-mono leading-relaxed border rounded-lg px-3 py-2" style={{ color: 'var(--ui-muted-text)', borderColor: 'var(--ui-border-faint)' }}>
                       {negativePrompt}
                     </p>
                   </div>
@@ -292,19 +312,19 @@ export function PromptOutput() {
       )}
 
       {/* Image generation panel */}
-      <div className="border-t border-[#1a1a1a] pt-3 space-y-3">
+      <div className="border-t pt-3 space-y-3" style={{ borderColor: 'var(--ui-border-faint)' }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ImageSquare weight="regular" className="w-3.5 h-3.5 text-[#c2c2c2]/50" />
-            <span className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-widest">Generate Image</span>
+            <ImageSquare weight="regular" className="w-3.5 h-3.5" style={{ color: 'var(--ui-muted-text)' }} />
+            <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--ui-muted-text-faint)' }}>Generate Image</span>
           </div>
           {imageGenState.activeProvider && (
-            <span className="text-[9px] border border-green-500/30 text-green-500/60 rounded-full px-2 py-0.5 uppercase tracking-wider">
+            <span className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider" style={{ borderColor: 'hsl(var(--success) / 0.3)', color: 'hsl(var(--success) / 0.6)' }}>
               {imageGenState.activeProvider}
             </span>
           )}
           {!imageGenState.activeProvider && imageGenState.status !== 'checking' && (
-            <span className="text-[9px] border border-[#333] text-[#c2c2c2]/30 rounded-full px-2 py-0.5 uppercase tracking-wider">
+            <span className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
               No provider
             </span>
           )}
@@ -314,17 +334,19 @@ export function PromptOutput() {
           whileTap={{ scale: 0.97 }}
           onClick={handleGenerate}
           disabled={!hasContent || imageGenState.status === 'generating'}
-          className={cn(
-            "w-full py-2 rounded-xl text-xs font-medium border transition-all duration-150 flex items-center justify-center gap-2",
-            hasContent && imageGenState.status !== 'generating'
-              ? "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-              : "border-[#222] text-[#c2c2c2]/30 cursor-not-allowed"
-          )}
+          className="w-full py-2 rounded-xl text-xs font-medium border transition-all duration-150 flex items-center justify-center gap-2"
+          style={{
+            borderColor: hasContent && imageGenState.status !== 'generating' ? 'var(--ui-border)' : 'var(--ui-border-faint)',
+            color: hasContent && imageGenState.status !== 'generating' ? 'var(--ui-muted-text)' : 'var(--ui-muted-text-faint)',
+            cursor: !hasContent || imageGenState.status === 'generating' ? 'not-allowed' : undefined,
+          }}
+          onMouseEnter={(e) => { if (hasContent && imageGenState.status !== 'generating') { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' } }}
+          onMouseLeave={(e) => { if (hasContent && imageGenState.status !== 'generating') { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' } }}
         >
           {imageGenState.status === 'generating' ? (
             <>
-              <span className="w-3 h-3 rounded-full border border-[#555] border-t-[#f5f5f5] animate-spin" />
-              Generating…
+              <span className="w-3 h-3 rounded-full border animate-spin" style={{ borderColor: 'var(--ui-border)', borderTopColor: 'var(--ui-text)' }} />
+              Generating...
             </>
           ) : (
             <>
@@ -335,7 +357,7 @@ export function PromptOutput() {
         </motion.button>
 
         {imageError && (
-          <p className="text-[10px] text-red-400/70 leading-relaxed">{imageError}</p>
+          <p className="text-[10px] leading-relaxed" style={{ color: 'hsl(var(--destructive) / 0.7)' }}>{imageError}</p>
         )}
 
         <AnimatePresence>
@@ -344,8 +366,9 @@ export function PromptOutput() {
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative rounded-xl overflow-hidden border border-[#222] group"
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="relative rounded-xl overflow-hidden border group"
+              style={{ borderColor: 'var(--ui-border-faint)' }}
             >
               <img
                 src={generatedImage}
@@ -356,7 +379,8 @@ export function PromptOutput() {
                 <a
                   href={generatedImage}
                   download="muse-generated.png"
-                  className="px-3 py-1.5 rounded-full bg-black/80 border border-[#555] text-xs text-[#f5f5f5] hover:border-[#888] transition-colors"
+                  className="px-3 py-1.5 rounded-full border text-xs transition-colors"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.8)', borderColor: 'var(--ui-border-hover)', color: 'var(--ui-text)' }}
                 >
                   Download
                 </a>
@@ -385,31 +409,41 @@ function TokenChip({
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
-      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-[#555] text-[#f5f5f5] text-xs font-medium hover:border-[#777] transition-colors group"
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border transition-colors group"
+      style={{ borderColor: 'var(--ui-border-strong)', color: 'var(--ui-text)' }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-strong)')}
     >
       <span>{tag.label}</span>
       {hasTriggers && (
-        <span className="text-[9px] font-mono text-[#c2c2c2]/30">
+        <span className="text-[9px] font-mono" style={{ color: 'var(--ui-muted-text-faint)' }}>
           [{tag.triggerWords!.join(', ')}]
         </span>
       )}
       {showWeight && tag.customWeight && tag.customWeight !== 1.0 && (
-        <span className="text-[10px] font-mono text-[#c2c2c2]/60">{tag.customWeight.toFixed(1)}</span>
+        <span className="text-[10px] font-mono" style={{ color: 'var(--ui-muted-text)' }}>{tag.customWeight.toFixed(1)}</span>
       )}
       <button
         onClick={(e) => { e.stopPropagation(); onEditTriggers() }}
-        className={cn(
-          "flex items-center justify-center w-4 h-4 rounded transition-all",
-          hasTriggers
-            ? "text-[#c2c2c2]/40 hover:text-[#c2c2c2] hover:bg-white/10"
-            : "opacity-0 group-hover:opacity-100 text-[#c2c2c2]/25 hover:text-[#c2c2c2]/60 hover:bg-white/5"
-        )}
+        className="flex items-center justify-center w-4 h-4 rounded transition-all"
+        style={{
+          color: hasTriggers ? 'var(--ui-muted-text)' : 'var(--ui-muted-text-faint)',
+          opacity: hasTriggers ? 1 : undefined,
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 10%, transparent)' }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = hasTriggers ? 'var(--ui-muted-text)' : 'var(--ui-muted-text-faint)'; e.currentTarget.style.backgroundColor = 'transparent' }}
         title={hasTriggers ? 'Edit trigger words' : 'Add trigger words'}
       >
-        <Lightning weight={hasTriggers ? "fill" : "regular"} className="w-2.5 h-2.5" />
+        <Lightning weight={hasTriggers ? 'fill' : 'regular'} className="w-2.5 h-2.5" />
       </button>
-      <button onClick={onRemove} className="opacity-0 group-hover:opacity-100 text-[#c2c2c2] hover:text-[#f5f5f5] transition-all">
+      <button
+        onClick={onRemove}
+        className="transition-all"
+        style={{ color: 'var(--ui-muted-text)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
+      >
         <X weight="bold" className="w-2.5 h-2.5" />
       </button>
     </motion.div>
@@ -434,25 +468,30 @@ function WeightControl({
   if (!expertMode) {
     const level = weight < 0.8 ? 'Low' : weight > 1.3 ? 'High' : 'Normal'
     return (
-      <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-[#333] hover:border-[#555] transition-colors group">
-        <span className="text-xs text-[#c2c2c2] truncate max-w-[80px]">{tag.label}</span>
+      <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border transition-colors group" style={{ borderColor: 'var(--ui-border)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
+        onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
+      >
+        <span className="text-xs truncate max-w-[80px]" style={{ color: 'var(--ui-muted-text)' }}>{tag.label}</span>
         <div className="flex items-center gap-0.5">
           {(['Low', 'Normal', 'High'] as const).map((l) => (
             <button
               key={l}
               onClick={() => setWeight(l === 'Low' ? 0.6 : l === 'Normal' ? 1.0 : 1.5)}
-              className={cn(
-                "px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-colors duration-150",
-                level === l
-                  ? "bg-[#f5f5f5] text-black"
-                  : "text-[#c2c2c2]/50 hover:text-[#c2c2c2]"
-              )}
+              className="px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-colors duration-150"
+              style={{
+                backgroundColor: level === l ? 'var(--ui-text)' : 'transparent',
+                color: level === l ? 'var(--ui-bg)' : 'var(--ui-muted-text-faint)',
+              }}
             >
               {l}
             </button>
           ))}
         </div>
-        <button onClick={onRemove} className="hidden group-hover:flex text-[#c2c2c2]/40 hover:text-red-400 transition-colors">
+        <button onClick={onRemove} className="hidden group-hover:flex transition-colors" style={{ color: 'var(--ui-muted-text-faint)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
+        >
           <Trash weight="regular" className="w-3 h-3" />
         </button>
       </div>
@@ -460,18 +499,30 @@ function WeightControl({
   }
 
   return (
-    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-[#333] hover:border-[#555] transition-colors group">
-      <span className="text-xs text-[#c2c2c2] truncate max-w-[80px]">{tag.label}</span>
-      <div className="flex items-center gap-0.5 border border-[#333] rounded-full px-1">
-        <button onClick={() => adjust(-0.1)} className="p-0.5 text-[#c2c2c2] hover:text-[#f5f5f5] transition-colors">
+    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border transition-colors group" style={{ borderColor: 'var(--ui-border)' }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
+    >
+      <span className="text-xs truncate max-w-[80px]" style={{ color: 'var(--ui-muted-text)' }}>{tag.label}</span>
+      <div className="flex items-center gap-0.5 border rounded-full px-1" style={{ borderColor: 'var(--ui-border)' }}>
+        <button onClick={() => adjust(-0.1)} className="p-0.5 transition-colors" style={{ color: 'var(--ui-muted-text)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-text)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
+        >
           <Minus weight="bold" className="w-2.5 h-2.5" />
         </button>
-        <span className="text-[10px] font-mono text-[#f5f5f5] w-6 text-center">{weight.toFixed(1)}</span>
-        <button onClick={() => adjust(0.1)} className="p-0.5 text-[#c2c2c2] hover:text-[#f5f5f5] transition-colors">
+        <span className="text-[10px] font-mono w-6 text-center" style={{ color: 'var(--ui-text)' }}>{weight.toFixed(1)}</span>
+        <button onClick={() => adjust(0.1)} className="p-0.5 transition-colors" style={{ color: 'var(--ui-muted-text)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-text)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
+        >
           <Plus weight="bold" className="w-2.5 h-2.5" />
         </button>
       </div>
-      <button onClick={onRemove} className="hidden group-hover:flex text-[#c2c2c2]/40 hover:text-red-400 transition-colors">
+      <button onClick={onRemove} className="hidden group-hover:flex transition-colors" style={{ color: 'var(--ui-muted-text-faint)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
+      >
         <Trash weight="regular" className="w-3 h-3" />
       </button>
     </div>

@@ -180,20 +180,20 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 bottom-0 w-[480px] max-w-full bg-[#0a0a0a] border-l border-[#1a1a1a] z-50 overflow-y-auto scrollbar-hide"
+            className="fixed right-0 top-0 bottom-0 w-[480px] max-w-full bg-[var(--ui-bg)] border-l border-[var(--ui-surface)] z-50 overflow-y-auto scrollbar-hide"
           >
             <div className="p-8 space-y-8">
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="font-display text-xl font-normal text-[#f5f5f5] tracking-tight">AI Connections</h2>
-                  <p className="text-xs text-[#c2c2c2]/60 mt-1">
+                  <h2 className="font-display text-xl font-normal text-[var(--ui-text)] tracking-tight">AI Connections</h2>
+                  <p className="text-xs text-[var(--ui-muted-text)]/60 mt-1">
                     Connect to local AI services or any OpenAI-compatible API.
                   </p>
                 </div>
                 <button
                   onClick={() => { save(); onClose() }}
-                  className="text-[#c2c2c2]/50 hover:text-[#f5f5f5] transition-colors"
+                  className="text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-text)] transition-colors"
                 >
                   <X weight="regular" className="w-5 h-5" />
                 </button>
@@ -202,10 +202,10 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
               {/* AI Text Providers */}
               <section className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-medium text-[#f5f5f5]">AI Text Providers</h3>
+                  <h3 className="text-sm font-medium text-[var(--ui-text)]">AI Text Providers</h3>
                   <StatusBadge status={aiStatus === 'connected' ? 'ok' : aiStatus === 'checking' ? 'testing' : 'idle'} />
                 </div>
-                <p className="text-xs text-[#c2c2c2]/50">Used for prompt enhancement, text-to-tags, and tag suggestions.</p>
+                <p className="text-xs text-[var(--ui-muted-text)]/50">Used for prompt enhancement, text-to-tags, and tag suggestions.</p>
 
                 <ProviderRow
                   label="Ollama"
@@ -252,12 +252,12 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
                 />
               </section>
 
-              <div className="h-px bg-[#1a1a1a]" />
+              <div className="h-px bg-[var(--ui-surface)]" />
 
               {/* Image Generation */}
               <section className="space-y-4">
-                <h3 className="text-sm font-medium text-[#f5f5f5]">Image Generation</h3>
-                <p className="text-xs text-[#c2c2c2]/50">Send your prompt directly to a local image generator.</p>
+                <h3 className="text-sm font-medium text-[var(--ui-text)]">Image Generation</h3>
+                <p className="text-xs text-[var(--ui-muted-text)]/50">Send your prompt directly to a local image generator.</p>
 
                 <SimpleProviderRow
                   label="Automatic1111"
@@ -288,7 +288,7 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
               {/* Save */}
               <button
                 onClick={() => { save(); onClose() }}
-                className="w-full py-3 rounded-full bg-[#f5f5f5] text-black text-sm font-medium hover:bg-white transition-colors"
+                className="w-full py-3 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:bg-[var(--ui-surface)] transition-colors"
               >
                 Save & Close
               </button>
@@ -316,9 +316,9 @@ function ProviderRow({
   hint: string
 }) {
   return (
-    <div className="space-y-2 p-4 border border-[#1a1a1a] rounded-2xl">
+    <div className="space-y-2 p-4 border border-[var(--ui-surface)] rounded-2xl">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-[#c2c2c2]">{label}</span>
+        <span className="text-xs font-medium text-[var(--ui-muted-text)]">{label}</span>
         <StatusBadge status={testState} />
       </div>
       <div className="flex gap-2">
@@ -327,23 +327,23 @@ function ProviderRow({
           value={url}
           onChange={e => onUrlChange(e.target.value)}
           placeholder={hint}
-          className="flex-1 px-3 py-2 bg-transparent border border-[#222] rounded-xl text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+          className="flex-1 px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
         />
         <button
           onClick={onTest}
           disabled={testState === 'testing'}
-          className="px-4 py-2 rounded-xl border border-[#333] text-xs text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all disabled:opacity-40"
+          className="px-4 py-2 rounded-xl border border-[var(--ui-border)] text-xs text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all disabled:opacity-40"
         >
           {testState === 'testing' ? 'Testing…' : 'Test'}
         </button>
       </div>
       {models.length > 0 && (
         <div>
-          <label className="text-[10px] text-[#c2c2c2]/50 uppercase tracking-wider">Model</label>
+          <label className="text-[10px] text-[var(--ui-muted-text)]/50 uppercase tracking-wider">Model</label>
           <select
             value={selectedModel ?? ''}
             onChange={e => onModelChange(e.target.value)}
-            className="mt-1 w-full px-3 py-2 bg-[#0a0a0a] border border-[#222] rounded-xl text-xs text-[#f5f5f5] outline-none"
+            className="mt-1 w-full px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] outline-none"
           >
             {models.map(m => (
               <option key={m.id} value={m.id}>{m.name}{m.size ? ` (${m.size})` : ''}</option>
@@ -378,20 +378,20 @@ function OpenAIProviderRow({
   testError?: string
 }) {
   return (
-    <div className="space-y-2 p-4 border border-[#1a1a1a] rounded-2xl">
+    <div className="space-y-2 p-4 border border-[var(--ui-surface)] rounded-2xl">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-[#c2c2c2]">OpenAI API</span>
+        <span className="text-xs font-medium text-[var(--ui-muted-text)]">OpenAI API</span>
         <StatusBadge status={testState} />
       </div>
-      <p className="text-[10px] text-[#c2c2c2]/30 leading-relaxed">
-        Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[#c2c2c2]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key.
+      <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
+        Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key.
       </p>
       <input
         type="text"
         value={url}
         onChange={e => onUrlChange(e.target.value)}
         placeholder="https://opencode.ai/zen/go/v1"
-        className="w-full px-3 py-2 bg-transparent border border-[#222] rounded-xl text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+        className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
       />
       <div className="flex gap-2">
         <input
@@ -399,12 +399,12 @@ function OpenAIProviderRow({
           value={apiKey}
           onChange={e => onApiKeyChange(e.target.value)}
           placeholder="API key"
-          className="flex-1 px-3 py-2 bg-transparent border border-[#222] rounded-xl text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+          className="flex-1 px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
         />
         <button
           onClick={onTest}
           disabled={testState === 'testing'}
-          className="px-4 py-2 rounded-xl border border-[#333] text-xs text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all disabled:opacity-40"
+          className="px-4 py-2 rounded-xl border border-[var(--ui-border)] text-xs text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all disabled:opacity-40"
         >
           {testState === 'testing' ? 'Testing…' : 'Test'}
         </button>
@@ -412,15 +412,15 @@ function OpenAIProviderRow({
 
       {/* CORS Proxy */}
       <div>
-        <label className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider mb-1 block">CORS Proxy (optional)</label>
+        <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">CORS Proxy (optional)</label>
         <input
           type="text"
           value={corsProxyUrl}
           onChange={e => onCorsProxyUrlChange(e.target.value)}
           placeholder="https://your-worker.workers.dev"
-          className="w-full px-3 py-2 bg-transparent border border-[#222] rounded-xl text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+          className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
         />
-        <p className="text-[10px] text-[#c2c2c2]/25 mt-1">
+        <p className="text-[10px] text-[var(--ui-muted-text)]/25 mt-1">
           Routes requests through a proxy to bypass CORS. Needed for OpenCode Go from the browser.
         </p>
       </div>
@@ -428,7 +428,7 @@ function OpenAIProviderRow({
       {testError && testState === 'fail' && (
         <div className="space-y-1">
           <p className="text-[10px] text-red-400/60 leading-relaxed">{testError}</p>
-          <p className="text-[10px] text-[#c2c2c2]/30 leading-relaxed">
+          <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
             If you see a network error, the server may be blocking cross-origin (CORS) requests from your browser. Try building and running the production version, or use a CORS proxy.
           </p>
         </div>
@@ -438,17 +438,17 @@ function OpenAIProviderRow({
       {(testState === 'ok' || models.length > 0 || inputMode === 'manual') && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-[10px] text-[#c2c2c2]/50 uppercase tracking-wider">Model</label>
+            <label className="text-[10px] text-[var(--ui-muted-text)]/50 uppercase tracking-wider">Model</label>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => onInputModeChange('auto')}
-                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'auto' ? 'bg-white/10 text-[#f5f5f5]' : 'text-[#c2c2c2]/40 hover:text-[#c2c2c2]'}`}
+                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'auto' ? 'bg-[var(--ui-surface-soft)] text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)]'}`}
               >
                 Auto
               </button>
               <button
                 onClick={() => onInputModeChange('manual')}
-                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'manual' ? 'bg-white/10 text-[#f5f5f5]' : 'text-[#c2c2c2]/40 hover:text-[#c2c2c2]'}`}
+                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'manual' ? 'bg-[var(--ui-surface-soft)] text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)]'}`}
               >
                 Manual
               </button>
@@ -460,7 +460,7 @@ function OpenAIProviderRow({
               <select
                 value={selectedModel ?? ''}
                 onChange={e => onModelChange(e.target.value)}
-                className="flex-1 px-3 py-2 bg-[#0a0a0a] border border-[#222] rounded-xl text-xs text-[#f5f5f5] outline-none"
+                className="flex-1 px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] outline-none"
               >
                 {models.map(m => (
                   <option key={m.id} value={m.id}>{m.name}{m.size ? ` (${m.size})` : ''}</option>
@@ -468,7 +468,7 @@ function OpenAIProviderRow({
               </select>
               <button
                 onClick={onRefreshModels}
-                className="px-3 py-2 rounded-xl border border-[#333] text-[10px] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all"
+                className="px-3 py-2 rounded-xl border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all"
                 title="Refresh model list"
               >
                 Refresh
@@ -477,7 +477,7 @@ function OpenAIProviderRow({
           )}
 
           {inputMode === 'auto' && models.length === 0 && testState === 'ok' && (
-            <p className="text-[10px] text-[#c2c2c2]/30">
+            <p className="text-[10px] text-[var(--ui-muted-text)]/30">
               This provider doesn't expose a model list. Switch to Manual to enter a model ID.
             </p>
           )}
@@ -489,14 +489,14 @@ function OpenAIProviderRow({
                 value={manualModel}
                 onChange={e => onManualModelChange(e.target.value)}
                 placeholder="kimi-k2.5"
-                className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#222] rounded-xl text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+                className="w-full px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
               />
               <div className="flex flex-wrap gap-1 mt-1.5">
                 {['kimi-k2.5', 'kimi-k2.6', 'qwen3.6-plus', 'qwen3.5-plus', 'glm-5', 'deepseek-v4-flash'].map(m => (
                   <button
                     key={m}
                     onClick={() => onManualModelChange(m)}
-                    className="text-[9px] px-2 py-0.5 rounded-full border border-[#333] text-[#c2c2c2]/40 hover:text-[#f5f5f5] hover:border-[#555] transition-colors"
+                    className="text-[9px] px-2 py-0.5 rounded-full border border-[var(--ui-border)] text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
                   >
                     {m}
                   </button>
@@ -521,19 +521,19 @@ function SimpleProviderRow({
   hint: string
 }) {
   return (
-    <div className="flex items-center gap-3 p-3 border border-[#1a1a1a] rounded-2xl">
-      <span className="text-xs font-medium text-[#c2c2c2] w-28 flex-shrink-0">{label}</span>
+    <div className="flex items-center gap-3 p-3 border border-[var(--ui-surface)] rounded-2xl">
+      <span className="text-xs font-medium text-[var(--ui-muted-text)] w-28 flex-shrink-0">{label}</span>
       <input
         type="text"
         value={url}
         onChange={e => onUrlChange(e.target.value)}
         placeholder={hint}
-        className="flex-1 px-3 py-1.5 bg-transparent border border-[#222] rounded-full text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444]"
+        className="flex-1 px-3 py-1.5 bg-transparent border border-[var(--ui-border)] rounded-full text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
       />
       <button
         onClick={onTest}
         disabled={testState === 'testing'}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#333] text-[10px] text-[#c2c2c2] hover:border-[#555] transition-all disabled:opacity-40 flex-shrink-0"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] transition-all disabled:opacity-40 flex-shrink-0"
       >
         <StatusIcon state={testState} />
         {testState === 'testing' ? 'Testing' : 'Test'}
@@ -544,7 +544,7 @@ function SimpleProviderRow({
 
 function StatusBadge({ status }: { status: TestState | 'idle' }) {
   const map: Record<string, { label: string; cls: string }> = {
-    idle: { label: 'Not tested', cls: 'text-[#c2c2c2]/40 border-[#333]' },
+    idle: { label: 'Not tested', cls: 'text-[var(--ui-muted-text)]/40 border-[var(--ui-border)]' },
     testing: { label: 'Connecting…', cls: 'text-yellow-500/70 border-yellow-500/30' },
     ok: { label: 'Connected', cls: 'text-green-500/70 border-green-500/30' },
     fail: { label: 'Not found', cls: 'text-red-500/70 border-red-500/30' },

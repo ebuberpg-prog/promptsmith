@@ -101,17 +101,17 @@ export function PromptDNA() {
 
   const score = totalCount > 0 ? filledCount / totalCount : 0
   const scoreLabel = score === 0 ? 'Empty' : score < 0.4 ? 'Sparse' : score < 0.7 ? 'Good' : 'Complete'
-  const scoreColor = score === 0 ? 'text-[#c2c2c2]/30' : score < 0.4 ? 'text-amber-400/60' : score < 0.7 ? 'text-[#c2c2c2]' : 'text-[#f5f5f5]'
+  const scoreColor = score === 0 ? 'text-[var(--ui-muted-text-faint)]' : score < 0.4 ? 'text-amber-400/60' : score < 0.7 ? 'text-[var(--ui-muted-text)]' : 'text-[var(--ui-text)]'
 
   const allTags = getAllIndexedTags()
 
   return (
-    <div className="border border-[#333] rounded-2xl p-5 space-y-4">
+    <div className="border border-[var(--ui-border)] rounded-2xl p-5 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xs font-medium text-[#f5f5f5]">Composition</h3>
-          <p className="text-[10px] text-[#c2c2c2]/40 mt-0.5">
+          <h3 className="text-xs font-medium text-[var(--ui-text)]">Composition</h3>
+          <p className="text-[10px] text-[var(--ui-muted-text)]/40 mt-0.5">
             {requiredTotal > 0
               ? `${requiredFilled}/${requiredTotal} required, ${filledCount}/${totalCount} total`
               : `${filledCount}/${totalCount} slots filled`
@@ -122,12 +122,12 @@ export function PromptDNA() {
       </div>
 
       {/* Completion bar */}
-      <div className="h-1 w-full bg-[#1a1a1a] rounded-full overflow-hidden">
+      <div className="h-1 w-full bg-[var(--ui-surface)] rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${(filledCount / totalCount) * 100}%` }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className={`h-full rounded-full ${score < 0.4 ? 'bg-amber-400/40' : score < 0.7 ? 'bg-[#c2c2c2]/40' : 'bg-[#f5f5f5]/60'}`}
+          className={`h-full rounded-full ${score < 0.4 ? 'bg-amber-400/40' : score < 0.7 ? 'bg-[var(--ui-muted-text)]/40' : 'bg-[var(--ui-text)]/60'}`}
         />
       </div>
 
@@ -177,9 +177,9 @@ export function PromptDNA() {
                 >
                   <Icon
                     weight={slot.isFilled ? 'fill' : 'regular'}
-                    className={`w-3.5 h-3.5 transition-colors ${slot.isFilled ? 'text-[#f5f5f5]' : 'text-[#c2c2c2]/20'}`}
+                    className={`w-3.5 h-3.5 transition-colors ${slot.isFilled ? 'text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/20'}`}
                   />
-                  <span className={`text-xs transition-colors ${slot.isFilled ? 'text-[#f5f5f5]' : 'text-[#c2c2c2]/30'}`}>
+                  <span className={`text-xs transition-colors ${slot.isFilled ? 'text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/30'}`}>
                     {slot.label}
                   </span>
                   {slot.isRequired && !slot.isFilled && (
@@ -189,7 +189,7 @@ export function PromptDNA() {
 
                 <div className="flex items-center gap-2">
                   {slot.count > 0 && (
-                    <span className="text-[10px] text-[#c2c2c2]/40">
+                    <span className="text-[10px] text-[var(--ui-muted-text)]/40">
                       {slot.count}/{slot.maxTags}
                     </span>
                   )}
@@ -199,7 +199,7 @@ export function PromptDNA() {
                   {!isSuggesting && slot.count < slot.maxTags && (
                     <button
                       onClick={() => fetchSuggestions(slot.id)}
-                      className="text-[10px] text-[#c2c2c2]/25 hover:text-[#c2c2c2]/60 transition-colors flex items-center gap-0.5"
+                      className="text-[10px] text-[var(--ui-muted-text)]/25 hover:text-[var(--ui-muted-text)]/60 transition-colors flex items-center gap-0.5"
                       title="Suggest tags"
                     >
                       <Plus weight="bold" className="w-2.5 h-2.5" />
@@ -223,12 +223,12 @@ export function PromptDNA() {
                         <motion.span
                           key={tag.id}
                           layout
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.03] border border-[#333] text-[10px] text-[#c2c2c2]/60 group hover:border-[#555] transition-colors"
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--ui-surface-soft)] border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)]/60 group hover:border-[var(--ui-border-hover)] transition-colors"
                         >
                           {tag.label}
                           <button
                             onClick={() => removeTag(tag.id)}
-                            className="opacity-0 group-hover:opacity-100 text-[#c2c2c2]/30 hover:text-red-400 transition-all"
+                            className="opacity-0 group-hover:opacity-100 text-[var(--ui-muted-text)]/30 hover:text-red-400 transition-all"
                           >
                             <X weight="bold" className="w-2.5 h-2.5" />
                           </button>
@@ -250,22 +250,22 @@ export function PromptDNA() {
                     className="overflow-hidden pb-2"
                   >
                     <div className="flex items-center gap-1.5 mb-1.5 ml-5.5">
-                      <Lightning weight="fill" className="w-2.5 h-2.5 text-[#c2c2c2]/30" />
-                      <span className="text-[10px] text-[#c2c2c2]/30">Suggestions</span>
+                      <Lightning weight="fill" className="w-2.5 h-2.5 text-[var(--ui-muted-text)]/30" />
+                      <span className="text-[10px] text-[var(--ui-muted-text)]/30">Suggestions</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5 ml-5.5">
                       {suggestions.map(tag => (
                         <button
                           key={tag.id}
                           onClick={() => { toggleTag(tag); closeSuggestions() }}
-                          className="text-[10px] px-2 py-0.5 rounded-full border border-[#333] text-[#c2c2c2]/40 hover:border-[#555] hover:text-[#f5f5f5] transition-colors"
+                          className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--ui-border)] text-[var(--ui-muted-text)]/40 hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-colors"
                         >
                           {tag.label}
                         </button>
                       ))}
                       <button
                         onClick={closeSuggestions}
-                        className="text-[10px] px-2 py-0.5 text-[#c2c2c2]/20 hover:text-[#c2c2c2]/40 transition-colors"
+                        className="text-[10px] px-2 py-0.5 text-[var(--ui-muted-text)]/20 hover:text-[var(--ui-muted-text)]/40 transition-colors"
                       >
                         Dismiss
                       </button>
@@ -275,7 +275,7 @@ export function PromptDNA() {
               </AnimatePresence>
 
               {/* Divider */}
-              <div className="h-px bg-[#1a1a1a]" />
+              <div className="h-px bg-[var(--ui-surface)]" />
             </div>
           )
         })}
@@ -286,12 +286,12 @@ export function PromptDNA() {
         <div className="pt-2">
           {conflicts.length === 0 && score >= 0.7 && (
             <div className="flex items-center gap-1.5">
-              <CheckCircle weight="fill" className="w-3 h-3 text-[#c2c2c2]/30" />
-              <p className="text-[10px] text-[#c2c2c2]/30">Composition looks solid.</p>
+              <CheckCircle weight="fill" className="w-3 h-3 text-[var(--ui-muted-text)]/30" />
+              <p className="text-[10px] text-[var(--ui-muted-text)]/30">Composition looks solid.</p>
             </div>
           )}
           {score < 0.7 && conflicts.length === 0 && (
-            <p className="text-[10px] text-[#c2c2c2]/25 leading-relaxed">
+            <p className="text-[10px] text-[var(--ui-muted-text)]/25 leading-relaxed">
               Add more slots for a richer prompt.
             </p>
           )}
@@ -300,7 +300,7 @@ export function PromptDNA() {
 
       {selectedTags.length === 0 && (
         <div className="py-4 text-center">
-          <p className="text-xs text-[#c2c2c2]/20">Select tags to see composition analysis.</p>
+          <p className="text-xs text-[var(--ui-muted-text)]/20">Select tags to see composition analysis.</p>
         </div>
       )}
     </div>

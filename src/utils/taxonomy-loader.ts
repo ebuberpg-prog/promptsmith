@@ -31,6 +31,7 @@ const TAXONOMY_FILES = [
   `${TAXONOMY_BASE}food_cuisine.yaml`,
   `${TAXONOMY_BASE}social_setting.yaml`,
   `${TAXONOMY_BASE}intimate_content.yaml`,
+  `${TAXONOMY_BASE}negative_prompts.yaml`,
 ]
 
 // Track which files have been loaded to avoid double-loading
@@ -157,6 +158,17 @@ export async function loadCategoryTags(file: string): Promise<TaxonomyCategory[]
   }
 }
 
+function dedupeCategories(categories: TaxonomyCategory[]): TaxonomyCategory[] {
+  const seen = new Set<string>()
+  const result: TaxonomyCategory[] = []
+  for (const cat of categories) {
+    if (seen.has(cat.id)) continue
+    seen.add(cat.id)
+    result.push(cat)
+  }
+  return result
+}
+
 /** Load all taxonomy files. Uses IndexedDB cache on repeat visits. */
 export async function loadTaxonomy(): Promise<TaxonomyCategory[]> {
   const allCategories: TaxonomyCategory[] = []
@@ -186,7 +198,7 @@ export async function loadTaxonomy(): Promise<TaxonomyCategory[]> {
         // non-fatal
       }
     }
-    return allCategories
+    return dedupeCategories(allCategories)
   }
 
   // No cache — load fresh
@@ -215,48 +227,7 @@ export async function loadTaxonomy(): Promise<TaxonomyCategory[]> {
   addTagsToIndex(allTags)
   await setCachedTags(cacheVersion, allTags)
 
-  return allCategories
+  return dedupeCategories(allCategories)
 }
 
-export function searchTags(
-  taxonomy: TaxonomyCategory[],
-  query: string,
-  showExplicit: boolean
-): TaxonomyTag[] {
-  if (!query.trim()) return []
 
-  const lowerQuery = query.toLowerCase()
-  const results: TaxonomyTag[] = []
-
-  function searchInCategory(category: TaxonomyCategory) {
-    if (category.tags) {
-      for (const tag of category.tags) {
-        if (!showExplicit && tag.explicit) continue
-
-        const matchesLabel = tag.label.toLowerCase().includes(lowerQuery)
-        const matchesAliases = tag.aliases.some((alias) =>
-          alias.toLowerCase().includes(lowerQuery)
-        )
-        const matchesDescription = tag.description
-          .toLowerCase()
-          .includes(lowerQuery)
-
-        if (matchesLabel || matchesAliases || matchesDescription) {
-          results.push(tag)
-        }
-      }
-    }
-
-    if (category.children) {
-      for (const child of category.children) {
-        searchInCategory(child)
-      }
-    }
-  }
-
-  for (const category of taxonomy) {
-    searchInCategory(category)
-  }
-
-  return results.slice(0, 100)
-}

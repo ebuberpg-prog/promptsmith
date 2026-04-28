@@ -14,6 +14,9 @@ import {
   Stack,
   Moon,
   Sun,
+  MagnifyingGlass,
+  ArrowUUpLeft,
+  ArrowUUpRight,
 } from '@phosphor-icons/react'
 import { useState, useEffect, useRef } from 'react'
 import type { SupportedModel } from '@/types'
@@ -21,18 +24,22 @@ import { AISettingsPanel } from '@/components/settings/AISettingsPanel'
 import { LMPromptEnhancer } from '@/components/ai/LMPromptEnhancer'
 import { MODEL_GROUPS, getModelConfig } from '@/data/model-configs'
 
-export function Header({
-  theme,
-  onToggleTheme,
-}: {
+interface HeaderProps {
   theme: 'light' | 'dark'
   onToggleTheme: () => void
-}) {
+  onSearchOpen: () => void
+}
+
+export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
   const showExplicit = usePromptSmithStore((s) => s.showExplicit)
   const toggleExplicit = usePromptSmithStore((s) => s.toggleExplicit)
   const selectedModel = usePromptSmithStore((s) => s.selectedModel)
   const setSelectedModel = usePromptSmithStore((s) => s.setSelectedModel)
   const aiSettings = usePromptSmithStore((s) => s.aiSettings)
+  const undo = usePromptSmithStore((s) => s.undo)
+  const redo = usePromptSmithStore((s) => s.redo)
+  const canUndo = usePromptSmithStore((s) => s.canUndo)
+  const canRedo = usePromptSmithStore((s) => s.canRedo)
 
   const [modelOpen, setModelOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -53,50 +60,54 @@ export function Header({
 
   return (
     <>
-    <header className="h-14 flex items-center px-6 gap-6 border-b border-[#333] bg-black">
+    <header className="h-14 flex items-center px-4 sm:px-6 gap-4 sm:gap-6 border-b safe-top" style={{ backgroundColor: 'var(--ui-bg)', borderColor: 'var(--ui-border)' }}>
 
-      {/* Logo — editorial serif */}
-      <div className="flex items-center gap-3">
-        <div className="w-7 h-7 rounded-full border border-[#333] flex items-center justify-center">
-          <Lightning weight="fill" className="w-3.5 h-3.5 text-[#f5f5f5]" />
+      {/* Logo */}
+      <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0" style={{ borderColor: 'var(--ui-border)' }}>
+          <Lightning weight="fill" className="w-3.5 h-3.5" style={{ color: 'var(--ui-text)' }} />
         </div>
-        <div>
-          <span className="font-display text-lg font-normal text-[#f5f5f5] leading-none tracking-tight">
-            MUSE
-          </span>
-        </div>
+        <span className="font-display text-lg font-normal leading-none tracking-tight hidden sm:block" style={{ color: 'var(--ui-text)' }}>
+          MUSE
+        </span>
       </div>
 
-      <div className="w-px h-4 bg-[#333]" />
+      <div className="w-px h-4 flex-shrink-0 hidden sm:block" style={{ backgroundColor: 'var(--ui-border)' }} />
 
-      {/* Model selector — grouped by kind */}
-      <div className="relative" ref={modelRef}>
+      {/* Model selector */}
+      <div className="relative hidden sm:block" ref={modelRef}>
         <button
           onClick={() => setModelOpen(o => !o)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#333] hover:border-[#555] transition-colors duration-150 text-sm"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors duration-150 text-sm min-h-[44px]"
+          style={{ borderColor: 'var(--ui-border)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
+          onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
         >
-          <span className="text-[#f5f5f5] font-medium">{currentModel.name}</span>
-          <span className="text-[10px] text-[#c2c2c2] font-mono">{currentModel.version}</span>
-          <CaretDown weight="bold" className={`w-3 h-3 text-[#c2c2c2] transition-transform duration-150 ${modelOpen ? 'rotate-180' : ''}`} />
+          <span className="font-medium" style={{ color: 'var(--ui-text)' }}>{currentModel.name}</span>
+          <span className="text-[10px] font-mono" style={{ color: 'var(--ui-muted-text)' }}>{currentModel.version}</span>
+          <CaretDown weight="bold" className={`w-3 h-3 transition-transform duration-150 ${modelOpen ? 'rotate-180' : ''}`} style={{ color: 'var(--ui-muted-text)' }} />
         </button>
 
         {modelOpen && (
-          <div className="absolute top-full left-0 mt-2 py-2 min-w-[220px] bg-[#0d0d0d] border border-[#333] rounded-xl shadow-editorial z-50">
+          <div className="absolute top-full left-0 mt-2 py-2 min-w-[220px] border rounded-xl shadow-lg z-50" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
             {MODEL_GROUPS.map(group => (
               <div key={group.label} className="mb-1 last:mb-0">
-                <div className="px-4 py-1 text-[9px] text-[#c2c2c2]/40 uppercase tracking-wider font-medium">{group.label}</div>
+                <div className="px-4 py-1 text-[9px] uppercase tracking-wider font-medium" style={{ color: 'var(--ui-muted-text-faint)' }}>{group.label}</div>
                 {group.models.map(m => {
                   const cfg = getModelConfig(m)
                   return (
                     <button
                       key={m}
                       onClick={() => { setSelectedModel(m); setModelOpen(false) }}
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-[#c2c2c2] hover:text-[#f5f5f5] hover:bg-white/5 transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors min-h-[44px]"
+                      style={{ color: 'var(--ui-muted-text)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)'; e.currentTarget.style.backgroundColor = 'transparent' }}
                     >
                       <span className="font-medium">{cfg.name}</span>
-                      <span className="ml-1 text-[10px] font-mono text-[#c2c2c2]/50">{cfg.version}</span>
+                      <span className="ml-1 text-[10px] font-mono" style={{ color: 'var(--ui-muted-text-faint)' }}>{cfg.version}</span>
                       {selectedModel === m && (
-                        <CheckCircle weight="fill" className="ml-auto w-3.5 h-3.5 text-[#f5f5f5]" />
+                        <CheckCircle weight="fill" className="ml-auto w-3.5 h-3.5" style={{ color: 'var(--ui-text)' }} />
                       )}
                     </button>
                   )
@@ -110,8 +121,8 @@ export function Header({
       {/* AI Provider quick-switch */}
       {aiSettings.preferredAIProvider && (
         <>
-          <div className="w-px h-4 bg-[#333]" />
-          <div className="relative">
+          <div className="w-px h-4 flex-shrink-0 hidden sm:block" style={{ backgroundColor: 'var(--ui-border)' }} />
+          <div className="relative hidden sm:block">
             <button
               onClick={() => {
                 const providers = ['ollama', 'lmstudio', 'openai'].filter(p => {
@@ -121,17 +132,17 @@ export function Header({
                   return false
                 })
                 if (providers.length > 1) {
-                  // Cycle through available providers
                   const currentIdx = providers.indexOf(aiSettings.preferredAIProvider!)
                   const nextIdx = (currentIdx + 1) % providers.length
                   usePromptSmithStore.getState().updateAISettings({ preferredAIProvider: providers[nextIdx] as 'ollama' | 'lmstudio' | 'openai' })
                 }
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#333] text-[10px] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-colors duration-150"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-colors duration-150 text-[10px] uppercase tracking-wider min-h-[44px]"
+              style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
               title="Click to cycle AI provider"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500/70" />
-              <span className="uppercase tracking-wider">{aiSettings.preferredAIProvider}</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'hsl(var(--success) / 0.7)' }} />
+              <span>{aiSettings.preferredAIProvider}</span>
             </button>
           </div>
         </>
@@ -140,16 +151,64 @@ export function Header({
       <div className="flex-1" />
 
       {/* Right actions */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1">
+
+        {/* Search (mobile) */}
+        <button
+          onClick={onSearchOpen}
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 sm:hidden"
+          style={{ color: 'var(--ui-muted-text)' }}
+          aria-label="Search"
+        >
+          <MagnifyingGlass weight="regular" className="w-4 h-4" />
+        </button>
+
+        {/* Search (desktop) */}
+        <button
+          onClick={onSearchOpen}
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors duration-150 text-xs min-h-[44px]"
+          style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
+        >
+          <MagnifyingGlass weight="regular" className="w-3.5 h-3.5" />
+          <span>Search...</span>
+          <kbd className="text-[10px] font-mono" style={{ color: 'var(--ui-muted-text-faint)' }}>K</kbd>
+        </button>
+
+        {/* Undo / Redo */}
+        <div className="hidden sm:flex items-center gap-0.5">
+          <button
+            onClick={undo}
+            disabled={!canUndo()}
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 disabled:opacity-30"
+            style={{ color: 'var(--ui-muted-text)' }}
+            title="Undo (Ctrl+Z)"
+            aria-label="Undo"
+          >
+            <ArrowUUpLeft weight="regular" className="w-4 h-4" />
+          </button>
+          <button
+            onClick={redo}
+            disabled={!canRedo()}
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 disabled:opacity-30"
+            style={{ color: 'var(--ui-muted-text)' }}
+            title="Redo (Ctrl+Shift+Z)"
+            aria-label="Redo"
+          >
+            <ArrowUUpRight weight="regular" className="w-4 h-4" />
+          </button>
+        </div>
 
         {/* AI Enhance */}
         <LMPromptEnhancer />
 
-        <div className="w-px h-4 bg-[#333]" />
+        <div className="w-px h-4 hidden sm:block" style={{ backgroundColor: 'var(--ui-border)' }} />
 
         <button
           onClick={onToggleTheme}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent text-[#c2c2c2] hover:text-[#f5f5f5] hover:border-[#333] transition-colors duration-150"
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
+          style={{ color: 'var(--ui-muted-text)' }}
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           aria-label="Toggle theme"
         >
@@ -161,11 +220,14 @@ export function Header({
         {/* Safe mode toggle */}
         <button
           onClick={toggleExplicit}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-colors duration-150 text-xs font-medium ${
+          className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-colors duration-150 text-xs font-medium min-h-[44px] ${
             showExplicit
-              ? 'border-red-900/60 text-red-400 hover:border-red-800'
-              : 'border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]'
+              ? 'border-red-900/60 text-red-400'
+              : ''
           }`}
+          style={showExplicit ? {} : { borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+          onMouseEnter={(e) => { if (!showExplicit) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' } }}
+          onMouseLeave={(e) => { if (!showExplicit) { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' } }}
         >
           {showExplicit
             ? <Eye weight="regular" className="w-3.5 h-3.5" />
@@ -176,27 +238,29 @@ export function Header({
         {/* Settings */}
         <button
           onClick={() => setSettingsOpen(true)}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent text-[#c2c2c2] hover:text-[#f5f5f5] hover:border-[#333] transition-colors duration-150"
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
+          style={{ color: 'var(--ui-muted-text)' }}
           title="Local connections"
         >
           <Gear weight="regular" className="w-4 h-4" />
         </button>
 
         {/* More menu */}
-        <div className="relative" ref={moreRef}>
+        <div className="relative hidden sm:block" ref={moreRef}>
           <button
             onClick={() => setMoreOpen(o => !o)}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent text-[#c2c2c2] hover:text-[#f5f5f5] hover:border-[#333] transition-colors duration-150"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
+            style={{ color: 'var(--ui-muted-text)' }}
           >
             <DotsThree weight="bold" className="w-4 h-4" />
           </button>
 
           {moreOpen && (
-            <div className="absolute top-full right-0 mt-2 py-1.5 min-w-[160px] bg-[#0d0d0d] border border-[#333] rounded-xl shadow-editorial z-50">
+            <div className="absolute top-full right-0 mt-2 py-1.5 min-w-[160px] border rounded-xl shadow-lg z-50" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)' }}>
               <MenuItem icon={<FloppyDisk weight="regular" className="w-3.5 h-3.5" />} label="Save workspace" />
               <MenuItem icon={<FolderOpen weight="regular" className="w-3.5 h-3.5" />} label="Open project" />
               <MenuItem icon={<ClockCounterClockwise weight="regular" className="w-3.5 h-3.5" />} label="History" />
-              <div className="my-1 border-t border-[#333]" />
+              <div className="my-1" style={{ borderTop: '1px solid var(--ui-border-faint)' }} />
               <MenuItem icon={<Download weight="regular" className="w-3.5 h-3.5" />} label="Export" />
               <MenuItem icon={<Stack weight="regular" className="w-3.5 h-3.5" />} label="Batch generate" />
             </div>
@@ -214,9 +278,12 @@ function MenuItem({ icon, label, onClick }: { icon: React.ReactNode; label: stri
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-[#c2c2c2] hover:text-[#f5f5f5] hover:bg-white/5 transition-colors"
+      className="w-full flex items-center gap-2.5 px-4 py-2 text-sm transition-colors min-h-[44px]"
+      style={{ color: 'var(--ui-muted-text)' }}
+      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
+      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)'; e.currentTarget.style.backgroundColor = 'transparent' }}
     >
-      <span className="text-[#c2c2c2]/60">{icon}</span>
+      <span style={{ color: 'var(--ui-muted-text-faint)' }}>{icon}</span>
       {label}
     </button>
   )

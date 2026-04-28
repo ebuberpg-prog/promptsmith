@@ -11,27 +11,44 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'PromptSmith - Ultimate AI Prompt Builder',
-        short_name: 'PromptSmith',
+        name: 'MUSE — Prompt Studio',
+        short_name: 'MUSE',
         description: 'The most comprehensive AI image generation prompt builder',
-        theme_color: '#0a0a0a',
-        background_color: '#0a0a0a',
+        theme_color: '#1a1918',
+        background_color: '#1a1918',
         display: 'standalone',
+        orientation: 'any',
+        scope: '/promptsmith/',
+        start_url: '/promptsmith/',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: '/promptsmith/pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
-            src: 'pwa-512x512.png',
+            src: '/promptsmith/pwa-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/promptsmith/pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: '/promptsmith/pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,yaml}']
       }
     })
   ],

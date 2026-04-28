@@ -178,15 +178,15 @@ export function RandomizerPanel() {
   return (
     <div className="space-y-8 pb-12">
       <div>
-        <h2 className="font-display text-2xl font-normal text-[#f5f5f5] tracking-tight">Randomizer</h2>
-        <p className="text-sm text-[#c2c2c2] mt-1">
+        <h2 className="font-display text-2xl font-normal text-[var(--ui-text)] tracking-tight">Randomizer</h2>
+        <p className="text-sm text-[var(--ui-muted-text)] mt-1">
           Pick a vibe and let MUSE build a cohesive prompt for you.
         </p>
       </div>
 
       {/* Mode selector */}
       <div className="space-y-3">
-        <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Mode</h3>
+        <h3 className="text-xs text-[var(--ui-muted-text)]/50 uppercase tracking-wider font-medium">Mode</h3>
         <div className="flex flex-wrap gap-2">
           {RANDOMIZER_MODES.map(mod => (
             <button
@@ -196,8 +196,8 @@ export function RandomizerPanel() {
               className={cn(
                 "flex items-center gap-2 px-3 py-2 rounded-full border text-sm font-medium transition-all duration-150",
                 mode === mod.id
-                  ? "bg-white/10 border-[#f5f5f5]/30 text-[#f5f5f5]"
-                  : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+                  ? "bg-[var(--ui-surface)] border-[var(--ui-text)]/30 text-[var(--ui-text)]"
+                  : "border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]"
               )}
             >
               {mod.id === 'smart' ? <Sparkle weight="regular" className="w-4 h-4" /> : <Shuffle weight="regular" className="w-4 h-4" />}
@@ -212,7 +212,7 @@ export function RandomizerPanel() {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="text-xs text-[#c2c2c2]/60"
+              className="text-xs text-[var(--ui-muted-text)]/60"
             >
               {currentModeDef.description}
             </motion.p>
@@ -229,13 +229,13 @@ export function RandomizerPanel() {
             exit={{ opacity: 0, height: 0 }}
             className="space-y-3 overflow-hidden"
           >
-            <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Seed (optional)</h3>
+            <h3 className="text-xs text-[var(--ui-muted-text)]/50 uppercase tracking-wider font-medium">Seed (optional)</h3>
             <textarea
               value={storySeed}
               onChange={e => setStorySeed(e.target.value)}
               placeholder='e.g., "a weary traveler at a rain-soaked train station at dusk"'
               rows={2}
-              className="w-full px-4 py-3 bg-transparent border border-[#333] rounded-2xl text-sm text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#555] transition-colors resize-none"
+              className="w-full px-4 py-3 bg-transparent border border-[var(--ui-border)] rounded-2xl text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)] transition-colors resize-none"
             />
           </motion.div>
         )}
@@ -243,7 +243,7 @@ export function RandomizerPanel() {
 
       {/* Vibe selector */}
       <div className="space-y-3">
-        <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">
+        <h3 className="text-xs text-[var(--ui-muted-text)]/50 uppercase tracking-wider font-medium">
           {mode === 'wild' ? 'Vibe (optional)' : 'Vibe'}
         </h3>
         <div className="flex flex-wrap gap-2">
@@ -252,23 +252,23 @@ export function RandomizerPanel() {
             className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
               selectedVibe === null
-                ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
-                : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-            )}
-          >
-            <Shuffle weight="regular" className="w-4 h-4" />
-            <span>Surprise me</span>
-          </button>
-          {VIBES.map(vibe => (
-            <button
-              key={vibe.id}
-              onClick={() => setSelectedVibe(vibe.id === selectedVibe ? null : vibe.id)}
-              title={vibe.description}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
-                selectedVibe === vibe.id
-                  ? "bg-[#f5f5f5] text-black border-[#f5f5f5]"
-                  : "border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+? "bg-[var(--ui-text)] text-[var(--ui-bg)] border-[var(--ui-text)]"
+                  : "border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]"
+              )}
+            >
+              <Shuffle weight="regular" className="w-4 h-4" />
+              <span>Surprise me</span>
+            </button>
+            {VIBES.map(vibe => (
+              <button
+                key={vibe.id}
+                onClick={() => setSelectedVibe(vibe.id === selectedVibe ? null : vibe.id)}
+                title={vibe.description}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150",
+                  selectedVibe === vibe.id
+                    ? "bg-[var(--ui-text)] text-[var(--ui-bg)] border-[var(--ui-text)]"
+                    : "border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]"
               )}
             >
               {renderVibeIcon(vibe.icon)}
@@ -277,7 +277,7 @@ export function RandomizerPanel() {
           ))}
         </div>
         {selectedVibe && (
-          <p className="text-xs text-[#c2c2c2]/60">
+          <p className="text-xs text-[var(--ui-muted-text)]/60">
             {VIBES.find(v => v.id === selectedVibe)?.description}
           </p>
         )}
@@ -286,15 +286,15 @@ export function RandomizerPanel() {
       {/* Intensity + action row */}
       <div className="flex flex-wrap items-center gap-4">
         <div>
-          <p className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium mb-2">Intensity</p>
-          <div className="flex items-center gap-1 border border-[#333] rounded-full p-1 w-fit">
+          <p className="text-xs text-[var(--ui-muted-text)]/50 uppercase tracking-wider font-medium mb-2">Intensity</p>
+          <div className="flex items-center gap-1 border border-[var(--ui-border)] rounded-full p-1 w-fit">
             <button
               onClick={() => setIntensity('light')}
               className={cn(
                 "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150",
                 intensity === 'light'
-                  ? "bg-[#f5f5f5] text-black"
-                  : "text-[#c2c2c2] hover:text-[#f5f5f5]"
+                  ? "bg-[var(--ui-text)] text-[var(--ui-bg)]"
+                  : "text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]"
               )}
             >
               Quick
@@ -304,14 +304,14 @@ export function RandomizerPanel() {
               className={cn(
                 "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150",
                 intensity === 'full'
-                  ? "bg-[#f5f5f5] text-black"
-                  : "text-[#c2c2c2] hover:text-[#f5f5f5]"
+                  ? "bg-[var(--ui-text)] text-[var(--ui-bg)]"
+                  : "text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]"
               )}
             >
               Full
             </button>
           </div>
-          <p className="text-[10px] text-[#c2c2c2]/40 mt-1.5">
+          <p className="text-[10px] text-[var(--ui-muted-text)]/40 mt-1.5">
             {intensity === 'light' ? '3–5 carefully chosen tags' : '8–14 tags across all categories'}
           </p>
         </div>
@@ -321,7 +321,7 @@ export function RandomizerPanel() {
             whileTap={{ scale: 0.97 }}
             onClick={handleRandomize}
             disabled={isRandomizing}
-            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#f5f5f5] text-sm font-medium text-[#f5f5f5] hover:bg-[#f5f5f5] hover:text-black transition-all duration-150 disabled:opacity-40"
+            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[var(--ui-text)] text-sm font-medium text-[var(--ui-text)] hover:bg-[var(--ui-text)] hover:text-[var(--ui-bg)] transition-all duration-150 disabled:opacity-40"
           >
             <Shuffle
               weight="regular"
@@ -334,7 +334,7 @@ export function RandomizerPanel() {
             <button
               onClick={handleReroll}
               title="Re-roll (next seed)"
-              className="flex items-center justify-center w-10 h-10 rounded-full border border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all duration-150"
+              className="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all duration-150"
             >
               <ArrowsClockwise weight="regular" className="w-4 h-4" />
             </button>
@@ -349,14 +349,14 @@ export function RandomizerPanel() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
-            className="border border-[#1a1a1a] rounded-2xl bg-white/[0.02] overflow-hidden"
+            className="border border-[var(--ui-border-faint)] rounded-2xl bg-[var(--ui-surface-soft)] overflow-hidden"
           >
             {/* Header */}
-            <div className="px-5 pt-4 pb-3 border-b border-[#1a1a1a]">
-              <p className="text-sm text-[#f5f5f5]">
+            <div className="px-5 pt-4 pb-3 border-b border-[var(--ui-border-faint)]">
+              <p className="text-sm text-[var(--ui-text)]">
                 {lastResult.tagCount} tag{lastResult.tagCount !== 1 ? 's' : ''} generated
                 {lastResult.vibe && (
-                  <span className="text-[#c2c2c2]">
+                  <span className="text-[var(--ui-muted-text)]">
                     {' · '}
                     {(() => {
                       const v = VIBES.find(v => v.id === lastResult.vibe)
@@ -365,11 +365,11 @@ export function RandomizerPanel() {
                   </span>
                 )}
                 {lastResult.intent && (
-                  <span className="text-[#c2c2c2]">
+                  <span className="text-[var(--ui-muted-text)]">
                     {' · '}{INTENTS.find(i => i.id === lastResult.intent)?.label}
                   </span>
                 )}
-                <span className="text-[#c2c2c2]/40 ml-2">
+                <span className="text-[var(--ui-muted-text)]/40 ml-2">
                   · {RANDOMIZER_MODES.find(m => m.id === lastResult.mode)?.label}
                 </span>
               </p>
@@ -384,8 +384,8 @@ export function RandomizerPanel() {
                   return (
                     <div key={slot.id} className="flex items-start gap-3">
                       <div className="flex items-center gap-1.5 w-24 flex-shrink-0 pt-1">
-                        <SlotIcon weight="regular" className="w-3 h-3 text-[#c2c2c2]/30 flex-shrink-0" />
-                        <span className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider font-medium truncate">
+                        <SlotIcon weight="regular" className="w-3 h-3 text-[var(--ui-muted-text)]/30 flex-shrink-0" />
+                        <span className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider font-medium truncate">
                           {slot.label}
                         </span>
                       </div>
@@ -399,7 +399,7 @@ export function RandomizerPanel() {
                                 "group flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border transition-all duration-150",
                                 isPinned
                                   ? "border-amber-500/40 bg-amber-500/10 text-amber-400"
-                                  : "border-[#f5f5f5]/15 text-[#f5f5f5]/70 hover:border-[#f5f5f5]/30"
+                                  : "border-[var(--ui-text)]/15 text-[var(--ui-text)]/70 hover:border-[var(--ui-text)]/30"
                               )}
                             >
                               {isPinned && <Lock weight="fill" className="w-2.5 h-2.5 flex-shrink-0" />}
@@ -407,7 +407,7 @@ export function RandomizerPanel() {
                               {!isPinned && (
                                 <button
                                   onClick={() => removeTag(tag.id)}
-                                  className="ml-0.5 opacity-0 group-hover:opacity-100 text-[#c2c2c2]/50 hover:text-[#f5f5f5] transition-all duration-100"
+                                  className="ml-0.5 opacity-0 group-hover:opacity-100 text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-text)] transition-all duration-100"
                                   title={`Remove "${tag.label}"`}
                                 >
                                   <X weight="bold" className="w-2.5 h-2.5" />
@@ -432,7 +432,7 @@ export function RandomizerPanel() {
                 >
                   <Warning weight="fill" className="w-3 h-3" />
                   {userFacingWarnings.length} coherence note{userFacingWarnings.length !== 1 ? 's' : ''}
-                  <span className="text-[#c2c2c2]/30 ml-0.5">{warningsExpanded ? '↑' : '↓'}</span>
+                  <span className="text-[var(--ui-muted-text)]/30 ml-0.5">{warningsExpanded ? '↑' : '↓'}</span>
                 </button>
                 <AnimatePresence>
                   {warningsExpanded && (
@@ -452,14 +452,14 @@ export function RandomizerPanel() {
             )}
 
             {/* Footer: seed + actions */}
-            <div className="px-5 py-3 border-t border-[#1a1a1a] flex items-center gap-3">
+            <div className="px-5 py-3 border-t border-[var(--ui-border-faint)] flex items-center gap-3">
               <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                <span className="text-[10px] text-[#c2c2c2]/40 font-mono truncate">
+                <span className="text-[10px] text-[var(--ui-muted-text)]/40 font-mono truncate">
                   seed {lastResult.seed}
                 </span>
                 <button
                   onClick={() => copySeed(lastResult.seed)}
-                  className="text-[#c2c2c2]/40 hover:text-[#c2c2c2] transition-colors flex-shrink-0"
+                  className="text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)] transition-colors flex-shrink-0"
                   title="Copy seed"
                 >
                   {seedCopied
@@ -472,14 +472,14 @@ export function RandomizerPanel() {
                 <button
                   onClick={handleClear}
                   title="Clear all tags"
-                  className="flex items-center gap-1.5 text-[10px] text-[#c2c2c2]/40 hover:text-[#c2c2c2] border border-[#2a2a2a] rounded-full px-2.5 py-1.5 transition-all duration-150 hover:border-[#444]"
+                  className="flex items-center gap-1.5 text-[10px] text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)] border border-[var(--ui-border)] rounded-full px-2.5 py-1.5 transition-all duration-150 hover:border-[var(--ui-border-hover)]"
                 >
                   <Trash weight="regular" className="w-3 h-3" />
                   Clear
                 </button>
                 <button
                   onClick={() => handleReproduceSeed(lastResult.seed)}
-                  className="text-[10px] text-[#c2c2c2]/50 hover:text-[#c2c2c2] transition-colors border border-[#333] rounded-full px-3 py-1.5 hover:border-[#555]"
+                  className="text-[10px] text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-muted-text)] transition-colors border border-[var(--ui-border)] rounded-full px-3 py-1.5 hover:border-[var(--ui-border-hover)]"
                 >
                   Reproduce
                 </button>
@@ -492,7 +492,7 @@ export function RandomizerPanel() {
       {/* Current selection preview — shown when tags exist but no result card yet */}
       {selectedTags.length > 0 && !lastResult && (
         <div className="space-y-3">
-          <h3 className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider font-medium">
+          <h3 className="text-xs text-[var(--ui-muted-text)]/50 uppercase tracking-wider font-medium">
             Current selection ({selectedTags.length} tags)
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -505,7 +505,7 @@ export function RandomizerPanel() {
                     "text-xs px-3 py-1.5 rounded-full border flex items-center gap-1.5 transition-all duration-150",
                     isPinned
                       ? "border-amber-500/40 bg-amber-500/10 text-amber-400"
-                      : "border-[#f5f5f5]/20 text-[#f5f5f5]/70"
+                      : "border-[var(--ui-text)]/20 text-[var(--ui-text)]/70"
                   )}
                 >
                   {isPinned && <Lock weight="fill" className="w-2.5 h-2.5 flex-shrink-0" />}
@@ -514,7 +514,7 @@ export function RandomizerPanel() {
               )
             })}
             {selectedTags.length > 20 && (
-              <span className="text-xs px-3 py-1.5 rounded-full border border-[#333] text-[#c2c2c2]/50">
+              <span className="text-xs px-3 py-1.5 rounded-full border border-[var(--ui-border)] text-[var(--ui-muted-text)]/50">
                 +{selectedTags.length - 20} more
               </span>
             )}
@@ -523,8 +523,8 @@ export function RandomizerPanel() {
       )}
 
       {/* How it works */}
-      <div className="border border-[#1a1a1a] rounded-2xl p-6 space-y-4">
-        <h3 className="font-display text-base font-normal text-[#f5f5f5]">How it works</h3>
+      <div className="border border-[var(--ui-border-faint)] rounded-2xl p-6 space-y-4">
+        <h3 className="font-display text-base font-normal text-[var(--ui-text)]">How it works</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { step: '1', title: 'Slot-based', desc: 'Tags are picked from 8 distinct prompt roles: Subject, Setting, Lighting, Style, Mood, and more.' },
@@ -533,10 +533,10 @@ export function RandomizerPanel() {
           ].map(item => (
             <div key={item.step} className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-[#c2c2c2]/40 w-4">{item.step}.</span>
-                <span className="text-sm font-medium text-[#f5f5f5]">{item.title}</span>
+                <span className="text-[10px] font-mono text-[var(--ui-muted-text)]/40 w-4">{item.step}.</span>
+                <span className="text-sm font-medium text-[var(--ui-text)]">{item.title}</span>
               </div>
-              <p className="text-xs text-[#c2c2c2]/60 leading-relaxed pl-6">{item.desc}</p>
+              <p className="text-xs text-[var(--ui-muted-text)]/60 leading-relaxed pl-6">{item.desc}</p>
             </div>
           ))}
         </div>

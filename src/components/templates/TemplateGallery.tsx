@@ -97,11 +97,15 @@ export function TemplateGallery() {
   }, [savedPrompts, searchQuery])
 
   const handleUseBuiltIn = async (template: GalleryTemplate) => {
+    const store = usePromptSmithStore.getState()
+    store._saveHistory()
+    store.startHistoryBatch()
     clearAllTags()
     const { tags, customText, modelParams } = await applyGalleryTemplate(template, selectedModel, showExplicit)
     for (const tag of tags) toggleTag(tag)
     setCustomText(customText)
     if (modelParams) setModelParameters(modelParams)
+    store.endHistoryBatch()
     setSelectedTemplate(template.id)
   }
 
@@ -132,8 +136,12 @@ export function TemplateGallery() {
       const template = importTemplate(json)
       if (template) {
         // Save as user template via store
+        const store = usePromptSmithStore.getState()
+        store._saveHistory()
+        store.startHistoryBatch()
         clearAllTags()
         loadPrompt(template)
+        store.endHistoryBatch()
         savePrompt(template.name)
         setActiveTab('my-templates')
       } else {
@@ -149,25 +157,29 @@ export function TemplateGallery() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-2">
-          <h2 className="font-display text-3xl font-normal text-[#f5f5f5] tracking-tight">Blueprint Library</h2>
-          <p className="text-sm text-[#c2c2c2] max-w-md">Standardized starting points for rapid visual development.</p>
+          <h2 className="font-display text-3xl font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Blueprint Library</h2>
+          <p className="text-sm max-w-md" style={{ color: 'var(--ui-muted-text)' }}>Standardized starting points for rapid visual development.</p>
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Import */}
           <input ref={importRef} type="file" accept=".json" className="hidden" onChange={handleImportFile} />
           <button
             onClick={handleImportClick}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all duration-150"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all duration-150"
+            style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
           >
             <Upload weight="regular" className="w-3.5 h-3.5" />
             Import
           </button>
 
-          {/* Wizard */}
           <button
             onClick={() => setWizardOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#f5f5f5] text-black text-sm font-medium hover:bg-[#e0e0e0] transition-colors duration-150"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150"
+            style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
             <Sparkle weight="regular" className="w-3.5 h-3.5" />
             Wizard
@@ -177,8 +189,7 @@ export function TemplateGallery() {
 
       {/* Tabs + search row */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-        {/* Tabs */}
-        <div className="flex items-center gap-1 border border-[#333] rounded-full p-1 w-fit">
+        <div className="flex items-center gap-1 border rounded-full p-1 w-fit" style={{ borderColor: 'var(--ui-border)' }}>
           <TabButton active={activeTab === 'built-in'} onClick={() => setActiveTab('built-in')} icon={<SelectionAll weight="regular" className="w-3.5 h-3.5" />} label="Templates" />
           <TabButton
             active={activeTab === 'my-templates'}
@@ -188,15 +199,15 @@ export function TemplateGallery() {
           />
         </div>
 
-        {/* Search */}
         <div className="relative flex-1 max-w-sm">
-          <MagnifyingGlass weight="bold" className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#c2c2c2]/40" />
+          <MagnifyingGlass weight="bold" className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: 'var(--ui-muted-text-faint)' }} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search templates…"
-            className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-[#333] rounded-full outline-none focus:border-[#555] transition-colors text-sm text-[#f5f5f5] placeholder:text-[#c2c2c2]/30"
+            placeholder="Search templates..."
+            className="w-full pl-10 pr-4 py-2.5 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors text-sm placeholder:text-[var(--ui-muted-text-faint)]"
+            style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
           />
         </div>
       </div>
@@ -204,18 +215,29 @@ export function TemplateGallery() {
       <AnimatePresence mode="wait">
         {activeTab === 'built-in' ? (
           <motion.div key="built-in" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
-            {/* Category filter */}
             <div className="flex items-center gap-2 flex-wrap">
               {TEMPLATE_CATEGORIES.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150",
-                    selectedCategory === category.id
-                      ? "bg-[#f5f5f5] text-black"
-                      : "border border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
-                  )}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150"
+                  style={{
+                    backgroundColor: selectedCategory === category.id ? 'var(--ui-text)' : 'transparent',
+                    color: selectedCategory === category.id ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
+                    border: selectedCategory === category.id ? 'none' : '1px solid var(--ui-border)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selectedCategory !== category.id) {
+                      e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                      e.currentTarget.style.color = 'var(--ui-text)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedCategory !== category.id) {
+                      e.currentTarget.style.borderColor = 'var(--ui-border)'
+                      e.currentTarget.style.color = 'var(--ui-muted-text)'
+                    }
+                  }}
                 >
                   <span className="text-base">{renderIcon(category.icon, 'w-4 h-4')}</span>
                   <span>{category.name}</span>
@@ -243,11 +265,14 @@ export function TemplateGallery() {
         ) : (
           <motion.div key="my-templates" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
             {filteredUserTemplates.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-20 border border-dashed border-[#1a1a1a] rounded-2xl">
-                <p className="text-sm text-[#c2c2c2]/30 mb-4">No saved templates yet</p>
+              <div className="flex flex-col items-center justify-center py-20 border border-dashed rounded-2xl" style={{ borderColor: 'var(--ui-border-faint)' }}>
+                <p className="text-sm mb-4" style={{ color: 'var(--ui-muted-text-faint)' }}>No saved templates yet</p>
                 <button
                   onClick={() => setWizardOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] transition-all"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all"
+                  style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                 >
                   <Sparkle weight="regular" className="w-3.5 h-3.5" />
                   Create with Wizard
@@ -282,10 +307,13 @@ function TabButton({ active, onClick, icon, label }: { active: boolean; onClick:
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150",
-        active ? "bg-[#f5f5f5] text-black" : "text-[#c2c2c2] hover:text-[#f5f5f5]"
-      )}
+      className="flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150"
+      style={{
+        backgroundColor: active ? 'var(--ui-text)' : 'transparent',
+        color: active ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
+      }}
+      onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = 'var(--ui-text)' }}
+      onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = 'var(--ui-muted-text)' }}
     >
       <span className="w-3.5 h-3.5 flex-shrink-0">{icon}</span>
       <span>{label}</span>
@@ -307,35 +335,33 @@ function BuiltInCard({
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -2 }}
       onClick={onSelect}
-      className={cn(
-        "group relative rounded-2xl border p-6 transition-all duration-300 cursor-pointer",
-        isSelected
-          ? 'border-[#f5f5f5]/40 bg-white/[0.03]'
-          : 'border-[#333] hover:border-[#555]'
-      )}
+      className="group relative rounded-2xl border p-6 transition-all duration-300 cursor-pointer"
+      style={{
+        borderColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 40%, transparent)' : 'var(--ui-border)',
+        backgroundColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 3%, transparent)' : 'transparent',
+      }}
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center group-hover:border-[#555] transition-colors duration-300">
+            <div className="w-12 h-12 rounded-full border flex items-center justify-center transition-colors duration-300" style={{ borderColor: 'var(--ui-border)' }}>
               {renderIcon(template.icon, 'w-5 h-5')}
             </div>
             <div className="space-y-1">
-              <h3 className="font-display text-xl font-normal text-[#f5f5f5] tracking-tight">
+              <h3 className="font-display text-xl font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>
                 {template.name}
               </h3>
               <div className="flex items-center gap-2">
-                <span className={cn(
-                  "px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider",
-                  template.difficulty === 'beginner' ? "bg-[#f5f5f5]/10 text-[#c2c2c2]" :
-                  template.difficulty === 'intermediate' ? "bg-[#c2c2c2]/10 text-[#c2c2c2]" :
-                  "bg-red-500/10 text-red-400"
-                )}>
+                <span
+                  className="px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider"
+                  style={{
+                    backgroundColor: template.difficulty === 'beginner' ? 'color-mix(in oklab, var(--ui-text) 10%, transparent)' : template.difficulty === 'intermediate' ? 'color-mix(in oklab, var(--ui-muted-text) 10%, transparent)' : 'hsl(var(--destructive) / 0.1)',
+                    color: template.difficulty === 'advanced' ? 'hsl(var(--destructive))' : 'var(--ui-muted-text)',
+                  }}
+                >
                   {DIFFICULTY_LABELS[template.difficulty]}
                 </span>
-                <span className="text-[10px] font-mono text-[#c2c2c2]/50">
-                  {template.model}
-                </span>
+                <span className="text-[10px] font-mono" style={{ color: 'var(--ui-muted-text)' }}>{template.model}</span>
               </div>
             </div>
           </div>
@@ -343,41 +369,39 @@ function BuiltInCard({
             <motion.div
               initial={{ rotate: -90, scale: 0 }}
               animate={{ rotate: 0, scale: 1 }}
-              className="w-6 h-6 rounded-full bg-[#f5f5f5] flex items-center justify-center"
+              className="w-6 h-6 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: 'var(--ui-text)' }}
             >
-              <CheckCircle weight="fill" className="text-black w-3.5 h-3.5" />
+              <CheckCircle weight="fill" className="w-3.5 h-3.5" style={{ color: 'var(--ui-bg)' }} />
             </motion.div>
           )}
         </div>
 
-        <p className="text-sm text-[#c2c2c2] leading-relaxed line-clamp-2">
+        <p className="text-sm leading-relaxed line-clamp-2" style={{ color: 'var(--ui-muted-text)' }}>
           {template.description}
         </p>
 
         <div className="flex flex-wrap gap-2">
           {template.tags.slice(0, 4).map((tag) => (
-            <span key={tag} className="px-3 py-1 rounded-full text-[10px] font-medium border border-[#333] text-[#c2c2c2]">
+            <span key={tag} className="px-3 py-1 rounded-full text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
               {tag}
             </span>
           ))}
           {template.tags.length > 4 && (
-            <span className="px-3 py-1 rounded-full text-[10px] font-medium border border-[#333] text-[#c2c2c2]/50">
+            <span className="px-3 py-1 rounded-full text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
               +{template.tags.length - 4}
             </span>
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-[#333]">
+        <div className="flex items-center justify-between pt-2 border-t" style={{ borderTopColor: 'var(--ui-border)' }}>
           <div className="flex items-center gap-2">
-            <SelectionAll weight="regular" className={cn("w-3.5 h-3.5", isSelected ? "text-[#f5f5f5]" : "text-[#c2c2c2]/40")} />
-            <span className="text-[10px] text-[#c2c2c2] uppercase tracking-wider">
+            <SelectionAll weight="regular" className="w-3.5 h-3.5" style={{ color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text-faint)' }} />
+            <span className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>
               {template.tags.length} tags
             </span>
           </div>
-          <div className={cn(
-            "flex items-center gap-2 text-xs font-medium uppercase tracking-wider transition-all",
-            isSelected ? "text-[#f5f5f5]" : "text-[#c2c2c2] group-hover:text-[#f5f5f5]"
-          )}>
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider transition-all" style={{ color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text)' }}>
             <span>{isSelected ? 'Applied' : 'Apply'}</span>
             <ArrowRight weight="regular" className="w-3.5 h-3.5" />
           </div>
@@ -399,27 +423,39 @@ function UserTemplateCard({
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   return (
-    <div className={cn(
-      "border rounded-2xl p-5 space-y-3 transition-all duration-300",
-      isSelected ? "border-[#f5f5f5]/30 bg-white/[0.03]" : "border-[#333] hover:border-[#555]"
-    )}>
+    <div
+      className="border rounded-2xl p-5 space-y-3 transition-all duration-300"
+      style={{
+        borderColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 30%, transparent)' : 'var(--ui-border)',
+        backgroundColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 3%, transparent)' : 'transparent',
+      }}
+    >
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-sm font-medium text-[#f5f5f5]">{template.name}</p>
-          <p className="text-[10px] text-[#c2c2c2]/50 mt-0.5">
-            {template.selections?.length ?? 0} tags · {template.model}
+          <p className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>{template.name}</p>
+          <p className="text-[10px] mt-0.5" style={{ color: 'var(--ui-muted-text-faint)' }}>
+            {template.selections?.length ?? 0} tags {template.model}
           </p>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={onExport} title="Export as JSON" className="w-7 h-7 flex items-center justify-center rounded-full text-[#c2c2c2]/40 hover:text-[#f5f5f5] hover:bg-white/5 transition-all">
+          <button onClick={onExport} title="Export as JSON" className="w-7 h-7 flex items-center justify-center rounded-full transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)'; e.currentTarget.style.backgroundColor = 'transparent' }}
+          >
             <Download weight="regular" className="w-3.5 h-3.5" />
           </button>
           {confirmDelete ? (
-            <button onClick={onDelete} className="text-[10px] text-red-400 border border-red-900/50 rounded-full px-2 py-0.5 hover:text-red-300 transition-colors">
+            <button onClick={onDelete} className="text-[10px] border rounded-full px-2 py-0.5 transition-colors" style={{ color: 'hsl(var(--destructive))', borderColor: 'hsl(var(--destructive) / 0.5)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive) / 0.8)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
+            >
               Confirm
             </button>
           ) : (
-            <button onClick={() => setConfirmDelete(true)} title="Delete" className="w-7 h-7 flex items-center justify-center rounded-full text-[#c2c2c2]/40 hover:text-red-400 hover:bg-white/5 transition-all">
+            <button onClick={() => setConfirmDelete(true)} title="Delete" className="w-7 h-7 flex items-center justify-center rounded-full transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'hsl(var(--destructive))'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)'; e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
               <Trash weight="regular" className="w-3.5 h-3.5" />
             </button>
           )}
@@ -429,12 +465,12 @@ function UserTemplateCard({
       {template.selections && template.selections.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {template.selections.slice(0, 6).map(tag => (
-            <span key={tag.id} className="text-[10px] px-2.5 py-1 rounded-full border border-[#333] text-[#c2c2c2]">
+            <span key={tag.id} className="text-[10px] px-2.5 py-1 rounded-full border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
               {tag.label}
             </span>
           ))}
           {template.selections.length > 6 && (
-            <span className="text-[10px] px-2.5 py-1 rounded-full border border-[#333] text-[#c2c2c2]/50">
+            <span className="text-[10px] px-2.5 py-1 rounded-full border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
               +{template.selections.length - 6}
             </span>
           )}
@@ -443,7 +479,13 @@ function UserTemplateCard({
 
       <button
         onClick={onUse}
-        className="w-full py-2.5 rounded-full border border-[#333] text-xs font-medium text-[#c2c2c2] hover:border-[#f5f5f5] hover:text-[#f5f5f5] transition-all duration-150"
+        className="w-full py-2.5 rounded-full border text-xs font-medium transition-all duration-150"
+        style={{
+          borderColor: isSelected ? 'var(--ui-text)' : 'var(--ui-border)',
+          color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text)',
+        }}
+        onMouseEnter={(e) => { if (!isSelected) { e.currentTarget.style.borderColor = 'var(--ui-text)'; e.currentTarget.style.color = 'var(--ui-text)' } }}
+        onMouseLeave={(e) => { if (!isSelected) { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' } }}
       >
         {isSelected ? 'Applied' : 'Apply Template'}
       </button>
@@ -453,10 +495,13 @@ function UserTemplateCard({
 
 function EmptyState({ onReset }: { onReset: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center py-24 rounded-2xl border border-dashed border-[#333]">
-      <Funnel weight="regular" className="w-10 h-10 text-[#c2c2c2]/30 mb-4" />
-      <p className="text-sm text-[#c2c2c2]/50 mb-4">No matching templates found.</p>
-      <button onClick={onReset} className="text-xs text-[#c2c2c2] border border-[#333] rounded-full px-4 py-2 hover:border-[#555] hover:text-[#f5f5f5] transition-all duration-150">
+    <div className="flex flex-col items-center justify-center py-24 rounded-2xl border border-dashed" style={{ borderColor: 'var(--ui-border)' }}>
+      <Funnel weight="regular" className="w-10 h-10 mb-4" style={{ color: 'var(--ui-muted-text-faint)' }} />
+      <p className="text-sm mb-4" style={{ color: 'var(--ui-muted-text)' }}>No matching templates found.</p>
+      <button onClick={onReset} className="text-xs border rounded-full px-4 py-2 transition-all duration-150" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
+        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
+      >
         Reset Filters
       </button>
     </div>

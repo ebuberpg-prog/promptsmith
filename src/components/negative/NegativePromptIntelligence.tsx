@@ -134,33 +134,66 @@ export function NegativePromptIntelligence() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#333] text-xs font-medium text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-colors duration-150"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-colors duration-150"
+        style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+          e.currentTarget.style.color = 'var(--ui-text)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = 'var(--ui-border)'
+          e.currentTarget.style.color = 'var(--ui-muted-text)'
+        }}
       >
-        <Brain className="w-3.5 h-3.5" />
+        <Brain weight="regular" className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Negatives</span>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl w-full max-w-lg max-h-[85vh] overflow-hidden flex flex-col shadow-2xl">
+        <div 
+          className="fixed inset-0 flex items-center justify-center z-50 p-4"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        >
+          <div 
+            className="rounded-xl w-full max-w-lg max-h-[85vh] overflow-hidden flex flex-col"
+            style={{ 
+              backgroundColor: 'var(--ui-surface)', 
+              border: '1px solid var(--ui-border)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}
+          >
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a1a1a]">
+            <div 
+              className="flex items-center justify-between px-5 py-4 border-b"
+              style={{ borderColor: 'var(--ui-border)' }}
+            >
               <div className="flex items-center gap-2.5">
-                <Brain className="w-4 h-4 text-orange-400" />
-                <span className="text-sm font-medium text-[#f5f5f5]">Negative Prompt Intelligence</span>
+                <Brain weight="regular" className="w-4 h-4" style={{ color: 'hsl(var(--warning))' }} />
+                <span className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>Negative Prompt Intelligence</span>
                 {isConnected && (
-                  <span className="text-[9px] border border-green-500/30 text-green-500/70 rounded-full px-2 py-0.5 uppercase tracking-wider flex items-center gap-1">
+                  <span 
+                    className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider flex items-center gap-1"
+                    style={{ borderColor: 'hsl(var(--success) / 0.3)', color: 'hsl(var(--success) / 0.7)' }}
+                  >
                     <Sparkle weight="fill" className="w-2.5 h-2.5" /> AI
                   </span>
                 )}
                 {!isConnected && !isChecking && (
-                  <span className="text-[9px] border border-[#333] text-[#c2c2c2]/40 rounded-full px-2 py-0.5 uppercase tracking-wider">Heuristic</span>
+                  <span 
+                    className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider"
+                    style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}
+                  >
+                    Heuristic
+                  </span>
                 )}
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-7 h-7 flex items-center justify-center rounded-full text-[#c2c2c2]/50 hover:text-[#f5f5f5] transition-colors text-base leading-none"
+                className="w-7 h-7 flex items-center justify-center rounded-full transition-colors text-base leading-none"
+                style={{ color: 'var(--ui-muted-text)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'hsl(var(--destructive))' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)' }}
               >
                 ×
               </button>
@@ -170,13 +203,19 @@ export function NegativePromptIntelligence() {
 
               {isChecking && (
                 <div className="flex items-center gap-3 py-4 justify-center">
-                  <div className="w-4 h-4 rounded-full border border-[#333] border-t-[#f5f5f5] animate-spin" />
-                  <span className="text-sm text-[#c2c2c2]/60">Detecting local AI…</span>
+                  <div 
+                    className="w-4 h-4 rounded-full border animate-spin"
+                    style={{ borderColor: 'var(--ui-border)', borderTopColor: 'var(--ui-text)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--ui-muted-text)' }}>Detecting local AI…</span>
                 </div>
               )}
 
               {error && (
-                <div className="flex items-center gap-2 p-3 border border-red-900/40 rounded-xl text-red-400 text-xs">
+                <div 
+                  className="flex items-center gap-2 p-3 border rounded-xl text-xs"
+                  style={{ borderColor: 'hsl(var(--destructive) / 0.3)', color: 'hsl(var(--destructive))' }}
+                >
                   <WarningCircle weight="regular" className="w-3.5 h-3.5 flex-shrink-0" />
                   {error} — falling back to heuristic analysis
                 </div>
@@ -184,22 +223,37 @@ export function NegativePromptIntelligence() {
 
               {/* Analyze prompt */}
               {!analysis && !isAnalyzing && (
-                <div className="p-4 border border-[#1a1a1a] rounded-xl space-y-3">
-                  <p className="text-xs text-[#c2c2c2]/60 leading-relaxed">
+                <div className="p-4 border rounded-xl space-y-3" style={{ borderColor: 'var(--ui-border)' }}>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--ui-muted-text)' }}>
                     {isConnected
                       ? 'Your local AI will analyze the prompt and generate targeted negative prompts.'
                       : 'Heuristic analysis — connect Ollama or LM Studio for AI-powered results.'}
                   </p>
                   {fullPrompt.trim() && (
-                    <div className="p-2.5 border border-[#222] rounded-lg">
-                      <p className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider mb-1">Prompt to analyze</p>
-                      <p className="text-xs text-[#f5f5f5]/70 leading-relaxed line-clamp-3">{fullPrompt}</p>
+                    <div className="p-2.5 border rounded-lg" style={{ borderColor: 'var(--ui-border-faint)' }}>
+                      <p className="text-[10px] uppercase tracking-wider mb-1" style={{ color: 'var(--ui-muted-text-faint)' }}>Prompt to analyze</p>
+                      <p className="text-xs leading-relaxed line-clamp-3" style={{ color: 'var(--ui-muted-text)' }}>{fullPrompt}</p>
                     </div>
                   )}
                   <button
                     onClick={handleAnalyze}
                     disabled={!fullPrompt.trim()}
-                    className="w-full py-2.5 rounded-xl bg-orange-600 text-white text-sm font-medium hover:bg-orange-500 disabled:opacity-40 transition-all"
+                    className="w-full py-2.5 rounded-xl text-sm font-medium disabled:opacity-40 transition-all border"
+                    style={{ 
+                      borderColor: 'var(--ui-border)', 
+                      color: 'var(--ui-text)',
+                      backgroundColor: 'transparent'
+                    }}
+                    onMouseEnter={(e) => { 
+                      if (fullPrompt.trim()) {
+                        e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                        e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)'
+                      }
+                    }}
+                    onMouseLeave={(e) => { 
+                      e.currentTarget.style.borderColor = 'var(--ui-border)'
+                      e.currentTarget.style.backgroundColor = 'transparent'
+                    }}
                   >
                     Analyze Prompt
                   </button>
@@ -208,8 +262,8 @@ export function NegativePromptIntelligence() {
 
               {isAnalyzing && (
                 <div className="flex items-center gap-3 py-6 justify-center">
-                  <CircleNotch weight="regular" className="w-4 h-4 animate-spin text-orange-400" />
-                  <span className="text-sm text-[#c2c2c2]/60">
+                  <CircleNotch weight="regular" className="w-4 h-4 animate-spin" style={{ color: 'hsl(var(--warning))' }} />
+                  <span className="text-sm" style={{ color: 'var(--ui-muted-text)' }}>
                     {isConnected ? 'Analyzing with AI…' : 'Running heuristic analysis…'}
                   </span>
                 </div>
@@ -219,14 +273,25 @@ export function NegativePromptIntelligence() {
                 <>
                   {/* Detected issues */}
                   {analysis.detectedIssues.length > 0 && (
-                    <div className="p-3 border border-orange-500/20 rounded-xl space-y-2">
+                    <div 
+                      className="p-3 border rounded-xl space-y-2"
+                      style={{ borderColor: 'hsl(var(--warning) / 0.2)' }}
+                    >
                       <div className="flex items-center gap-2">
-                        <Warning weight="regular" className="w-3.5 h-3.5 text-orange-400" />
-                        <span className="text-xs font-medium text-[#f5f5f5]">Detected Issues</span>
+                        <Warning weight="regular" className="w-3.5 h-3.5" style={{ color: 'hsl(var(--warning))' }} />
+                        <span className="text-xs font-medium" style={{ color: 'var(--ui-text)' }}>Detected Issues</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {analysis.detectedIssues.map((issue) => (
-                          <span key={issue} className="px-2 py-0.5 bg-orange-500/15 text-orange-400 text-xs rounded-full border border-orange-500/20">
+                          <span 
+                            key={issue} 
+                            className="px-2 py-0.5 text-xs rounded-full border"
+                            style={{ 
+                              backgroundColor: 'hsl(var(--warning) / 0.1)', 
+                              color: 'hsl(var(--warning))',
+                              borderColor: 'hsl(var(--warning) / 0.2)'
+                            }}
+                          >
                             {issue}
                           </span>
                         ))}
@@ -237,12 +302,15 @@ export function NegativePromptIntelligence() {
                   {/* Suggestions */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xs font-medium text-[#c2c2c2] uppercase tracking-wider">
+                      <h3 className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>
                         Suggested Negatives ({analysis.negatives.length})
                       </h3>
                       <button
                         onClick={selectAll}
-                        className="text-[10px] text-[#c2c2c2]/50 hover:text-[#c2c2c2] transition-colors"
+                        className="text-[10px] transition-colors"
+                        style={{ color: 'var(--ui-muted-text-faint)' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)' }}
                       >
                         Select all
                       </button>
@@ -251,29 +319,43 @@ export function NegativePromptIntelligence() {
                       <div
                         key={idx}
                         onClick={() => toggleNegative(item.text)}
-                        className={`p-3 border rounded-xl cursor-pointer transition-all duration-150 ${
-                          selectedNegatives.has(item.text)
-                            ? 'border-orange-500/50 bg-orange-500/8'
-                            : 'border-[#1a1a1a] hover:border-[#333]'
-                        }`}
+                        className="p-3 border rounded-xl cursor-pointer transition-all duration-150"
+                        style={{
+                          borderColor: selectedNegatives.has(item.text) 
+                            ? 'hsl(var(--warning) / 0.5)' 
+                            : 'var(--ui-border)',
+                          backgroundColor: selectedNegatives.has(item.text) 
+                            ? 'hsl(var(--warning) / 0.05)' 
+                            : 'transparent'
+                        }}
+                        onMouseEnter={(e) => { 
+                          if (!selectedNegatives.has(item.text)) {
+                            e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                          }
+                        }}
+                        onMouseLeave={(e) => { 
+                          if (!selectedNegatives.has(item.text)) {
+                            e.currentTarget.style.borderColor = 'var(--ui-border)'
+                          }
+                        }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             {(() => {
                               const Icon = CATEGORY_ICONS[item.category] || Info
-                              return <Icon weight="regular" className="w-4 h-4 text-[#c2c2c2]/50" />
+                              return <Icon weight="regular" className="w-4 h-4" style={{ color: 'var(--ui-muted-text-faint)' }} />
                             })()}
-                            <span className="text-sm text-[#f5f5f5] font-medium">{item.text}</span>
+                            <span className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>{item.text}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-[9px] text-[#c2c2c2]/40 uppercase tracking-wider">{item.category}</span>
+                            <span className="text-[9px] uppercase tracking-wider" style={{ color: 'var(--ui-muted-text-faint)' }}>{item.category}</span>
                             {selectedNegatives.has(item.text) && (
-                              <Check className="w-3.5 h-3.5 text-orange-400" />
+                              <Check weight="regular" className="w-3.5 h-3.5" style={{ color: 'hsl(var(--warning))' }} />
                             )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 mt-1.5 text-[11px] text-[#c2c2c2]/40">
-                          <Info className="w-3 h-3 flex-shrink-0" />
+                        <div className="flex items-center gap-1.5 mt-1.5 text-[11px]" style={{ color: 'var(--ui-muted-text-faint)' }}>
+                          <Info weight="regular" className="w-3 h-3 flex-shrink-0" />
                           {item.reason}
                         </div>
                       </div>
@@ -283,7 +365,10 @@ export function NegativePromptIntelligence() {
                   {/* Re-analyze button */}
                   <button
                     onClick={handleAnalyze}
-                    className="w-full py-2 rounded-xl border border-[#333] text-xs text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all"
+                    className="w-full py-2 rounded-xl border text-xs transition-all"
+                    style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)' }}
                   >
                     Re-analyze
                   </button>
@@ -293,15 +378,30 @@ export function NegativePromptIntelligence() {
 
             {/* Footer — apply */}
             {analysis && (
-              <div className="px-5 py-4 border-t border-[#1a1a1a]">
+              <div className="px-5 py-4 border-t" style={{ borderColor: 'var(--ui-border)' }}>
                 <button
                   onClick={applySelected}
                   disabled={selectedNegatives.size === 0 || applied}
-                  className="w-full py-2.5 rounded-xl bg-orange-600 text-white text-sm font-medium hover:bg-orange-500 disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-xl text-sm font-medium disabled:opacity-40 transition-all flex items-center justify-center gap-2 border"
+                  style={{ 
+                    borderColor: 'var(--ui-border)', 
+                    color: 'var(--ui-text)',
+                    backgroundColor: applied ? 'hsl(var(--success) / 0.1)' : 'transparent'
+                  }}
+                  onMouseEnter={(e) => { 
+                    if (selectedNegatives.size > 0 && !applied) {
+                      e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                      e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)'
+                    }
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.borderColor = 'var(--ui-border)'
+                    e.currentTarget.style.backgroundColor = applied ? 'hsl(var(--success) / 0.1)' : 'transparent'
+                  }}
                 >
                   {applied
-                    ? <><Check className="w-3.5 h-3.5" /> Applied!</>
-                    : <><Check className="w-3.5 h-3.5" /> Apply {selectedNegatives.size > 0 ? `${selectedNegatives.size} selected` : 'selected'}</>
+                    ? <><Check weight="regular" className="w-3.5 h-3.5" /> Applied!</>
+                    : <><Check weight="regular" className="w-3.5 h-3.5" /> Apply {selectedNegatives.size > 0 ? `${selectedNegatives.size} selected` : 'selected'}</>
                   }
                 </button>
               </div>

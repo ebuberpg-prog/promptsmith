@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { GitCompare, X, Plus, Minus, RefreshCw } from 'lucide-react'
+import { GitDiff, X, Plus, Minus, ArrowsClockwise } from '@phosphor-icons/react'
 
 export function PromptDiff() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +35,7 @@ export function PromptDiff() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
       >
-        <GitCompare className="w-4 h-4" />
+        <GitDiff weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Diff</span>
       </button>
 
@@ -44,14 +44,14 @@ export function PromptDiff() {
           <div className="bg-surface border border-border rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <GitCompare className="w-5 h-5 text-blue-500" />
+                <GitDiff weight="regular" className="w-5 h-5" style={{ color: 'hsl(217, 91%, 60%)' }} />
                 <h2 className="text-lg font-semibold text-foreground">Prompt Diff</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
               >
-                <X className="w-4 h-4" />
+                <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
@@ -99,14 +99,14 @@ export function PromptDiff() {
                   className="p-2 rounded-lg hover:bg-surface-elevated text-muted-foreground"
                   title="Swap prompts"
                 >
-                  <RefreshCw className="w-4 h-4" />
+                  <ArrowsClockwise weight="regular" className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleCompare}
                   disabled={!promptA.trim() || !promptB.trim()}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-500 disabled:opacity-50 flex items-center gap-2"
                 >
-                  <GitCompare className="w-4 h-4" />
+                  <GitDiff weight="regular" className="w-4 h-4" />
                   Compare
                 </button>
               </div>
@@ -122,13 +122,13 @@ export function PromptDiff() {
                     </div>
                     <div className="flex items-center gap-4 text-xs">
                       <div className="flex items-center gap-1">
-                        <Plus className="w-3 h-3 text-green-500" />
+                        <Plus weight="regular" className="w-3 h-3" style={{ color: 'hsl(142, 71%, 45%)' }} />
                         <span className="text-green-500">
                           {promptDiffs.filter(d => d.type === 'added').length} added
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Minus className="w-3 h-3 text-red-500" />
+                        <Minus weight="regular" className="w-3 h-3" style={{ color: 'hsl(0, 84%, 60%)' }} />
                         <span className="text-red-500">
                           {promptDiffs.filter(d => d.type === 'removed').length} removed
                         </span>
@@ -147,9 +147,9 @@ export function PromptDiff() {
                         }`}
                       >
                         {diff.type === 'added' ? (
-                          <Plus className="w-4 h-4 text-green-500" />
+                          <Plus weight="regular" className="w-4 h-4" style={{ color: 'hsl(142, 71%, 45%)' }} />
                         ) : (
-                          <Minus className="w-4 h-4 text-red-500" />
+                          <Minus weight="regular" className="w-4 h-4" style={{ color: 'hsl(0, 84%, 60%)' }} />
                         )}
                         <span className="text-sm text-foreground">{diff.segment}</span>
                         <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded ${

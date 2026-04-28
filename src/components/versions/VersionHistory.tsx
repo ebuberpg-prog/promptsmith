@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { History, Plus, Clock, RotateCcw, X, GitBranch } from 'lucide-react'
+import { ClockCounterClockwise, Plus, Clock, ArrowCounterClockwise, X, GitBranch } from '@phosphor-icons/react'
 
 export function VersionHistory() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,7 +32,7 @@ export function VersionHistory() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
       >
-        <History className="w-4 h-4" />
+        <ClockCounterClockwise weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Versions</span>
         {promptVersions.length > 0 && (
           <span className="ml-1 px-1.5 py-0.5 bg-primary/20 text-primary text-xs rounded">
@@ -46,14 +46,14 @@ export function VersionHistory() {
           <div className="bg-surface border border-border rounded-xl w-full max-w-lg max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <History className="w-5 h-5 text-amber-500" />
+                <ClockCounterClockwise weight="regular" className="w-5 h-5" style={{ color: 'hsl(38, 92%, 50%)' }} />
                 <h2 className="text-lg font-semibold text-foreground">Prompt Version History</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
               >
-                <X className="w-4 h-4" />
+                <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
@@ -74,7 +74,7 @@ export function VersionHistory() {
                     onClick={handleCreateVersion}
                     className="w-full py-2 bg-amber-600 text-white rounded-lg text-sm font-medium hover:bg-amber-500 flex items-center justify-center gap-2"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus weight="regular" className="w-4 h-4" />
                     Save Version
                   </button>
                 </div>
@@ -112,12 +112,12 @@ export function VersionHistory() {
                               className="p-1 rounded hover:bg-background text-muted-foreground"
                               title="Load version"
                             >
-                              <RotateCcw className="w-3 h-3" />
+                              <ArrowCounterClockwise weight="regular" className="w-3 h-3" />
                             </button>
                           </div>
                         </div>
                         <div className="flex items-center gap-2 text-[10px] text-muted-foreground mb-2">
-                          <Clock className="w-3 h-3" />
+                          <Clock weight="regular" className="w-3 h-3" />
                           {formatDate(version.createdAt)}
                         </div>
                         {version.notes && (
@@ -133,7 +133,7 @@ export function VersionHistory() {
 
               {promptVersions.length === 0 && (
                 <div className="text-center py-8">
-                  <GitBranch className="w-10 h-10 mx-auto mb-2 text-muted-foreground/30" />
+                  <GitBranch weight="regular" className="w-10 h-10 mx-auto mb-2" style={{ color: 'var(--ui-muted-text-faint)', opacity: 0.3 }} />
                   <p className="text-sm text-muted-foreground">No versions saved</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Save versions to track your prompt evolution

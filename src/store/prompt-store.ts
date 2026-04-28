@@ -20,7 +20,15 @@ import type {
 } from '@/types'
 import { RandomizerEngine, type RandomizerResult } from '@/services/randomizer-engine'
 import type { RandomizerMode } from '@/data/randomizer-modes'
-import { getModelConfig } from '@/data/model-configs'
+import { promptComposer } from '@/services/prompt-composer'
+import { negativePromptEngine } from '@/services/negative-prompt-engine'
+import { styleCompatEngine } from '@/services/style-compat-engine'
+import { mutationEngine, type MutationOptions } from '@/services/mutation-engine'
+import { promptDiffEngine } from '@/services/prompt-diff-engine'
+import { compressionEngine } from '@/services/compression-engine'
+import { useHistoryStore, createSnapshot } from './history-store'
+
+let isHistoryBatching = false
 
 export interface AISettings {
   ollamaUrl: string
@@ -110,8 +118,22 @@ interface PromptSmithStore extends AppState {
   updateEntity: (id: string, updates: Partial<SavedEntity>) => void
   exportEntities: () => string
   importEntities: (json: string) => number
+  // Theme
+  theme: 'light' | 'dark'
+  toggleTheme: () => void
+  // Wizard
+  wizardCompleted: boolean
+  setWizardCompleted: (completed: boolean) => void
   // Tag trigger words
   setTagTriggerWords: (tagId: string, triggerWords: string[]) => void
+  // Undo / Redo
+  undo: () => void
+  redo: () => void
+  canUndo: () => boolean
+  canRedo: () => boolean
+  _saveHistory: () => void
+  startHistoryBatch: () => void
+  endHistoryBatch: () => void
 }
 
 export const usePromptSmithStore = create<PromptSmithStore>()(
@@ -164,8 +186,11 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         corsProxyUrl: '',
       },
       savedEntities: [],
+      theme: 'dark' as 'light' | 'dark',
+      wizardCompleted: false,
 
-      addTag: (tag) =>
+      addTag: (tag) => {
+        get()._saveHistory()
         set((state) => {
           const exists = state.selectedTags.find((t) => t.id === tag.id)
           if (exists) return state
@@ -175,14 +200,18 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
               { ...tag, selectedAt: Date.now() },
             ],
           }
-        }),
+        })
+      },
 
-      removeTag: (tagId) =>
+      removeTag: (tagId) => {
+        get()._saveHistory()
         set((state) => ({
           selectedTags: state.selectedTags.filter((t) => t.id !== tagId),
-        })),
+        }))
+      },
 
-      toggleTag: (tag) =>
+      toggleTag: (tag) => {
+        get()._saveHistory()
         set((state) => {
           const exists = state.selectedTags.find((t) => t.id === tag.id)
           if (exists) {
@@ -199,15 +228,25 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
             ],
             recentlyUsedTags: recent,
           }
-        }),
+        })
+      },
 
-      clearAllTags: () => set((state) => ({
-        selectedTags: state.selectedTags.filter(t => state.pinnedTags.includes(t.id)),
-      })),
+      clearAllTags: () => {
+        get()._saveHistory()
+        set((state) => ({
+          selectedTags: state.selectedTags.filter(t => state.pinnedTags.includes(t.id)),
+        }))
+      },
 
-      setCustomText: (text) => set({ customText: text }),
+      setCustomText: (text) => {
+        get()._saveHistory()
+        set({ customText: text })
+      },
 
-      setSelectedModel: (model) => set({ selectedModel: model }),
+      setSelectedModel: (model) => {
+        get()._saveHistory()
+        set({ selectedModel: model })
+      },
 
       toggleExplicit: () =>
         set((state) => ({ showExplicit: !state.showExplicit })),
@@ -232,13 +271,15 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         return prompt
       },
 
-      loadPrompt: (prompt) =>
+      loadPrompt: (prompt) => {
+        get()._saveHistory()
         set({
           selectedTags: prompt.selections,
           customText: prompt.customText,
           selectedModel: prompt.model,
           currentVersion: prompt.version || 0,
-        }),
+        })
+      },
 
       deletePrompt: (id) =>
         set((state) => ({
@@ -259,133 +300,22 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
 
       generatePrompt: () => {
         const state = get()
-        const modelConfig = getModelConfig(state.selectedModel)
-        const parts: string[] = []
-
-        const orderedTags = [...state.selectedTags].sort((a, b) => {
-          const categoryOrder = [
-            'subject',
-            'body_types',
-            'breast',
-            'buttocks',
-            'male_chest',
-            'skin',
-            'age',
-            'ethnicity',
-            'anthropomorphic',
-            'fantasy_races',
-            'clothing',
-            'poses',
-            'gestures',
-            'expressions',
-            'environment',
-            'lighting',
-            'camera',
-            'style',
-            'quality',
-          ]
-
-          const aOrder = categoryOrder.findIndex((c) => a.id.startsWith(c))
-          const bOrder = categoryOrder.findIndex((c) => b.id.startsWith(c))
-
-          return (aOrder === -1 ? 99 : aOrder) - (bOrder === -1 ? 99 : bOrder)
+        return promptComposer.compose({
+          tags: state.selectedTags,
+          customText: state.customText,
+          model: state.selectedModel,
+          parameters: state.modelParameters,
         })
-
-        const formatTag = (tag: typeof state.selectedTags[0]) => {
-          const triggerPrefix = tag.triggerWords && tag.triggerWords.length > 0
-            ? (modelConfig.triggerWordStyle === 'prefix'
-              ? tag.triggerWords.join(', ') + ', '
-              : modelConfig.triggerWordStyle === 'inline'
-              ? tag.triggerWords.join(' ') + ' '
-              : '')
-            : ''
-
-          let label = tag.label
-          if (tag.customWeight && tag.customWeight !== 1.0 && modelConfig.supportsWeighting) {
-            label = modelConfig.weightFormat(tag.label, tag.customWeight)
-          }
-          return triggerPrefix + label
-        }
-
-        const labels = orderedTags.map(formatTag)
-
-        if (labels.length > 0) {
-          if (modelConfig.promptStyle === 'prose') {
-            parts.push(labels.join(', '))
-          } else {
-            parts.push(labels.join(', '))
-          }
-        }
-
-        if (state.customText.trim()) {
-          parts.push(state.customText.trim())
-        }
-
-        let prompt = parts.join(', ')
-
-        if (modelConfig.promptStyle === 'midjourney-params') {
-          const params = state.modelParameters
-          if (params.aspectRatio) prompt += ` --ar ${params.aspectRatio}`
-          if (params.style) prompt += ` --s ${params.style}`
-          if (params.chaos) prompt += ` --c ${params.chaos}`
-          if (params.quality) prompt += ` --q ${params.quality}`
-          if (!params.aspectRatio && !params.style) prompt += ' --ar 16:9'
-        }
-
-        return prompt
       },
 
       generateNegativePrompt: () => {
         const state = get()
-        const suggestions = state.negativeIntelligence?.suggestedNegatives || []
-
-        if (state.selectedModel === 'midjourney') {
-          return ''
-        }
-
-        if (state.customNegativePrompt.trim()) {
-          return state.customNegativePrompt.trim()
-        }
-
-        if (suggestions.length > 0) {
-          return suggestions
-            .sort((a, b) => a.priority - b.priority)
-            .slice(0, 10)
-            .map((s) => s.text)
-            .join(', ')
-        }
-
-        const universalNegatives = [
-          'low quality',
-          'worst quality',
-          'normal quality',
-          'jpeg artifacts',
-          'blurry',
-          'deformed',
-          'ugly',
-          'duplicate',
-          'mutated hands',
-          'poorly drawn face',
-          'bad anatomy',
-          'bad proportions',
-          'extra limbs',
-          'disfigured',
-          'gross proportions',
-          'malformed limbs',
-          'missing arms',
-          'missing legs',
-          'extra arms',
-          'extra legs',
-          'fused fingers',
-          'too many fingers',
-          'long neck',
-          'username',
-          'watermark',
-          'text',
-          'signature',
-        ]
-
-        return universalNegatives.join(', ')
+        return negativePromptEngine.generateNegativePrompt(
+          state.selectedTags,
+          state.customText,
+          state.customNegativePrompt,
+          state.selectedModel
+        )
       },
 
       createDNARecipe: (name, description) => {
@@ -406,6 +336,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       },
 
       loadDNARecipe: (recipe) => {
+        get()._saveHistory()
         set({
           selectedTags: recipe.tags,
           selectedModel: recipe.model,
@@ -447,61 +378,17 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       },
 
       analyzeStyleTransfer: (sourceStyles, targetStyles) => {
-        const scores: number[][] = []
-        for (const _source of sourceStyles) {
-          const row: number[] = []
-          for (const _target of targetStyles) {
-            void _target
-            row.push(Math.random() * 0.5 + 0.5)
-          }
-          void _source
-          scores.push(row)
-        }
-        const matrix: StyleTransferMatrix = {
-          id: crypto.randomUUID(),
-          name: 'Style Transfer',
-          sourceStyles,
-          targetStyles,
-          compatibilityScores: scores,
-        }
+        const matrix = styleCompatEngine.analyzeCompatibility(sourceStyles, targetStyles)
         set((state) => ({ styleMatrix: [...state.styleMatrix, matrix] }))
       },
 
       generateNegativeSuggestions: (prompt) => {
-        const detectedIssues: string[] = []
-        const promptLower = prompt.toLowerCase()
-
-        if (promptLower.includes('hand') || promptLower.includes('finger')) {
-          detectedIssues.push('hands', 'fingers')
-        }
-        if (promptLower.includes('face') || promptLower.includes('portrait')) {
-          detectedIssues.push('face', 'anatomy')
-        }
-        if (promptLower.includes('multiple') || promptLower.includes('group')) {
-          detectedIssues.push('duplicates')
-        }
-
-        const suggestedNegatives = [
-          { text: 'lowres', reason: 'Quality fix', priority: 1, category: 'quality' },
-          { text: 'bad anatomy', reason: 'Anatomy fix', priority: 1, category: 'anatomy' },
-          { text: 'bad hands', reason: 'Hand fix', priority: 1, category: 'hands' },
-          { text: 'extra fingers', reason: 'Finger fix', priority: 2, category: 'hands' },
-          { text: 'ugly', reason: 'Quality fix', priority: 1, category: 'quality' },
-          { text: 'duplicate', reason: 'Duplicate fix', priority: 1, category: 'artifacts' },
-          { text: 'mutated', reason: 'Mutation fix', priority: 1, category: 'artifacts' },
-        ]
-
-        const intelligence: NegativePromptIntelligence = {
-          contextAnalysis: {
-            subject: 'detected',
-            environment: 'detected',
-            style: 'detected',
-            detectedIssues,
-          },
-          suggestedNegatives,
-          learnedPatterns: [],
-        }
-
+        const state = get()
+        const intelligence = negativePromptEngine.analyze(
+          state.selectedTags,
+          state.customText,
+          state.selectedModel
+        )
         set({ negativeIntelligence: intelligence })
       },
 
@@ -562,86 +449,33 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       setMutationType: (type) => set({ selectedMutationType: type }),
 
       generateMutations: (prompt) => {
-        const variations: PromptVariation[] = []
-        const words = prompt.split(', ')
-
-        const styleShifts = ['more realistic', 'more artistic', 'more abstract', 'more cinematic']
-        for (const style of styleShifts) {
-          variations.push({
-            id: crypto.randomUUID(),
-            content: `${prompt}, ${style}`,
-            type: 'style_shift',
-            confidence: 0.9,
-            description: `Added ${style} style`,
-          })
-        }
-
-        for (let i = 0; i < Math.min(3, words.length); i++) {
-          variations.push({
-            id: crypto.randomUUID(),
-            content: prompt.replace(words[i], `(${words[i]}:1.3)`),
-            type: 'weight_adjust',
-            confidence: 0.85,
-            description: `Increased weight on '${words[i]}'`,
-          })
-        }
-
-        const synonyms: Record<string, string[]> = {
-          beautiful: ['gorgeous', 'stunning', 'elegant'],
-          dark: ['shadowy', 'dim', 'mysterious'],
-          bright: ['vibrant', 'luminous', 'radiant'],
-        }
-
-        for (const [word, syns] of Object.entries(synonyms)) {
-          if (prompt.toLowerCase().includes(word)) {
-            for (const syn of syns) {
-              variations.push({
-                id: crypto.randomUUID(),
-                content: prompt.replace(new RegExp(word, 'gi'), syn),
-                type: 'synonym',
-                confidence: 0.8,
-                description: `Replaced '${word}' with '${syn}'`,
-              })
-            }
-          }
-        }
-
-        set({ promptMutations: variations.slice(0, 5) })
+        const state = get()
+        const variations = mutationEngine.generateMutations(
+          state.selectedTags,
+          state.customText,
+          state.selectedModel,
+          { maxVariations: 5, types: [state.selectedMutationType] }
+        )
+        set({ promptMutations: variations })
       },
 
       selectMutation: (variation) => {
+        get()._saveHistory()
         set({ customText: variation.content })
       },
 
       comparePrompts: (promptA, promptB) => {
-        const wordsA = new Set(promptA.split(', '))
-        const wordsB = new Set(promptB.split(', '))
-
-        const differences: PromptDiffResult[] = []
-
-        for (const word of wordsB) {
-          if (!wordsA.has(word)) {
-            differences.push({
-              type: 'added',
-              segment: word,
-              position: promptB.indexOf(word),
-              significance: 'high',
-            })
-          }
-        }
-
-        for (const word of wordsA) {
-          if (!wordsB.has(word)) {
-            differences.push({
-              type: 'removed',
-              segment: word,
-              position: promptA.indexOf(word),
-              significance: 'high',
-            })
-          }
-        }
-
-        set({ promptDiffs: differences })
+        const rawResult = promptDiffEngine.compareRaw(promptA, promptB)
+        const mapped: PromptDiffResult[] = rawResult.segments.map((s, i) => ({
+          type: s.type,
+          segment: s.content,
+          position: i,
+          significance: s.significance,
+          tagId: s.tagId,
+          category: s.category,
+          description: s.description,
+        }))
+        set({ promptDiffs: mapped })
       },
 
       pinTag: (tagId) =>
@@ -659,6 +493,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       randomizePrompt: (options = {}) => {
         try {
           const state = get()
+          get()._saveHistory()
           const engine = new RandomizerEngine()
           const seed = options.seed ?? Math.floor(Math.random() * 2 ** 32)
           const lockedTagIds = state.pinnedTags
@@ -720,6 +555,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       },
 
       loadEntity: (entity, mode = 'replace') => {
+        get()._saveHistory()
         set((state) => {
           if (mode === 'replace') {
             return {
@@ -777,27 +613,80 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         }))
       },
 
-      compressPrompt: (prompt, maxTokens) => {
-        const words = prompt.split(', ')
-        if (words.length <= maxTokens) return prompt
-
-        const priorityKeywords = ['subject', 'style', 'lighting', 'composition', 'quality']
-        const preserved: string[] = []
-        const removed: string[] = []
-
-        for (const word of words) {
-          const wordLower = word.toLowerCase()
-          const isPriority = priorityKeywords.some((pk) => wordLower.includes(pk))
-          
-          if (isPriority || preserved.length < maxTokens) {
-            preserved.push(word)
-          } else {
-            removed.push(word)
-          }
-        }
-
-        return preserved.join(', ')
+      toggleTheme: () => {
+        set((state) => ({
+          theme: state.theme === 'dark' ? 'light' : 'dark',
+        }))
       },
+
+      setWizardCompleted: (completed) => {
+        set({ wizardCompleted: completed })
+      },
+
+      compressPrompt: (prompt, maxTokens) => {
+        const state = get()
+        const result = compressionEngine.compress(
+          state.selectedTags,
+          state.customText,
+          state.selectedModel,
+          'hybrid',
+          maxTokens
+        )
+        return result.compressedPrompt
+      },
+
+      _saveHistory: () => {
+        if (isHistoryBatching) return
+        const state = get()
+        useHistoryStore.getState().saveSnapshot(
+          createSnapshot(state.selectedTags, state.customText, state.selectedModel)
+        )
+      },
+
+      startHistoryBatch: () => {
+        isHistoryBatching = true
+      },
+
+      endHistoryBatch: () => {
+        isHistoryBatching = false
+      },
+
+      undo: () => {
+        const state = get()
+        const currentSnapshot = createSnapshot(
+          state.selectedTags,
+          state.customText,
+          state.selectedModel
+        )
+        const previous = useHistoryStore.getState().undo(currentSnapshot)
+        if (previous) {
+          set({
+            selectedTags: previous.selectedTags,
+            customText: previous.customText,
+            selectedModel: previous.selectedModel,
+          })
+        }
+      },
+
+      redo: () => {
+        const state = get()
+        const currentSnapshot = createSnapshot(
+          state.selectedTags,
+          state.customText,
+          state.selectedModel
+        )
+        const next = useHistoryStore.getState().redo(currentSnapshot)
+        if (next) {
+          set({
+            selectedTags: next.selectedTags,
+            customText: next.customText,
+            selectedModel: next.selectedModel,
+          })
+        }
+      },
+
+      canUndo: () => useHistoryStore.getState().canUndo(),
+      canRedo: () => useHistoryStore.getState().canRedo(),
     }),
     {
       name: 'promptsmith-storage',
@@ -822,6 +711,8 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         lastRandomizerIntensity: state.lastRandomizerIntensity,
         aiSettings: state.aiSettings,
         savedEntities: state.savedEntities,
+        theme: state.theme,
+        wizardCompleted: state.wizardCompleted,
       }),
     }
   )

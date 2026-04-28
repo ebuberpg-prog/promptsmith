@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { Layers, X, Zap } from 'lucide-react'
+import { Stack, X, Lightning } from '@phosphor-icons/react'
 
 const STYLE_PRESETS = [
   'photography', 'illustration', 'anime', '3d', 'oil_painting',
@@ -40,7 +40,7 @@ export function StyleTransferMatrix() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
       >
-        <Layers className="w-4 h-4" />
+        <Stack weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Style Matrix</span>
       </button>
 
@@ -49,14 +49,14 @@ export function StyleTransferMatrix() {
           <div className="bg-surface border border-border rounded-xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <Layers className="w-5 h-5 text-indigo-500" />
+                <Stack weight="regular" className="w-5 h-5" style={{ color: 'hsl(250, 95%, 66%)' }} />
                 <h2 className="text-lg font-semibold text-foreground">Style Transfer Matrix</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
               >
-                <X className="w-4 h-4" />
+                <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
@@ -106,7 +106,7 @@ export function StyleTransferMatrix() {
                 disabled={sourceStyles.length === 0 || targetStyles.length === 0}
                 className="w-full py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-500 disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                <Zap className="w-4 h-4" />
+                <Lightning weight="regular" className="w-4 h-4" />
                 Analyze Compatibility
               </button>
 

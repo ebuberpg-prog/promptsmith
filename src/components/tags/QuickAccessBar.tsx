@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Check, PushPin } from '@phosphor-icons/react'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { getTagById } from '@/utils/tag-index'
+import { getGroupForCategory } from '@/data/category-colors'
 import type { TaxonomyTag } from '@/types'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
@@ -20,12 +21,10 @@ export function QuickAccessBar() {
   const selectedIds = new Set(selectedTags.map((t) => t.id))
   const pinnedIds = new Set(pinnedTags)
 
-  // Resolve pinned tag objects from index
   const pinnedTagObjects: TaxonomyTag[] = pinnedTags
     .map((id) => getTagById(id))
     .filter((t): t is TaxonomyTag => t !== undefined)
 
-  // Resolve recent tag objects, excluding pinned ones to avoid duplicates
   const recentTagObjects: TaxonomyTag[] = recentlyUsedTags
     .filter((id) => !pinnedIds.has(id))
     .map((id) => getTagById(id))
@@ -43,13 +42,13 @@ export function QuickAccessBar() {
         animate={{ opacity: 1, height: 'auto' }}
         exit={{ opacity: 0, height: 0 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
-        className="space-y-3 pb-4 border-b border-[#1a1a1a]"
+        className="space-y-3 pb-4 border-b border-[var(--ui-border-faint)]"
       >
         {pinnedTagObjects.length > 0 && (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <PushPin weight="fill" className="w-3 h-3 text-[#c2c2c2]/50" />
-              <span className="text-[10px] text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Pinned</span>
+              <PushPin weight="fill" className="w-3 h-3 text-[var(--ui-muted-text-faint)]" />
+              <span className="text-[10px] text-[var(--ui-muted-text-faint)] uppercase tracking-wider font-medium">Pinned</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
               {pinnedTagObjects.map((tag) => (
@@ -68,7 +67,7 @@ export function QuickAccessBar() {
 
         {recentTagObjects.length > 0 && (
           <div className="space-y-2">
-            <span className="text-[10px] text-[#c2c2c2]/50 uppercase tracking-wider font-medium">Recent</span>
+            <span className="text-[10px] text-[var(--ui-muted-text-faint)] uppercase tracking-wider font-medium">Recent</span>
             <div className="flex flex-wrap gap-1.5">
               {recentTagObjects.map((tag) => (
                 <QuickChip
@@ -100,11 +99,10 @@ function QuickChip({
       <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={onToggle}
+        data-group={getGroupForCategory(tag.category || '')}
         className={cn(
-          "flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full border text-xs font-medium transition-all duration-150",
-          isSelected
-            ? "border-[#f5f5f5]/40 bg-white/5 text-[#f5f5f5]"
-            : "border-[#222] text-[#c2c2c2] hover:border-[#444] hover:text-[#f5f5f5]"
+          "tag-chip",
+          isSelected ? "selected" : ""
         )}
       >
         {tag.label}
@@ -112,8 +110,8 @@ function QuickChip({
       </motion.button>
       {showRemove && onRemove && (
         <button
-          onClick={onRemove}
-          className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#1a1a1a] border border-[#333] text-[#c2c2c2]/50 hover:text-[#f5f5f5] hidden group-hover:flex items-center justify-center text-[8px]"
+          onClick={(e) => { e.stopPropagation(); onRemove() }}
+          className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-muted-text-faint)] hover:text-[var(--ui-text)] hidden group-hover:flex items-center justify-center text-[8px]"
         >
           ×
         </button>

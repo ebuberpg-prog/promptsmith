@@ -2,7 +2,18 @@ import { useState, useEffect, useCallback } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { aiService, type AIServiceState } from '@/services/local-ai-service'
 import { searchTagIndex } from '@/utils/tag-index'
-import { Sparkles, Loader2, AlertCircle, Check, Volume2, VolumeX, ImageIcon, UploadCloud, X } from 'lucide-react'
+import { 
+  Sparkle, 
+  Spinner, 
+  WarningCircle, 
+  Check, 
+  SpeakerHigh, 
+  SpeakerSlash, 
+  Image as ImageIcon, 
+CloudArrowUp,
+  X,
+  Spinner as Loader2
+} from '@phosphor-icons/react'
 
 export function LMPromptEnhancer() {
   const [isOpen, setIsOpen] = useState(false)
@@ -180,33 +191,65 @@ export function LMPromptEnhancer() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-[#f5f5f5] text-black rounded-lg text-sm font-medium hover:bg-[#e0e0e0] transition-all"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 border"
+        style={{
+          borderColor: 'var(--ui-border)',
+          backgroundColor: 'var(--ui-surface)',
+          color: 'var(--ui-text)'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+          e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = 'var(--ui-border)'
+          e.currentTarget.style.backgroundColor = 'var(--ui-surface)'
+        }}
       >
-        <Sparkles className="w-4 h-4" />
+        <Sparkle weight="regular" className="w-4 h-4" style={{ color: 'var(--ui-muted-text)' }} />
         <span className="hidden sm:inline">AI Enhance</span>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl">
+        <div 
+          className="fixed inset-0 flex items-center justify-center z-50 p-4"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        >
+          <div 
+            className="rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col"
+            style={{ 
+              backgroundColor: 'var(--ui-surface)', 
+              border: '1px solid var(--ui-border)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}
+          >
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a1a1a]">
+            <div 
+              className="flex items-center justify-between px-5 py-4 border-b"
+              style={{ borderColor: 'var(--ui-border)' }}
+            >
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-[#f5f5f5]" />
-                <span className="text-sm font-medium text-[#f5f5f5]">AI Tools</span>
+                <Sparkle weight="regular" className="w-4 h-4" style={{ color: 'var(--ui-text)' }} />
+                <span className="text-sm font-medium" style={{ color: 'var(--ui-text)' }}>AI Tools</span>
                 <StatusPill status={isChecking ? 'checking' : isConnected ? 'connected' : 'disconnected'} provider={aiState.activeProvider} />
               </div>
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setMuteTts(!muteTts)}
-                  className="w-7 h-7 flex items-center justify-center rounded-full text-[#c2c2c2]/50 hover:text-[#c2c2c2] transition-colors"
+                  className="w-7 h-7 flex items-center justify-center rounded-full transition-colors"
+                  style={{ color: 'var(--ui-muted-text)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                 >
-                  {muteTts ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                  {muteTts ? <SpeakerSlash weight="regular" className="w-3.5 h-3.5" /> : <SpeakerHigh weight="regular" className="w-3.5 h-3.5" />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-7 h-7 flex items-center justify-center rounded-full text-[#c2c2c2]/50 hover:text-[#f5f5f5] transition-colors text-base leading-none"
+                  className="w-7 h-7 flex items-center justify-center rounded-full transition-colors text-base leading-none"
+                  style={{ color: 'var(--ui-muted-text)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'hsl(var(--destructive))' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                 >
                   ×
                 </button>
@@ -217,12 +260,12 @@ export function LMPromptEnhancer() {
 
               {/* Not connected state */}
               {!isConnected && !isChecking && (
-                <div className="p-4 border border-[#1a1a1a] rounded-xl space-y-3">
+                <div className="p-4 border rounded-xl space-y-3" style={{ borderColor: 'var(--ui-border)' }}>
                   <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-[#c2c2c2]/50" />
-                    <span className="text-sm text-[#c2c2c2]">No AI provider found</span>
+                    <WarningCircle weight="regular" className="w-4 h-4" style={{ color: 'var(--ui-muted-text)' }} />
+                    <span className="text-sm" style={{ color: 'var(--ui-text)' }}>No AI provider found</span>
                   </div>
-                  <p className="text-xs text-[#c2c2c2]/50 leading-relaxed">
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--ui-muted-text)' }}>
                     Start Ollama or LM Studio locally, then click Reconnect. Configure URLs in the ⚙️ settings panel.
                   </p>
                   <button
@@ -230,7 +273,10 @@ export function LMPromptEnhancer() {
                       aiService.setUrls(aiSettings.ollamaUrl, aiSettings.lmStudioUrl, aiSettings.openaiUrl, aiSettings.openaiApiKey)
                       aiService.discover(aiSettings.preferredAIProvider)
                     }}
-                    className="px-4 py-2 rounded-full border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all"
+                    className="px-4 py-2 rounded-full border text-sm transition-all"
+                    style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)' }}
                   >
                     Reconnect
                   </button>
@@ -239,14 +285,20 @@ export function LMPromptEnhancer() {
 
               {isChecking && (
                 <div className="flex items-center gap-3 py-6 justify-center">
-                  <div className="w-4 h-4 rounded-full border border-[#333] border-t-[#f5f5f5] animate-spin" />
-                  <span className="text-sm text-[#c2c2c2]/60">Detecting local AI providers…</span>
+                  <div 
+                    className="w-4 h-4 rounded-full border animate-spin"
+                    style={{ borderColor: 'var(--ui-border)', borderTopColor: 'var(--ui-text)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--ui-muted-text)' }}>Detecting local AI providers…</span>
                 </div>
               )}
 
               {error && (
-                <div className="flex items-center gap-2 p-3 border border-red-900/40 rounded-xl text-red-400 text-xs">
-                  <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                <div 
+                  className="flex items-center gap-2 p-3 border rounded-xl text-xs"
+                  style={{ borderColor: 'hsl(var(--destructive) / 0.3)', color: 'hsl(var(--destructive))' }}
+                >
+                  <WarningCircle weight="regular" className="w-3.5 h-3.5 flex-shrink-0" />
                   {error}
                 </div>
               )}
@@ -255,50 +307,71 @@ export function LMPromptEnhancer() {
                 <>
                   {/* Enhance Prompt */}
                   <section className="space-y-3">
-                    <h3 className="text-xs font-medium text-[#c2c2c2] uppercase tracking-wider">Enhance Prompt</h3>
-                    <div className="p-3 border border-[#1a1a1a] rounded-xl">
+                    <h3 className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>Enhance Prompt</h3>
+                    <div className="p-3 border rounded-xl" style={{ borderColor: 'var(--ui-border)' }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider">Current prompt</span>
+                        <span className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--ui-muted-text-faint)' }}>Current prompt</span>
                         <button
                           onClick={() => speakPrompt(fullPrompt)}
-                          className="text-[#c2c2c2]/30 hover:text-[#c2c2c2] transition-colors"
+                          className="transition-colors"
+                          style={{ color: 'var(--ui-muted-text-faint)' }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)' }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)' }}
                         >
-                          <Volume2 className="w-3 h-3" />
+                          <SpeakerHigh weight="regular" className="w-3 h-3" />
                         </button>
                       </div>
-                      <p className="text-xs text-[#f5f5f5]/70 leading-relaxed line-clamp-4">
-                        {fullPrompt || <span className="text-[#c2c2c2]/30 italic">No tags or text yet — add some first</span>}
+                      <p className="text-xs leading-relaxed line-clamp-4" style={{ color: 'var(--ui-muted-text)' }}>
+                        {fullPrompt || <span className="italic" style={{ color: 'var(--ui-muted-text-faint)' }}>No tags or text yet -- add some first</span>}
                       </p>
                     </div>
 
                     <button
                       onClick={handleEnhance}
                       disabled={isEnhancing || !fullPrompt.trim()}
-                      className="w-full py-2.5 bg-[#f5f5f5] text-black rounded-xl text-sm font-medium hover:bg-[#e0e0e0] disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
+                      className="w-full py-2.5 rounded-xl text-sm font-medium disabled:opacity-40 flex items-center justify-center gap-2 transition-all border"
+                      style={{ 
+                        borderColor: 'var(--ui-border)', 
+                        color: 'var(--ui-text)',
+                        backgroundColor: 'transparent'
+                      }}
+                      onMouseEnter={(e) => { 
+                        if (!isEnhancing && fullPrompt.trim()) {
+                          e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                          e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)'
+                        }
+                      }}
+                      onMouseLeave={(e) => { 
+                        e.currentTarget.style.borderColor = 'var(--ui-border)'
+                        e.currentTarget.style.backgroundColor = 'transparent'
+                      }}
                     >
-                      {isEnhancing ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Enhancing…</> : <><Sparkles className="w-3.5 h-3.5" /> Enhance with AI</>}
+                      {isEnhancing ? <><Spinner weight="regular" className="w-3.5 h-3.5 animate-spin" /> Enhancing…</> : <><Sparkle weight="regular" className="w-3.5 h-3.5" /> Enhance with AI</>}
                     </button>
 
                     {enhancedPrompt && (
-                      <div className="p-3 border border-[#555] rounded-xl space-y-2">
-                        <span className="text-[10px] text-[#f5f5f5] uppercase tracking-wider">Enhanced</span>
-                        <p className="text-xs text-[#f5f5f5]/80 leading-relaxed">{enhancedPrompt}</p>
+                      <div className="p-3 border rounded-xl space-y-2" style={{ borderColor: 'var(--ui-border-hover)' }}>
+                        <span className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--ui-text)' }}>Enhanced</span>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--ui-muted-text)' }}>{enhancedPrompt}</p>
                         <button
                           onClick={applyEnhancement}
-                          className="flex items-center gap-1.5 text-xs text-[#f5f5f5] hover:text-[#c2c2c2] transition-colors"
+                          className="flex items-center gap-1.5 text-xs transition-colors"
+                          style={{ color: 'var(--ui-text)' }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text)' }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-text)' }}
                         >
-                          <Check className="w-3 h-3" /> Apply this enhancement
+                          <Check weight="regular" className="w-3 h-3" /> Apply this enhancement
                         </button>
                       </div>
                     )}
                   </section>
 
-                  <div className="h-px bg-[#1a1a1a]" />
+                  <div className="h-px" style={{ backgroundColor: 'var(--ui-border-faint)' }} />
 
                   {/* Describe → Tags */}
                   <section className="space-y-3">
-                    <h3 className="text-xs font-medium text-[#c2c2c2] uppercase tracking-wider">Describe → Tags</h3>
-                    <p className="text-[10px] text-[#c2c2c2]/40">Describe what you want and get matching taxonomy tags back.</p>
+                    <h3 className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>Describe → Tags</h3>
+                    <p className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Describe what you want and get matching taxonomy tags back.</p>
                     <div className="flex gap-2">
                       <input
                         type="text"
@@ -306,21 +379,27 @@ export function LMPromptEnhancer() {
                         onChange={e => setDescribeInput(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && handleTextToTags()}
                         placeholder="e.g. a warrior woman in a dark forest at night…"
-                        className="flex-1 px-3 py-2 bg-transparent border border-[#222] rounded-full text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/30 outline-none focus:border-[#444] transition-colors"
+                        className="flex-1 px-3 py-2 bg-transparent border rounded-full text-xs outline-none transition-colors"
+                        style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)' }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)' }}
                       />
                       <button
                         onClick={handleTextToTags}
                         disabled={isTranslating || !describeInput.trim()}
-                        className="px-4 py-2 rounded-full border border-[#333] text-xs text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] disabled:opacity-40 transition-all flex items-center gap-1.5"
+                        className="px-4 py-2 rounded-full border text-xs disabled:opacity-40 transition-all flex items-center gap-1.5"
+                        style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)' }}
                       >
-                        {isTranslating ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
+                        {isTranslating ? <Spinner weight="regular" className="w-3 h-3 animate-spin" /> : null}
                         {isTranslating ? 'Translating…' : 'Convert'}
                       </button>
                     </div>
 
                     {translatedTags.length > 0 && (
                       <div className="space-y-2">
-                        <span className="text-[10px] text-[#c2c2c2]/40">Click to add to prompt</span>
+                        <span className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Click to add to prompt</span>
                         <div className="flex flex-wrap gap-1.5">
                           {translatedTags.map((label, i) => {
                             const match = findBestTag(label)
@@ -335,10 +414,13 @@ export function LMPromptEnhancer() {
                                 onClick={() => applyTranslatedTag(label)}
                                 disabled={!found}
                                 title={found ? `Add "${match!.label}" to prompt` : `"${label}" not found in taxonomy`}
-                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                                style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+                                onMouseEnter={(e) => { if (found) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                               >
                                 {displayLabel}
-                                {found && <span className="ml-1 text-green-500/60">✓</span>}
+                                {found && <span className="ml-1" style={{ color: 'hsl(var(--success))' }}>✓</span>}
                               </button>
                             )
                           })}
@@ -347,24 +429,27 @@ export function LMPromptEnhancer() {
                     )}
                   </section>
 
-                  <div className="h-px bg-[#1a1a1a]" />
+                  <div className="h-px" style={{ backgroundColor: 'var(--ui-border-faint)' }} />
 
                   {/* Suggest More */}
                   <section className="space-y-3">
-                    <h3 className="text-xs font-medium text-[#c2c2c2] uppercase tracking-wider">Suggest More</h3>
-                    <p className="text-[10px] text-[#c2c2c2]/40">Based on your {selectedTags.length} selected tags, get complementary suggestions.</p>
+                    <h3 className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>Suggest More</h3>
+                    <p className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Based on your {selectedTags.length} selected tags, get complementary suggestions.</p>
 
                     <button
                       onClick={handleSuggestMore}
                       disabled={isSuggesting || selectedTags.length === 0}
-                      className="w-full py-2 rounded-xl border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+                      className="w-full py-2 rounded-xl border text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+                      style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
+                      onMouseEnter={(e) => { if (!isSuggesting && selectedTags.length > 0) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)' }}}
+                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)' }}
                     >
-                      {isSuggesting ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Suggesting…</> : 'Suggest complementary tags'}
+                      {isSuggesting ? <><Spinner weight="regular" className="w-3.5 h-3.5 animate-spin" /> Suggesting…</> : 'Suggest complementary tags'}
                     </button>
 
                     {suggestedLabels.length > 0 && (
                       <div className="space-y-2">
-                        <span className="text-[10px] text-[#c2c2c2]/40">Click to add</span>
+                        <span className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Click to add</span>
                         <div className="flex flex-wrap gap-1.5">
                           {suggestedLabels.map((label, i) => {
                             const match = findBestTag(label)
@@ -375,10 +460,13 @@ export function LMPromptEnhancer() {
                                 key={i}
                                 onClick={() => applySuggestedTag(label)}
                                 disabled={!found || alreadySelected}
-                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                                style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+                                onMouseEnter={(e) => { if (found && !alreadySelected) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                               >
                                 {found && match!.label.toLowerCase() !== label.toLowerCase() ? match!.label : label}
-                                {alreadySelected && <span className="ml-1 text-[#c2c2c2]/40">✓</span>}
+                                {alreadySelected && <span className="ml-1" style={{ color: 'var(--ui-muted-text-faint)' }}>✓</span>}
                               </button>
                             )
                           })}
@@ -387,15 +475,15 @@ export function LMPromptEnhancer() {
                     )}
                   </section>
 
-                  <div className="h-px bg-[#1a1a1a]" />
+                  <div className="h-px" style={{ backgroundColor: 'var(--ui-border-faint)' }} />
 
                   {/* Image → Tags */}
                   <section className="space-y-3" onPaste={handleImagePaste}>
                     <div className="flex items-center gap-2">
-                      <ImageIcon className="w-3.5 h-3.5 text-[#c2c2c2]/50" />
-                      <h3 className="text-xs font-medium text-[#c2c2c2] uppercase tracking-wider">Image → Tags</h3>
+                      <ImageIcon weight="regular" className="w-3.5 h-3.5" style={{ color: 'var(--ui-muted-text-faint)' }} />
+                      <h3 className="text-xs font-medium uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>Image → Tags</h3>
                     </div>
-                    <p className="text-[10px] text-[#c2c2c2]/40">Upload an image and extract taxonomy tags using your vision model.</p>
+                    <p className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Upload an image and extract taxonomy tags using your vision model.</p>
 
                     {/* Drop zone */}
                     {!imagePreview ? (
@@ -403,12 +491,14 @@ export function LMPromptEnhancer() {
                         onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
                         onDragLeave={() => setIsDragging(false)}
                         onDrop={handleImageDrop}
-                        className={`flex flex-col items-center justify-center gap-2 w-full h-28 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-150 ${
-                          isDragging ? 'border-[#555] bg-white/5' : 'border-[#2a2a2a] hover:border-[#444]'
-                        }`}
+                        className="flex flex-col items-center justify-center gap-2 w-full h-28 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-150"
+                        style={{ 
+                          borderColor: isDragging ? 'var(--ui-border-hover)' : 'var(--ui-border-faint)',
+                          backgroundColor: isDragging ? 'color-mix(in oklab, var(--ui-text) 5%, transparent)' : 'transparent'
+                        }}
                       >
-                        <UploadCloud className="w-5 h-5 text-[#c2c2c2]/30" />
-                        <span className="text-xs text-[#c2c2c2]/40">Drop image, paste, or click to upload</span>
+                        <CloudArrowUp weight="regular" className="w-5 h-5" style={{ color: 'var(--ui-muted-text-faint)' }} />
+                        <span className="text-xs" style={{ color: 'var(--ui-muted-text-faint)' }}>Drop image, paste, or click to upload</span>
                         <input
                           type="file"
                           accept="image/*"
@@ -417,13 +507,14 @@ export function LMPromptEnhancer() {
                         />
                       </label>
                     ) : (
-                      <div className="relative rounded-xl overflow-hidden border border-[#1a1a1a] group">
-                        <img src={imagePreview} alt="Selected" className="w-full max-h-48 object-contain bg-[#111]" />
+                      <div className="relative rounded-xl overflow-hidden border group" style={{ borderColor: 'var(--ui-border)' }}>
+                        <img src={imagePreview} alt="Selected" className="w-full max-h-48 object-contain" style={{ backgroundColor: 'var(--ui-bg)' }} />
                         <button
                           onClick={() => { setImagePreview(null); setImageBase64(null); setImageTags([]) }}
-                          className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/70 text-[#c2c2c2] hover:text-[#f5f5f5] opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ backgroundColor: 'rgba(0,0,0,0.7)', color: 'var(--ui-text)' }}
                         >
-                          <X className="w-3.5 h-3.5" />
+                          <X weight="regular" className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     )}
@@ -432,17 +523,32 @@ export function LMPromptEnhancer() {
                         <button
                           onClick={handleImageToTags}
                           disabled={isExtractingTags || !imageBase64}
-                          className="w-full py-2.5 bg-[#f5f5f5] text-black rounded-xl text-sm font-medium hover:bg-[#e0e0e0] disabled:opacity-40 flex items-center justify-center gap-2 transition-all"
+                          className="w-full py-2.5 rounded-xl text-sm font-medium disabled:opacity-40 flex items-center justify-center gap-2 transition-all border"
+                          style={{ 
+                            borderColor: 'var(--ui-border)', 
+                            color: 'var(--ui-text)',
+                            backgroundColor: 'transparent'
+                          }}
+                          onMouseEnter={(e) => { 
+                            if (!isExtractingTags) {
+                              e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
+                              e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)'
+                            }
+                          }}
+                          onMouseLeave={(e) => { 
+                            e.currentTarget.style.borderColor = 'var(--ui-border)'
+                            e.currentTarget.style.backgroundColor = 'transparent'
+                          }}
                         >
                           {isExtractingTags
                             ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Extracting…</>
-                            : <><ImageIcon className="w-3.5 h-3.5" /> Extract Tags</>}
+                            : <><ImageIcon weight="regular" className="w-3.5 h-3.5" /> Extract Tags</>}
                         </button>
                     )}
 
                     {imageTags.length > 0 && (
                       <div className="space-y-2">
-                        <span className="text-[10px] text-[#c2c2c2]/40">Click to add to prompt ({imageTags.length} found)</span>
+                        <span className="text-[10px]" style={{ color: 'var(--ui-muted-text-faint)' }}>Click to add to prompt ({imageTags.length} found)</span>
                         <div className="flex flex-wrap gap-1.5">
                           {imageTags.map((label, i) => {
                             const match = findBestTag(label)
@@ -457,11 +563,14 @@ export function LMPromptEnhancer() {
                                 onClick={() => { if (found) toggleTag(match!) }}
                                 disabled={!found || alreadySelected}
                                 title={found ? `Add "${match!.label}"` : `"${label}" not in taxonomy`}
-                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed border-[#333] text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5]"
+                                className="px-3 py-1.5 rounded-full border text-xs transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                                style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+                                onMouseEnter={(e) => { if (found && !alreadySelected) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
                               >
                                 {display}
-                                {alreadySelected && <span className="ml-1 text-[#c2c2c2]/40">✓</span>}
-                                {!found && <span className="ml-1 text-[#c2c2c2]/20">—</span>}
+                                {alreadySelected && <span className="ml-1" style={{ color: 'var(--ui-muted-text-faint)' }}>✓</span>}
+                                {!found && <span className="ml-1" style={{ color: 'var(--ui-muted-text-faint)', opacity: 0.5 }}>—</span>}
                               </button>
                             )
                           })}
@@ -481,12 +590,27 @@ export function LMPromptEnhancer() {
 
 function StatusPill({ status, provider }: { status: 'connected' | 'checking' | 'disconnected'; provider: string | null }) {
   if (status === 'checking') return (
-    <span className="text-[9px] border border-yellow-500/30 text-yellow-500/70 rounded-full px-2 py-0.5 uppercase tracking-wider">Connecting…</span>
+    <span 
+      className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider"
+      style={{ borderColor: 'hsl(var(--warning) / 0.3)', color: 'hsl(var(--warning) / 0.7)' }}
+    >
+      Connecting…
+    </span>
   )
   if (status === 'connected') return (
-    <span className="text-[9px] border border-green-500/30 text-green-500/70 rounded-full px-2 py-0.5 uppercase tracking-wider">{provider ?? 'AI'} connected</span>
+    <span 
+      className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider"
+      style={{ borderColor: 'hsl(var(--success) / 0.3)', color: 'hsl(var(--success) / 0.7)' }}
+    >
+      {provider ?? 'AI'} connected
+    </span>
   )
   return (
-    <span className="text-[9px] border border-[#333] text-[#c2c2c2]/40 rounded-full px-2 py-0.5 uppercase tracking-wider">Not connected</span>
+    <span 
+      className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider"
+      style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}
+    >
+      Not connected
+    </span>
   )
 }

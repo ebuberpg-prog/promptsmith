@@ -105,12 +105,12 @@ export function EntityPresets() {
   const favoriteCount = savedEntities.filter(e => e.isFavorite).length
 
   return (
-    <div className="border border-[#333] rounded-2xl p-5 space-y-4">
+    <div className="border border-[var(--ui-border)] rounded-2xl p-5 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xs font-medium text-[#f5f5f5]">Saved Entities</h3>
-          <p className="text-[10px] text-[#c2c2c2]/40 mt-0.5">
+          <h3 className="text-xs font-medium text-[var(--ui-text)]">Saved Entities</h3>
+          <p className="text-[10px] text-[var(--ui-muted-text)]/40 mt-0.5">
             {totalEntities === 0 ? 'No saved entities yet' : `${totalEntities} saved${favoriteCount > 0 ? `, ${favoriteCount} starred` : ''}`}
           </p>
         </div>
@@ -118,14 +118,14 @@ export function EntityPresets() {
           <button
             onClick={handleExport}
             disabled={totalEntities === 0}
-            className="p-1.5 rounded-lg text-[#c2c2c2]/30 hover:text-[#c2c2c2]/60 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="p-1.5 rounded-lg text-[var(--ui-muted-text)]/30 hover:text-[var(--ui-muted-text)]/60 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             title="Export entities"
           >
             <DownloadSimple weight="regular" className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="p-1.5 rounded-lg text-[#c2c2c2]/30 hover:text-[#c2c2c2]/60 transition-colors"
+            className="p-1.5 rounded-lg text-[var(--ui-muted-text)]/30 hover:text-[var(--ui-muted-text)]/60 transition-colors"
             title="Import entities"
           >
             <UploadSimple weight="regular" className="w-3.5 h-3.5" />
@@ -140,7 +140,7 @@ export function EntityPresets() {
           <button
             onClick={() => setShowSaveDialog(true)}
             disabled={selectedTags.length === 0}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[#333] text-[10px] text-[#c2c2c2]/40 hover:text-[#c2c2c2]/70 hover:border-[#555] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)]/70 hover:border-[var(--ui-border-hover)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             <Plus weight="bold" className="w-2.5 h-2.5" />
             Save
@@ -177,7 +177,7 @@ export function EntityPresets() {
       {/* Entity list */}
       {totalEntities === 0 ? (
         <div className="py-6 text-center">
-          <p className="text-xs text-[#c2c2c2]/20">Save tag combinations as reusable entities.</p>
+          <p className="text-xs text-[var(--ui-muted-text)]/20">Save tag combinations as reusable entities.</p>
         </div>
       ) : (
         <div className="space-y-1 max-h-[400px] overflow-y-auto scrollbar-hide">
@@ -189,11 +189,11 @@ export function EntityPresets() {
                 className="flex items-center gap-2 w-full py-1.5 text-left"
               >
                 {expandedKinds.has(group.kind)
-                  ? <CaretDown weight="bold" className="w-3 h-3 text-[#c2c2c2]/30" />
-                  : <CaretRight weight="bold" className="w-3 h-3 text-[#c2c2c2]/30" />
+                  ? <CaretDown weight="bold" className="w-3 h-3 text-[var(--ui-muted-text)]/30" />
+                  : <CaretRight weight="bold" className="w-3 h-3 text-[var(--ui-muted-text)]/30" />
                 }
-                <span className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider">{group.label}</span>
-                <span className="text-[10px] text-[#c2c2c2]/20">{group.entities.length}</span>
+                <span className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider">{group.label}</span>
+                <span className="text-[10px] text-[var(--ui-muted-text)]/20">{group.entities.length}</span>
               </button>
 
               {/* Group entities */}
@@ -231,7 +231,7 @@ export function EntityPresets() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-[var(--ui-bg)]/60 z-50 flex items-center justify-center"
             onClick={() => setShowSaveDialog(false)}
           >
             <motion.div
@@ -240,30 +240,30 @@ export function EntityPresets() {
               exit={{ opacity: 0, scale: 0.97, y: 8 }}
               transition={{ duration: 0.15 }}
               onClick={e => e.stopPropagation()}
-              className="w-full max-w-sm mx-4 border border-[#333] rounded-2xl bg-black p-5 space-y-4"
+              className="w-full max-w-sm mx-4 border border-[var(--ui-border)] rounded-2xl bg-[var(--ui-bg)] p-5 space-y-4"
             >
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-medium text-[#f5f5f5]">Save Entity</h4>
-                <button onClick={() => setShowSaveDialog(false)} className="text-[#c2c2c2]/40 hover:text-[#c2c2c2] transition-colors">
+                <h4 className="text-xs font-medium text-[var(--ui-text)]">Save Entity</h4>
+                <button onClick={() => setShowSaveDialog(false)} className="text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)] transition-colors">
                   <X weight="bold" className="w-4 h-4" />
                 </button>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <label className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider mb-1 block">Name</label>
+                  <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">Name</label>
                   <input
                     autoFocus
                     value={saveName}
                     onChange={e => setSaveName(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') handleSave() }}
                     placeholder="e.g. Cyberpunk protagonist"
-                    className="w-full px-3 py-2 bg-transparent border border-[#333] rounded-lg text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/25 outline-none focus:border-[#555] transition-colors"
+                    className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-lg text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/25 outline-none focus:border-[var(--ui-border-hover)] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider mb-1 block">Type</label>
+                  <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">Type</label>
                   <div className="flex flex-wrap gap-1.5">
                     {KIND_ORDER.map(kind => (
                       <button
@@ -271,8 +271,8 @@ export function EntityPresets() {
                         onClick={() => setSaveKind(kind)}
                         className={`px-2.5 py-1 rounded-full text-[10px] border transition-colors ${
                           saveKind === kind
-                            ? 'border-[#f5f5f5]/40 text-[#f5f5f5] bg-white/5'
-                            : 'border-[#333] text-[#c2c2c2]/40 hover:border-[#555]'
+                            ? 'border-[var(--ui-text)]/40 text-[var(--ui-text)] bg-[var(--ui-surface-soft)]'
+                            : 'border-[var(--ui-border)] text-[var(--ui-muted-text)]/40 hover:border-[var(--ui-border-hover)]'
                         }`}
                       >
                         {KIND_LABELS[kind]}
@@ -282,21 +282,21 @@ export function EntityPresets() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] text-[#c2c2c2]/40 uppercase tracking-wider mb-1 block">Description</label>
+                  <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">Description</label>
                   <input
                     value={saveDescription}
                     onChange={e => setSaveDescription(e.target.value)}
                     placeholder="Optional notes..."
-                    className="w-full px-3 py-2 bg-transparent border border-[#333] rounded-lg text-xs text-[#f5f5f5] placeholder:text-[#c2c2c2]/25 outline-none focus:border-[#555] transition-colors"
+                    className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-lg text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/25 outline-none focus:border-[var(--ui-border-hover)] transition-colors"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                  <p className="text-[10px] text-[#c2c2c2]/25">{selectedTags.length} tags will be saved</p>
+                  <p className="text-[10px] text-[var(--ui-muted-text)]/25">{selectedTags.length} tags will be saved</p>
                   <button
                     onClick={handleSave}
                     disabled={!saveName.trim()}
-                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#f5f5f5] text-black text-xs font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#e0e0e0] transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[var(--ui-surface)] transition-colors"
                   >
                     <FloppyDisk weight="fill" className="w-3.5 h-3.5" />
                     Save
@@ -327,14 +327,14 @@ function EntityRow({
   const [showActions, setShowActions] = useState(false)
 
   return (
-    <div className="group flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/[0.02] transition-colors">
+    <div className="group flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-[var(--ui-surface-soft)] transition-colors">
       <button
         onClick={onToggleFavorite}
         className="flex-shrink-0"
       >
         <Star
           weight={entity.isFavorite ? 'fill' : 'regular'}
-          className={`w-3 h-3 transition-colors ${entity.isFavorite ? 'text-amber-400/60' : 'text-[#c2c2c2]/15 group-hover:text-[#c2c2c2]/30'}`}
+          className={`w-3 h-3 transition-colors ${entity.isFavorite ? 'text-amber-400/60' : 'text-[var(--ui-muted-text)]/15 group-hover:text-[var(--ui-muted-text)]/30'}`}
         />
       </button>
 
@@ -343,19 +343,19 @@ function EntityRow({
         className="flex-1 text-left min-w-0"
         title="Replace current selection"
       >
-        <p className="text-[11px] text-[#c2c2c2]/60 truncate">{entity.name}</p>
+        <p className="text-[11px] text-[var(--ui-muted-text)]/60 truncate">{entity.name}</p>
         {entity.description && (
-          <p className="text-[10px] text-[#c2c2c2]/25 truncate">{entity.description}</p>
+          <p className="text-[10px] text-[var(--ui-muted-text)]/25 truncate">{entity.description}</p>
         )}
       </button>
 
-      <span className="text-[9px] text-[#c2c2c2]/15 flex-shrink-0">{entity.tags.length} tags</span>
+      <span className="text-[9px] text-[var(--ui-muted-text)]/15 flex-shrink-0">{entity.tags.length} tags</span>
 
       {/* Actions */}
       <div className="relative flex-shrink-0">
         <button
           onClick={() => setShowActions(!showActions)}
-          className="p-1 rounded opacity-0 group-hover:opacity-100 text-[#c2c2c2]/25 hover:text-[#c2c2c2]/50 transition-all"
+          className="p-1 rounded opacity-0 group-hover:opacity-100 text-[var(--ui-muted-text)]/25 hover:text-[var(--ui-muted-text)]/50 transition-all"
         >
           <CaretDown weight="bold" className="w-2.5 h-2.5" />
         </button>
@@ -368,18 +368,18 @@ function EntityRow({
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="absolute right-0 top-full mt-1 w-36 border border-[#333] rounded-lg bg-black z-20 py-1"
+                className="absolute right-0 top-full mt-1 w-36 border border-[var(--ui-border)] rounded-lg bg-[var(--ui-bg)] z-20 py-1"
               >
                 <button
                   onClick={() => { onLoadAppend(); setShowActions(false) }}
-                  className="w-full px-3 py-1.5 text-left text-[10px] text-[#c2c2c2]/50 hover:text-[#f5f5f5] hover:bg-white/5 transition-colors flex items-center gap-2"
+                  className="w-full px-3 py-1.5 text-left text-[10px] text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-soft)] transition-colors flex items-center gap-2"
                 >
                   <FolderOpen weight="regular" className="w-3 h-3" />
                   Append to current
                 </button>
                 <button
                   onClick={() => { onDelete(); setShowActions(false) }}
-                  className="w-full px-3 py-1.5 text-left text-[10px] text-red-400/50 hover:text-red-400 hover:bg-white/5 transition-colors flex items-center gap-2"
+                  className="w-full px-3 py-1.5 text-left text-[10px] text-red-400/50 hover:text-red-400 hover:bg-[var(--ui-surface-soft)] transition-colors flex items-center gap-2"
                 >
                   <Trash weight="regular" className="w-3 h-3" />
                   Delete

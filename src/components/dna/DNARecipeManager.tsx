@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { Dna, Plus, Trash2, ExternalLink, Copy, X, Check } from 'lucide-react'
+import { Dna, Plus, Trash, ArrowSquareOut, Copy, X, Check } from '@phosphor-icons/react'
 import type { DNARecipe } from '@/types'
 
 export function DNARecipeManager() {
@@ -37,7 +37,7 @@ export function DNARecipeManager() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
       >
-        <Dna className="w-4 h-4" />
+        <Dna weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">DNA</span>
       </button>
 
@@ -46,14 +46,14 @@ export function DNARecipeManager() {
           <div className="bg-surface border border-border rounded-xl w-full max-w-lg max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <Dna className="w-5 h-5 text-cyan-500" />
+                <Dna weight="regular" className="w-5 h-5" style={{ color: 'hsl(190, 95%, 50%)' }} />
                 <h2 className="text-lg font-semibold text-foreground">Character DNA Recipes</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
               >
-                <X className="w-4 h-4" />
+                <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
@@ -83,7 +83,7 @@ export function DNARecipeManager() {
                     disabled={!newName.trim() || selectedTags.length === 0}
                     className="w-full py-2 bg-cyan-600 text-white rounded-lg text-sm font-medium hover:bg-cyan-500 disabled:opacity-50 flex items-center justify-center gap-2"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus weight="regular" className="w-4 h-4" />
                     Save as DNA Recipe
                   </button>
                 </div>
@@ -105,21 +105,21 @@ export function DNARecipeManager() {
                             className="p-1 rounded hover:bg-background text-muted-foreground"
                             title="Copy tags"
                           >
-                            {copiedId === recipe.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                            {copiedId === recipe.id ? <Check weight="bold" className="w-3 h-3" /> : <Copy weight="regular" className="w-3 h-3" />}
                           </button>
                           <button
                             onClick={() => loadDNARecipe(recipe)}
                             className="p-1 rounded hover:bg-background text-muted-foreground"
                             title="Load recipe"
                           >
-                            <ExternalLink className="w-3 h-3" />
+                            <ArrowSquareOut weight="regular" className="w-3 h-3" />
                           </button>
                           <button
                             onClick={() => deleteDNARecipe(recipe.id)}
                             className="p-1 rounded hover:bg-error/10 text-muted-foreground hover:text-error"
                             title="Delete"
                           >
-                            <Trash2 className="w-3 h-3" />
+                            <Trash weight="regular" className="w-3 h-3" />
                           </button>
                         </div>
                       </div>
@@ -148,7 +148,7 @@ export function DNARecipeManager() {
 
               {dnaRecipes.length === 0 && (
                 <div className="text-center py-8">
-                  <Dna className="w-10 h-10 mx-auto mb-2 text-muted-foreground/30" />
+                  <Dna weight="regular" className="w-10 h-10 mx-auto mb-2" style={{ color: 'var(--ui-muted-text-faint)', opacity: 0.3 }} />
                   <p className="text-sm text-muted-foreground">No DNA recipes yet</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Select tags and save them as a reusable character recipe

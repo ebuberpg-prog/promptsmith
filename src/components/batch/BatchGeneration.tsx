@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { Play, Plus, Trash2, X, Copy, Download, FlaskConical } from 'lucide-react'
+import { Play, Plus, Trash, X, Copy, DownloadSimple, Flask } from '@phosphor-icons/react'
 
 interface VariableConfig {
   name: string
@@ -81,7 +81,7 @@ export function BatchGeneration() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-surface-elevated text-muted-foreground border border-border hover:text-foreground transition-colors"
       >
-        <FlaskConical className="w-4 h-4" />
+        <Flask weight="regular" className="w-4 h-4" />
         <span className="hidden sm:inline">Batch</span>
       </button>
 
@@ -90,14 +90,14 @@ export function BatchGeneration() {
           <div className="bg-surface border border-border rounded-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <FlaskConical className="w-5 h-5 text-green-500" />
+                <Flask weight="regular" className="w-5 h-5" style={{ color: 'hsl(142, 71%, 45%)' }} />
                 <h2 className="text-lg font-semibold text-foreground">Batch Generation</h2>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-surface-elevated text-muted-foreground"
               >
-                <X className="w-4 h-4" />
+                <X weight="bold" className="w-4 h-4" />
               </button>
             </div>
 
@@ -141,7 +141,7 @@ export function BatchGeneration() {
                     onClick={addVariable}
                     className="flex items-center gap-1 px-2 py-1 bg-green-600 text-white rounded text-xs"
                   >
-                    <Plus className="w-3 h-3" />
+                    <Plus weight="regular" className="w-3 h-3" />
                     Add Variable
                   </button>
                 </div>
@@ -167,7 +167,7 @@ export function BatchGeneration() {
                         onClick={() => removeVariable(varIdx)}
                         className="p-1 rounded hover:bg-error/10 text-muted-foreground hover:text-error"
                       >
-                        <Trash2 className="w-3 h-3" />
+                        <Trash weight="regular" className="w-3 h-3" />
                       </button>
                     </div>
                     <div className="space-y-1">
@@ -198,7 +198,7 @@ export function BatchGeneration() {
                 disabled={!basePrompt.trim() || variables.length === 0}
                 className="w-full py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-500 disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                <Play className="w-4 h-4" />
+                <Play weight="regular" className="w-4 h-4" />
                 Generate Prompts
               </button>
 
@@ -214,14 +214,14 @@ export function BatchGeneration() {
                         className="p-1.5 rounded hover:bg-surface-elevated text-muted-foreground"
                         title="Copy all"
                       >
-                        <Copy className="w-4 h-4" />
+                        <Copy weight="regular" className="w-4 h-4" />
                       </button>
                       <button
                         onClick={exportAll}
                         className="p-1.5 rounded hover:bg-surface-elevated text-muted-foreground"
                         title="Export"
                       >
-                        <Download className="w-4 h-4" />
+                        <DownloadSimple weight="regular" className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
