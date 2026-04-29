@@ -194,45 +194,8 @@ const TAG_PHRASES: Record<string, string> = {
 
 // Style-based sentence templates for prose generation
 
-const PROSE_TEMPLATES = [
-  (subject: string, setting: string, style: string, lighting: string, mood: string, clothing: string, camera: string): string => {
-    const parts: string[] = []
-    if (subject) parts.push(subject)
-    if (clothing) parts.push(clothing)
-    if (setting) parts.push(setting)
-    if (lighting) parts.push(lighting)
-    if (mood) parts.push(mood)
-    if (camera) parts.push(camera)
-    if (style) parts.push(style)
-    return parts.join(', ') + '.'
-  },
-  (subject: string, setting: string, style: string, lighting: string, mood: string, clothing: string, camera: string): string => {
-    let s = ''
-    if (subject) s = subject
-    if (clothing) s += s ? ', ' + clothing : clothing
-    if (setting) s += s ? ', ' + setting : setting
-    if (mood) s += s ? ', ' + mood : mood
-    if (lighting) s += s ? ', ' + lighting : lighting
-    if (camera) s += s ? ', ' + camera : camera
-    if (style) s += s ? ', ' + style : style
-    return s ? s + '.' : ''
-  },
-  (subject: string, setting: string, style: string, lighting: string, mood: string, clothing: string, camera: string): string => {
-    const parts: string[] = []
-    if (subject) parts.push(subject)
-    if (clothing) parts.push(clothing)
-    if (setting) parts.push(setting)
-    if (lighting) parts.push(lighting)
-    if (mood) parts.push(mood)
-    if (style) parts.push(style)
-    if (camera) parts.push(camera)
-    return parts.join(', ') + '.'
-  },
-]
-
 // ─── Prose connectors for assembling natural language ──────────────────────
 
-const SUBJECT_CONNECTORS = ['A', 'The']
 const SETTING_CONNECTORS = {
   prefix: ['set in', 'situated in', 'placed within', 'found in'],
   standalone: ['in', 'within', 'amidst', 'surrounded by'],
@@ -422,7 +385,12 @@ export class PromptComposer {
 
   // ─── Comma-separated (SDXL, FLUX, Qwen, z-image, Custom) ────────────
 
-  private composeCommaSeparated(tags: SelectedTag[], options: ComposeOptions, config: ReturnType<typeof getModelConfig>): string {
+  private composeCommaSeparated(
+    tags: SelectedTag[],
+    options: ComposeOptions,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _config: ReturnType<typeof getModelConfig>
+  ): string {
     const parts: string[] = []
 
     for (const tag of tags) {

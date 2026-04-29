@@ -6,15 +6,8 @@ import type {
   SupportedModel,
   ReferenceImage,
   AppState,
-  DNARecipe,
-  PromptVersion,
-  StyleTransferMatrix,
   NegativePromptIntelligence,
   ModelParameters,
-  BatchGeneration,
-  ABTest,
-  PromptVariation,
-  PromptDiffResult,
   SavedEntity,
   EntityKind,
 } from '@/types'
@@ -22,10 +15,6 @@ import { RandomizerEngine, type RandomizerResult } from '@/services/randomizer-e
 import type { RandomizerMode } from '@/data/randomizer-modes'
 import { promptComposer } from '@/services/prompt-composer'
 import { negativePromptEngine } from '@/services/negative-prompt-engine'
-import { styleCompatEngine } from '@/services/style-compat-engine'
-import { mutationEngine, type MutationOptions } from '@/services/mutation-engine'
-import { promptDiffEngine } from '@/services/prompt-diff-engine'
-import { compressionEngine } from '@/services/compression-engine'
 import { useHistoryStore, createSnapshot } from './history-store'
 
 let isHistoryBatching = false
@@ -35,12 +24,8 @@ export interface AISettings {
   lmStudioUrl: string
   openaiUrl: string
   openaiApiKey: string
-  a1111Url: string
-  comfyuiUrl: string
-  drawthingsUrl: string
   preferredAIProvider: 'ollama' | 'lmstudio' | 'openai' | null
   preferredAIModel: string | null
-  preferredImageProvider: 'a1111' | 'comfyui' | 'drawthings' | null
   openaiModels: string[]
   ollamaModels: string[]
   lmstudioModels: string[]
@@ -68,32 +53,10 @@ interface PromptSmithStore extends AppState {
   generateNegativePrompt: () => string
   setModelParameters: (params: ModelParameters) => void
   modelParameters: ModelParameters
-  dnaRecipes: DNARecipe[]
-  createDNARecipe: (name: string, description: string) => DNARecipe
-  loadDNARecipe: (recipe: DNARecipe) => void
-  deleteDNARecipe: (id: string) => void
-  promptVersions: PromptVersion[]
-  currentVersion: number
-  createVersion: (notes?: string) => PromptVersion
-  loadVersion: (version: number) => void
-  styleMatrix: StyleTransferMatrix[]
-  analyzeStyleTransfer: (sourceStyles: string[], targetStyles: string[]) => void
   negativeIntelligence: NegativePromptIntelligence | null
-  generateNegativeSuggestions: (prompt: string) => void
+  generateNegativeSuggestions: (_prompt: string) => void
   customNegativePrompt: string
   setCustomNegativePrompt: (text: string) => void
-  batchGenerations: BatchGeneration[]
-  createBatchGeneration: (name: string, basePrompt: string, variables: Record<string, string[]>) => BatchGeneration
-  abTests: ABTest[]
-  createABTest: (name: string, promptA: string, promptB: string) => ABTest
-  selectedMutationType: PromptVariation['type']
-  setMutationType: (type: PromptVariation['type']) => void
-  promptMutations: PromptVariation[]
-  generateMutations: (prompt: string) => void
-  selectMutation: (variation: PromptVariation) => void
-  promptDiffs: PromptDiffResult[]
-  comparePrompts: (promptA: string, promptB: string) => void
-  compressPrompt: (prompt: string, maxTokens: number) => string
   // Quick access
   pinnedTags: string[]
   recentlyUsedTags: string[]
@@ -147,18 +110,9 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       searchQuery: '',
       savedPrompts: [],
       referenceImages: [],
-      dnaRecipes: [],
-      promptVersions: [],
-      currentVersion: 0,
-      styleMatrix: [],
       negativeIntelligence: null,
       customNegativePrompt: '',
       modelParameters: {},
-      batchGenerations: [],
-      abTests: [],
-      selectedMutationType: 'style_shift',
-      promptMutations: [],
-      promptDiffs: [],
       pinnedTags: [],
       recentlyUsedTags: [],
       lastRandomizerSeed: null,
@@ -172,12 +126,8 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         lmStudioUrl: 'http://localhost:1234/v1',
         openaiUrl: '',
         openaiApiKey: '',
-        a1111Url: 'http://localhost:7860',
-        comfyuiUrl: 'http://localhost:8188',
-        drawthingsUrl: 'http://localhost:3820',
         preferredAIProvider: null,
         preferredAIModel: null,
-        preferredImageProvider: null,
         openaiModels: [],
         ollamaModels: [],
         lmstudioModels: [],
@@ -186,7 +136,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         corsProxyUrl: 'https://prompt-smith.ebuberpg.workers.dev',
       },
       savedEntities: [],
-      theme: 'dark' as 'light' | 'dark',
+      theme: 'light' as 'light' | 'dark',
       wizardCompleted: false,
 
       addTag: (tag) => {
@@ -219,7 +169,6 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
               selectedTags: state.selectedTags.filter((t) => t.id !== tag.id),
             }
           }
-          // Push to recently used (circular buffer of 12)
           const recent = [tag.id, ...state.recentlyUsedTags.filter(id => id !== tag.id)].slice(0, 12)
           return {
             selectedTags: [
@@ -265,7 +214,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
           model: state.selectedModel,
           createdAt: Date.now(),
           updatedAt: Date.now(),
-          version: state.currentVersion + 1,
+          version: 1,
         }
         set((state) => ({ savedPrompts: [...state.savedPrompts, prompt] }))
         return prompt
@@ -277,7 +226,6 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
           selectedTags: prompt.selections,
           customText: prompt.customText,
           selectedModel: prompt.model,
-          currentVersion: prompt.version || 0,
         })
       },
 
@@ -318,71 +266,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         )
       },
 
-      createDNARecipe: (name, description) => {
-        const state = get()
-        const recipe: DNARecipe = {
-          id: crypto.randomUUID(),
-          name,
-          description,
-          tags: state.selectedTags,
-          styleWeights: {},
-          model: state.selectedModel,
-          createdAt: Date.now(),
-          isPublic: false,
-          usageCount: 0,
-        }
-        set((state) => ({ dnaRecipes: [...state.dnaRecipes, recipe] }))
-        return recipe
-      },
-
-      loadDNARecipe: (recipe) => {
-        get()._saveHistory()
-        set({
-          selectedTags: recipe.tags,
-          selectedModel: recipe.model,
-        })
-      },
-
-      deleteDNARecipe: (id) =>
-        set((state) => ({
-          dnaRecipes: state.dnaRecipes.filter((r) => r.id !== id),
-        })),
-
-      createVersion: (notes) => {
-        const state = get()
-        const prompt = state.generatePrompt()
-        const version: PromptVersion = {
-          id: crypto.randomUUID(),
-          promptId: '',
-          version: state.currentVersion + 1,
-          content: prompt,
-          negativeContent: state.generateNegativePrompt(),
-          model: state.selectedModel,
-          parameters: state.modelParameters,
-          createdAt: Date.now(),
-          notes,
-        }
-        set((state) => ({
-          promptVersions: [...state.promptVersions, version],
-          currentVersion: version.version,
-        }))
-        return version
-      },
-
-      loadVersion: (versionNum) => {
-        const state = get()
-        const version = state.promptVersions.find((v) => v.version === versionNum)
-        if (version) {
-          set({ currentVersion: versionNum })
-        }
-      },
-
-      analyzeStyleTransfer: (sourceStyles, targetStyles) => {
-        const matrix = styleCompatEngine.analyzeCompatibility(sourceStyles, targetStyles)
-        set((state) => ({ styleMatrix: [...state.styleMatrix, matrix] }))
-      },
-
-      generateNegativeSuggestions: (prompt) => {
+      generateNegativeSuggestions: () => {
         const state = get()
         const intelligence = negativePromptEngine.analyze(
           state.selectedTags,
@@ -393,90 +277,6 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       },
 
       setCustomNegativePrompt: (text) => set({ customNegativePrompt: text }),
-
-      createBatchGeneration: (name, basePrompt, variables) => {
-        const keys = Object.keys(variables)
-        const values = Object.values(variables)
-        const generatedPrompts: string[] = []
-
-        const cartesianProduct = (arrs: string[][]): string[][] => {
-          return arrs.reduce(
-            (acc, curr) => acc.flatMap((x) => curr.map((y) => [...x, y])),
-            [[]] as string[][]
-          )
-        }
-
-        const combinations = cartesianProduct(values)
-        for (const combo of combinations) {
-          let prompt = basePrompt
-          keys.forEach((key, i) => {
-            prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), combo[i])
-          })
-          generatedPrompts.push(prompt)
-        }
-
-        const batch: BatchGeneration = {
-          id: crypto.randomUUID(),
-          name,
-          basePrompt,
-          permutations: [{
-            id: crypto.randomUUID(),
-            variables,
-            generatedPrompts,
-          }],
-          status: 'pending',
-          createdAt: Date.now(),
-        }
-
-        set((state) => ({ batchGenerations: [...state.batchGenerations, batch] }))
-        return batch
-      },
-
-      createABTest: (name, promptA, promptB) => {
-        const test: ABTest = {
-          id: crypto.randomUUID(),
-          name,
-          variantA: { id: 'a', prompt: promptA, weight: 0.5 },
-          variantB: { id: 'b', prompt: promptB, weight: 0.5 },
-          metrics: { impressions: 0, clicks: 0, conversions: 0 },
-          status: 'running',
-          createdAt: Date.now(),
-        }
-        set((state) => ({ abTests: [...state.abTests, test] }))
-        return test
-      },
-
-      setMutationType: (type) => set({ selectedMutationType: type }),
-
-      generateMutations: (prompt) => {
-        const state = get()
-        const variations = mutationEngine.generateMutations(
-          state.selectedTags,
-          state.customText,
-          state.selectedModel,
-          { maxVariations: 5, types: [state.selectedMutationType] }
-        )
-        set({ promptMutations: variations })
-      },
-
-      selectMutation: (variation) => {
-        get()._saveHistory()
-        set({ customText: variation.content })
-      },
-
-      comparePrompts: (promptA, promptB) => {
-        const rawResult = promptDiffEngine.compareRaw(promptA, promptB)
-        const mapped: PromptDiffResult[] = rawResult.segments.map((s, i) => ({
-          type: s.type,
-          segment: s.content,
-          position: i,
-          significance: s.significance,
-          tagId: s.tagId,
-          category: s.category,
-          description: s.description,
-        }))
-        set({ promptDiffs: mapped })
-      },
 
       pinTag: (tagId) =>
         set((state) => ({
@@ -518,6 +318,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
 
           set({
             selectedTags: combined,
+            customText: '',
             lastRandomizerSeed: result.seed,
             lastRandomizerVibe: result.vibe,
             lastRandomizerIntent: result.intent,
@@ -623,18 +424,6 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         set({ wizardCompleted: completed })
       },
 
-      compressPrompt: (prompt, maxTokens) => {
-        const state = get()
-        const result = compressionEngine.compress(
-          state.selectedTags,
-          state.customText,
-          state.selectedModel,
-          'hybrid',
-          maxTokens
-        )
-        return result.compressedPrompt
-      },
-
       _saveHistory: () => {
         if (isHistoryBatching) return
         const state = get()
@@ -708,9 +497,6 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         selectedModel: state.selectedModel,
         showExplicit: state.showExplicit,
         savedPrompts: state.savedPrompts,
-        dnaRecipes: state.dnaRecipes,
-        promptVersions: state.promptVersions,
-        currentVersion: state.currentVersion,
         modelParameters: state.modelParameters,
         pinnedTags: state.pinnedTags,
         recentlyUsedTags: state.recentlyUsedTags,

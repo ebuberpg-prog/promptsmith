@@ -176,10 +176,10 @@ export function RandomizerPanel() {
   const userFacingWarnings = lastResult?.warnings ?? []
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-10">
       <div>
-        <h2 className="font-display text-2xl font-normal text-[var(--ui-text)] tracking-tight">Randomizer</h2>
-        <p className="text-sm text-[var(--ui-muted-text)] mt-1">
+        <h2 className="font-display text-[2rem] font-normal text-[var(--ui-text)] tracking-tight">Randomizer</h2>
+        <p className="text-[13px] text-[var(--ui-muted-text)] mt-1">
           Pick a vibe and let MUSE build a cohesive prompt for you.
         </p>
       </div>

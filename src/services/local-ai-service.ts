@@ -30,6 +30,8 @@ export interface AICompletionResponse {
   provider: 'ollama' | 'lmstudio' | 'openai'
 }
 
+type OpenAITransport = 'direct' | 'gateway'
+
 interface AIProvider {
   id: 'ollama' | 'lmstudio' | 'openai'
   name: string
@@ -200,24 +202,54 @@ class OpenAICompatibleProvider implements AIProvider {
   corsProxyUrl: string
 
   constructor(baseUrl: string, apiKey: string, corsProxyUrl: string) {
-    // Strip trailing slashes and common endpoint suffixes so users can paste
-    // full URLs like https://integrate.api.nvidia.com/v1/chat/completions
-    this.baseUrl = baseUrl
-      .replace(/\/+$/, '')
-      .replace(/\/v1\/chat\/completions$/i, '')
-      .replace(/\/chat\/completions$/i, '')
-      .replace(/\/v1\/models$/i, '')
-      .replace(/\/models$/i, '')
+    this.baseUrl = normalizeOpenAIBaseUrl(baseUrl)
     this.apiKey = apiKey
     this.corsProxyUrl = corsProxyUrl.replace(/\/+$/, '')
   }
 
-  buildUrl(path: string): string {
-    const fullUrl = `${this.baseUrl}${path}`
-    if (this.corsProxyUrl) {
-      return `${this.corsProxyUrl}/?target=${encodeURIComponent(fullUrl)}`
+  private buildDirectUrl(path: string): string {
+    return `${this.baseUrl}${path}`
+  }
+
+  private buildGatewayUrl(path: string): string {
+    return `${this.corsProxyUrl}/?target=${encodeURIComponent(this.buildDirectUrl(path))}`
+  }
+
+  private preferredTransport(): OpenAITransport {
+    return selectOpenAITransport(this.baseUrl, this.corsProxyUrl)
+  }
+
+  private requestHeaders(extra?: HeadersInit): Headers {
+    const headers = new Headers(extra)
+    headers.set('Content-Type', 'application/json')
+    if (this.apiKey) headers.set('Authorization', `Bearer ${this.apiKey}`)
+    return headers
+  }
+
+  private transportCandidates(): OpenAITransport[] {
+    const preferred = this.preferredTransport()
+    if (!this.corsProxyUrl) return [preferred]
+    return preferred === 'gateway' ? ['gateway', 'direct'] : ['direct', 'gateway']
+  }
+
+  async request(path: string, init: RequestInit = {}): Promise<Response> {
+    const attempts = this.transportCandidates()
+    let lastError: unknown = null
+
+    for (const transport of attempts) {
+      if (transport === 'gateway' && !this.corsProxyUrl) continue
+      const url = transport === 'gateway' ? this.buildGatewayUrl(path) : this.buildDirectUrl(path)
+      try {
+        return await fetch(url, {
+          ...init,
+          headers: this.requestHeaders(init.headers),
+        })
+      } catch (error) {
+        lastError = error
+      }
     }
-    return fullUrl
+
+    throw lastError instanceof Error ? lastError : new Error('Unable to reach the OpenAI-compatible endpoint')
   }
 
   headers(): Record<string, string> {
@@ -231,19 +263,17 @@ class OpenAICompatibleProvider implements AIProvider {
     try {
       const controller = new AbortController()
       const timer = setTimeout(() => controller.abort(), timeout)
-      let res = await fetch(this.buildUrl('/models'), {
+      let res = await this.request('/models', {
         signal: controller.signal,
-        headers: this.headers(),
       }).catch(() => null)
       clearTimeout(timer)
       if (res?.ok) return true
 
       const controller2 = new AbortController()
       const timer2 = setTimeout(() => controller2.abort(), timeout)
-      res = await fetch(this.buildUrl('/chat/completions'), {
+      res = await this.request('/chat/completions', {
         method: 'POST',
         signal: controller2.signal,
-        headers: this.headers(),
         body: JSON.stringify({
           model: 'gpt-4o-mini',
           messages: [{ role: 'user', content: 'hi' }],
@@ -262,7 +292,7 @@ class OpenAICompatibleProvider implements AIProvider {
 
   async listModels(): Promise<AIModel[]> {
     try {
-      const res = await fetch(this.buildUrl('/models'), { headers: this.headers() })
+      const res = await this.request('/models')
       if (!res.ok) {
         console.warn('[OpenAI] /models returned', res.status)
         return []
@@ -312,9 +342,8 @@ class OpenAICompatibleProvider implements AIProvider {
       max_tokens: request.maxTokens ?? 500,
     }
 
-    const res = await fetch(this.buildUrl('/chat/completions'), {
+    const res = await this.request('/chat/completions', {
       method: 'POST',
-      headers: this.headers(),
       body: JSON.stringify(body),
     })
     if (!res.ok) {
@@ -483,9 +512,7 @@ class AIServiceManager {
       if (id === 'openai') {
         const p = provider as OpenAICompatibleProvider
         try {
-          const res = await fetch(p.buildUrl('/models'), {
-            headers: p.headers(),
-          }).catch(() => null)
+          const res = await p.request('/models').catch(() => null)
           if (!res) return { ok: false, models: [], error: 'Network error — the gateway or target server may be unreachable.' }
           // Try to parse enriched error JSON from the gateway
           let bodyText = ''
@@ -638,4 +665,47 @@ aiService.setUrls('http://localhost:11434', 'http://localhost:1234/v1', '', '')
 function formatBytes(bytes: number): string {
   if (bytes < 1e9) return `${(bytes / 1e6).toFixed(0)}MB`
   return `${(bytes / 1e9).toFixed(1)}GB`
+}
+
+export function normalizeOpenAIBaseUrl(baseUrl: string): string {
+  return baseUrl
+    .trim()
+    .replace(/\/+$/, '')
+    .replace(/\/v1\/chat\/completions$/i, '')
+    .replace(/\/chat\/completions$/i, '')
+    .replace(/\/v1\/models$/i, '')
+    .replace(/\/models$/i, '')
+}
+
+export function isPrivateHost(hostname: string): boolean {
+  const h = hostname.toLowerCase().replace(/^\[|\]$/g, '')
+  if (
+    h === 'localhost' ||
+    h === '127.0.0.1' ||
+    h === '0.0.0.0' ||
+    h === '::1' ||
+    h === 'host.docker.internal' ||
+    h.endsWith('.local')
+  ) return true
+  if (h.startsWith('10.') || h.startsWith('192.168.') || h.startsWith('172.')) {
+    if (h.startsWith('172.')) {
+      const second = parseInt(h.split('.')[1], 10)
+      if (second >= 16 && second <= 31) return true
+    } else {
+      return true
+    }
+  }
+  return false
+}
+
+export function selectOpenAITransport(baseUrl: string, corsProxyUrl: string): OpenAITransport {
+  if (!corsProxyUrl) return 'direct'
+  try {
+    const parsed = new URL(baseUrl)
+    if (isPrivateHost(parsed.hostname)) return 'direct'
+    if (parsed.protocol !== 'https:') return 'direct'
+    return 'gateway'
+  } catch {
+    return 'direct'
+  }
 }

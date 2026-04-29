@@ -1,6 +1,4 @@
 import type { SelectedTag, SupportedModel } from '@/types'
-import { getModelConfig } from '@/data/model-configs'
-import { CONFLICT_RULES } from '@/data/randomizer-slots'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -144,7 +142,8 @@ export class PromptDiffEngine {
     customTextA: string,
     tagsB: SelectedTag[],
     customTextB: string,
-    options?: Partial<ComparisonOptions>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _options?: Partial<ComparisonOptions>
   ): PromptDiffResult {
     const segments: DiffSegment[] = []
     const categoryChanges: Record<string, { added: number; removed: number; modified: number }> = {}

@@ -181,6 +181,8 @@ export interface PromptVersion {
   parameters: ModelParameters
   createdAt: number
   notes?: string
+  selectedTags: SelectedTag[]
+  customText: string
 }
 
 export interface ModelParameters {
@@ -339,9 +341,5 @@ export interface AppState {
   searchQuery: string
   savedPrompts: PromptTemplate[]
   referenceImages: ReferenceImage[]
-  dnaRecipes: DNARecipe[]
-  promptVersions: PromptVersion[]
-  currentVersion: number
-  styleMatrix: StyleTransferMatrix[]
   negativeIntelligence: NegativePromptIntelligence | null
 }

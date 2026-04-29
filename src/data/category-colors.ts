@@ -45,7 +45,7 @@ export const SEMANTIC_GROUPS: SemanticGroup[] = [
   {
     id: 'appearance',
     label: 'Appearance',
-    icon: 'Shirt',
+    icon: 'TShirt',
     description: 'Clothing, hair, accessories, body mods',
     categoryIds: [
       // clothing.yaml

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { SquaresFour, Tag, ChatText, MagnifyingGlass } from '@phosphor-icons/react'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 
@@ -12,8 +11,8 @@ interface BottomTabBarProps {
 }
 
 export function BottomTabBar({ activeTab, onTabChange, tagCount, onSearch }: BottomTabBarProps) {
-  const { isMobile, isTabletSmall } = useBreakpoint()
-  const show = isMobile || isTabletSmall
+  const { isMobile, isTabletSmall, isTablet } = useBreakpoint()
+  const show = isMobile || isTabletSmall || isTablet
 
   if (!show) return null
 
@@ -41,7 +40,7 @@ export function BottomTabBar({ activeTab, onTabChange, tagCount, onSearch }: Bot
       role="tablist"
       aria-label="Main navigation"
     >
-      <div className="flex items-stretch h-14">
+      <div className="grid grid-cols-4 items-stretch h-14">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -52,11 +51,9 @@ export function BottomTabBar({ activeTab, onTabChange, tagCount, onSearch }: Bot
             className="flex-1 flex flex-col items-center justify-center gap-0.5 text-[var(--ui-muted-text)] transition-colors relative"
           >
             {activeTab === tab.id && (
-              <motion.div
-                layoutId="active-tab-indicator"
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-[var(--ui-text)] rounded-full"
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              />
+              <span className="absolute inset-x-0 top-0 flex justify-center pointer-events-none">
+                <span className="w-8 h-0.5 bg-[var(--ui-text)] rounded-full" />
+              </span>
             )}
             <span className="text-[var(--ui-text)]">{tab.icon}</span>
             <span className="text-[10px] font-medium">{tab.label}</span>
@@ -70,7 +67,7 @@ export function BottomTabBar({ activeTab, onTabChange, tagCount, onSearch }: Bot
 
         <button
           onClick={onSearch}
-          className="flex flex-col items-center justify-center gap-0.5 text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors px-4"
+          className="flex flex-col items-center justify-center gap-0.5 text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors relative"
           aria-label="Search tags and commands"
         >
           <MagnifyingGlass weight="regular" className="w-5 h-5" />

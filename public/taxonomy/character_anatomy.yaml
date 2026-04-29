@@ -166,35 +166,35 @@ breast:
       label: "flat chested"
       aliases: ["no breasts", "A-cup", "small chest"]
       description: "Minimal to no breast tissue"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_size_small
       label: "small breasts"
       aliases: ["B-cup", "modest breasts", "perky small breasts"]
       description: "Small breast size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_size_medium
       label: "medium breasts"
       aliases: ["C-cup", "average breasts", "moderate breasts"]
       description: "Medium breast size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_size_large
       label: "large breasts"
       aliases: ["D-cup", "big breasts", "heavy breasts", "busty"]
       description: "Large breast size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_size_very_large
       label: "very large breasts"
       aliases: ["DD-cup", "huge breasts", "massive breasts", "enormous breasts"]
       description: "Very large breast size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_size_extreme
@@ -209,42 +209,42 @@ breast:
       label: "round breasts"
       aliases: ["globular", "spherical"]
       description: "Round, full breast shape"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_shape_teardrop
       label: "teardrop breasts"
       aliases: ["natural shape", "anatomical"]
       description: "Fuller at bottom, tapering upward"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_shape_perky
       label: "perky breasts"
       aliases: ["upright", "pointed upward", "firm"]
       description: "Firm, uplifted breast shape"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_shape_sagging
       label: "sagging breasts"
       aliases: ["pendulous breasts", "drooping", "natural sag"]
       description: "Breasts that hang lower due to gravity/age"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_shape_asymmetric
       label: "asymmetric breasts"
       aliases: ["uneven breasts", "different sized breasts"]
       description: "One breast noticeably different from other"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_shape_conical
       label: "conical breasts"
       aliases: ["pointed", "bullet shape", "1950s style"]
       description: "Cone-shaped breast profile"
-      explicit: false
+      explicit: true
       weight: 1.0
 
   attributes:
@@ -252,49 +252,49 @@ breast:
       label: "natural breasts"
       aliases: ["unaugmented", "organic"]
       description: "Unmodified breast tissue"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_augmented
       label: "augmented breasts"
       aliases: ["implants", "fake boobs", "surgically enhanced"]
       description: "Breast implants or surgical enhancement"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_cleavage
       label: "visible cleavage"
       aliases: ["deep cleavage", "cleavage showing", "pushed together"]
       description: "Cleavage prominently visible"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_side_boob
       label: "side boob"
       aliases: ["sideboob", "side breast exposure"]
       description: "Breast visible from the side"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_underboob
       label: "underboob"
       aliases: ["south boob", "under breast", "bottom breast visible"]
       description: "Lower portion of breast exposed"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_overboob
       label: "overboob"
       aliases: ["top of breast visible", "upper cleavage"]
       description: "Upper portion of breast exposed"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_visible_nipples
       label: "visible nipples"
       aliases: ["nipple print", "nipples showing", "hard nipples"]
       description: "Nipples clearly visible through clothing or exposed"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: br_attr_exposed_nipples
@@ -324,35 +324,35 @@ buttocks:
       label: "flat butt"
       aliases: ["flat ass", "no butt", "flat buttocks"]
       description: "Minimal buttock projection"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_size_small
       label: "small butt"
       aliases: ["small ass", "modest buttocks", "petite butt"]
       description: "Small buttock size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_size_average
       label: "average butt"
       aliases: ["medium butt", "moderate buttocks"]
       description: "Average buttock size"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_size_large
       label: "large butt"
       aliases: ["big butt", "phat ass", "thick butt", "bubble butt"]
       description: "Large, prominent buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_size_very_large
       label: "very large butt"
       aliases: ["huge ass", "massive butt", "enormous buttocks"]
       description: "Very large buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_size_extreme
@@ -367,28 +367,28 @@ buttocks:
       label: "round butt"
       aliases: ["round ass", "circular buttocks", "peach butt"]
       description: "Round, full buttock shape"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_shape_heart
       label: "heart-shaped butt"
       aliases: ["heart butt", "heart-shaped ass"]
       description: "Heart-shaped buttock profile"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_shape_square
       label: "square butt"
       aliases: ["boxy butt", "H-shaped"]
       description: "Square-shaped buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_shape_v_shape
       label: "V-shaped butt"
       aliases: ["inverted V", "triangle butt"]
       description: "V-shaped buttock profile"
-      explicit: false
+      explicit: true
       weight: 1.0
 
   attributes:
@@ -396,63 +396,63 @@ buttocks:
       label: "firm butt"
       aliases: ["tight butt", "toned buttocks", "perky ass"]
       description: "Firm, toned buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_jiggling
       label: "jiggling butt"
       aliases: ["jiggling ass", "bouncing butt", "wobbling"]
       description: "Buttocks in motion, jiggling"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_cellulite
       label: "butt cellulite"
       aliases: ["orange peel skin", "dimpled butt"]
       description: "Visible cellulite on buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_stretch_marks
       label: "butt stretch marks"
       aliases: ["stretch marks on ass", "tiger stripes"]
       description: "Stretch marks visible on buttocks"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_dimples
       label: "butt dimples"
       aliases: ["dimples of Venus", "back dimples", "ass dimples"]
       description: "Dimples at base of spine"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_butt_cleavage
       label: "butt cleavage"
       aliases: ["ass crack visible", "butt crack showing"]
       description: "Buttock cleavage visible"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_visible_panty_line
       label: "visible panty line"
       aliases: ["VPL", "underwear line showing"]
       description: "Underwear outline visible through clothing"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_thong_visible
       label: "visible thong"
       aliases: ["thong showing", "thong straps visible"]
       description: "Thong straps visible above clothing"
-      explicit: false
+      explicit: true
       weight: 1.0
 
     - id: butt_attr_whale_tail
       label: "whale tail"
       aliases: ["thong above jeans", "exposed thong"]
       description: "Thong visible above low-rise pants"
-      explicit: false
+      explicit: true
       weight: 1.0
 
 male_chest:

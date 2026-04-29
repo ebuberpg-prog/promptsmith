@@ -1,20 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { registerSW } from 'virtual:pwa-register'
 import App from './App'
 import './index.css'
+import { initPwaUpdater } from './utils/pwa-updater'
 
-// Register PWA service worker for offline support
-registerSW({
-  onNeedRefresh() {
-    if (confirm('A new version of PromptSmith is available. Reload to update?')) {
-      location.reload()
-    }
-  },
-  onOfflineReady() {
-    console.log('PromptSmith is ready for offline use')
-  },
-})
+// Register PWA service worker for offline support and in-app updates
+initPwaUpdater()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

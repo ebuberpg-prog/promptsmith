@@ -117,7 +117,6 @@ export class RandomizerEngine {
   }
 
   // ─── INTENT-FIRST ─────────────────────────────────────────────────────────
-  // @ts-ignore
   private _randomizeIntentFirst(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
@@ -218,7 +217,6 @@ export class RandomizerEngine {
   }
 
   // ─── SLOT-FILLED ────────────────────────────────────────────────────────────
-  // @ts-ignore
   private _randomizeSlotFilled(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
@@ -269,7 +267,6 @@ export class RandomizerEngine {
   }
 
   // ─── STORY-DRIVEN ───────────────────────────────────────────────────────────
-  // @ts-ignore
   private _randomizeStoryDriven(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()

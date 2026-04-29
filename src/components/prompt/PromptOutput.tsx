@@ -8,23 +8,13 @@ import {
   Trash,
   CaretDown,
   PencilSimple,
-  ImageSquare,
   TagSimple,
   Lightning,
-  ClockCounterClockwise,
-  GitDiff,
-  ChartBar,
 } from '@phosphor-icons/react'
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-import { imageGenService, type ImageGenState } from '@/services/image-gen-service'
 import { NegativePromptIntelligence } from '@/components/negative/NegativePromptIntelligence'
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+import { getModelConfig } from '@/data/model-configs'
 
 export function PromptOutput() {
   const generatePrompt = usePromptSmithStore((s) => s.generatePrompt)
@@ -36,7 +26,6 @@ export function PromptOutput() {
   const customText = usePromptSmithStore((s) => s.customText)
   const setCustomText = usePromptSmithStore((s) => s.setCustomText)
   const setTagTriggerWords = usePromptSmithStore((s) => s.setTagTriggerWords)
-  const aiSettings = usePromptSmithStore((s) => s.aiSettings)
 
   const [copied, setCopied] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
@@ -44,20 +33,11 @@ export function PromptOutput() {
   const [expertMode, setExpertMode] = useState(false)
   const [editingTriggers, setEditingTriggers] = useState<string | null>(null)
   const [triggerInput, setTriggerInput] = useState('')
-  const [imageGenState, setImageGenState] = useState<ImageGenState>(imageGenService.getState())
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null)
-  const [imageError, setImageError] = useState<string | null>(null)
 
   const prompt = generatePrompt()
   const negativePrompt = generateNegativePrompt()
   const hasContent = selectedTags.length > 0 || customText.trim()
-
-  // Sync image gen service URLs from settings and subscribe to state
-  useEffect(() => {
-    imageGenService.setUrls(aiSettings.a1111Url, aiSettings.comfyuiUrl, aiSettings.drawthingsUrl)
-    const unsub = imageGenService.subscribe(setImageGenState)
-    return () => { unsub() }
-  }, [aiSettings.a1111Url, aiSettings.comfyuiUrl, aiSettings.drawthingsUrl])
+  const modelLabel = getModelConfig(selectedModel).name
 
   const handleCopy = async () => {
     let fullPrompt = prompt
@@ -66,36 +46,6 @@ export function PromptOutput() {
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
-
-  const handleGenerate = useCallback(async () => {
-    if (!prompt.trim()) return
-    setImageError(null)
-    setGeneratedImage(null)
-
-    try {
-      // Auto-discover provider if none active
-      if (!imageGenState.activeProvider) {
-        await imageGenService.discover(aiSettings.preferredImageProvider)
-        const state = imageGenService.getState()
-        if (!state.activeProvider) {
-          setImageError('No image generation provider found. Start A1111, ComfyUI, or DrawThings.')
-          return
-        }
-      }
-      const result = await imageGenService.generate({
-        prompt,
-        negativePrompt: negativePrompt || undefined,
-        width: 512,
-        height: 512,
-        steps: 20,
-      })
-      if (result.images.length > 0) {
-        setGeneratedImage(result.images[0])
-      }
-    } catch (err) {
-      setImageError(String(err))
-    }
-  }, [prompt, negativePrompt, imageGenState.activeProvider, aiSettings.preferredImageProvider])
 
   const startEditTriggers = (tagId: string, existing: string[]) => {
     setEditingTriggers(tagId)
@@ -110,62 +60,78 @@ export function PromptOutput() {
   }
 
   return (
-    <div className="flex flex-col h-full gap-3 p-4">
+    <section className="border rounded-[20px] p-4 space-y-3.5" style={{ borderColor: 'var(--ui-border)' }}>
+      <div className="space-y-3">
+        <div className="space-y-3">
+          <div className="space-y-1.5">
+            <h2 className="font-display text-[1.5rem] font-normal tracking-tight text-balance leading-tight" style={{ color: 'var(--ui-text)' }}>
+              Prompt Canvas
+            </h2>
+            <p className="text-[12px] leading-5 text-pretty" style={{ color: 'var(--ui-muted-text)' }}>
+              Assemble the prompt here, then open deeper controls only when the draft needs them.
+            </p>
+          </div>
 
-      {/* Top bar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--ui-muted-text)' }}>Your Prompt</span>
-          {hasContent && (
+          <div className="flex flex-wrap items-center gap-1.5">
+            <NegativePromptIntelligence />
             <button
-              onClick={clearAllTags}
-              className="text-xs transition-colors"
-              style={{ color: 'var(--ui-muted-text-faint)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
+              onClick={() => setExpertMode(e => !e)}
+              className="text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors duration-150"
+              style={{
+                borderColor: expertMode ? 'var(--ui-text)' : 'var(--ui-border)',
+                color: expertMode ? 'var(--ui-text)' : 'var(--ui-muted-text)',
+              }}
             >
-              Clear all
+              {expertMode ? 'Expert' : 'Simple'}
             </button>
-          )}
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={handleCopy}
+              disabled={!hasContent}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-medium transition-all duration-150 border"
+              style={{
+                borderColor: copied ? 'var(--ui-text)' : hasContent ? 'var(--ui-text)' : 'var(--ui-border-faint)',
+                color: copied ? 'var(--ui-text)' : hasContent ? 'var(--ui-bg)' : 'var(--ui-muted-text-faint)',
+                backgroundColor: copied ? 'color-mix(in oklab, var(--ui-text) 10%, transparent)' : hasContent ? 'var(--ui-text)' : 'transparent',
+              }}
+            >
+              {copied
+                ? <CheckCircleIcon weight="fill" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />
+                : <Copy weight="regular" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />}
+              {copied ? 'Copied!' : 'Copy'}
+            </motion.button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <NegativePromptIntelligence />
-          <button
-            onClick={() => setExpertMode(e => !e)}
-            className="text-xs font-medium px-3 py-1 rounded-full border transition-colors duration-150"
-            style={{
-              borderColor: expertMode ? 'var(--ui-text)' : 'var(--ui-border)',
-              color: expertMode ? 'var(--ui-text)' : 'var(--ui-muted-text)',
-            }}
-          >
-            {expertMode ? 'Expert' : 'Simple'}
-          </button>
-          <motion.button
-            whileTap={{ scale: 0.97 }}
-            onClick={handleCopy}
-            disabled={!hasContent}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-150 border"
-            style={{
-              borderColor: copied ? 'var(--ui-text)' : hasContent ? 'var(--ui-text)' : 'var(--ui-border-faint)',
-              color: copied || hasContent ? 'var(--ui-text)' : 'var(--ui-muted-text-faint)',
-              backgroundColor: copied ? 'color-mix(in oklab, var(--ui-text) 10%, transparent)' : hasContent ? 'var(--ui-text)' : 'transparent',
-            }}
-          >
-            {copied
-              ? <CheckCircleIcon weight="fill" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />
-              : <Copy weight="regular" className="w-3.5 h-3.5" style={{ color: hasContent ? 'var(--ui-bg)' : 'var(--ui-text)' }} />}
-            {copied ? 'Copied!' : 'Copy prompt'}
-          </motion.button>
+
+        <div className="flex flex-wrap gap-2">
+          <PromptMetaPill label="Model" value={modelLabel} />
+          <PromptMetaPill label="Tags" value={`${selectedTags.length}`} />
+          <PromptMetaPill label="Custom text" value={customText.trim() ? 'Added' : 'None'} />
+          <PromptMetaPill label="Draft" value={hasContent ? 'Ready to refine' : 'Waiting for input'} />
         </div>
       </div>
 
       {/* Tag chips + inline custom text */}
       <div
-        className="flex-1 min-h-[72px] border rounded-xl p-3 flex flex-wrap content-start gap-2 overflow-y-auto scrollbar-hide transition-colors duration-150"
+        className="min-h-[108px] border rounded-[18px] p-3 flex flex-wrap content-start gap-1.5 overflow-y-auto scrollbar-hide transition-colors duration-150"
         style={{ borderColor: 'var(--ui-border)' }}
         onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
         onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
       >
+        <div className="w-full flex items-center justify-between gap-3">
+          <span className="text-[10px] font-medium uppercase tracking-[0.24em]" style={{ color: 'var(--ui-muted-text-faint)' }}>
+            Working prompt
+          </span>
+          {hasContent && (
+            <button
+              onClick={clearAllTags}
+              className="text-[11px] px-2.5 py-1 rounded-full border transition-colors"
+              style={{ color: 'var(--ui-muted-text-faint)', borderColor: 'var(--ui-border-faint)' }}
+            >
+              Clear all
+            </button>
+          )}
+        </div>
         {selectedTags.map((tag) => (
           editingTriggers === tag.id ? (
             <div key={tag.id} className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full border" style={{ borderColor: 'var(--ui-border-strong)', backgroundColor: 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}>
@@ -225,8 +191,8 @@ export function PromptOutput() {
 
         {!hasContent && !showCustomInput && (
           <div className="w-full flex items-center justify-center py-3">
-            <p className="text-xs font-sans" style={{ color: 'var(--ui-muted-text-faint)' }}>
-              Pick tags from the categories -- your prompt builds here automatically
+            <p className="text-xs font-sans text-center text-pretty max-w-[260px]" style={{ color: 'var(--ui-muted-text-faint)' }}>
+              Start with a subject, then layer in setting, light, and one clear style decision. The prompt will build here automatically.
             </p>
           </div>
         )}
@@ -242,25 +208,35 @@ export function PromptOutput() {
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <p className="text-xs font-mono leading-relaxed border-t pt-2 line-clamp-2" style={{ color: 'var(--ui-muted-text)', borderColor: 'var(--ui-border-faint)' }}>
-              {prompt}
-            </p>
+            <div className="border rounded-[18px] p-3.5 space-y-2.5" style={{ borderColor: 'var(--ui-border)' }}>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[10px] font-medium uppercase tracking-[0.24em]" style={{ color: 'var(--ui-muted-text-faint)' }}>
+                  Composed output
+                </span>
+                <span className="text-[11px]" style={{ color: 'var(--ui-muted-text)' }}>
+                  {modelLabel}
+                </span>
+              </div>
+              <p className="text-[11px] font-mono leading-5 whitespace-pre-wrap break-words max-h-36 overflow-y-auto" style={{ color: 'var(--ui-muted-text)' }}>
+                {prompt}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Advanced toggle */}
       {hasContent && (
-        <div>
+        <div className="border rounded-[18px] p-3.5" style={{ borderColor: 'var(--ui-border)' }}>
           <button
             onClick={() => setShowAdvanced(a => !a)}
-            className="flex items-center gap-1 text-[10px] uppercase tracking-widest transition-colors"
-            style={{ color: 'var(--ui-muted-text-faint)' }}
+            className="flex items-center gap-1.5 text-xs font-medium transition-colors"
+            style={{ color: 'var(--ui-muted-text)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ui-muted-text-faint)')}
           >
             <CaretDown weight="bold" className={`w-2.5 h-2.5 transition-transform duration-150 ${showAdvanced && 'rotate-180'}`} />
-            Advanced
+            Weights, triggers, and negatives
           </button>
 
           <AnimatePresence>
@@ -305,85 +281,24 @@ export function PromptOutput() {
         </div>
       )}
 
-      {/* Image generation panel */}
-      <div className="border-t pt-3 space-y-3" style={{ borderColor: 'var(--ui-border-faint)' }}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ImageSquare weight="regular" className="w-3.5 h-3.5" style={{ color: 'var(--ui-muted-text)' }} />
-            <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--ui-muted-text-faint)' }}>Generate Image</span>
-          </div>
-          {imageGenState.activeProvider && (
-            <span className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider" style={{ borderColor: 'hsl(var(--success) / 0.3)', color: 'hsl(var(--success) / 0.6)' }}>
-              {imageGenState.activeProvider}
-            </span>
-          )}
-          {!imageGenState.activeProvider && imageGenState.status !== 'checking' && (
-            <span className="text-[9px] border rounded-full px-2 py-0.5 uppercase tracking-wider" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
-              No provider
-            </span>
-          )}
-        </div>
 
-        <motion.button
-          whileTap={{ scale: 0.97 }}
-          onClick={handleGenerate}
-          disabled={!hasContent || imageGenState.status === 'generating'}
-          className="w-full py-2 rounded-xl text-xs font-medium border transition-all duration-150 flex items-center justify-center gap-2"
-          style={{
-            borderColor: hasContent && imageGenState.status !== 'generating' ? 'var(--ui-border)' : 'var(--ui-border-faint)',
-            color: hasContent && imageGenState.status !== 'generating' ? 'var(--ui-muted-text)' : 'var(--ui-muted-text-faint)',
-            cursor: !hasContent || imageGenState.status === 'generating' ? 'not-allowed' : undefined,
-          }}
-          onMouseEnter={(e) => { if (hasContent && imageGenState.status !== 'generating') { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' } }}
-          onMouseLeave={(e) => { if (hasContent && imageGenState.status !== 'generating') { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' } }}
-        >
-          {imageGenState.status === 'generating' ? (
-            <>
-              <span className="w-3 h-3 rounded-full border animate-spin" style={{ borderColor: 'var(--ui-border)', borderTopColor: 'var(--ui-text)' }} />
-              Generating...
-            </>
-          ) : (
-            <>
-              <ImageSquare weight="regular" className="w-3.5 h-3.5" />
-              Generate
-            </>
-          )}
-        </motion.button>
+    </section>
+  )
+}
 
-        {imageError && (
-          <p className="text-[10px] leading-relaxed" style={{ color: 'hsl(var(--destructive) / 0.7)' }}>{imageError}</p>
-        )}
-
-        <AnimatePresence>
-          {generatedImage && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="relative rounded-xl overflow-hidden border group"
-              style={{ borderColor: 'var(--ui-border-faint)' }}
-            >
-              <img
-                src={generatedImage}
-                alt="Generated"
-                className="w-full rounded-xl"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <a
-                  href={generatedImage}
-                  download="muse-generated.png"
-                  className="px-3 py-1.5 rounded-full border text-xs transition-colors"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.8)', borderColor: 'var(--ui-border-hover)', color: 'var(--ui-text)' }}
-                >
-                  Download
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+function PromptMetaPill({ label, value }: { label: string; value: string }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px]"
+      style={{
+        color: 'var(--ui-muted-text)',
+        backgroundColor: 'color-mix(in oklab, var(--ui-text) 4%, transparent)',
+        border: '1px solid var(--ui-border-faint)',
+      }}
+    >
+      <span style={{ color: 'var(--ui-muted-text-faint)' }}>{label}</span>
+      <span style={{ color: 'var(--ui-text)' }}>{value}</span>
+    </span>
   )
 }
 

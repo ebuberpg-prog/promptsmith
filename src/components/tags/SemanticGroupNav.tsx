@@ -1,6 +1,14 @@
-import { motion } from 'framer-motion'
+import { User, TShirt, Tree, Palette, Smiley, Gear } from '@phosphor-icons/react'
 import { SEMANTIC_GROUPS } from '@/data/category-colors'
-import * as Icons from '@phosphor-icons/react'
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  User,
+  TShirt,
+  Tree,
+  Palette,
+  Smiley,
+  Gear,
+}
 
 interface SemanticGroupNavProps {
   activeGroup: string
@@ -13,7 +21,7 @@ export function SemanticGroupNav({ activeGroup, onGroupChange, groupCounts }: Se
     <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
       {SEMANTIC_GROUPS.map((group) => {
         const isActive = activeGroup === group.id
-        const Icon = Icons[group.icon as keyof typeof Icons] as React.ComponentType<{ weight?: string; className?: string }> || Icons.GridFour
+        const Icon = ICON_MAP[group.icon] || Gear
 
         return (
           <button

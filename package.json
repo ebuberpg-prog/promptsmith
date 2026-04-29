@@ -2,7 +2,7 @@
   "name": "promptsmith",
   "version": "0.1.0",
   "private": true,
-  "description": "The most comprehensive AI image generation prompt builder",
+  "description": "A local-first prompt workspace for AI image creators",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

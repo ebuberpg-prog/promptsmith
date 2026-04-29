@@ -55,7 +55,13 @@ export function LMPromptEnhancer() {
   // Auto-discover when panel opens
   useEffect(() => {
     if (isOpen && aiState.status === 'disconnected') {
-      aiService.setUrls(aiSettings.ollamaUrl, aiSettings.lmStudioUrl, aiSettings.openaiUrl, aiSettings.openaiApiKey)
+      aiService.setUrls(
+        aiSettings.ollamaUrl,
+        aiSettings.lmStudioUrl,
+        aiSettings.openaiUrl,
+        aiSettings.openaiApiKey,
+        aiSettings.corsProxyUrl
+      )
       aiService.discover(aiSettings.preferredAIProvider)
     }
   }, [isOpen, aiState.status, aiSettings])
@@ -270,7 +276,13 @@ export function LMPromptEnhancer() {
                   </p>
                   <button
                     onClick={() => {
-                      aiService.setUrls(aiSettings.ollamaUrl, aiSettings.lmStudioUrl, aiSettings.openaiUrl, aiSettings.openaiApiKey)
+                      aiService.setUrls(
+                        aiSettings.ollamaUrl,
+                        aiSettings.lmStudioUrl,
+                        aiSettings.openaiUrl,
+                        aiSettings.openaiApiKey,
+                        aiSettings.corsProxyUrl
+                      )
                       aiService.discover(aiSettings.preferredAIProvider)
                     }}
                     className="px-4 py-2 rounded-full border text-sm transition-all"

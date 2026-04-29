@@ -1,9 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MagnifyingGlass, Tag, User, TerminalWindow, X } from '@phosphor-icons/react'
 import { useCommandPalette, type CommandResult } from '@/hooks/useCommandPalette'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
-import { getGroupForCategory } from '@/data/category-colors'
 
 const ICON_MAP: Record<string, React.ElementType> = {
   tag: Tag,
@@ -13,12 +12,10 @@ const ICON_MAP: Record<string, React.ElementType> = {
 
 function ResultItem({
   result,
-  index,
   isSelected,
   onSelect,
 }: {
   result: CommandResult
-  index: number
   isSelected: boolean
   onSelect: () => void
 }) {
@@ -142,7 +139,7 @@ export function CommandPalette() {
                     <ResultItem
                       key={result.id}
                       result={result}
-                      index={index}
+
                       isSelected={index === selectedIndex}
                       onSelect={() => selectResult(index)}
                     />
@@ -186,7 +183,7 @@ export function CommandPalette() {
                     <ResultItem
                       key={result.id}
                       result={result}
-                      index={index}
+
                       isSelected={index === selectedIndex}
                       onSelect={() => selectResult(index)}
                     />

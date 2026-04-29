@@ -201,7 +201,7 @@ const CONTEXT_RULES: ContextRule[] = [
 
 // ─── Negative Suggestion Priority Levels ─────────────────────────────────────
 
-type Priority = 1 | 2 | 3 | 4 | 5
+
 
 function deduplicateNegatives(negatives: SuggestedNegative[]): SuggestedNegative[] {
   const seen = new Set<string>()
@@ -341,7 +341,8 @@ export class NegativePromptEngine {
   private detectContext(
     tags: SelectedTag[],
     allText: string,
-    categories: Set<string | undefined>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _categories: Set<string | undefined>
   ): ContextAnalysis {
     // Detect subject type
     let subjectType = 'unknown'

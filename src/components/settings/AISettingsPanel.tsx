@@ -2,11 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { aiService, type AIModel, type ProviderStatus } from '@/services/local-ai-service'
-import { imageGenService } from '@/services/image-gen-service'
-import type { ImageGenProviderId } from '@/services/image-gen-service'
-import { X, Check, CircleNotch, Warning } from '@phosphor-icons/react'
+import { X, CircleNotch } from '@phosphor-icons/react'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { applyPwaUpdate, checkForPwaUpdates, getPwaUpdateState, subscribePwaUpdates } from '@/utils/pwa-updater'
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -28,16 +27,10 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
   const [openaiUrl, setOpenaiUrl] = useState(aiSettings.openaiUrl)
   const [openaiApiKey, setOpenaiApiKey] = useState(aiSettings.openaiApiKey)
   const [corsProxyUrl, setCorsProxyUrl] = useState(aiSettings.corsProxyUrl)
-  const [a1111Url, setA1111Url] = useState(aiSettings.a1111Url)
-  const [comfyuiUrl, setComfyuiUrl] = useState(aiSettings.comfyuiUrl)
-  const [drawthingsUrl, setDrawthingsUrl] = useState(aiSettings.drawthingsUrl)
 
   const [ollamaTest, setOllamaTest] = useState<TestState>('idle')
   const [lmStudioTest, setLmStudioTest] = useState<TestState>('idle')
   const [openaiTest, setOpenaiTest] = useState<TestState>('idle')
-  const [a1111Test, setA1111Test] = useState<TestState>('idle')
-  const [comfyuiTest, setComfyuiTest] = useState<TestState>('idle')
-  const [drawthingsTest, setDrawthingsTest] = useState<TestState>('idle')
 
   const [openaiTestError, setOpenaiTestError] = useState<string>('')
 
@@ -47,6 +40,7 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
   const [aiStatus, setAIStatus] = useState<ProviderStatus>('disconnected')
   const [openaiInputMode, setOpenaiInputMode] = useState<'auto' | 'manual'>(aiSettings.openaiModelInputMode)
   const [openaiManualModel, setOpenaiManualModel] = useState(aiSettings.openaiManualModel)
+  const [pwaUpdateState, setPwaUpdateState] = useState(getPwaUpdateState())
 
   // Sync from store when opened
   useEffect(() => {
@@ -56,9 +50,6 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
       setOpenaiUrl(aiSettings.openaiUrl)
       setOpenaiApiKey(aiSettings.openaiApiKey)
       setCorsProxyUrl(aiSettings.corsProxyUrl)
-      setA1111Url(aiSettings.a1111Url)
-      setComfyuiUrl(aiSettings.comfyuiUrl)
-      setDrawthingsUrl(aiSettings.drawthingsUrl)
     }
   }, [isOpen, aiSettings])
 
@@ -73,28 +64,29 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
     return () => { unsub() }
   }, [])
 
+  useEffect(() => subscribePwaUpdates(() => setPwaUpdateState(getPwaUpdateState())), [])
+
   const save = useCallback(() => {
     updateAISettings({
-      ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, a1111Url, comfyuiUrl, drawthingsUrl,
+      ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey,
       openaiModelInputMode: openaiInputMode,
       openaiManualModel,
       corsProxyUrl,
     })
     aiService.setUrls(ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, corsProxyUrl)
-    imageGenService.setUrls(a1111Url, comfyuiUrl, drawthingsUrl)
     if (aiSettings.preferredAIModel) {
       aiService.setSelectedModel(aiSettings.preferredAIModel)
     }
     if (aiSettings.preferredAIProvider) {
       aiService.setActiveProvider(aiSettings.preferredAIProvider)
     }
-  }, [ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, a1111Url, comfyuiUrl, drawthingsUrl, openaiInputMode, openaiManualModel, corsProxyUrl, updateAISettings, aiSettings.preferredAIModel, aiSettings.preferredAIProvider])
+  }, [ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, openaiInputMode, openaiManualModel, corsProxyUrl, updateAISettings, aiSettings.preferredAIModel, aiSettings.preferredAIProvider])
 
   const testOllama = async () => {
     save()
     setOllamaTest('testing')
     setOllamaModels([])
-    const { ok, models, error } = await aiService.testProvider('ollama')
+    const { ok, models } = await aiService.testProvider('ollama')
     setOllamaTest(ok ? 'ok' : 'fail')
     if (ok) {
       setOllamaModels(models)
@@ -110,7 +102,7 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
     save()
     setLmStudioTest('testing')
     setLmStudioModels([])
-    const { ok, models, error } = await aiService.testProvider('lmstudio')
+    const { ok, models } = await aiService.testProvider('lmstudio')
     setLmStudioTest(ok ? 'ok' : 'fail')
     if (ok) {
       setLmStudioModels(models)
@@ -153,14 +145,6 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
     }
   }
 
-  const testImageProvider = async (id: ImageGenProviderId, setter: (s: TestState) => void) => {
-    save()
-    setter('testing')
-    const ok = await imageGenService.testProvider(id)
-    setter(ok ? 'ok' : 'fail')
-    if (ok) updateAISettings({ preferredImageProvider: id })
-  }
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -171,7 +155,7 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70]"
           />
 
           {/* Panel */}
@@ -180,9 +164,9 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 bottom-0 w-[480px] max-w-full bg-[var(--ui-bg)] border-l border-[var(--ui-surface)] z-50 overflow-y-auto scrollbar-hide"
+            className="fixed right-0 top-0 bottom-0 w-[480px] max-w-full bg-[var(--ui-bg)] border-l border-[var(--ui-surface)] z-[80] overflow-y-auto scrollbar-hide"
           >
-            <div className="p-8 space-y-8">
+            <div className="p-8 pb-[max(2rem,env(safe-area-inset-bottom))] space-y-8">
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div>
@@ -254,35 +238,38 @@ export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
 
               <div className="h-px bg-[var(--ui-surface)]" />
 
-              {/* Image Generation */}
-              <section className="space-y-4">
-                <h3 className="text-sm font-medium text-[var(--ui-text)]">Image Generation</h3>
-                <p className="text-xs text-[var(--ui-muted-text)]/50">Send your prompt directly to a local image generator.</p>
+              <div className="h-px bg-[var(--ui-surface)]" />
 
-                <SimpleProviderRow
-                  label="Automatic1111"
-                  url={a1111Url}
-                  onUrlChange={setA1111Url}
-                  testState={a1111Test}
-                  onTest={() => testImageProvider('a1111', setA1111Test)}
-                  hint="localhost:7860"
-                />
-                <SimpleProviderRow
-                  label="ComfyUI"
-                  url={comfyuiUrl}
-                  onUrlChange={setComfyuiUrl}
-                  testState={comfyuiTest}
-                  onTest={() => testImageProvider('comfyui', setComfyuiTest)}
-                  hint="localhost:8188"
-                />
-                <SimpleProviderRow
-                  label="DrawThings"
-                  url={drawthingsUrl}
-                  onUrlChange={setDrawthingsUrl}
-                  testState={drawthingsTest}
-                  onTest={() => testImageProvider('drawthings', setDrawthingsTest)}
-                  hint="localhost:3820"
-                />
+              <section className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-sm font-medium text-[var(--ui-text)]">App Updates</h3>
+                  <StatusBadge status={mapPwaStatusToTestState(pwaUpdateState.status)} />
+                </div>
+                <div className="flex items-center justify-between gap-4 p-4 border border-[var(--ui-surface)] rounded-2xl">
+                  <div className="space-y-1">
+                    <p className="text-xs text-[var(--ui-text)]">Refresh cached app files when a new build is available.</p>
+                    <p className="text-[10px] text-[var(--ui-muted-text)]/50">{pwaUpdateState.message}</p>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                      onClick={checkForPwaUpdates}
+                      disabled={pwaUpdateState.status === 'checking' || pwaUpdateState.status === 'updating'}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] transition-all disabled:opacity-40"
+                    >
+                      {pwaUpdateState.status === 'checking' ? <CircleNotch weight="regular" className="w-2.5 h-2.5 animate-spin" /> : null}
+                      Check now
+                    </button>
+                    {pwaUpdateState.status === 'available' && (
+                      <button
+                        onClick={applyPwaUpdate}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium transition-colors duration-150"
+                        style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
+                      >
+                        Update now
+                      </button>
+                    )}
+                  </div>
+                </div>
               </section>
 
               {/* Save */}
@@ -384,8 +371,7 @@ function OpenAIProviderRow({
         <StatusBadge status={testState} />
       </div>
       <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-        Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key. For NVIDIA NIM, use <code className="text-[var(--ui-muted-text)]/50">https://integrate.api.nvidia.com/v1</code> with your NVIDIA API key.
-        Cloud APIs are routed through the API Gateway below so they work from your browser.
+        Paste any OpenAI-compatible base URL and API key here. PromptSmith will connect directly to local or LAN servers, and will automatically use the API Gateway for hosted providers so they work cleanly in the browser and installed PWA. Example URLs: <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> for OpenCode Go and <code className="text-[var(--ui-muted-text)]/50">https://integrate.api.nvidia.com/v1</code> for NVIDIA NIM.
       </p>
       <input
         type="text"
@@ -422,7 +408,7 @@ function OpenAIProviderRow({
           className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
         />
         <p className="text-[10px] text-[var(--ui-muted-text)]/25 mt-1">
-          Cloud APIs are routed through this gateway so they work in the browser. Leave as-is for the hosted gateway, or replace with your own.
+          This is only used for hosted HTTPS providers. Leave the default gateway in place, or swap it for your own worker if you want to self-host it.
         </p>
       </div>
 
@@ -430,7 +416,7 @@ function OpenAIProviderRow({
         <div className="space-y-1">
           <p className="text-[10px] text-red-400/60 leading-relaxed">{testError}</p>
           <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-            For NVIDIA: models often need activation at build.nvidia.com before they work. For local models (Ollama/LM Studio), connect directly without a gateway.
+            For NVIDIA: some models need to be enabled in build.nvidia.com before requests will succeed. Local and LAN servers do not use the gateway.
           </p>
         </div>
       )}
@@ -511,37 +497,7 @@ function OpenAIProviderRow({
   )
 }
 
-function SimpleProviderRow({
-  label, url, onUrlChange, testState, onTest, hint,
-}: {
-  label: string
-  url: string
-  onUrlChange: (v: string) => void
-  testState: TestState
-  onTest: () => void
-  hint: string
-}) {
-  return (
-    <div className="flex items-center gap-3 p-3 border border-[var(--ui-surface)] rounded-2xl">
-      <span className="text-xs font-medium text-[var(--ui-muted-text)] w-28 flex-shrink-0">{label}</span>
-      <input
-        type="text"
-        value={url}
-        onChange={e => onUrlChange(e.target.value)}
-        placeholder={hint}
-        className="flex-1 px-3 py-1.5 bg-transparent border border-[var(--ui-border)] rounded-full text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-      />
-      <button
-        onClick={onTest}
-        disabled={testState === 'testing'}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] transition-all disabled:opacity-40 flex-shrink-0"
-      >
-        <StatusIcon state={testState} />
-        {testState === 'testing' ? 'Testing' : 'Test'}
-      </button>
-    </div>
-  )
-}
+
 
 function StatusBadge({ status }: { status: TestState | 'idle' }) {
   const map: Record<string, { label: string; cls: string }> = {
@@ -558,9 +514,11 @@ function StatusBadge({ status }: { status: TestState | 'idle' }) {
   )
 }
 
-function StatusIcon({ state }: { state: TestState }) {
-  if (state === 'testing') return <CircleNotch weight="regular" className="w-2.5 h-2.5 animate-spin" />
-  if (state === 'ok') return <Check weight="bold" className="w-2.5 h-2.5 text-green-500/70" />
-  if (state === 'fail') return <Warning weight="fill" className="w-2.5 h-2.5 text-red-500/70" />
-  return null
+function mapPwaStatusToTestState(status: 'idle' | 'checking' | 'available' | 'updating' | 'offline-ready' | 'error'): TestState | 'idle' {
+  if (status === 'checking' || status === 'updating') return 'testing'
+  if (status === 'available' || status === 'offline-ready') return 'ok'
+  if (status === 'error') return 'idle'
+  return 'idle'
 }
+
+

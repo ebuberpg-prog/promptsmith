@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { searchTagIndex, getTagById } from '@/utils/tag-index'
+import { searchTagIndex } from '@/utils/tag-index'
 import { getGroupForCategory } from '@/data/category-colors'
 
 export type CommandResultType = 'tag' | 'template' | 'command'
@@ -20,7 +20,6 @@ export function useCommandPalette() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [results, setResults] = useState<CommandResult[]>([])
 
-  const selectedTags = usePromptSmithStore((s) => s.selectedTags)
   const toggleTag = usePromptSmithStore((s) => s.toggleTag)
   const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
   const savePrompt = usePromptSmithStore((s) => s.savePrompt)
@@ -84,7 +83,7 @@ export function useCommandPalette() {
     }
 
     return cmds
-  }, [query, selectedTags, savedPrompts, toggleTag, clearAllTags, savePrompt, loadPrompt])
+  }, [query, savedPrompts, toggleTag, clearAllTags, savePrompt, loadPrompt])
 
   useEffect(() => {
     setResults(buildCommands())

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { PromptComposer } from '@/services/prompt-composer'
-import type { SelectedTag, SupportedModel } from '@/types'
+import type { SelectedTag } from '@/types'
 
 function tag(label: string, category?: string, customWeight?: number, triggerWords?: string[]): SelectedTag {
   return {

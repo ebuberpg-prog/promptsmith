@@ -178,11 +178,11 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
   const showEmpty = !rawSearch.trim() && searchResults.length === 0
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-5 pb-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Browse Tags</h2>
-          <p className="text-sm mt-1" style={{ color: 'var(--ui-muted-text)' }}>Click any tag to add it to your prompt. Press <kbd className="text-[10px] font-mono px-1 py-0.5 rounded" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)', border: '1px solid var(--ui-border)' }}>/</kbd> to search.</p>
+          <h2 className="font-display text-[2rem] font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Browse Tags</h2>
+          <p className="text-[13px] mt-1" style={{ color: 'var(--ui-muted-text)' }}>Click any tag to add it to your prompt. Press <kbd className="text-[10px] font-mono px-1 py-0.5 rounded" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)', border: '1px solid var(--ui-border)' }}>/</kbd> to search.</p>
         </div>
 
         {!externalSearch && (
@@ -195,7 +195,7 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
               onChange={(e) => handleSearchChange(e.target.value)}
               onKeyDown={handleResultKeyDown}
               placeholder="Search tags..."
-              className="w-full pl-11 pr-4 py-2.5 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors duration-150 text-sm placeholder:text-[var(--ui-muted-text-faint)]"
+              className="w-full pl-11 pr-4 py-2 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors duration-150 text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
               style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
             />
           </div>

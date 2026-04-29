@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { aiService, type AIServiceState } from '@/services/local-ai-service'
 import { Brain, Warning, Info, Check, CircleNotch, WarningCircle, Sparkle } from '@phosphor-icons/react'
@@ -48,10 +48,18 @@ export function NegativePromptIntelligence() {
   // Auto-discover when panel opens
   useEffect(() => {
     if (isOpen && aiState.status === 'disconnected') {
-      aiService.setUrls(aiSettings.ollamaUrl, aiSettings.lmStudioUrl, aiSettings.openaiUrl, aiSettings.openaiApiKey)
+      aiService.setUrls(
+        aiSettings.ollamaUrl,
+        aiSettings.lmStudioUrl,
+        aiSettings.openaiUrl,
+        aiSettings.openaiApiKey,
+        aiSettings.corsProxyUrl
+      )
       aiService.discover(aiSettings.preferredAIProvider)
     }
   }, [isOpen, aiState.status, aiSettings])
+
+  const hasAutoTriggered = useRef(false)
 
   // Reset state when opened fresh
   useEffect(() => {
@@ -60,6 +68,7 @@ export function NegativePromptIntelligence() {
       setSelectedNegatives(new Set())
       setError(null)
       setApplied(false)
+      hasAutoTriggered.current = false
     }
   }, [isOpen])
 
@@ -104,6 +113,14 @@ export function NegativePromptIntelligence() {
     setIsAnalyzing(false)
   }, [fullPrompt, isConnected, generateNegativeSuggestions])
 
+  // Auto-trigger analysis when modal opens
+  useEffect(() => {
+    if (isOpen && fullPrompt.trim() && !analysis && !isAnalyzing && !hasAutoTriggered.current) {
+      hasAutoTriggered.current = true
+      handleAnalyze()
+    }
+  }, [isOpen, fullPrompt, analysis, isAnalyzing, handleAnalyze])
+
   const toggleNegative = (text: string) => {
     setSelectedNegatives(prev => {
       const next = new Set(prev)
@@ -134,7 +151,7 @@ export function NegativePromptIntelligence() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-colors duration-150"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-[11px] font-medium transition-colors duration-150"
         style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
         onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = 'var(--ui-border-hover)'
@@ -146,7 +163,7 @@ export function NegativePromptIntelligence() {
         }}
       >
         <Brain weight="regular" className="w-3.5 h-3.5" />
-        <span className="hidden sm:inline">Negatives</span>
+        <span>Negatives</span>
       </button>
 
       {isOpen && (

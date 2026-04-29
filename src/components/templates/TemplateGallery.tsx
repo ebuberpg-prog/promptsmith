@@ -27,13 +27,7 @@ import {
   Camera,
   Image,
 } from '@phosphor-icons/react'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 import type { PromptTemplate } from '@/types'
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
 
 const ICON_MAP: Record<string, React.ElementType> = {
   Sparkle,
@@ -153,19 +147,19 @@ export function TemplateGallery() {
   }
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-10">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
         <div className="space-y-2">
-          <h2 className="font-display text-3xl font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Blueprint Library</h2>
-          <p className="text-sm max-w-md" style={{ color: 'var(--ui-muted-text)' }}>Standardized starting points for rapid visual development.</p>
+          <h2 className="font-display text-[2rem] font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Blueprint Library</h2>
+          <p className="text-[13px] max-w-md" style={{ color: 'var(--ui-muted-text)' }}>Standardized starting points for rapid visual development.</p>
         </div>
 
         <div className="flex items-center gap-2">
           <input ref={importRef} type="file" accept=".json" className="hidden" onChange={handleImportFile} />
           <button
             onClick={handleImportClick}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all duration-150"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full border text-[13px] transition-all duration-150"
             style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
@@ -176,7 +170,7 @@ export function TemplateGallery() {
 
           <button
             onClick={() => setWizardOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full text-[13px] font-medium transition-colors duration-150"
             style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
@@ -188,7 +182,7 @@ export function TemplateGallery() {
       </div>
 
       {/* Tabs + search row */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="flex items-center gap-1 border rounded-full p-1 w-fit" style={{ borderColor: 'var(--ui-border)' }}>
           <TabButton active={activeTab === 'built-in'} onClick={() => setActiveTab('built-in')} icon={<SelectionAll weight="regular" className="w-3.5 h-3.5" />} label="Templates" />
           <TabButton
@@ -206,7 +200,7 @@ export function TemplateGallery() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search templates..."
-            className="w-full pl-10 pr-4 py-2.5 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors text-sm placeholder:text-[var(--ui-muted-text-faint)]"
+            className="w-full pl-10 pr-4 py-2 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
             style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
           />
         </div>
@@ -214,7 +208,7 @@ export function TemplateGallery() {
 
       <AnimatePresence mode="wait">
         {activeTab === 'built-in' ? (
-          <motion.div key="built-in" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+          <motion.div key="built-in" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-5">
             <div className="flex items-center gap-2 flex-wrap">
               {TEMPLATE_CATEGORIES.map((category) => (
                 <button
@@ -328,13 +322,23 @@ function BuiltInCard({
   isSelected: boolean
   onSelect: () => void
 }) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onSelect()
+    }
+  }
+
   return (
     <motion.div
       layout
+      role="button"
+      tabIndex={0}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -2 }}
       onClick={onSelect}
+      onKeyDown={handleKeyDown}
       className="group relative rounded-2xl border p-6 transition-all duration-300 cursor-pointer"
       style={{
         borderColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 40%, transparent)' : 'var(--ui-border)',

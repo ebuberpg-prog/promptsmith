@@ -85,6 +85,8 @@ export function SubcategoryList({
         const tags = allTags.filter(t => showExplicit || !t.explicit)
         const selectedCount = allTags.filter(t => selectedIds.has(t.id)).length
 
+        if (tags.length === 0 && selectedCount === 0) return null
+
         return (
           <div key={cat.id}>
             <button

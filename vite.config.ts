@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: 'MUSE — Prompt Studio',
         short_name: 'MUSE',
-        description: 'The most comprehensive AI image generation prompt builder',
+        description: 'A local-first prompt workspace for AI image creators',
         theme_color: '#1a1918',
         background_color: '#1a1918',
         display: 'standalone',
@@ -48,7 +48,8 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,yaml}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,yaml}'],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
       }
     })
   ],
@@ -56,5 +57,19 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['@phosphor-icons/react', 'lucide-react'],
+          'vendor-state': ['zustand', '@tanstack/react-query', '@tanstack/react-virtual'],
+          'vendor-search': ['fuse.js'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
   }
 })
