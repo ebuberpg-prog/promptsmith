@@ -385,6 +385,7 @@ function OpenAIProviderRow({
       </div>
       <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
         Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key. For NVIDIA NIM, use <code className="text-[var(--ui-muted-text)]/50">https://integrate.api.nvidia.com/v1</code> with your NVIDIA API key.
+        Cloud APIs are routed through the API Gateway below so they work from your browser.
       </p>
       <input
         type="text"
@@ -410,9 +411,9 @@ function OpenAIProviderRow({
         </button>
       </div>
 
-      {/* CORS Proxy */}
+      {/* API Gateway */}
       <div>
-        <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">CORS Proxy (optional)</label>
+        <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">API Gateway</label>
         <input
           type="text"
           value={corsProxyUrl}
@@ -421,7 +422,7 @@ function OpenAIProviderRow({
           className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
         />
         <p className="text-[10px] text-[var(--ui-muted-text)]/25 mt-1">
-          Routes requests through a proxy to bypass CORS. Needed for OpenCode Go from the browser.
+          Cloud APIs are routed through this gateway so they work in the browser. Leave as-is for the hosted gateway, or replace with your own.
         </p>
       </div>
 
@@ -429,7 +430,7 @@ function OpenAIProviderRow({
         <div className="space-y-1">
           <p className="text-[10px] text-red-400/60 leading-relaxed">{testError}</p>
           <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-            If you see a network error, the server may be blocking cross-origin (CORS) requests from your browser. Try building and running the production version, or use a CORS proxy.
+            For NVIDIA: models often need activation at build.nvidia.com before they work. For local models (Ollama/LM Studio), connect directly without a gateway.
           </p>
         </div>
       )}

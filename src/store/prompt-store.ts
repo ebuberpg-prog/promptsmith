@@ -183,7 +183,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         lmstudioModels: [],
         openaiModelInputMode: 'auto',
         openaiManualModel: '',
-        corsProxyUrl: '',
+        corsProxyUrl: 'https://prompt-smith.ebuberpg.workers.dev',
       },
       savedEntities: [],
       theme: 'dark' as 'light' | 'dark',
@@ -690,7 +690,18 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
     }),
     {
       name: 'promptsmith-storage',
+      version: 1,
       storage: createJSONStorage(() => localStorage),
+      migrate: (persistedState: unknown, version) => {
+        const s = persistedState as Record<string, unknown>
+        if (version < 1) {
+          const aiSettings = s.aiSettings as Record<string, unknown> | undefined
+          if (aiSettings && (!aiSettings.corsProxyUrl || aiSettings.corsProxyUrl === '')) {
+            aiSettings.corsProxyUrl = 'https://prompt-smith.ebuberpg.workers.dev'
+          }
+        }
+        return s as unknown as PromptSmithStore
+      },
       partialize: (state) => ({
         selectedTags: state.selectedTags,
         customText: state.customText,

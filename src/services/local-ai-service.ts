@@ -319,7 +319,17 @@ class OpenAICompatibleProvider implements AIProvider {
     })
     if (!res.ok) {
       const errText = await res.text().catch(() => res.statusText)
-      // Detect NVIDIA-specific "Function not found for account" errors
+      // Try to parse enriched error JSON from the API gateway
+      let parsed: Record<string, unknown> | null = null
+      try {
+        parsed = JSON.parse(errText)
+      } catch {
+        // not JSON, fall through
+      }
+      if (parsed?.suggestion) {
+        throw new Error(`${parsed.title ?? 'API error'} (${res.status}): ${parsed.detail ?? errText}\n\n${parsed.suggestion}`)
+      }
+      // Detect NVIDIA-specific "Function not found for account" errors (raw response)
       if (errText.includes('Function') && errText.includes('Not found for account')) {
         throw new Error(
           `NVIDIA API error: This model is not activated for your account. ` +
@@ -472,12 +482,28 @@ class AIServiceManager {
           const res = await fetch(p.buildUrl('/models'), {
             headers: p.headers(),
           }).catch(() => null)
-          if (res?.status === 401) return { ok: false, models: [], error: 'Invalid API key (401 Unauthorized)' }
-          if (res?.status === 403) return { ok: false, models: [], error: 'Access forbidden (403). Check your API key and subscription.' }
-          if (res?.status === 404) return { ok: false, models: [], error: 'Endpoint not found (404). Check the URL.' }
-          if (!res) return { ok: false, models: [], error: 'Network error — the proxy or target server may be unreachable.' }
+          if (!res) return { ok: false, models: [], error: 'Network error — the gateway or target server may be unreachable.' }
+          // Try to parse enriched error JSON from the gateway
+          let bodyText = ''
+          try {
+            bodyText = await res.text()
+          } catch {
+            bodyText = res.statusText
+          }
+          let parsed: Record<string, unknown> | null = null
+          try {
+            parsed = JSON.parse(bodyText)
+          } catch {
+            // not JSON
+          }
+          if (parsed?.suggestion) {
+            return { ok: false, models: [], error: `${parsed.title ?? 'API error'} (${res.status}): ${parsed.detail ?? bodyText}\n\n${parsed.suggestion}` }
+          }
+          if (res.status === 401) return { ok: false, models: [], error: 'Invalid API key (401 Unauthorized)' }
+          if (res.status === 403) return { ok: false, models: [], error: 'Access forbidden (403). Check your API key and subscription.' }
+          if (res.status === 404) return { ok: false, models: [], error: 'Endpoint not found (404). Check the URL or model ID.' }
         } catch {
-          return { ok: false, models: [], error: 'Connection failed. Check the URL and proxy.' }
+          return { ok: false, models: [], error: 'Connection failed. Check the URL and gateway.' }
         }
       }
       return { ok: false, models: [], error: 'Could not reach the provider' }
