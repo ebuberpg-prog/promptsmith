@@ -319,6 +319,14 @@ class OpenAICompatibleProvider implements AIProvider {
     })
     if (!res.ok) {
       const errText = await res.text().catch(() => res.statusText)
+      // Detect NVIDIA-specific "Function not found for account" errors
+      if (errText.includes('Function') && errText.includes('Not found for account')) {
+        throw new Error(
+          `NVIDIA API error: This model is not activated for your account. ` +
+          `Go to build.nvidia.com, find the model, and click "Get API Key" or "Deploy" to enable it. ` +
+          `If the issue persists, try a different model (e.g., meta/llama-3.1-8b-instruct) or generate a new API key.`
+        )
+      }
       throw new Error(`OpenAI API error ${res.status}: ${errText}`)
     }
     const data = await res.json()
