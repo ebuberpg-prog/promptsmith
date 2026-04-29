@@ -384,7 +384,7 @@ function OpenAIProviderRow({
         <StatusBadge status={testState} />
       </div>
       <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-        Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key.
+        Works with any OpenAI-compatible endpoint. For OpenCode Go, use <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> with your Zen API key. For NVIDIA NIM, use <code className="text-[var(--ui-muted-text)]/50">https://integrate.api.nvidia.com/v1</code> with your NVIDIA API key.
       </p>
       <input
         type="text"

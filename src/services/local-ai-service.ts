@@ -200,7 +200,14 @@ class OpenAICompatibleProvider implements AIProvider {
   corsProxyUrl: string
 
   constructor(baseUrl: string, apiKey: string, corsProxyUrl: string) {
-    this.baseUrl = baseUrl.replace(/\/+$/, '')
+    // Strip trailing slashes and common endpoint suffixes so users can paste
+    // full URLs like https://integrate.api.nvidia.com/v1/chat/completions
+    this.baseUrl = baseUrl
+      .replace(/\/+$/, '')
+      .replace(/\/v1\/chat\/completions$/i, '')
+      .replace(/\/chat\/completions$/i, '')
+      .replace(/\/v1\/models$/i, '')
+      .replace(/\/models$/i, '')
     this.apiKey = apiKey
     this.corsProxyUrl = corsProxyUrl.replace(/\/+$/, '')
   }
@@ -265,14 +272,14 @@ class OpenAICompatibleProvider implements AIProvider {
       // Handle both { data: [...] } and { models: [...] } and array responses
       const rawModels = data.data ?? data.models ?? (Array.isArray(data) ? data : [])
       return rawModels.map((m: { id: string; name?: string }) => {
-        let modelId = m.id
-        const prefixMatch = modelId.match(/^([a-z0-9-]+)\//i)
-        if (prefixMatch) {
-          modelId = modelId.slice(prefixMatch[0].length)
-        }
+        // Keep the full model ID (including vendor prefixes like nvidia/ or meta/)
+        // because many OpenAI-compatible providers require the full path in API calls.
+        const fullId = m.id
+        const prefixMatch = fullId.match(/^([a-z0-9-]+)\//i)
+        const shortName = prefixMatch ? fullId.slice(prefixMatch[0].length) : fullId
         return {
-          id: modelId,
-          name: m.name ?? m.id,
+          id: fullId,
+          name: m.name ?? shortName,
           provider: 'openai' as const,
         }
       })
