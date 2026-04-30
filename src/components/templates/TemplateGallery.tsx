@@ -26,6 +26,32 @@ import {
   Rocket,
   Camera,
   Image,
+  Mountains,
+  Buildings,
+  DeviceMobile,
+  Diamond,
+  Waves,
+  Heart,
+  GameController,
+  Tree,
+  Church,
+  Armchair,
+  Plant,
+  Cookie,
+  Sneaker,
+  Skull,
+  Gear,
+  Star,
+  VideoCamera,
+  Circle,
+  Seal,
+  Smiley,
+  Cube,
+  Drop,
+  PencilLine,
+  Car,
+  PersonSimpleRun,
+  SquaresFour,
 } from '@phosphor-icons/react'
 import type { PromptTemplate } from '@/types'
 
@@ -44,6 +70,32 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Rocket,
   Camera,
   MagnifyingGlass,
+  Mountains,
+  Buildings,
+  DeviceMobile,
+  Diamond,
+  Waves,
+  Heart,
+  GameController,
+  Tree,
+  Church,
+  Armchair,
+  Plant,
+  Cookie,
+  Sneaker,
+  Skull,
+  Gear,
+  Star,
+  VideoCamera,
+  Circle,
+  Seal,
+  Smiley,
+  Cube,
+  Drop,
+  PencilLine,
+  Car,
+  PersonSimpleRun,
+  SquaresFour,
 }
 
 function renderIcon(name: string, className = 'w-4 h-4') {
@@ -365,7 +417,6 @@ function BuiltInCard({
                 >
                   {DIFFICULTY_LABELS[template.difficulty]}
                 </span>
-                <span className="text-[10px] font-mono" style={{ color: 'var(--ui-muted-text)' }}>{template.model}</span>
               </div>
             </div>
           </div>
