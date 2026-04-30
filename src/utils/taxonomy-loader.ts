@@ -40,6 +40,7 @@ const TAXONOMY_FILES = [
   `${TAXONOMY_BASE}textures.yaml`,
   `${TAXONOMY_BASE}audio.yaml`,
   `${TAXONOMY_BASE}shapes_patterns.yaml`,
+  `${TAXONOMY_BASE}gender.yaml`,
 ]
 
 // Track which files have been loaded to avoid double-loading

@@ -108,7 +108,10 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
     if (activeGroup === 'all') return taxonomy
     const group = SEMANTIC_GROUPS.find(g => g.id === activeGroup)
     if (!group) return taxonomy
-    return taxonomy.filter(cat => group.categoryIds.includes(cat.id))
+    const orderMap = new Map(group.categoryIds.map((id, i) => [id, i]))
+    return taxonomy
+      .filter(cat => group.categoryIds.includes(cat.id))
+      .sort((a, b) => (orderMap.get(a.id) ?? Infinity) - (orderMap.get(b.id) ?? Infinity))
   }, [taxonomy, activeGroup])
 
   const groupCounts = useMemo(() => {

@@ -259,7 +259,9 @@ export class PromptComposer {
       case 'midjourney-params':
         return this.composeMidjourney(sorted, options)
       case 'structured-prose':
-        return this.composeStructuredProse(sorted, options)
+        // Fall through to prose — structured-prose is not a registered ModelConfig style,
+        // but guard here in case legacy templates reference it.
+        return this.composeProse(sorted, options)
       case 'prose':
         return this.composeProse(sorted, options)
       case 'comma-separated':

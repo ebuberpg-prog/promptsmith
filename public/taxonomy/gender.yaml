@@ -1,0 +1,126 @@
+# PROMPTSMITH TAXONOMY - GENDER / SEX
+# Core gender markers for character subjects.
+# Includes model-specific aliases for tag-based systems (Danbooru/Illustrious).
+
+gender_identity:
+  - id: gender_male
+    label: "male"
+    aliases: ["man", "1boy", "boy", "masculine", "guy"]
+    description: "Male gender identity"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_female
+    label: "female"
+    aliases: ["woman", "1girl", "girl", "feminine", "lady"]
+    description: "Female gender identity"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_nonbinary
+    label: "non-binary"
+    aliases: ["enby", "genderqueer", "nonbinary person", "genderfluid", "agender"]
+    description: "Non-binary gender identity"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_androgynous
+    label: "androgynous"
+    aliases: ["gender neutral", "ambiguous gender", "gender ambiguous", "unisex appearance"]
+    description: "Androgynous or ambiguous gender presentation"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_transgender_male
+    label: "transgender male"
+    aliases: ["trans man", "ftm", "transgender man"]
+    description: "Transgender male identity"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_transgender_female
+    label: "transgender female"
+    aliases: ["trans woman", "mtf", "transgender woman"]
+    description: "Transgender female identity"
+    explicit: false
+    weight: 1.0
+
+age_specific:
+  - id: gender_boy
+    label: "boy"
+    aliases: ["young male", "male child", "1boy", "teenage boy", "young boy"]
+    description: "Young male / boy"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_girl
+    label: "girl"
+    aliases: ["young female", "female child", "1girl", "teenage girl", "young girl"]
+    description: "Young female / girl"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_man
+    label: "man"
+    aliases: ["adult male", "male adult", "gentleman", "grown man"]
+    description: "Adult male / man"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_woman
+    label: "woman"
+    aliases: ["adult female", "female adult", "lady", "grown woman"]
+    description: "Adult female / woman"
+    explicit: false
+    weight: 1.0
+
+sex:
+  - id: sex_male
+    label: "male sex"
+    aliases: ["biologically male", "male body", "male anatomy"]
+    description: "Male biological sex"
+    explicit: false
+    weight: 1.0
+
+  - id: sex_female
+    label: "female sex"
+    aliases: ["biologically female", "female body", "female anatomy"]
+    description: "Female biological sex"
+    explicit: false
+    weight: 1.0
+
+  - id: sex_intersex
+    label: "intersex"
+    aliases: ["intersex person", "intersex body"]
+    description: "Intersex biological sex"
+    explicit: false
+    weight: 1.0
+
+presentation:
+  - id: gender_masculine
+    label: "masculine presentation"
+    aliases: ["masculine look", "butch", "masc"]
+    description: "Masculine gender presentation"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_feminine
+    label: "feminine presentation"
+    aliases: ["feminine look", "femme", "fem"]
+    description: "Feminine gender presentation"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_tomboy
+    label: "tomboy"
+    aliases: ["tomboy style", "boyish girl"]
+    description: "Tomboy gender presentation"
+    explicit: false
+    weight: 1.0
+
+  - id: gender_femboy
+    label: "femboy"
+    aliases: ["feminine boy", "otokonoko"]
+    description: "Feminine-presenting male"
+    explicit: false
+    weight: 1.0

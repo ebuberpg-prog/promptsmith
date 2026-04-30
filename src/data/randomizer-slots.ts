@@ -33,7 +33,7 @@ export const PROMPT_SLOTS: PromptSlot[] = [
     required: true,
     minTags: 1,
     maxTags: 2,
-    taxonomyCategoryIds: ['character_anatomy', 'poses_gestures', 'facial_features'],
+    taxonomyCategoryIds: ['gender', 'character_anatomy', 'poses_gestures', 'facial_features'],
   },
   {
     id: 'body',

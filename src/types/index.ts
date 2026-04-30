@@ -71,7 +71,7 @@ export interface ModelConfig {
   name: string
   kind: ModelKind
   version: string
-  promptStyle: 'prose' | 'comma-separated' | 'midjourney-params'
+  promptStyle: 'prose' | 'structured-prose' | 'comma-separated' | 'midjourney-params'
   supportsNegative: boolean
   supportsWeighting: boolean
   weightFormat: (tag: string, weight: number) => string
