@@ -11,6 +11,7 @@ import { TemplateGallery } from './components/templates/TemplateGallery'
 
 import { EntityPresets } from './components/entities/EntityPresets'
 import { RandomizerPanel } from './components/randomizer/RandomizerPanel'
+import { PromptGuide } from './components/guide/PromptGuide'
 import { ReferenceUploader } from './components/reference/ReferenceUploader'
 import { loadTaxonomy } from './utils/taxonomy-loader'
 import { usePromptSmithStore } from './store/prompt-store'
@@ -725,102 +726,6 @@ function ViewTab({ active, onClick, icon, label }: { active: boolean; onClick: (
       <span className="w-4 h-4 flex-shrink-0">{icon}</span>
       <span>{label}</span>
     </button>
-  )
-}
-
-function PromptGuide() {
-  return (
-    <div className="space-y-10 max-w-3xl">
-      <div>
-        <h2 className="font-display text-2xl font-normal mb-2 tracking-tight" style={{ color: 'var(--ui-text)' }}>Prompting Guide</h2>
-        <p className="text-sm" style={{ color: 'var(--ui-muted-text)' }}>Patterns that make great image generation prompts.</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <GuideSection
-          title="Start with the subject"
-          description="The most important part is who or what is in the image. Be specific."
-          steps={[
-            'Name the subject clearly (a woman, a robot, a mountain lake)',
-            'Add physical details that matter (elderly, towering, mist-covered)',
-            'Place them in context (sitting in a cafe, floating in space)',
-          ]}
-        />
-        <GuideSection
-          title="Layer style and mood"
-          description="Style tags shape the feel of the image more than almost anything else."
-          steps={[
-            'Pick a lighting style (golden hour, neon, overcast)',
-            'Choose an art style (photorealistic, oil painting, anime)',
-            'Add a mood word (melancholic, vibrant, serene)',
-          ]}
-        />
-        <GuideSection
-          title="Model tips"
-          description="Each model responds a little differently to prompts."
-          tips={[
-            { model: 'Midjourney', tip: 'Loves evocative, poetic language. Less is often more.' },
-            { model: 'Stable Diffusion', tip: 'Responds well to precise tags and negative prompts.' },
-            { model: 'DALL-E 3', tip: 'Use full sentences and describe the scene like a story.' },
-          ]}
-        />
-        <div
-          className="border border-[var(--ui-border)] rounded-2xl p-6 flex flex-col justify-center items-center text-center transition-colors duration-300"
-          style={{ borderColor: 'var(--ui-border)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
-          onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
-        >
-          <p className="font-display text-lg mb-3" style={{ color: 'var(--ui-text)' }}>Just start</p>
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--ui-muted-text)' }}>The best prompts come from experimenting. Pick a few tags, copy the prompt, and see what happens.</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function GuideSection({
-  title,
-  description,
-  steps,
-  tips,
-}: {
-  title: string
-  description: string
-  steps?: string[]
-  tips?: { model: string; tip: string }[]
-}) {
-  return (
-    <div
-      className="border border-[var(--ui-border)] rounded-2xl p-6 transition-colors duration-300"
-      style={{ borderColor: 'var(--ui-border)' }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
-    >
-      <h3 className="font-display text-base font-normal mb-1.5" style={{ color: 'var(--ui-text)' }}>{title}</h3>
-      <p className="text-sm mb-5 leading-relaxed" style={{ color: 'var(--ui-muted-text)' }}>{description}</p>
-      {steps && (
-        <ul className="space-y-3">
-          {steps.map((step, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <span className="text-xs font-mono mt-0.5 w-4 flex-shrink-0" style={{ color: 'var(--ui-muted-text-faint)' }}>{index + 1}.</span>
-              <span className="text-sm leading-snug" style={{ color: 'var(--ui-text)', opacity: 0.8 }}>{step}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {tips && (
-        <div className="space-y-2">
-          {tips.map((tip, index) => (
-            <div key={index} className="flex items-start gap-3 py-2 border-t border-[var(--ui-border-faint)] first:border-t-0">
-              <span className="text-[10px] font-bold uppercase tracking-wider mt-0.5 min-w-[90px]" style={{ color: 'var(--ui-muted-text-faint)' }}>
-                {tip.model}
-              </span>
-              <span className="text-sm leading-snug" style={{ color: 'var(--ui-text)', opacity: 0.7 }}>{tip.tip}</span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
   )
 }
 
