@@ -30,9 +30,9 @@ Whether you're creating characters, landscapes, product shots, or abstract art, 
 
 - **Discover** the right tags through search and browsing
 - **Compose** prompts optimized for your chosen model
-- **Experiment** with randomization, mutations, and variations
-- **Organize** your work with templates, DNA recipes, and version history
-- **Generate** images directly from connected local or remote AI services
+- **Experiment** with randomization and variations
+- **Organize** your work with templates, saved prompts, and version history
+- **Enhance** prompts with optional local AI assistance
 
 ---
 
@@ -204,7 +204,6 @@ This shows your composed prompt in real time as you add or remove tags. It is fo
 ### Actions on the Prompt
 
 - **Copy** — Copies the formatted prompt to your clipboard
-- **Generate Image** — If connected to a local image generation service, generates the image directly
 - **View Negative Prompt** — Shows the auto-generated negative prompt
 - **Edit Custom Text** — Opens the free-form text editor
 - **Expert Mode** — Reveals advanced controls like trigger words and per-tag weights
@@ -213,22 +212,13 @@ This shows your composed prompt in real time as you add or remove tags. It is fo
 
 MUSE analyzes your current selections and suggests related tags that complement your prompt. These appear as tappable chips below the prompt output.
 
-### Prompt DNA
-
-The **Prompt DNA** section visualizes the composition of your prompt — showing the balance of subject, style, lighting, mood, and other semantic groups. Use it to identify what's missing or overrepresented.
-
 ### Entity Presets
 
 Save the current tag selection as a named **Entity** (character, environment, style, mood, or custom). Entities are reusable building blocks you can load into any future prompt.
 
 ### Reference Images
 
-Upload a reference image to:
-
-- Extract visual tags automatically
-- Analyze composition, dominant colors, and mood
-- Match style vectors against the taxonomy
-- Use as inspiration for your prompt
+Upload reference images to attach visual context to your prompt. You can also use the **AI Tools** panel to extract descriptive tags from an uploaded image via a connected vision model.
 
 ---
 
@@ -240,61 +230,28 @@ Stuck? The **Randomizer** generates unexpected but coherent tag combinations.
 
 **Modes:**
 
-- **Smart** — Balanced randomization that maintains semantic coherence
-- **Coherence-Aware** — Stronger enforcement of compatible tag groups
-- **Chaos** — Truly random, often surreal combinations
-- **Story-Driven** — Generates tags that suggest a narrative
-- **Vibe-Based** — Randomizes within a chosen aesthetic vibe
+- **Smart** — Coherence-driven randomization that picks conflict-free tags across prompt slots. Optionally provide a story seed to guide the narrative direction.
+- **Wild** — Chaos-driven randomization with no coherence checks. Great for breaking out of familiar patterns.
 
 **Options:**
 
-- **Intensity** — Light (few tags changed) or Full (complete rewrite)
-- **Vibe** — Lock to a specific aesthetic direction
-- **Intent** — Focus on subject, style, or mood
-- **Story Seed** — Provide a narrative theme to guide randomization
+- **Intensity** — Quick (3–5 tags across core slots) or Full (8–14 tags across all slots)
+- **Vibe** — Lock to a specific aesthetic direction (Cinematic, Dreamy, Gritty, etc.)
+- **Story Seed** — Provide a narrative theme to guide randomization in Smart mode
 - **Lock pinned tags** — Pinned tags are preserved during randomization
 
 > **Tip:** After randomizing, use Undo (`Cmd/Ctrl + Z`) to step back if you don't like the result.
 
-### Prompt Mutation
+### AI Tools
 
-Generate systematic variations of your current prompt:
+When connected to a local or remote LLM (Ollama, LM Studio, or OpenAI-compatible), MUSE offers several AI-powered assistance features:
 
-- **Style Shift** — Change the art style while keeping the subject
-- **Weight Adjust** — Emphasize or de-emphasize elements
-- **Synonym Swap** — Replace words with semantic equivalents
-- **Composition Change** — Alter framing, angle, or layout
-- **Negative Addition** — Strengthen the negative prompt
+- **Enhance Prompt** — Rewrite your current prompt with improved structure, lighting, and mood details.
+- **Describe → Tags** — Type a natural language description and get matching taxonomy tags back.
+- **Suggest More** — Based on your selected tags, get AI-generated complementary suggestions.
+- **Image → Tags** — Upload an image to a vision-capable model and extract descriptive tags.
 
-Select a mutation type, click **Generate Mutations**, then click any variation to apply it.
-
-### Prompt Diff
-
-Compare two prompts to see exactly what changed:
-
-1. Enter or paste Prompt A and Prompt B.
-2. MUSE highlights additions, removals, modifications, and reorderings.
-3. Each change is labeled with significance: **Critical**, **High**, **Medium**, or **Low**.
-
-Use this to understand why one prompt worked better than another, or to review changes between versions.
-
-### Style Transfer Matrix
-
-Before mixing styles, analyze their compatibility:
-
-1. Select source styles (what you have).
-2. Select target styles (what you want to add).
-3. MUSE generates a compatibility matrix showing how well each pair works together.
-
-High scores mean the styles complement each other. Low scores warn of potential visual clashes.
-
-### Prompt Compression
-
-If your prompt is too long for a model's token limit:
-
-1. Click the compression tool.
-2. Set your target token count.
-3. MUSE intelligently shrinks the prompt using truncation, synonym substitution, and aggregation — while preserving the most important elements.
+Open the **AI Tools** panel from the header to access these features.
 
 ---
 
@@ -311,52 +268,27 @@ Every significant change is automatically saved as a version snapshot. You can:
 
 Version history is stored locally in your browser.
 
-### DNA Recipes
+### Saved Prompts
 
-A **DNA Recipe** is a saved bundle of tags and style weights that defines a reusable aesthetic. Think of it as a "preset" for a look or character type.
+Save your current tag selections and custom text as reusable templates.
 
-**To create a recipe:**
+**To save a prompt:**
 
 1. Build your prompt.
-2. Click **Save as DNA Recipe** in the Prompt Inspector.
-3. Name it and add a description.
-4. It appears in your recipe library for future use.
+2. Open the **Command Palette** (`Cmd/Ctrl + K`) and select **Save prompt**.
+3. Enter a name.
+4. It appears in your saved templates gallery for future use.
 
-**To load a recipe:**
+**To load a saved prompt:**
 
-1. Open the recipe manager.
-2. Click a recipe to replace or append its tags to your current prompt.
-
-### Batch Generation
-
-Create multiple prompt variations automatically:
-
-1. Write a base prompt with variables in curly braces, e.g.:
-   ```
-   A {subject} in {lighting} light, {style} style
-   ```
-2. Define the variable options:
-   - subject: [warrior, mage, rogue]
-   - lighting: [golden hour, neon, moonlight]
-   - style: [oil painting, digital art, anime]
-3. MUSE generates every permutation (3 × 3 × 3 = 27 prompts).
-4. Copy the batch or generate images from each.
-
-### A/B Testing
-
-Compare two prompt variants scientifically:
-
-1. Enter Prompt A and Prompt B.
-2. MUSE tracks impressions, clicks, and conversions (if integrated).
-3. Review which variant performs better.
-
-> **Note:** A/B metrics require manual entry or integration with an external analytics source.
+1. Browse the **Templates** tab or search for it by name in the command palette.
+2. Click to apply its tags and structure to your current session.
 
 ---
 
 ## Local AI Integration
 
-MUSE can connect directly to local and remote AI services for text enhancement and image generation.
+MUSE can connect directly to local and remote AI services for text enhancement and tag extraction.
 
 ### Text Enhancement (LLMs)
 
@@ -373,21 +305,6 @@ Connect to a local or remote LLM to enhance your prompts with AI:
 3. Click **Test Connection**.
 4. If successful, select your preferred model.
 
-### Image Generation
-
-Generate images directly from MUSE without copy-pasting:
-
-- **AUTOMATIC1111 (A1111)** — Stable Diffusion WebUI (default: `http://localhost:7860`)
-- **ComfyUI** — Node-based generation (default: `http://localhost:8188`)
-- **DrawThings** — Local AI generation (default: `http://localhost:3820`)
-
-**Setup:**
-
-1. Open **Settings** → **AI Integration**.
-2. Enter the URL of your running image generation service.
-3. Click **Test Connection**.
-4. In the Prompt Inspector, click **Generate Image**.
-
 ### CORS Proxy
 
 If your local service blocks browser requests due to CORS, enter a CORS proxy URL in settings (e.g., a local Cloudflare Worker or a public proxy).
@@ -402,7 +319,7 @@ Open settings from the header menu. Available options include:
 |---------|-------------|
 | **Theme** | Toggle between Dark and Light modes |
 | **Explicit Content** | Show or hide mature-content tags |
-| **AI Provider URLs** | Configure connections to Ollama, LM Studio, A1111, ComfyUI, DrawThings |
+| **AI Provider URLs** | Configure connections to Ollama, LM Studio, and OpenAI-compatible APIs |
 | **API Keys** | Enter OpenAI API key (stored locally) |
 | **CORS Proxy** | URL for bypassing CORS restrictions |
 | **Model Input Mode** | Auto-detect or manually specify OpenAI models |
@@ -456,15 +373,15 @@ Don't ignore the negative prompt. MUSE auto-generates one based on your positive
 
 ### Pin What Matters
 
-When experimenting with the Randomizer or Mutations, **pin** the tags you definitely want to keep. This prevents them from being changed.
+When experimenting with the Randomizer, **pin** the tags you definitely want to keep. This prevents them from being changed.
 
 ### Save Early, Save Often
 
-Use **DNA Recipes** for aesthetics you love, **Entities** for reusable characters or scenes, and **Templates** for repeatable workflows. Version history protects your experiments.
+Use **Saved Prompts** for workflows you want to reuse, **Entities** for reusable characters or scenes, and **Templates** for repeatable starting points. Version history protects your experiments.
 
 ### Reference Images
 
-Upload a reference image that captures the vibe you want. Even if the extracted tags aren't perfect, they give you a starting point and suggest categories you might have missed.
+Upload reference images that capture the vibe you want. They serve as visual context alongside your prompt. For deeper analysis, use the **Image → Tags** feature in the AI Tools panel if you have a vision-capable model connected.
 
 ---
 
@@ -488,13 +405,6 @@ Upload a reference image that captures the vibe you want. Even if the extracted 
 - Check for CORS errors in the browser console. If present, configure a CORS proxy.
 - Ensure firewall rules allow connections from your browser to the local port.
 - For Ollama, make sure the Ollama server is started (`ollama serve`).
-- For A1111/ComfyUI, launch with `--cors-allow-origins` or use a proxy.
-
-### Images fail to generate
-
-- Confirm the image generation service is running and the test connection succeeds.
-- Check that your prompt isn't empty.
-- Review the error message in the Prompt Inspector — it often indicates a missing model or incorrect parameter.
 
 ### Undo/Redo not working
 

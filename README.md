@@ -33,17 +33,16 @@ MUSE helps image creators **build, refine, organize, and adapt prompts** across 
 
 ### Organization & Workflow
 - **Templates Gallery** — Built-in and user-saved templates for rapid prompt scaffolding.
-- **DNA Recipes** — Save and reload your favorite tag combinations as reusable "recipes" for characters, styles, moods, or environments.
+- **Saved Prompts** — Save your current tag selections and custom text as reusable templates.
 - **Entity Presets** — Save named entities (characters, scenes, styles) and load them instantly into any prompt.
 
 ### Creative Tools
 - **Randomizer Engine** — Break creative block with coherence-aware randomization across multiple modes and intensities.
-- **Prompt Diff** — Compare two prompts at the semantic level to see exactly what changed.
-- **Prompt Compression** — Intelligently shrink long prompts to fit within model token limits while preserving the most important elements.
+- **Tag Suggestions** — Get AI-powered and taxonomy-based suggestions for tags that complement your current prompt.
 
 ### Integration & Extensibility
-- **Local AI Integration (Optional)** — Connect to Ollama, LM Studio, OpenAI-compatible APIs, A1111 (AUTOMATIC1111), ComfyUI, and DrawThings for local or remote generation. These are **optional** — MUSE works fully as a prompt studio without them.
-- **Reference Images** — Upload reference images to inform prompt building.
+- **Local AI Integration (Optional)** — Connect to Ollama, LM Studio, or any OpenAI-compatible API for prompt enhancement, text-to-tags, tag suggestions, and image-to-tags extraction. These are **optional** — MUSE works fully as a prompt studio without them.
+- **Reference Images** — Upload reference images to attach visual context to your prompt.
 - **Command Palette** — Keyboard-driven quick access to features (`Cmd/Ctrl + K`).
 - **Keyboard Shortcuts** — Shortcut coverage for common actions.
 - **Dark & Light Themes** — Warm, editorial design system with comfortable contrast in both modes.
@@ -202,10 +201,8 @@ npm run test:watch
 Current test coverage includes:
 - Prompt composition logic
 - Negative prompt generation
-- Mutation engine variations
-- Style compatibility analysis
-- Prompt diff calculation
-- Compression strategies
+- Randomizer engine coherence
+- Tag search and indexing
 
 ---
 
@@ -232,11 +229,9 @@ Because the app is a static SPA with client-side routing, ensure your host suppo
 
 ## Roadmap
 
-- [ ] **Community Gallery** — Share and discover public prompts and DNA recipes.
+- [ ] **Community Gallery** — Share and discover public prompts and saved templates.
 - [ ] **Cloud Sync** — Optional backend for cross-device synchronization.
 - [ ] **Plugin System** — Third-party taxonomy packs and custom model configs.
-- [ ] **Image Grid** — Built-in viewer for batch generation results.
-- [ ] **Prompt Evaluation** — Automated scoring against reference images (CLIP-based).
 - [ ] **Multi-language Taxonomy** — i18n support for tag labels and descriptions.
 
 ---
