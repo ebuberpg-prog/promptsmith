@@ -1,0 +1,385 @@
+# PROMPTSMITH TAXONOMY - TECHNOLOGY & DEVICES
+
+communication:
+  - id: tech_smartphone
+    label: "smartphone"
+    aliases: ["mobile phone", "cell phone", "iPhone", "Android"]
+    description: "Modern smartphone device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_laptop
+    label: "laptop"
+    aliases: ["notebook", "MacBook", "portable computer"]
+    description: "Portable laptop computer"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_tablet
+    label: "tablet"
+    aliases: ["iPad", "tablet computer", "touchscreen device"]
+    description: "Tablet computer device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_desktop_computer
+    label: "desktop computer"
+    aliases: ["PC", "desktop", "tower computer", "workstation"]
+    description: "Desktop computer setup"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_monitor
+    label: "computer monitor"
+    aliases: ["display", "screen", "LED monitor", "LCD screen"]
+    description: "Computer monitor display"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_keyboard
+    label: "keyboard"
+    aliases: ["computer keyboard", "mechanical keyboard", "typing"]
+    description: "Computer keyboard"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_mouse
+    label: "computer mouse"
+    aliases: ["mouse", "wireless mouse", "gaming mouse"]
+    description: "Computer pointing device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_headphones
+    label: "headphones"
+    aliases: ["over-ear headphones", "on-ear headphones", "headset"]
+    description: "Headphones audio device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_earbuds
+    label: "wireless earbuds"
+    aliases: ["AirPods", "wireless earphones", "true wireless"]
+    description: "Wireless earbuds"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_vr_headset
+    label: "VR headset"
+    aliases: ["virtual reality", "VR goggles", "Oculus", "Meta Quest"]
+    description: "Virtual reality headset"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_ar_glasses
+    label: "AR glasses"
+    aliases: ["augmented reality", "smart glasses", "AR headset"]
+    description: "Augmented reality glasses"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_smartwatch
+    label: "smartwatch"
+    aliases: ["Apple Watch", "fitness tracker", "wearable"]
+    description: "Smartwatch wearable device"
+    explicit: false
+    weight: 1.0
+
+camera_tech:
+  - id: tech_drone
+    label: "drone"
+    aliases: ["quadcopter", "UAV", "flying camera", "dji"]
+    description: "Unmanned aerial vehicle drone"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_action_camera
+    label: "action camera"
+    aliases: ["GoPro", "sports camera", "rugged camera"]
+    description: "Rugged action camera"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_webcam
+    label: "webcam"
+    aliases: ["web camera", "streaming camera", "USB camera"]
+    description: "Web camera for video calls"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_ring_light
+    label: "ring light"
+    aliases: ["LED ring light", "streaming light", "content creator light"]
+    description: "Circular LED light for photography/video"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_green_screen
+    label: "green screen"
+    aliases: ["chroma key", "greenscreen", "blue screen"]
+    description: "Green screen backdrop for chroma key"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_tripod
+    label: "tripod"
+    aliases: ["camera tripod", "light stand", "support stand"]
+    description: "Three-legged camera support"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_gimbal
+    label: "gimbal"
+    aliases: ["stabilizer", "camera stabilizer", "3-axis gimbal"]
+    description: "Camera stabilization device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_microphone
+    label: "microphone"
+    aliases: ["mic", "condenser mic", "dynamic mic", "USB mic"]
+    description: "Audio recording microphone"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_streaming_setup
+    label: "streaming setup"
+    aliases: ["content creator setup", "YouTuber setup", "Twitch setup"]
+    description: "Complete content creation equipment setup"
+    explicit: false
+    weight: 1.0
+
+gaming_tech:
+  - id: tech_game_console
+    label: "game console"
+    aliases: ["PlayStation", "Xbox", "Nintendo Switch", "gaming console"]
+    description: "Video game console"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_gaming_pc
+    label: "gaming PC"
+    aliases: ["gaming computer", "battlestation", "RGB PC", "custom PC"]
+    description: "High-performance gaming computer"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_controller
+    label: "game controller"
+    aliases: ["gamepad", "joystick", "DualSense", "Xbox controller"]
+    description: "Video game controller"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_arcade_machine
+    label: "arcade machine"
+    aliases: ["arcade cabinet", "arcade game", "retro arcade"]
+    description: "Coin-operated arcade game machine"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_racing_wheel
+    label: "racing wheel"
+    aliases: ["steering wheel controller", "driving wheel", "sim racing"]
+    description: "Racing steering wheel controller"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_flight_stick
+    label: "flight stick"
+    aliases: ["joystick", "flight simulator controller", "HOTAS"]
+    description: "Flight simulation controller"
+    explicit: false
+    weight: 1.0
+
+robotics:
+  - id: tech_robot
+    label: "robot"
+    aliases: ["android", "humanoid robot", "mechanical being"]
+    description: "Humanoid robot"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_robot_arm
+    label: "robotic arm"
+    aliases: ["industrial robot", "mechanical arm", "automation"]
+    description: "Industrial robotic arm"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_robot_dog
+    label: "robot dog"
+    aliases: ["quadruped robot", "mechanical dog", "Boston Dynamics"]
+    description: "Quadruped robot resembling a dog"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_exoskeleton
+    label: "exoskeleton"
+    aliases: ["powered exoskeleton", "mechanical suit", "exo suit"]
+    description: "Wearable powered exoskeleton"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_drone_swarm
+    label: "drone swarm"
+    aliases: ["swarm of drones", "drone formation", "UAV swarm"]
+    description: "Multiple drones flying in formation"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_robot_vacuum
+    label: "robot vacuum"
+    aliases: ["Roomba", "automatic vacuum", "cleaning robot"]
+    description: "Autonomous robotic vacuum cleaner"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_ai_assistant
+    label: "AI assistant device"
+    aliases: ["smart speaker", "Alexa", "Google Home", "Siri"]
+    description: "Voice-activated AI assistant device"
+    explicit: false
+    weight: 1.0
+
+vehicles_tech:
+  - id: tech_electric_car
+    label: "electric car"
+    aliases: ["EV", "Tesla", "electric vehicle", "zero emission"]
+    description: "Battery electric vehicle"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_hybrid_car
+    label: "hybrid car"
+    aliases: ["hybrid vehicle", "PHEV", "HEV", "eco car"]
+    description: "Hybrid electric vehicle"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_self_driving
+    label: "self-driving car"
+    aliases: ["autonomous vehicle", "driverless car", "autopilot"]
+    description: "Autonomous self-driving vehicle"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_hoverboard
+    label: "hoverboard"
+    aliases: ["self-balancing scooter", "segway", "personal transporter"]
+    description: "Self-balancing personal transporter"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_electric_scooter
+    label: "electric scooter"
+    aliases: ["e-scooter", "kick scooter electric", "shared scooter"]
+    description: "Electric kick scooter"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_ebike
+    label: "electric bicycle"
+    aliases: ["e-bike", "electric bike", "pedal assist"]
+    description: "Electric-assisted bicycle"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_electric_skateboard
+    label: "electric skateboard"
+    aliases: ["e-skateboard", "Boosted Board", "electric longboard"]
+    description: "Motorized electric skateboard"
+    explicit: false
+    weight: 1.0
+
+tech_misc:
+  - id: tech_3d_printer
+    label: "3D printer"
+    aliases: ["additive manufacturing", "FDM printer", "resin printer"]
+    description: "Three-dimensional printing machine"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_laser_cutter
+    label: "laser cutter"
+    aliases: ["laser engraver", "CNC laser", "cutting laser"]
+    description: "Laser cutting machine"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_cnc_machine
+    label: "CNC machine"
+    aliases: ["CNC router", "computer numerical control", "milling machine"]
+    description: "Computer-controlled manufacturing machine"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_server_rack
+    label: "server rack"
+    aliases: ["data center", "server room", "network rack", "blade server"]
+    description: "Rack-mounted server equipment"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_circuit_board
+    label: "circuit board"
+    aliases: ["PCB", "printed circuit board", "electronics", "motherboard"]
+    description: "Printed circuit board with electronic components"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_solar_panel
+    label: "solar panel"
+    aliases: ["photovoltaic", "solar array", "PV panel", "renewable energy"]
+    description: "Solar photovoltaic panel"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_satellite
+    label: "satellite"
+    aliases: ["communications satellite", "space satellite", "orbital"]
+    description: "Orbiting satellite"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_telescope
+    label: "telescope"
+    aliases: ["optical telescope", "refractor", "reflector", "astronomy"]
+    description: "Optical telescope for astronomy"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_microscope
+    label: "microscope"
+    aliases: ["optical microscope", "electron microscope", "lab equipment"]
+    description: "Scientific microscope"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_smart_home
+    label: "smart home"
+    aliases: ["home automation", "connected home", "IoT home", "smart house"]
+    description: "Automated smart home with connected devices"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_ebook_reader
+    label: "e-reader"
+    aliases: ["Kindle", "ebook reader", "digital reader", "e-ink"]
+    description: "Electronic book reader device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_projector
+    label: "projector"
+    aliases: ["video projector", "home theater projector", "beamer"]
+    description: "Video projection device"
+    explicit: false
+    weight: 1.0
+
+  - id: tech_hologram
+    label: "hologram"
+    aliases: ["holographic display", "3D hologram", "light projection"]
+    description: "Holographic three-dimensional image"
+    explicit: false
+    weight: 1.0

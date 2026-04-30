@@ -1,0 +1,330 @@
+# PROMPTSMITH TAXONOMY - TYPOGRAPHY & TEXT
+
+font_styles:
+  serif:
+    - id: type_serif_times
+      label: "Times New Roman"
+      aliases: ["Times", "serif font", "classic serif"]
+      description: "Classic serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_serif_georgia
+      label: "Georgia"
+      aliases: ["Georgia font", "elegant serif"]
+      description: "Elegant serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_serif_garamond
+      label: "Garamond"
+      aliases: ["Garamond font", "old style serif"]
+      description: "Old-style serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_serif_bodoni
+      label: "Bodoni"
+      aliases: ["Bodoni font", "modern serif", "high contrast serif"]
+      description: "Modern serif typeface with high contrast"
+      explicit: false
+      weight: 1.0
+
+    - id: type_serif_didot
+      label: "Didot"
+      aliases: ["Didot font", "French serif", "elegant serif"]
+      description: "French modern serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_serif_trajan
+      label: "Trajan"
+      aliases: ["Trajan font", "Roman serif", "classical serif"]
+      description: "Roman-inspired serif typeface"
+      explicit: false
+      weight: 1.0
+
+  sans_serif:
+    - id: type_sans_helvetica
+      label: "Helvetica"
+      aliases: ["Helvetica font", "Swiss sans", "neutral sans"]
+      description: "Neutral sans-serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_sans_futura
+      label: "Futura"
+      aliases: ["Futura font", "geometric sans", "modern sans"]
+      description: "Geometric sans-serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_sans_gotham
+      label: "Gotham"
+      aliases: ["Gotham font", "geometric sans", "clean sans"]
+      description: "Geometric sans-serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_sans_montserrat
+      label: "Montserrat"
+      aliases: ["Montserrat font", "geometric sans", "urban sans"]
+      description: "Urban geometric sans-serif"
+      explicit: false
+      weight: 1.0
+
+    - id: type_sans_roboto
+      label: "Roboto"
+      aliases: ["Roboto font", "Android font", "modern sans"]
+      description: "Modern sans-serif typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_sans_inter
+      label: "Inter"
+      aliases: ["Inter font", "UI font", "screen optimized"]
+      description: "Screen-optimized sans-serif"
+      explicit: false
+      weight: 1.0
+
+  display:
+    - id: type_display_impact
+      label: "Impact"
+      aliases: ["Impact font", "bold display", "heavy font"]
+      description: "Heavy display typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_bebas
+      label: "Bebas Neue"
+      aliases: ["Bebas font", "condensed display", "bold condensed"]
+      description: "Condensed display typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_lobster
+      label: "Lobster"
+      aliases: ["Lobster font", "script display", "decorative script"]
+      description: "Decorative script display font"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_pacifico
+      label: "Pacifico"
+      aliases: ["Pacifico font", "handwritten display", "casual script"]
+      description: "Casual handwritten display font"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_blackletter
+      label: "blackletter"
+      aliases: ["Gothic font", "Old English", "Fraktur", "Textura"]
+      description: "Blackletter/Gothic display typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_western
+      label: "Western font"
+      aliases: ["cowboy font", "saloon font", "wanted poster font"]
+      description: "American Western display typeface"
+      explicit: false
+      weight: 1.0
+
+    - id: type_display_neon
+      label: "neon sign font"
+      aliases: ["neon text", "neon lettering", "tube font"]
+      description: "Neon tube-style lettering"
+      explicit: false
+      weight: 1.0
+
+  monospace:
+    - id: type_mono_courier
+      label: "Courier"
+      aliases: ["Courier New", "typewriter font", "monospace"]
+      description: "Classic monospace typewriter font"
+      explicit: false
+      weight: 1.0
+
+    - id: type_mono_jetbrains
+      label: "JetBrains Mono"
+      aliases: ["JetBrains font", "code font", "programming font"]
+      description: "Code-optimized monospace font"
+      explicit: false
+      weight: 1.0
+
+    - id: type_mono_ibm_plex
+      label: "IBM Plex Mono"
+      aliases: ["IBM Plex", "technical font", "monospace"]
+      description: "Technical monospace font"
+      explicit: false
+      weight: 1.0
+
+text_effects:
+  - id: type_3d_text
+    label: "3D text"
+    aliases: ["three dimensional text", "extruded text", "dimensional lettering"]
+    description: "Text with three-dimensional depth"
+    explicit: false
+    weight: 1.0
+
+  - id: type_embossed
+    label: "embossed text"
+    aliases: ["raised text", "debossed", "relief text"]
+    description: "Text with raised or recessed surface"
+    explicit: false
+    weight: 1.0
+
+  - id: type_engraved
+    label: "engraved text"
+    aliases: ["carved text", "etched lettering", "stone carved"]
+    description: "Text carved into surface"
+    explicit: false
+    weight: 1.0
+
+  - id: type_glowing
+    label: "glowing text"
+    aliases: ["neon glow text", "luminescent text", "backlit text"]
+    description: "Text with glowing luminescent effect"
+    explicit: false
+    weight: 1.0
+
+  - id: type_gold_leaf
+    label: "gold leaf text"
+    aliases: ["gilded text", "gold lettering", "foil text"]
+    description: "Text with gold leaf application"
+    explicit: false
+    weight: 1.0
+
+  - id: type_graffiti
+    label: "graffiti text"
+    aliases: ["street art text", "tag", "spray paint text", "wildstyle"]
+    description: "Graffiti-style painted text"
+    explicit: false
+    weight: 1.0
+
+  - id: type_handwritten
+    label: "handwritten text"
+    aliases: ["hand lettered", "script text", "calligraphic text"]
+    description: "Hand-drawn or handwritten text"
+    explicit: false
+    weight: 1.0
+
+  - id: type_kinetic
+    label: "kinetic typography"
+    aliases: ["moving text", "animated typography", "motion text"]
+    description: "Text in motion or animated"
+    explicit: false
+    weight: 1.0
+
+  - id: type_letterpress
+    label: "letterpress"
+    aliases: ["pressed text", "relief printing", "vintage print"]
+    description: "Text with letterpress printing texture"
+    explicit: false
+    weight: 1.0
+
+  - id: type_liquid
+    label: "liquid text"
+    aliases: ["melting text", "fluid text", "dripping text"]
+    description: "Text with liquid or melting effect"
+    explicit: false
+    weight: 1.0
+
+  - id: type_metallic
+    label: "metallic text"
+    aliases: ["chrome text", "metal text", "silver text", "brushed metal"]
+    description: "Text with metallic surface effect"
+    explicit: false
+    weight: 1.0
+
+  - id: type_neon_sign
+    label: "neon sign text"
+    aliases: ["neon lettering", "tube text", "neon glow"]
+    description: "Text styled as neon signage"
+    explicit: false
+    weight: 1.0
+
+  - id: type_on_fire
+    label: "text on fire"
+    aliases: ["burning text", "flame text", "fire lettering"]
+    description: "Text with flames or burning effect"
+    explicit: false
+    weight: 1.0
+
+  - id: type_pixel
+    label: "pixel text"
+    aliases: ["8-bit text", "pixelated text", "retro game text"]
+    description: "Text with pixelated retro game style"
+    explicit: false
+    weight: 1.0
+
+  - id: type_silkscreen
+    label: "silkscreen text"
+    aliases: ["screen print text", "serigraph", "stencil text"]
+    description: "Text with silkscreen printing texture"
+    explicit: false
+    weight: 1.0
+
+  - id: type_stencil
+    label: "stencil text"
+    aliases: ["spray stencil", "military stencil", "cutout text"]
+    description: "Text with stencil-cut appearance"
+    explicit: false
+    weight: 1.0
+
+  - id: type_typewriter
+    label: "typewriter text"
+    aliases: ["typewritten", "manual typewriter", "vintage type"]
+    description: "Text with typewriter aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: type_vaporwave
+    label: "vaporwave text"
+    aliases: ["aesthetic text", "retro digital", "glitch text"]
+    description: "Vaporwave aesthetic text styling"
+    explicit: false
+    weight: 1.0
+
+text_layout:
+  - id: type_drop_cap
+    label: "drop cap"
+    aliases: ["initial cap", "decorative initial", "illuminated letter"]
+    description: "Large decorative first letter of text block"
+    explicit: false
+    weight: 1.0
+
+  - id: type_pull_quote
+    label: "pull quote"
+    aliases: ["quote block", "highlighted quote", "extract"]
+    description: "Highlighted quotation extracted from text"
+    explicit: false
+    weight: 1.0
+
+  - id: type_ransom_note
+    label: "ransom note"
+    aliases: ["cutout letters", "magazine letters", "collage text"]
+    description: "Text assembled from cutout letters"
+    explicit: false
+    weight: 1.0
+
+  - id: type_text_columns
+    label: "text columns"
+    aliases: ["newspaper columns", "multi-column text", "column layout"]
+    description: "Text arranged in multiple columns"
+    explicit: false
+    weight: 1.0
+
+  - id: type_text_overlay
+    label: "text overlay"
+    aliases: ["text on image", "caption overlay", "title card"]
+    description: "Text overlaid on an image"
+    explicit: false
+    weight: 1.0
+
+  - id: type_watermark
+    label: "watermark"
+    aliases: ["faded text", "translucent text", "branded watermark"]
+    description: "Semi-transparent text overlay"
+    explicit: false
+    weight: 1.0

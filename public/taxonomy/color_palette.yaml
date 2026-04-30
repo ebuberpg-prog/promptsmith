@@ -332,3 +332,69 @@ mood_based:
     description: "Corporate professional palette"
     explicit: false
     weight: 1.0
+
+duotone:
+  - id: color_duotone_blue_orange
+    label: "blue-orange duotone"
+    aliases: ["duotone", "two-tone", "blue and orange", "complementary duotone"]
+    description: "Blue and orange duotone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_duotone_pink_teal
+    label: "pink-teal duotone"
+    aliases: ["duotone", "two-tone", "pink and teal", "retro duotone"]
+    description: "Pink and teal duotone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_duotone_black_white
+    label: "black-white duotone"
+    aliases: ["monochrome duotone", "high contrast duotone", "grayscale"]
+    description: "Black and white duotone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_duotone_purple_gold
+    label: "purple-gold duotone"
+    aliases: ["royal duotone", "luxury duotone", "purple and gold"]
+    description: "Purple and gold duotone palette"
+    explicit: false
+    weight: 1.0
+
+tritone:
+  - id: color_tritone_warm
+    label: "warm tritone"
+    aliases: ["three-tone warm", "red-orange-yellow", "sunset tritone"]
+    description: "Warm red-orange-yellow tritone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_tritone_cool
+    label: "cool tritone"
+    aliases: ["three-tone cool", "blue-cyan-purple", "ocean tritone"]
+    description: "Cool blue-cyan-purple tritone palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_tritone_earth
+    label: "earth tritone"
+    aliases: ["three-tone earth", "brown-olive-rust", "natural tritone"]
+    description: "Earth brown-olive-rust tritone palette"
+    explicit: false
+    weight: 1.0
+
+tetradic:
+  - id: color_tetradic_primary
+    label: "primary tetradic"
+    aliases: ["four-color", "double complementary", "red-yellow-blue-green"]
+    description: "Primary-based tetradic four-color palette"
+    explicit: false
+    weight: 1.0
+
+  - id: color_tetradic_pastel
+    label: "pastel tetradic"
+    aliases: ["soft four-color", "muted tetradic", "pastel harmony"]
+    description: "Pastel soft tetradic four-color palette"
+    explicit: false
+    weight: 1.0

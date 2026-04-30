@@ -39,6 +39,8 @@ export const SEMANTIC_GROUPS: SemanticGroup[] = [
       'magic_types', 'magical_creatures', 'fairies', 'magical_items', 'spell_effects', 'supernatural',
       // intimate_content.yaml (poses/gestures already covered above)
       'clothing_fetish', 'body_states', 'adult_settings', 'fetish_specific', 'aftermath', 'sensation',
+      // animals.yaml
+      'domestic_animals', 'wildlife',
     ],
     accentHsl: 'var(--group-subject)',
   },
@@ -50,6 +52,7 @@ export const SEMANTIC_GROUPS: SemanticGroup[] = [
     categoryIds: [
       // clothing.yaml
       'tops', 'bottoms', 'full_body', 'lingerie', 'footwear', 'clothing_states', 'accessories',
+      'techwear', 'athleisure', 'sustainable_fashion',
       // hair.yaml
       'hair_length', 'hair_style_women', 'hair_style_men', 'hair_color', 'hair_texture',
       'facial_hair', 'braiding_styles', 'updos_expanded', 'hair_accessories',
@@ -69,12 +72,18 @@ export const SEMANTIC_GROUPS: SemanticGroup[] = [
       // environments.yaml
       'interior_locations', 'exterior_locations', 'atmosphere', 'religious_places',
       'industrial', 'agricultural', 'entertainment', 'transport', 'medical', 'educational',
-      'nature_expanded', 'celestial',
+      'nature_expanded', 'celestial', 'abandoned_places', 'underwater_cities', 'cyberpunk_streets', 'spaceship_interiors',
       // props_objects.yaml
       'weapons', 'tools', 'gadgets', 'vehicles', 'vehicles_fantasy', 'furniture', 'containers',
       'food_drink', 'nature_objects', 'religious_mystical', 'protection', 'kitchen',
       'household', 'musical_instruments', 'sports', 'office',
       'religious_mystical_expanded', 'fantasy_vehicles_expanded',
+      // architecture.yaml
+      'building_styles', 'building_types', 'structural_elements',
+      // technology.yaml
+      'communication', 'camera_tech', 'gaming_tech', 'robotics', 'vehicles_tech', 'tech_misc',
+      // audio.yaml
+      'audio_devices', 'instruments', 'music_genres', 'sound_effects',
       // weather_effects.yaml
       'precipitation', 'wind', 'clouds', 'atmospheric', 'particles', 'celestial', 'extreme',
       // time_period.yaml
@@ -100,13 +109,21 @@ export const SEMANTIC_GROUPS: SemanticGroup[] = [
       'camera_types', 'camera_movements', 'film_stocks_expanded',
       'lighting_modifiers', 'lighting_setups_expanded', 'animation_styles',
       // art_medium.yaml
-      'photography', 'three_dimensional', 'animation', 'video', 'mixed_media',
+      'photography', 'three_dimensional', 'animation', 'video', 'mixed_media', 'ai_generated',
       // color_palette.yaml
       'monochromatic', 'complementary', 'analogous', 'triadic', 'split_complementary',
-      'thematic', 'mood_based',
+      'thematic', 'mood_based', 'duotone', 'tritone', 'tetradic',
       // composition.yaml
       'rule_of_thirds', 'framing', 'perspective', 'leading_lines', 'balance',
-      'depth', 'cropping', 'dynamic',
+      'depth', 'cropping', 'dynamic', 'dutch_angle', 'forced_perspective', 'silhouette', 'negative_space',
+      // typography.yaml
+      'font_styles', 'text_effects', 'text_layout',
+      // abstract.yaml
+      'abstract_concepts', 'abstract_states', 'abstract_forces', 'abstract_visuals',
+      // textures.yaml
+      'natural_textures', 'synthetic_textures',
+      // shapes_patterns.yaml
+      'geometric_shapes', 'patterns', 'fractals', 'abstract_patterns',
     ],
     accentHsl: 'var(--group-style)',
   },

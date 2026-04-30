@@ -1,0 +1,264 @@
+# PROMPTSMITH TAXONOMY - ABSTRACT & CONCEPTUAL
+
+abstract_concepts:
+  - id: abs_chaos
+    label: "chaos"
+    aliases: ["disorder", "turmoil", "entropy", "randomness"]
+    description: "Chaotic abstract concept"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_entropy
+    label: "entropy"
+    aliases: ["decay", "degradation", "disintegration", "dissolution"]
+    description: "Entropy as abstract concept of decay"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_duality
+    label: "duality"
+    aliases: ["dual nature", "two sides", "yin yang", "polarity"]
+    description: "Duality abstract concept of opposing forces"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_transformation
+    label: "transformation"
+    aliases: ["metamorphosis", "change", "evolution", "becoming"]
+    description: "Transformation abstract concept of change"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_infinity
+    label: "infinity"
+    aliases: ["endless", "eternal", "boundless", "limitless"]
+    description: "Infinity abstract concept of endlessness"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_eternity
+    label: "eternity"
+    aliases: ["timeless", "forever", "perpetuity", "everlasting"]
+    description: "Eternity abstract concept of timelessness"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_void
+    label: "void"
+    aliases: ["emptiness", "nothingness", "abyss", "vacuum"]
+    description: "Void abstract concept of emptiness"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_singularity
+    label: "singularity"
+    aliases: ["point of convergence", "oneness", "unity", "merging"]
+    description: "Singularity abstract concept of converging to one point"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_balance
+    label: "balance"
+    aliases: ["equilibrium", "harmony", "poise", "steadiness"]
+    description: "Balance abstract concept of equilibrium"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_tension
+    label: "tension"
+    aliases: ["strain", "pressure", "stress", "pull"]
+    description: "Tension abstract concept of opposing forces in strain"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_flow
+    label: "flow"
+    aliases: ["movement", "current", "stream", "fluidity"]
+    description: "Flow abstract concept of continuous movement"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_rhythm
+    label: "rhythm"
+    aliases: ["beat", "pulse", "pattern", "cadence"]
+    description: "Rhythm abstract concept of repeated pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_vortex
+    label: "vortex"
+    aliases: ["whirlpool", "spiral", "maelstrom", "swirl"]
+    description: "Vortex abstract concept of spinning center"
+    explicit: false
+    weight: 1.0
+
+  - id: ascension
+    label: "ascension"
+    aliases: ["rising", "elevation", "upward movement", "transcendence"]
+    description: "Ascension abstract concept of rising upward"
+    explicit: false
+    weight: 1.0
+
+  - id: descension
+    label: "descension"
+    aliases: ["falling", "descent", "downward movement", "decline"]
+    description: "Descension abstract concept of falling downward"
+    explicit: false
+    weight: 1.0
+
+abstract_states:
+  - id: abs_dreamlike
+    label: "dreamlike"
+    aliases: ["surreal", "ethereal", "phantasmagoric", "oneiric"]
+    description: "Dreamlike abstract state"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_nightmarish
+    label: "nightmarish"
+    aliases: ["horrific", "terrifying", "disturbing", "sinister"]
+    description: "Nightmarish abstract state"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_transcendent
+    label: "transcendent"
+    aliases: ["beyond", "otherworldly", "spiritual", "sublime"]
+    description: "Transcendent abstract state beyond normal experience"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_primal
+    label: "primal"
+    aliases: ["primitive", "ancient", "raw", "instinctive"]
+    description: "Primal abstract state of raw instinct"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_liminal
+    label: "liminal"
+    aliases: ["threshold", "in-between", "transitional", "borderline"]
+    description: "Liminal abstract state at a threshold"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_organic
+    label: "organic"
+    aliases: ["natural", "living", "biological", "cellular"]
+    description: "Organic abstract state of living nature"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_mechanical
+    label: "mechanical"
+    aliases: ["machine-like", "industrial", "robotic", "automated"]
+    description: "Mechanical abstract state of machine precision"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_crystalline
+    label: "crystalline"
+    aliases: ["crystal-like", "geometric", "faceted", "prismatic"]
+    description: "Crystalline abstract state of crystal structure"
+    explicit: false
+    weight: 1.0
+
+abstract_forces:
+  - id: abs_energy
+    label: "energy"
+    aliases: ["power", "force", "vitality", "dynamism"]
+    description: "Energy abstract force"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_gravity
+    label: "gravity"
+    aliases: ["weight", "pull", "attraction", "force of nature"]
+    description: "Gravity abstract force"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_light
+    label: "light"
+    aliases: ["illumination", "radiance", "brightness", "glow"]
+    description: "Light abstract force of illumination"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_darkness
+    label: "darkness"
+    aliases: ["shadow", "obscurity", "void", "blackness"]
+    description: "Darkness abstract force of obscurity"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_time
+    label: "time"
+    aliases: ["temporal", "chronology", "passage of time", "timeline"]
+    description: "Time abstract concept"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_space
+    label: "space"
+    aliases: ["spatial", "void", "cosmos", "expanse"]
+    description: "Space abstract concept"
+    explicit: false
+    weight: 1.0
+
+abstract_visuals:
+  - id: abs_fractal
+    label: "fractal"
+    aliases: ["self-similar", "recursive", "mathematical pattern", "fractal art"]
+    description: "Fractal abstract visual pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_kaleidoscope
+    label: "kaleidoscope"
+    aliases: ["symmetric pattern", "mirrored", "colorful pattern"]
+    description: "Kaleidoscope abstract symmetric pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_mandala
+    label: "mandala"
+    aliases: ["circular pattern", "sacred geometry", "geometric art"]
+    description: "Mandala abstract circular geometric pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_topography
+    label: "topography"
+    aliases: ["contour lines", "elevation map", "terrain", "landscape abstract"]
+    description: "Topographic abstract contour pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_wireframe
+    label: "wireframe"
+    aliases: ["mesh", "grid", "skeleton", "outline"]
+    description: "Wireframe abstract mesh outline"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_particle_field
+    label: "particle field"
+    aliases: ["particle system", "point cloud", "scatter", "dust"]
+    description: "Particle field abstract scattering of points"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_glitch
+    label: "glitch"
+    aliases: ["digital corruption", "data bending", "error art", "pixel sort"]
+    description: "Glitch abstract digital corruption"
+    explicit: false
+    weight: 1.0
+
+  - id: abs_noise
+    label: "noise"
+    aliases: ["grain", "static", "random pattern", "texture noise"]
+    description: "Noise abstract random visual texture"
+    explicit: false
+    weight: 1.0

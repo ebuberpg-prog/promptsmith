@@ -32,6 +32,14 @@ const TAXONOMY_FILES = [
   `${TAXONOMY_BASE}social_setting.yaml`,
   `${TAXONOMY_BASE}intimate_content.yaml`,
   `${TAXONOMY_BASE}negative_prompts.yaml`,
+  `${TAXONOMY_BASE}architecture.yaml`,
+  `${TAXONOMY_BASE}typography.yaml`,
+  `${TAXONOMY_BASE}animals.yaml`,
+  `${TAXONOMY_BASE}technology.yaml`,
+  `${TAXONOMY_BASE}abstract.yaml`,
+  `${TAXONOMY_BASE}textures.yaml`,
+  `${TAXONOMY_BASE}audio.yaml`,
+  `${TAXONOMY_BASE}shapes_patterns.yaml`,
 ]
 
 // Track which files have been loaded to avoid double-loading

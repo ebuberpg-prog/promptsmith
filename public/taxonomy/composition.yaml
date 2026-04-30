@@ -266,3 +266,63 @@ dynamic:
     description: "Eye level composition"
     explicit: false
     weight: 1.0
+
+dutch_angle:
+  - id: comp_dutch_angle
+    label: "Dutch angle"
+    aliases: ["canted angle", "tilted frame", "oblique angle", "German angle"]
+    description: "Tilted camera angle creating unease or tension"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_dutch_extreme
+    label: "extreme Dutch angle"
+    aliases: ["severely tilted", "extreme canted", "disorienting angle"]
+    description: "Extreme tilted angle for maximum disorientation"
+    explicit: false
+    weight: 1.0
+
+forced_perspective:
+  - id: comp_forced_perspective
+    label: "forced perspective"
+    aliases: ["optical illusion", "perspective trick", "size illusion"]
+    description: "Forced perspective creating optical size illusions"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_miniature_effect
+    label: "miniature effect"
+    aliases: ["tilt-shift", "toy model", "diorama effect"]
+    description: "Tilt-shift miniature faking effect"
+    explicit: false
+    weight: 1.0
+
+silhouette:
+  - id: comp_silhouette
+    label: "silhouette"
+    aliases: ["backlit figure", "outline", "shadow form", "profile"]
+    description: "Subject as dark silhouette against bright background"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_silhouette_partial
+    label: "partial silhouette"
+    aliases: ["rim light only", "edge lit", "contour light"]
+    description: "Partial silhouette with rim lighting"
+    explicit: false
+    weight: 1.0
+
+negative_space:
+  - id: comp_negative_space
+    label: "negative space"
+    aliases: ["empty space", "minimal composition", "breathing room"]
+    description: "Emphasis on empty space around subject"
+    explicit: false
+    weight: 1.0
+
+  - id: comp_isolated_subject
+    label: "isolated subject"
+    aliases: ["subject alone", "minimal background", "clean isolation"]
+    description: "Subject isolated against empty or minimal background"
+    explicit: false
+    weight: 1.0

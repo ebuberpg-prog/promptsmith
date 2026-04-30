@@ -1,0 +1,578 @@
+# PROMPTSMITH TAXONOMY - ANIMALS & CREATURES
+
+domestic_animals:
+  dogs:
+    - id: anim_dog_german_shepherd
+      label: "German Shepherd"
+      aliases: ["Alsatian", "German Shepherd dog", "GSD"]
+      description: "German Shepherd dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_golden_retriever
+      label: "Golden Retriever"
+      aliases: ["Golden", "Retriever", "Golden dog"]
+      description: "Golden Retriever dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_labrador
+      label: "Labrador Retriever"
+      aliases: ["Labrador", "Lab", "Lab dog"]
+      description: "Labrador Retriever dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_husky
+      label: "Siberian Husky"
+      aliases: ["Husky", "Siberian Husky", "snow dog"]
+      description: "Siberian Husky dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_poodle
+      label: "Poodle"
+      aliases: ["Standard Poodle", "Miniature Poodle", "Toy Poodle"]
+      description: "Poodle dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_beagle
+      label: "Beagle"
+      aliases: ["Beagle dog", "hound dog", "scent hound"]
+      description: "Beagle dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_bulldog
+      label: "Bulldog"
+      aliases: ["English Bulldog", "British Bulldog", "Bulldog breed"]
+      description: "Bulldog dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_pitbull
+      label: "Pit Bull"
+      aliases: ["Pitbull", "American Pit Bull Terrier", "APBT"]
+      description: "Pit Bull dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_chihuahua
+      label: "Chihuahua"
+      aliases: ["Chihuahua dog", "tiny dog", "small dog"]
+      description: "Chihuahua dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_doberman
+      label: "Doberman"
+      aliases: ["Doberman Pinscher", "Dobermann", "guard dog"]
+      description: "Doberman Pinscher dog breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_wolf
+      label: "wolf"
+      aliases: ["gray wolf", "timber wolf", "wild dog"]
+      description: "Wolf canine"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dog_fox
+      label: "fox"
+      aliases: ["red fox", "vixen", "wild fox"]
+      description: "Fox canine"
+      explicit: false
+      weight: 1.0
+
+  cats:
+    - id: anim_cat_persian
+      label: "Persian cat"
+      aliases: ["Persian", "longhair cat", "fluffy cat"]
+      description: "Persian cat breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_siamese
+      label: "Siamese cat"
+      aliases: ["Siamese", "Oriental cat", "pointed cat"]
+      description: "Siamese cat breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_maine_coon
+      label: "Maine Coon"
+      aliases: ["Maine Coon cat", "gentle giant", "large cat"]
+      description: "Maine Coon cat breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_bengal
+      label: "Bengal cat"
+      aliases: ["Bengal", "spotted cat", "leopard cat"]
+      description: "Bengal cat breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_sphynx
+      label: "Sphynx cat"
+      aliases: ["hairless cat", "Sphynx", "naked cat"]
+      description: "Sphynx hairless cat breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_tabby
+      label: "tabby cat"
+      aliases: ["tabby", "striped cat", "mackerel tabby"]
+      description: "Tabby patterned cat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_black
+      label: "black cat"
+      aliases: ["black kitty", "void cat", "panther cat"]
+      description: "Black colored cat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_tiger
+      label: "tiger"
+      aliases: ["Bengal tiger", "Siberian tiger", "big cat"]
+      description: "Tiger big cat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_lion
+      label: "lion"
+      aliases: ["African lion", "male lion", "lioness", "pride"]
+      description: "Lion big cat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_leopard
+      label: "leopard"
+      aliases: ["African leopard", "spotted leopard", "big cat"]
+      description: "Leopard big cat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cat_cheetah
+      label: "cheetah"
+      aliases: ["fast cat", "spotted cheetah", "African cheetah"]
+      description: "Cheetah big cat"
+      explicit: false
+      weight: 1.0
+
+  other_domestic:
+    - id: anim_horse
+      label: "horse"
+      aliases: ["stallion", "mare", "pony", "equine"]
+      description: "Horse"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_horse_arabian
+      label: "Arabian horse"
+      aliases: ["Arabian", "desert horse", "elegant horse"]
+      description: "Arabian horse breed"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_cow
+      label: "cow"
+      aliases: ["cattle", "bull", "heifer", "bovine"]
+      description: "Cow bovine"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_sheep
+      label: "sheep"
+      aliases: ["ewe", "ram", "lamb", "flock"]
+      description: "Sheep"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_goat
+      label: "goat"
+      aliases: ["kid", "billy goat", "nanny goat"]
+      description: "Goat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_pig
+      label: "pig"
+      aliases: ["hog", "swine", "boar", "piglet"]
+      description: "Pig"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_rabbit
+      label: "rabbit"
+      aliases: ["bunny", "hare", "rabbit animal"]
+      description: "Rabbit"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_chicken
+      label: "chicken"
+      aliases: ["hen", "rooster", "chick", "poultry"]
+      description: "Chicken"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_duck
+      label: "duck"
+      aliases: ["mallard", "drake", "duckling", "waterfowl"]
+      description: "Duck"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_goose
+      label: "goose"
+      aliases: ["geese", "gosling", "waterfowl"]
+      description: "Goose"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_guinea_pig
+      label: "guinea pig"
+      aliases: ["cavy", "guinea pig pet", "small pet"]
+      description: "Guinea pig"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_hamster
+      label: "hamster"
+      aliases: ["Syrian hamster", "dwarf hamster", "rodent pet"]
+      description: "Hamster"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_rat
+      label: "rat"
+      aliases: ["rodent", "brown rat", "pet rat"]
+      description: "Rat"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_mouse
+      label: "mouse"
+      aliases: ["field mouse", "pet mouse", "rodent"]
+      description: "Mouse"
+      explicit: false
+      weight: 1.0
+
+wildlife:
+  birds:
+    - id: anim_eagle
+      label: "eagle"
+      aliases: ["bald eagle", "golden eagle", "bird of prey"]
+      description: "Eagle bird of prey"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_hawk
+      label: "hawk"
+      aliases: ["red-tailed hawk", "bird of prey", "raptor"]
+      description: "Hawk bird of prey"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_owl
+      label: "owl"
+      aliases: ["barn owl", "snowy owl", "nocturnal bird"]
+      description: "Owl nocturnal bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_parrot
+      label: "parrot"
+      aliases: ["macaw", "cockatoo", "parakeet", "tropical bird"]
+      description: "Parrot tropical bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_peacock
+      label: "peacock"
+      aliases: ["peafowl", "colorful bird", "display bird"]
+      description: "Peacock with colorful plumage"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_penguin
+      label: "penguin"
+      aliases: ["emperor penguin", "Antarctic bird", "flightless bird"]
+      description: "Penguin flightless bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_flamingo
+      label: "flamingo"
+      aliases: ["pink flamingo", "wading bird", "tropical bird"]
+      description: "Flamingo wading bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_hummingbird
+      label: "hummingbird"
+      aliases: ["tiny bird", "fast bird", "nectar bird"]
+      description: "Hummingbird tiny bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_raven
+      label: "raven"
+      aliases: ["crow", "black bird", "corvid"]
+      description: "Raven corvid bird"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_swan
+      label: "swan"
+      aliases: ["white swan", "elegant bird", "water bird"]
+      description: "Swan elegant water bird"
+      explicit: false
+      weight: 1.0
+
+  aquatic:
+    - id: anim_dolphin
+      label: "dolphin"
+      aliases: ["bottlenose dolphin", "marine mammal", "ocean mammal"]
+      description: "Dolphin marine mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_whale
+      label: "whale"
+      aliases: ["humpback whale", "blue whale", "orca", "killer whale"]
+      description: "Whale marine mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_shark
+      label: "shark"
+      aliases: ["great white shark", "tiger shark", "ocean predator"]
+      description: "Shark ocean predator"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_jellyfish
+      label: "jellyfish"
+      aliases: ["medusa", "sea jelly", "cnidarian"]
+      description: "Jellyfish marine invertebrate"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_octopus
+      label: "octopus"
+      aliases: ["cephalopod", "tentacled", "intelligent invertebrate"]
+      description: "Octopus cephalopod"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_seal
+      label: "seal"
+      aliases: ["sea lion", "seal pup", "marine mammal"]
+      description: "Seal marine mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_turtle
+      label: "turtle"
+      aliases: ["sea turtle", "tortoise", "terrapin"]
+      description: "Turtle reptile"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_penguin_aquatic
+      label: "penguin"
+      aliases: ["emperor penguin", "Antarctic bird"]
+      description: "Penguin aquatic bird"
+      explicit: false
+      weight: 1.0
+
+  land_wildlife:
+    - id: anim_elephant
+      label: "elephant"
+      aliases: ["African elephant", "Asian elephant", "pachyderm"]
+      description: "Elephant large mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_giraffe
+      label: "giraffe"
+      aliases: ["tall animal", "spotted animal", "African giraffe"]
+      description: "Giraffe tall African mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_zebra
+      label: "zebra"
+      aliases: ["striped animal", "African zebra", "equid"]
+      description: "Zebra striped African mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_rhinoceros
+      label: "rhinoceros"
+      aliases: ["rhino", "horned animal", "African rhino"]
+      description: "Rhinoceros large mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_hippopotamus
+      label: "hippopotamus"
+      aliases: ["hippo", "river horse", "African hippo"]
+      description: "Hippopotamus large African mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_bear
+      label: "bear"
+      aliases: ["grizzly bear", "polar bear", "black bear", "brown bear"]
+      description: "Bear large mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_deer
+      label: "deer"
+      aliases: ["stag", "doe", "buck", "fawn", "antlered"]
+      description: "Deer hoofed mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_moose
+      label: "moose"
+      aliases: ["elk", "large deer", "antlered moose"]
+      description: "Moose large deer"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_kangaroo
+      label: "kangaroo"
+      aliases: ["joey", "macropod", "Australian marsupial"]
+      description: "Kangaroo Australian marsupial"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_koala
+      label: "koala"
+      aliases: ["koala bear", "Australian marsupial", "eucalyptus eater"]
+      description: "Koala Australian marsupial"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_panda
+      label: "panda"
+      aliases: ["giant panda", "bamboo bear", "Chinese panda"]
+      description: "Giant panda bear"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_sloth
+      label: "sloth"
+      aliases: ["slow animal", "tree sloth", "lazy animal"]
+      description: "Sloth slow tree-dwelling mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_raccoon
+      label: "raccoon"
+      aliases: ["trash panda", "masked animal", "nocturnal mammal"]
+      description: "Raccoon nocturnal mammal"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_squirrel
+      label: "squirrel"
+      aliases: ["tree squirrel", "red squirrel", "gray squirrel"]
+      description: "Squirrel small rodent"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_hedgehog
+      label: "hedgehog"
+      aliases: ["spiny mammal", "small hedgehog", "nocturnal"]
+      description: "Hedgehog small spiny mammal"
+      explicit: false
+      weight: 1.0
+
+  reptiles:
+    - id: anim_snake
+      label: "snake"
+      aliases: ["serpent", "python", "cobra", "viper"]
+      description: "Snake reptile"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_lizard
+      label: "lizard"
+      aliases: ["gecko", "iguana", "chameleon", "monitor lizard"]
+      description: "Lizard reptile"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_crocodile
+      label: "crocodile"
+      aliases: ["croc", "alligator", "caiman", "reptile predator"]
+      description: "Crocodile large reptile"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_komodo_dragon
+      label: "Komodo dragon"
+      aliases: ["Komodo monitor", "giant lizard", "dragon lizard"]
+      description: "Komodo dragon large lizard"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_chameleon
+      label: "chameleon"
+      aliases: ["color changing lizard", "camouflage lizard"]
+      description: "Chameleon color-changing lizard"
+      explicit: false
+      weight: 1.0
+
+  insects:
+    - id: anim_butterfly
+      label: "butterfly"
+      aliases: ["monarch butterfly", "colorful butterfly", "winged insect"]
+      description: "Butterfly colorful insect"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_moth
+      label: "moth"
+      aliases: ["luna moth", "night moth", "winged insect"]
+      description: "Moth nocturnal insect"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_dragonfly
+      label: "dragonfly"
+      aliases: ["damselfly", "winged insect", "aquatic insect"]
+      description: "Dragonfly aerial insect"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_bee
+      label: "bee"
+      aliases: ["honeybee", "bumblebee", "pollinator"]
+      description: "Bee pollinating insect"
+      explicit: false
+      weight: 1.0
+
+    - id: anim_spider
+      label: "spider"
+      aliases: ["tarantula", "wolf spider", "arachnid", "web spider"]
+      description: "Spider arachnid"
+      explicit: false
+      weight: 1.0
+
+    - id: ant_scorpion
+      label: "scorpion"
+      aliases: ["stinger", "desert scorpion", "arachnid"]
+      description: "Scorpion arachnid"
+      explicit: false
+      weight: 1.0

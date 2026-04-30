@@ -452,56 +452,6 @@ exterior_locations:
       weight: 1.0
 
 atmosphere:
-  weather:
-    - id: atm_clear
-      label: "clear sky"
-      aliases: ["sunny", "blue sky", "cloudless"]
-      description: "Clear, sunny weather"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_cloudy
-      label: "cloudy"
-      aliases: ["overcast", "cloud cover", "gray sky"]
-      description: "Cloudy weather"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_foggy
-      label: "foggy"
-      aliases: ["misty", "hazy", "fog"]
-      description: "Foggy/misty atmosphere"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_rainy
-      label: "rainy"
-      aliases: ["raining", "downpour", "rain storm"]
-      description: "Rainy weather"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_snowy
-      label: "snowy"
-      aliases: ["snowing", "snowfall", "winter snow"]
-      description: "Snowy weather"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_stormy
-      label: "stormy"
-      aliases: ["thunderstorm", "lightning", "dark clouds"]
-      description: "Stormy weather"
-      explicit: false
-      weight: 1.0
-
-    - id: atm_windy
-      label: "windy"
-      aliases: ["blustery", "gusty", "strong wind"]
-      description: "Windy conditions"
-      explicit: false
-      weight: 1.0
-
   time:
     - id: time_dawn
       label: "dawn"
@@ -574,12 +524,7 @@ atmosphere:
       weight: 1.0
 
   mood:
-    - id: mood_romantic
-      label: "romantic atmosphere"
-      aliases: ["romantic mood", "intimate atmosphere", "love scene"]
-      description: "Romantic mood lighting"
-      explicit: false
-      weight: 1.0
+    
 
     - id: mood_sinister
       label: "sinister atmosphere"
@@ -602,19 +547,7 @@ atmosphere:
       explicit: false
       weight: 1.0
 
-    - id: mood_peaceful
-      label: "peaceful atmosphere"
-      aliases: ["serene", "calm", "tranquil"]
-      description: "Peaceful, serene atmosphere"
-      explicit: false
-      weight: 1.0
-
-    - id: mood_tense
-      label: "tense atmosphere"
-      aliases: ["suspenseful", "tension", "anxious mood"]
-      description: "Tense, suspenseful atmosphere"
-      explicit: false
-      weight: 1.0
+    
 
     - id: mood_melancholic
       label: "melancholic atmosphere"
@@ -659,12 +592,7 @@ religious_places:
     explicit: false
     weight: 1.0
 
-  - id: env_int_church
-    label: "church interior"
-    aliases: ["chapel", "cathedral interior"]
-    description: "Church interior"
-    explicit: false
-    weight: 1.0
+  
 
 industrial:
   - id: env_int_factory
@@ -945,19 +873,7 @@ educational:
     explicit: false
     weight: 1.0
 
-  - id: env_int_laboratory
-    label: "science laboratory"
-    aliases: ["lab", "research lab"]
-    description: "Science laboratory"
-    explicit: false
-    weight: 1.0
-
-  - id: env_int_classroom
-    label: "classroom"
-    aliases: ["school room", "study room"]
-    description: "Classroom interior"
-    explicit: false
-    weight: 1.0
+  
 
 nature_expanded:
   - id: env_ext_canyon
@@ -1077,5 +993,107 @@ celestial:
     label: "aurora from space"
     aliases: ["space aurora", "cosmic lights"]
     description: "Aurora viewed from space"
+    explicit: false
+    weight: 1.0
+
+abandoned_places:
+  - id: env_abandoned_factory
+    label: "abandoned factory"
+    aliases: ["derelict factory", "industrial ruin", "abandoned plant"]
+    description: "Abandoned factory building"
+    explicit: false
+    weight: 1.0
+
+  - id: env_abandoned_hospital
+    label: "abandoned hospital"
+    aliases: ["derelict hospital", "haunted hospital", "ruined medical"]
+    description: "Abandoned hospital building"
+    explicit: false
+    weight: 1.0
+
+  - id: env_abandoned_school
+    label: "abandoned school"
+    aliases: ["derelict school", "ruined classroom", "empty school"]
+    description: "Abandoned school building"
+    explicit: false
+    weight: 1.0
+
+  - id: env_abandoned_mansion
+    label: "abandoned mansion"
+    aliases: ["haunted mansion", "derelict estate", "ruined manor"]
+    description: "Abandoned mansion estate"
+    explicit: false
+    weight: 1.0
+
+  - id: env_abandoned_amusement_park
+    label: "abandoned amusement park"
+    aliases: ["derelict carnival", "ruined funfair", "empty theme park"]
+    description: "Abandoned amusement park"
+    explicit: false
+    weight: 1.0
+
+underwater_cities:
+  - id: env_underwater_city
+    label: "underwater city"
+    aliases: ["submerged city", "Atlantis", "undersea metropolis", "sunken city"]
+    description: "Underwater submerged city"
+    explicit: false
+    weight: 1.0
+
+  - id: env_underwater_ruins
+    label: "underwater ruins"
+    aliases: ["sunken ruins", "submerged temple", "underwater archaeology"]
+    description: "Underwater ancient ruins"
+    explicit: false
+    weight: 1.0
+
+  - id: env_coral_city
+    label: "coral city"
+    aliases: ["coral reef city", "marine civilization", "undersea reef"]
+    description: "City built on coral reef"
+    explicit: false
+    weight: 1.0
+
+cyberpunk_streets:
+  - id: env_cyberpunk_alley
+    label: "cyberpunk alley"
+    aliases: ["neon alley", "future alley", "tech slum", "cyber alley"]
+    description: "Cyberpunk neon-lit alleyway"
+    explicit: false
+    weight: 1.0
+
+  - id: env_cyberpunk_street
+    label: "cyberpunk street"
+    aliases: ["neon street", "future street", "megacity street", "hologram street"]
+    description: "Cyberpunk neon street scene"
+    explicit: false
+    weight: 1.0
+
+  - id: env_cyberpunk_market
+    label: "cyberpunk market"
+    aliases: ["future bazaar", "tech market", "neon marketplace", "black market"]
+    description: "Cyberpunk futuristic marketplace"
+    explicit: false
+    weight: 1.0
+
+spaceship_interiors:
+  - id: env_spaceship_bridge
+    label: "spaceship bridge"
+    aliases: ["command deck", "starship bridge", "captain's chair", "helm"]
+    description: "Spaceship command bridge"
+    explicit: false
+    weight: 1.0
+
+  - id: env_spaceship_corridor
+    label: "spaceship corridor"
+    aliases: ["space hallway", "starship passage", "futuristic corridor"]
+    description: "Spaceship interior corridor"
+    explicit: false
+    weight: 1.0
+
+  - id: env_spaceship_engine_room
+    label: "spaceship engine room"
+    aliases: ["warp core", "engineering deck", "reactor room", "propulsion"]
+    description: "Spaceship engine and reactor room"
     explicit: false
     weight: 1.0

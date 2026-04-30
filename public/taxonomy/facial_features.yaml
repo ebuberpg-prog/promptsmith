@@ -349,13 +349,6 @@ nose:
       explicit: false
       weight: 1.0
 
-    - id: face_nose_pierced
-      label: "nose piercing"
-      aliases: ["nose ring", "nostril piercing", "septum ring"]
-      description: "Nose with visible piercing"
-      explicit: false
-      weight: 1.0
-
 lips:
   fullness:
     - id: face_lips_thin
@@ -469,13 +462,6 @@ lips:
       label: "lip gloss"
       aliases: ["clear gloss", "shiny gloss", "wet lips"]
       description: "Lip gloss applied"
-      explicit: false
-      weight: 1.0
-
-    - id: face_lips_lip_piercing
-      label: "lip piercing"
-      aliases: ["lip ring", "labret", "snake bites", "spider bites"]
-      description: "Lip with visible piercing"
       explicit: false
       weight: 1.0
 
@@ -676,13 +662,6 @@ ears:
     label: "ear piercings"
     aliases: ["earrings", "pierced ears", "ear jewelry"]
     description: "Ears with visible piercings"
-    explicit: false
-    weight: 1.0
-
-  - id: face_ears_stretched
-    label: "stretched earlobes"
-    aliases: ["gauged ears", "stretched lobes", "ear plugs"]
-    description: "Stretched earlobe piercings"
     explicit: false
     weight: 1.0
 
@@ -1119,13 +1098,6 @@ skin_conditions:
     label: "cut on face"
     aliases: ["facial cut", "scratch on face"]
     description: "Visible cut on face"
-    explicit: false
-    weight: 1.0
-
-  - id: skin_pores_visible
-    label: "visible pores"
-    aliases: ["large pores", "pore visibility"]
-    description: "Visible pores on skin"
     explicit: false
     weight: 1.0
 

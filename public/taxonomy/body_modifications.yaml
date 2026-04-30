@@ -420,7 +420,7 @@ scars:
     explicit: true
     weight: 1.0
 
-  - id: mod_scar_cut
+  - id: mod_scarification
     label: "scarification"
     aliases: ["intentional scarring", "cut scarification", "body scarification"]
     description: "Intentional scarification"

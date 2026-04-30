@@ -97,7 +97,7 @@ describe('CompressionEngine', () => {
   describe('getModelTokenLimit', () => {
     it('returns 75 for SD', () => expect(engine.getModelTokenLimit('stable-diffusion')).toBe(75))
     it('returns 77 for Midjourney', () => expect(engine.getModelTokenLimit('midjourney')).toBe(77))
-    it('returns 500 for DALL-E', () => expect(engine.getModelTokenLimit('dalle-3')).toBe(500))
+    it('returns 500 for GPT Image', () => expect(engine.getModelTokenLimit('gpt-image')).toBe(500))
     it('returns 150 for custom', () => expect(engine.getModelTokenLimit('custom')).toBe(150))
   })
 })

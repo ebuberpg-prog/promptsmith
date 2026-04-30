@@ -308,3 +308,60 @@ mixed_media:
     description: "Vaporwave aesthetic"
     explicit: false
     weight: 1.0
+
+ai_generated:
+  - id: med_ai_diffusion
+    label: "diffusion model aesthetic"
+    aliases: ["stable diffusion", "DALL-E", "Midjourney style", "AI image"]
+    description: "AI diffusion model generated aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_lora
+    label: "LoRA style"
+    aliases: ["low-rank adaptation", "fine-tuned style", "custom model", "trained style"]
+    description: "LoRA fine-tuned AI model style"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_hypernetwork
+    label: "hypernetwork style"
+    aliases: ["hypernet", "style embedding", "AI hypernetwork"]
+    description: "Hypernetwork AI style embedding"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_textual_inversion
+    label: "textual inversion"
+    aliases: ["embedding", "concept embedding", "custom token", "trigger word"]
+    description: "Textual inversion custom concept embedding"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_controlnet
+    label: "ControlNet"
+    aliases: ["pose control", "structure control", "edge map", "depth map control"]
+    description: "ControlNet structural control for AI generation"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_inpainting
+    label: "AI inpainting"
+    aliases: ["outpainting", "fill", "AI fill", "generative fill"]
+    description: "AI generative inpainting and outpainting"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_upscale
+    label: "AI upscaled"
+    aliases: ["super resolution", "upscaled", "enhanced resolution", "4x upscale"]
+    description: "AI super-resolution upscaled image"
+    explicit: false
+    weight: 1.0
+
+  - id: med_ai_composite
+    label: "AI composite"
+    aliases: ["AI photobash", "generative composite", "mixed AI", "human AI collaboration"]
+    description: "Composite image combining AI and traditional elements"
+    explicit: false
+    weight: 1.0

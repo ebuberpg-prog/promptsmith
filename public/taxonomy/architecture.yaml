@@ -1,0 +1,480 @@
+# PROMPTSMITH TAXONOMY - ARCHITECTURE & STRUCTURES
+
+building_styles:
+  historical:
+    - id: arch_gothic
+      label: "Gothic architecture"
+      aliases: ["Gothic cathedral", "Gothic building", "Gothic style"]
+      description: "Gothic architectural style with pointed arches and ornate detail"
+      explicit: false
+      weight: 1.0
+
+    - id: art_baroque
+      label: "Baroque architecture"
+      aliases: ["Baroque building", "Baroque palace", "Baroque style"]
+      description: "Baroque architectural style with grandeur and dramatic detail"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_neoclassical
+      label: "Neoclassical architecture"
+      aliases: ["Neoclassical building", "Neoclassical style", "Neoclassical"]
+      description: "Neoclassical architectural style inspired by classical antiquity"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_victorian
+      label: "Victorian architecture"
+      aliases: ["Victorian building", "Victorian house", "Victorian style"]
+      description: "Victorian-era architectural style with ornate decoration"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_romanesque
+      label: "Romanesque architecture"
+      aliases: ["Romanesque building", "Romanesque style"]
+      description: "Romanesque architectural style with rounded arches and thick walls"
+      explicit: false
+      weight: 1.0
+
+    - id: art_renaissance
+      label: "Renaissance architecture"
+      aliases: ["Renaissance building", "Renaissance style"]
+      description: "Renaissance architectural style with symmetry and proportion"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_colonial
+      label: "Colonial architecture"
+      aliases: ["Colonial building", "Colonial style", "Colonial house"]
+      description: "Colonial architectural style with symmetrical facades"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_art_deco
+      label: "Art Deco architecture"
+      aliases: ["Art Deco building", "Art Deco style", "Deco"]
+      description: "Art Deco architectural style with geometric patterns and bold lines"
+      explicit: false
+      weight: 1.0
+
+    - id: art_nouveau
+      label: "Art Nouveau architecture"
+      aliases: ["Art Nouveau building", "Art Nouveau style"]
+      description: "Art Nouveau architectural style with organic flowing forms"
+      explicit: false
+      weight: 1.0
+
+  modern:
+    - id: art_brutalist
+      label: "Brutalist architecture"
+      aliases: ["Brutalist building", "Brutalist style", "Brutalism"]
+      description: "Brutalist architectural style with raw concrete and bold forms"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_minimalist
+      label: "Minimalist architecture"
+      aliases: ["Minimalist building", "Minimalist style"]
+      description: "Minimalist architectural style with clean lines and simplicity"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_modernist
+      label: "Modernist architecture"
+      aliases: ["Modernist building", "Modernist style", "Modernism"]
+      description: "Modernist architectural style with functional design"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_parametric
+      label: "Parametric architecture"
+      aliases: ["Parametric building", "Parametric design"]
+      description: "Parametric architectural style with algorithmic design"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_deconstructivist
+      label: "Deconstructivist architecture"
+      aliases: ["Deconstructivist building", "Deconstructivist style"]
+      description: "Deconstructivist architectural style with fragmented forms"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_futurist
+      label: "Futurist architecture"
+      aliases: ["Futurist building", "Futurist style"]
+      description: "Futurist architectural style with advanced technology and dynamic forms"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_biomimetic
+      label: "Biomimetic architecture"
+      aliases: ["Biomimetic building", "Biomimetic design"]
+      description: "Biomimetic architectural style inspired by nature"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_sustainable
+      label: "Sustainable architecture"
+      aliases: ["Green building", "Eco architecture", "Sustainable design"]
+      description: "Sustainable architectural style with environmental focus"
+      explicit: false
+      weight: 1.0
+
+  fantasy_scifi:
+    - id: arch_steampunk
+      label: "Steampunk architecture"
+      aliases: ["Steampunk building", "Steampunk style"]
+      description: "Steampunk architectural style with Victorian-era technology"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_cyberpunk
+      label: "Cyberpunk architecture"
+      aliases: ["Cyberpunk building", "Cyberpunk style"]
+      description: "Cyberpunk architectural style with neon and high-tech elements"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_biomechanical
+      label: "Biomechanical architecture"
+      aliases: ["Biomechanical building", "Biomechanical style"]
+      description: "Biomechanical architectural style blending organic and mechanical"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_alien
+      label: "Alien architecture"
+      aliases: ["Alien building", "Alien structure"]
+      description: "Alien architectural style with non-human design principles"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_dwarven
+      label: "Dwarven architecture"
+      aliases: ["Dwarven building", "Dwarven hall", "Dwarven style"]
+      description: "Dwarven architectural style with stone and underground elements"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_elven
+      label: "Elven architecture"
+      aliases: ["Elven building", "Elven style"]
+      description: "Elven architectural style with organic and ethereal elements"
+      explicit: false
+      weight: 1.0
+
+building_types:
+  residential:
+    - id: arch_mansion
+      label: "mansion"
+      aliases: ["estate", "manor", "villa"]
+      description: "Large luxurious residence"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_cottage
+      label: "cottage"
+      aliases: ["small house", "country cottage"]
+      description: "Small cozy rural dwelling"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_apartment_building
+      label: "apartment building"
+      aliases: ["apartment block", "flats", "condo"]
+      description: "Multi-unit residential building"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_skyscraper
+      label: "skyscraper"
+      aliases: ["high-rise", "tower", "skyscraper building"]
+      description: "Very tall commercial or residential building"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_penthouse
+      label: "penthouse"
+      aliases: ["luxury apartment", "top floor"]
+      description: "Luxury apartment on top floor of building"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_treehouse
+      label: "treehouse"
+      aliases: ["tree house", "treetop dwelling"]
+      description: "House built in a tree"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_lighthouse
+      label: "lighthouse"
+      aliases: ["light house", "beacon tower"]
+      description: "Tower with light to guide ships"
+      explicit: false
+      weight: 1.0
+
+  public:
+    - id: arch_cathedral
+      label: "cathedral"
+      aliases: ["cathedral building", "grand church"]
+      description: "Large important Christian church"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_mosque
+      label: "mosque"
+      aliases: ["mosque building", "islamic temple"]
+      description: "Islamic place of worship"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_temple
+      label: "temple"
+      aliases: ["temple building", "sacred building"]
+      description: "Building for religious worship"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_pagoda
+      label: "pagoda"
+      aliases: ["pagoda tower", "tiered tower"]
+      description: "Tiered tower with multiple eaves"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_library_building
+      label: "library building"
+      aliases: ["public library", "grand library"]
+      description: "Building housing collections of books"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_museum
+      label: "museum"
+      aliases: ["museum building", "art museum"]
+      description: "Building for displaying art or artifacts"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_theater_building
+      label: "theater building"
+      aliases: ["theatre", "opera house", "concert hall"]
+      description: "Building for performing arts"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_stadium_building
+      label: "stadium"
+      aliases: ["arena", "sports stadium"]
+      description: "Large open-air or covered venue for sports"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_market_building
+      label: "market building"
+      aliases: ["bazaar", "market hall", "trade center"]
+      description: "Building for commerce and trade"
+      explicit: false
+      weight: 1.0
+
+  infrastructure:
+    - id: arch_bridge_structure
+      label: "bridge"
+      aliases: ["bridge structure", "span", "overpass"]
+      description: "Structure spanning a physical obstacle"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_tunnel
+      label: "tunnel"
+      aliases: ["underground passage", "subway tunnel"]
+      description: "Underground or underwater passage"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_dam
+      label: "dam"
+      aliases: ["dam structure", "water barrier"]
+      description: "Barrier restricting water flow"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_aqueduct
+      label: "aqueduct"
+      aliases: ["water bridge", "canal bridge"]
+      description: "Structure conveying water"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_observatory
+      label: "observatory"
+      aliases: ["telescope dome", "astronomical observatory"]
+      description: "Building for astronomical observation"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_greenhouse
+      label: "greenhouse"
+      aliases: ["glasshouse", "conservatory", "plant nursery"]
+      description: "Building with glass walls for growing plants"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_silo
+      label: "silo"
+      aliases: ["grain silo", "storage silo"]
+      description: "Tower for storing bulk materials"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_windmill
+      label: "windmill"
+      aliases: ["wind mill", "wind turbine"]
+      description: "Structure converting wind energy"
+      explicit: false
+      weight: 1.0
+
+  ruins_abandoned:
+    - id: arch_ruins
+      label: "ruins"
+      aliases: ["ancient ruins", "crumbling ruins", "ruined building"]
+      description: "Remains of a destroyed or decayed building"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_abandoned_building
+      label: "abandoned building"
+      aliases: ["derelict building", "abandoned structure", "ruined"]
+      description: "Building left empty and decaying"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_derelict
+      label: "derelict"
+      aliases: ["derelict structure", "abandoned ruin"]
+      description: "Building in a state of disrepair"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_bombed_out
+      label: "bombed out"
+      aliases: ["war damaged", "destroyed building", "bombed ruin"]
+      description: "Building destroyed by bombing"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_overgrown
+      label: "overgrown building"
+      aliases: ["nature reclaimed", "overgrown ruin", "abandoned overgrown"]
+      description: "Building reclaimed by vegetation"
+      explicit: false
+      weight: 1.0
+
+    - id: arch_submerged_ruins
+      label: "submerged ruins"
+      aliases: ["underwater ruins", "sunken city", "flooded ruins"]
+      description: "Ruins submerged under water"
+      explicit: false
+      weight: 1.0
+
+structural_elements:
+  - id: arch_columns
+    label: "columns"
+    aliases: ["pillars", "stone columns", "architectural columns"]
+    description: "Vertical structural supports"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_arches
+    label: "arches"
+    aliases: ["archway", "arch structure", "rounded arch"]
+    description: "Curved structural elements"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_vaulted_ceiling
+    label: "vaulted ceiling"
+    aliases: ["vault", "arched ceiling", "ribbed vault"]
+    description: "Arched ceiling structure"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_dome
+    label: "dome"
+    aliases: ["domed roof", "cupola", "hemispherical roof"]
+    description: "Hemispherical roof structure"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_stained_glass
+    label: "stained glass"
+    aliases: ["colored glass", "stained glass window", "leadlight"]
+    description: "Colored glass panels in windows"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_spiral_staircase
+    label: "spiral staircase"
+    aliases: ["winding stairs", "helical staircase", "circular stairs"]
+    description: "Staircase winding around a central axis"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_balcony
+    label: "balcony"
+    aliases: ["terrace", "veranda", " Juliet balcony"]
+    description: "Platform projecting from building wall"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_gargoyle
+    label: "gargoyle"
+    aliases: ["grotesque", "stone gargoyle", "water spout"]
+    description: "Stone carving projecting from building"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_flying_buttress
+    label: "flying buttress"
+    aliases: ["buttress", "arch support", "external support"]
+    description: "External arched support for wall"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_frieze
+    label: "frieze"
+    aliases: ["decorative band", "ornamental band", "architrave"]
+    description: "Decorative horizontal band on building"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_cornice
+    label: "cornice"
+    aliases: ["molding", "ledge", "roof edge"]
+    description: "Horizontal molded projection on building"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_pediment
+    label: "pediment"
+    aliases: ["gable", "triangular top", "fronton"]
+    description: "Triangular upper part of building front"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_atrium
+    label: "atrium"
+    aliases: ["central hall", "open courtyard", "interior courtyard"]
+    description: "Large open central space in building"
+    explicit: false
+    weight: 1.0
+
+  - id: arch_courtyard
+    label: "courtyard"
+    aliases: ["courtyard garden", "inner courtyard", "patio"]
+    description: "Open space enclosed by walls"
+    explicit: false
+    weight: 1.0

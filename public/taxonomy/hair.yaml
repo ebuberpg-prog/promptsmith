@@ -972,12 +972,7 @@ hair_treatments:
     weight: 1.0
 
 hair_color_expanded:
-  - id: hair_color_rainbow
-    label: "rainbow hair"
-    aliases: ["multicolored", "pride colors"]
-    description: "Rainbow colored hair"
-    explicit: false
-    weight: 1.0
+
 
   - id: hair_color_galaxy
     label: "galaxy hair"

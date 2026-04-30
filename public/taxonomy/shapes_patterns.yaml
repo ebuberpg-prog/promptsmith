@@ -1,0 +1,429 @@
+# PROMPTSMITH TAXONOMY - SHAPES & PATTERNS
+
+geometric_shapes:
+  basic:
+    - id: shape_circle
+      label: "circle"
+      aliases: ["round", "circular", "ring", "disk"]
+      description: "Circular geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_square
+      label: "square"
+      aliases: ["quadrilateral", "box", "rectangular", "four-sided"]
+      description: "Square geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_triangle
+      label: "triangle"
+      aliases: ["three-sided", "pyramidal", "triangular", "wedge"]
+      description: "Triangular geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_rectangle
+      label: "rectangle"
+      aliases: ["rectangular", "oblong", "four-sided"]
+      description: "Rectangular geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_pentagon
+      label: "pentagon"
+      aliases: ["five-sided", "pentagonal"]
+      description: "Pentagonal five-sided geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_hexagon
+      label: "hexagon"
+      aliases: ["six-sided", "hexagonal", "honeycomb"]
+      description: "Hexagonal six-sided geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_octagon
+      label: "octagon"
+      aliases: ["eight-sided", "octagonal", "stop sign"]
+      description: "Octagonal eight-sided geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_diamond
+      label: "diamond"
+      aliases: ["rhombus", "lozenge", "kite"]
+      description: "Diamond rhombus geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_oval
+      label: "oval"
+      aliases: ["ellipse", "elliptical", "egg shape"]
+      description: "Oval elliptical geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_star
+      label: "star"
+      aliases: ["five-pointed star", "six-pointed star", "polygon star"]
+      description: "Star polygon geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_heart
+      label: "heart"
+      aliases: ["heart shape", "cardioid", "love symbol"]
+      description: "Heart-shaped geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_crescent
+      label: "crescent"
+      aliases: ["moon shape", "lunar", "half moon", "arc"]
+      description: "Crescent moon-shaped geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_arrow
+      label: "arrow"
+      aliases: ["pointer", "directional", "chevron", "arrowhead"]
+      description: "Arrow directional geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_cross
+      label: "cross"
+      aliases: ["plus sign", "intersection", "cruciform", "X shape"]
+      description: "Cross intersecting geometric shape"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_spiral
+      label: "spiral"
+      aliases: ["coil", "helix", "whorl", "volute"]
+      description: "Spiral coiled geometric shape"
+      explicit: false
+      weight: 1.0
+
+  3d_forms:
+    - id: shape_cube
+      label: "cube"
+      aliases: ["box", "cuboid", "square prism", "hexahedron"]
+      description: "Cube three-dimensional geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_sphere
+      label: "sphere"
+      aliases: ["ball", "orb", "globe", "round 3D"]
+      description: "Sphere three-dimensional geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_pyramid
+      label: "pyramid"
+      aliases: ["tetrahedron", "triangular pyramid", "Egyptian pyramid"]
+      description: "Pyramid three-dimensional geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_cone
+      label: "cone"
+      aliases: ["tapered cylinder", "funnel", "pointed form"]
+      description: "Cone three-dimensional geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_cylinder
+      label: "cylinder"
+      aliases: ["tube", "pipe", "barrel", "column"]
+      description: "Cylinder three-dimensional geometric form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_torus
+      label: "torus"
+      aliases: ["donut shape", "ring 3D", "annular"]
+      description: "Torus donut-shaped three-dimensional form"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_dodecahedron
+      label: "dodecahedron"
+      aliases: ["12-sided", "platonic solid", "geometric solid"]
+      description: "Dodecahedron twelve-faced geometric solid"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_icosahedron
+      label: "icosahedron"
+      aliases: ["20-sided", "platonic solid", "geometric solid"]
+      description: "Icosahedron twenty-faced geometric solid"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_mobius
+      label: "Mobius strip"
+      aliases: ["Mobius", "one-sided surface", "twisted loop", "endless loop"]
+      description: "Mobius strip one-sided continuous surface"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_klein_bottle
+      label: "Klein bottle"
+      aliases: ["Klein", "non-orientable surface", "4D shape", "impossible bottle"]
+      description: "Klein bottle non-orientable geometric form"
+      explicit: false
+      weight: 1.0
+
+patterns:
+  repeating:
+    - id: shape_stripes
+      label: "stripes"
+      aliases: ["striped", "lines", "banded", "pinstripe"]
+      description: "Stripe repeating pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_polka_dots
+      label: "polka dots"
+      aliases: ["dots", "spotted", "dotted pattern", "speckled"]
+      description: "Polka dot spotted pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_checkerboard
+      label: "checkerboard"
+      aliases: ["checkered", "chessboard", "alternating squares", "harlequin"]
+      description: "Checkerboard alternating square pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_herringbone
+      label: "herringbone"
+      aliases: ["chevron", "zigzag", "broken twill", "fishbone"]
+      description: "Herringbone zigzag weave pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_houndstooth
+      label: "houndstooth"
+      aliases: ["dogtooth", "broken check", "abstract four-pointed"]
+      description: "Houndstooth broken check pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_argyle
+      label: "argyle"
+      aliases: ["diamond pattern", "overlapping diamonds", "plaid diamonds"]
+      description: "Argyle diamond overlapping pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_plaid
+      label: "plaid"
+      aliases: ["tartan", "check", "Scottish pattern", "crosshatch"]
+      description: "Plaid tartan crisscross pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_gingham
+      label: "gingham"
+      aliases: ["checkered cotton", "vichy", "picnic pattern"]
+      description: "Gingham checkered cotton pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_paisley
+      label: "paisley"
+      aliases: ["teardrop pattern", "Persian pattern", "buta", "boteh"]
+      description: "Paisley teardrop ornamental pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_damask
+      label: "damask"
+      aliases: ["reversible pattern", "woven pattern", "figured fabric"]
+      description: "Damask reversible woven pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_ikat
+      label: "ikat"
+      aliases: ["tie-dye weave", "resist dye pattern", "blurred pattern"]
+      description: "Ikat resist-dyed textile pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_trellis
+      label: "trellis"
+      aliases: ["lattice", "grid pattern", "interlocking", "geometric lattice"]
+      description: "Trellis lattice interlocking pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_ombre_pattern
+      label: "ombre pattern"
+      aliases: ["gradient pattern", "fading pattern", "color wash"]
+      description: "Ombre gradient color pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_splatter
+      label: "splatter"
+      aliases: ["paint splatter", "splashed", "dripped pattern", "Jackson Pollock"]
+      description: "Splatter paint splash pattern"
+      explicit: false
+      weight: 1.0
+
+  tessellations:
+    - id: shape_tessellation
+      label: "tessellation"
+      aliases: ["tiling", "mosaic", "tiled pattern", "repeating tiles"]
+      description: "Tessellation repeating tile pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_penrose
+      label: "Penrose tiling"
+      aliases: ["aperiodic tiling", "Penrose pattern", "quasicrystal", "impossible tiling"]
+      description: "Penrose aperiodic geometric tiling"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_voronoi
+      label: "Voronoi diagram"
+      aliases: ["Voronoi pattern", "cellular pattern", "Dirichlet tessellation", "fragments"]
+      description: "Voronoi cellular geometric pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_truchet
+      label: "Truchet tiles"
+      aliases: ["Truchet pattern", "decorative tiling", "modular pattern", "Smith tiles"]
+      description: "Truchet modular decorative tile pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_islamic_pattern
+      label: "Islamic geometric pattern"
+      aliases: ["arabesque", "girih", "Islamic tiling", "geometric ornament"]
+      description: "Islamic geometric interlacing pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: shape_celtic_knot
+      label: "Celtic knot"
+      aliases: ["endless knot", "interlace", "Celtic pattern", "knotwork"]
+      description: "Celtic interlacing knot pattern"
+      explicit: false
+      weight: 1.0
+
+fractals:
+  - id: shape_mandelbrot
+    label: "Mandelbrot set"
+    aliases: ["Mandelbrot", "fractal geometry", "complex fractal", "mathematical art"]
+    description: "Mandelbrot set fractal pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_julia
+    label: "Julia set"
+    aliases: ["Julia fractal", "complex fractal", "mathematical pattern"]
+    description: "Julia set fractal pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_sierpinski
+    label: "Sierpinski triangle"
+    aliases: ["Sierpinski", "fractal triangle", "recursive triangle"]
+    description: "Sierpinski recursive triangular fractal"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_koch_snowflake
+    label: "Koch snowflake"
+    aliases: ["Koch curve", "fractal snowflake", "recursive snowflake"]
+    description: "Koch snowflake recursive fractal"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_barnsley_fern
+    label: "Barnsley fern"
+    aliases: ["fern fractal", "nature fractal", "recursive fern"]
+    description: "Barnsley fern natural fractal pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_dragon_curve
+    label: "dragon curve"
+    aliases: ["Heighway dragon", "space-filling curve", "recursive dragon"]
+    description: "Dragon curve recursive fractal"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_phylotaxis
+    label: "phyllotaxis"
+    aliases: ["spiral pattern", "natural spiral", "Fibonacci spiral", "golden angle"]
+    description: "Phyllotaxis natural spiral arrangement"
+    explicit: false
+    weight: 1.0
+
+abstract_patterns:
+  - id: shape_wave
+    label: "wave pattern"
+    aliases: ["sine wave", "ripple", "undulation", "waveform"]
+    description: "Wave undulating pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_grid
+    label: "grid"
+    aliases: ["mesh", "matrix", "lattice", "array", "graph paper"]
+    description: "Grid regular line pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_radial
+    label: "radial pattern"
+    aliases: ["sunburst", "starburst", "emanating", "radiating lines"]
+    description: "Radial emanating from center pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_concentric
+    label: "concentric circles"
+    aliases: ["bullseye", "target", "rings", "nested circles"]
+    description: "Concentric nested circle pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_gradient_mesh
+    label: "gradient mesh"
+    aliases: ["color gradient", "smooth transition", "blended colors", "mesh gradient"]
+    description: "Gradient mesh smooth color transition pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_topographic_lines
+    label: "topographic lines"
+    aliases: ["contour map", "elevation lines", "terrain lines", "isobars"]
+    description: "Topographic contour line pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_particle_swarm
+    label: "particle swarm"
+    aliases: ["swarm pattern", "flocking", "particle system", "scatter pattern"]
+    description: "Particle swarm scattered point pattern"
+    explicit: false
+    weight: 1.0
+
+  - id: shape_noise_pattern
+    label: "noise pattern"
+    aliases: ["Perlin noise", "random texture", "grain", "static pattern"]
+    description: "Noise random texture pattern"
+    explicit: false
+    weight: 1.0

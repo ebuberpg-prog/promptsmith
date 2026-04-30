@@ -104,7 +104,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
     (set, get) => ({
       selectedTags: [],
       customText: '',
-      selectedModel: 'midjourney',
+      selectedModel: 'gpt-image',
       showExplicit: false,
       activeCategory: null,
       searchQuery: '',
@@ -479,7 +479,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
     }),
     {
       name: 'promptsmith-storage',
-      version: 1,
+      version: 2,
       storage: createJSONStorage(() => localStorage),
       migrate: (persistedState: unknown, version) => {
         const s = persistedState as Record<string, unknown>
@@ -487,6 +487,35 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
           const aiSettings = s.aiSettings as Record<string, unknown> | undefined
           if (aiSettings && (!aiSettings.corsProxyUrl || aiSettings.corsProxyUrl === '')) {
             aiSettings.corsProxyUrl = 'https://prompt-smith.ebuberpg.workers.dev'
+          }
+        }
+        if (version < 2) {
+          // Migrate old model IDs to April 2026 lineup
+          const MODEL_ID_MAP: Record<string, string> = {
+            'dalle-3': 'gpt-image',
+            'z-image': 'flux',
+          }
+          const currentModel = s.selectedModel as string | undefined
+          if (currentModel && MODEL_ID_MAP[currentModel]) {
+            s.selectedModel = MODEL_ID_MAP[currentModel]
+          }
+          // Migrate saved prompts
+          const savedPrompts = s.savedPrompts as Array<{ model?: string }> | undefined
+          if (savedPrompts && Array.isArray(savedPrompts)) {
+            for (const prompt of savedPrompts) {
+              if (prompt.model && MODEL_ID_MAP[prompt.model]) {
+                prompt.model = MODEL_ID_MAP[prompt.model]
+              }
+            }
+          }
+          // Migrate saved entities
+          const savedEntities = s.savedEntities as Array<{ model?: string }> | undefined
+          if (savedEntities && Array.isArray(savedEntities)) {
+            for (const entity of savedEntities) {
+              if (entity.model && MODEL_ID_MAP[entity.model]) {
+                entity.model = MODEL_ID_MAP[entity.model]
+              }
+            }
           }
         }
         return s as unknown as PromptSmithStore

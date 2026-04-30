@@ -332,3 +332,45 @@ adult:
     description: "Swingers lifestyle aesthetic"
     explicit: true
     weight: 1.0
+
+  - id: sub_cottagecore
+    label: "cottagecore"
+    aliases: ["farmcore", "countrycore", "rustic aesthetic", "pastoral"]
+    description: "Cottagecore rural idyllic aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_dark_academia
+    label: "dark academia"
+    aliases: ["scholar aesthetic", "gothic academic", "ivy league dark", "literary"]
+    description: "Dark academia scholarly aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_vaporwave
+    label: "vaporwave"
+    aliases: ["aesthetic", "retro digital", "mallsoft", "future funk"]
+    description: "Vaporwave retro digital aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_techwear
+    label: "techwear"
+    aliases: ["urban tech", "cyberpunk fashion", "functional wear", "gorpcore tech"]
+    description: "Techwear functional urban aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_normcore
+    label: "normcore"
+    aliases: ["basic", "anti-fashion", "average", "unassuming"]
+    description: "Normcore deliberately average aesthetic"
+    explicit: false
+    weight: 1.0
+
+  - id: sub_gorpcore
+    label: "gorpcore"
+    aliases: ["outdoor fashion", "hiking aesthetic", "trail wear", "campcore"]
+    description: "Gorpcore outdoor hiking aesthetic"
+    explicit: false
+    weight: 1.0

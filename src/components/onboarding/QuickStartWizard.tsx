@@ -77,12 +77,13 @@ const STYLE_CONCEPTS: ConceptOption[] = [
 ]
 
 const MODEL_OPTIONS: { id: SupportedModel; name: string; desc: string; group: string }[] = [
-  { id: 'midjourney', name: 'Midjourney', desc: 'Evocative, poetic language. Great atmosphere.', group: 'Midjourney' },
-  { id: 'stable-diffusion', name: 'Stable Diffusion', desc: 'Precise tags, weights, negative prompts.', group: 'Tag-Based' },
-  { id: 'flux', name: 'FLUX', desc: 'Detailed, structured. Handles complex scenes.', group: 'Tag-Based' },
-  { id: 'dalle-3', name: 'DALL-E 3', desc: 'Natural language. Describe like a story.', group: 'Natural Language' },
-  { id: 'ideogram', name: 'Ideogram', desc: 'Great text-in-image and typography.', group: 'Natural Language' },
-  { id: 'gemini', name: 'Gemini', desc: 'Conversational, detailed descriptions.', group: 'Natural Language' },
+  { id: 'midjourney', name: 'Midjourney V8', desc: 'Literal, photorealistic default. Specify lighting and camera explicitly.', group: 'Midjourney' },
+  { id: 'stable-diffusion', name: 'Stable Diffusion 3.5', desc: 'Precise tags, weights, negative prompts. Highly customizable.', group: 'Tag-Based' },
+  { id: 'flux', name: 'FLUX 2', desc: 'Exceptional photorealism and text rendering. Strong LoRA ecosystem.', group: 'Tag-Based' },
+  { id: 'gpt-image', name: 'GPT Image 2', desc: 'Best-in-class text rendering and layout reasoning. Structured prompting.', group: 'Natural Language' },
+  { id: 'ideogram', name: 'Ideogram 3.0', desc: 'Unmatched typography accuracy. Great for logos with text.', group: 'Natural Language' },
+  { id: 'gemini', name: 'Nano Banana 2', desc: 'Fast 4K generation with editing and character consistency.', group: 'Natural Language' },
+  { id: 'illustrious', name: 'Illustrious', desc: 'Danbooru-style anime tagging. Great for illustrations and anime art.', group: 'Tag-Based' },
 ]
 
 const STEP_ORDER: WizardStep[] = ['welcome', 'subject', 'setting', 'style', 'model', 'preview']

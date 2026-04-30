@@ -1,0 +1,381 @@
+# PROMPTSMITH TAXONOMY - TEXTURES & MATERIALS
+
+natural_textures:
+  stone:
+    - id: tex_marble
+      label: "marble"
+      aliases: ["marble texture", "marble surface", "veined stone"]
+      description: "Marble stone texture with veining"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_granite
+      label: "granite"
+      aliases: ["granite texture", "granite surface", "speckled stone"]
+      description: "Granite stone texture with crystalline pattern"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_slate
+      label: "slate"
+      aliases: ["slate texture", "slate stone", "layered stone"]
+      description: "Slate layered stone texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_limestone
+      label: "limestone"
+      aliases: ["limestone texture", "sedimentary stone", "pale stone"]
+      description: "Limestone sedimentary stone texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_obsidian
+      label: "obsidian"
+      aliases: ["obsidian texture", "volcanic glass", "black glass"]
+      description: "Obsidian volcanic glass texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_cobblestone
+      label: "cobblestone"
+      aliases: ["cobble", "cobbled", "stone pavement"]
+      description: "Cobblestone paved stone texture"
+      explicit: false
+      weight: 1.0
+
+  wood:
+    - id: tex_oak
+      label: "oak wood"
+      aliases: ["oak grain", "oak texture", "wood grain"]
+      description: "Oak wood grain texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_walnut
+      label: "walnut wood"
+      aliases: ["walnut grain", "walnut texture", "dark wood"]
+      description: "Walnut dark wood grain texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_pine
+      label: "pine wood"
+      aliases: ["pine grain", "pine texture", "light wood"]
+      description: "Pine light wood grain texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_mahogany
+      label: "mahogany wood"
+      aliases: ["mahogany grain", "mahogany texture", "rich wood"]
+      description: "Mahogany rich wood grain texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_bamboo
+      label: "bamboo"
+      aliases: ["bamboo texture", "bamboo grain", "striped wood"]
+      description: "Bamboo segmented wood texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_cork
+      label: "cork"
+      aliases: ["cork texture", "cork board", "natural cork"]
+      description: "Cork natural porous texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_driftwood
+      label: "driftwood"
+      aliases: ["weathered wood", "beach wood", "aged wood"]
+      description: "Driftwood weathered aged wood texture"
+      explicit: false
+      weight: 1.0
+
+  organic:
+    - id: tex_leather
+      label: "leather"
+      aliases: ["leather texture", "hide", "animal skin"]
+      description: "Leather animal hide texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_suede
+      label: "suede"
+      aliases: ["suede texture", "napped leather", "soft leather"]
+      description: "Suede soft napped leather texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_fur
+      label: "fur"
+      aliases: ["fur texture", "animal fur", "fuzzy texture"]
+      description: "Fur animal hair texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_feathers
+      label: "feathers"
+      aliases: ["feather texture", "plumage", "downy"]
+      description: "Feathers bird plumage texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_bark
+      label: "tree bark"
+      aliases: ["bark texture", "rough bark", "tree trunk"]
+      description: "Tree bark rough organic texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_moss
+      label: "moss"
+      aliases: ["moss texture", "lichen", "green moss", "velvet moss"]
+      description: "Moss soft green organic texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_coral
+      label: "coral"
+      aliases: ["coral texture", "sea coral", "marine texture"]
+      description: "Coral marine organic texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_shell
+      label: "seashell"
+      aliases: ["shell texture", "nacre", "mother of pearl", "iridescent shell"]
+      description: "Seashell iridescent organic texture"
+      explicit: false
+      weight: 1.0
+
+synthetic_textures:
+  metal:
+    - id: tex_brushed_metal
+      label: "brushed metal"
+      aliases: ["brushed aluminum", "brushed steel", "metal grain"]
+      description: "Brushed metal directional grain texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_polished_metal
+      label: "polished metal"
+      aliases: ["mirror metal", "shiny metal", "reflective metal"]
+      description: "Polished reflective metal surface"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_rusted_metal
+      label: "rusted metal"
+      aliases: ["rust", "corroded metal", "oxidized", "patina metal"]
+      description: "Rusted corroded metal texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_dented_metal
+      label: "dented metal"
+      aliases: ["damaged metal", "beaten metal", "worn metal"]
+      description: "Dented damaged metal surface"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_gold
+      label: "gold"
+      aliases: ["gold texture", "golden", "metallic gold", "shiny gold"]
+      description: "Gold metallic surface texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_silver
+      label: "silver"
+      aliases: ["silver texture", "metallic silver", "chrome"]
+      description: "Silver metallic surface texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_copper
+      label: "copper"
+      aliases: ["copper texture", "bronze", "metallic copper", "reddish metal"]
+      description: "Copper metallic surface texture"
+      explicit: false
+      weight: 1.0
+
+  fabric:
+    - id: tex_velvet
+      label: "velvet"
+      aliases: ["velvet texture", "plush", "soft fabric", "crushed velvet"]
+      description: "Velvet soft plush fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_silk
+      label: "silk"
+      aliases: ["silk texture", "shiny fabric", "smooth fabric", "satin"]
+      description: "Silk smooth shiny fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_linen
+      label: "linen"
+      aliases: ["linen texture", "woven fabric", "natural fabric", "textured cloth"]
+      description: "Linen natural woven fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_denim
+      label: "denim"
+      aliases: ["denim texture", "jeans fabric", "cotton twill", "blue denim"]
+      description: "Denim cotton twill fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_lace
+      label: "lace"
+      aliases: ["lace texture", "delicate fabric", "openwork", "netting"]
+      description: "Lace delicate openwork fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_tweed
+      label: "tweed"
+      aliases: ["tweed texture", "wool fabric", "herringbone", "rough fabric"]
+      description: "Tweed rough wool fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_mesh
+      label: "mesh"
+      aliases: ["net texture", "grid fabric", "perforated", "screen"]
+      description: "Mesh perforated grid fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_felt
+      label: "felt"
+      aliases: ["felt texture", "wool felt", "soft non-woven", "compressed wool"]
+      description: "Felt compressed non-woven fabric texture"
+      explicit: false
+      weight: 1.0
+
+  synthetic:
+    - id: tex_plastic
+      label: "plastic"
+      aliases: ["plastic texture", "synthetic", "polymer", "smooth plastic"]
+      description: "Plastic synthetic smooth surface"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_rubber
+      label: "rubber"
+      aliases: ["rubber texture", "elastic", "grip texture", "matt rubber"]
+      description: "Rubber elastic synthetic texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_glass
+      label: "glass"
+      aliases: ["glass texture", "transparent", "smooth glass", "reflective glass"]
+      description: "Glass smooth transparent surface"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_frosted_glass
+      label: "frosted glass"
+      aliases: ["matte glass", "obscured glass", "sandblasted glass", "privacy glass"]
+      description: "Frosted translucent glass surface"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_carbon_fiber
+      label: "carbon fiber"
+      aliases: ["carbon weave", "composite", "graphite", "high-tech material"]
+      description: "Carbon fiber woven composite texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_kevlar
+      label: "Kevlar"
+      aliases: ["aramid", "ballistic fabric", "tactical material", "woven armor"]
+      description: "Kevlar woven ballistic fabric texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_latex
+      label: "latex"
+      aliases: ["latex texture", "rubber sheet", "shiny rubber", "smooth latex"]
+      description: "Latex smooth rubber sheet texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_pvc
+      label: "PVC"
+      aliases: ["vinyl", "plastic sheet", "shiny plastic", "synthetic leather"]
+      description: "PVC vinyl plastic surface texture"
+      explicit: false
+      weight: 1.0
+
+  aged_worn:
+    - id: tex_rust
+      label: "rust"
+      aliases: ["rusted metal", "oxidation", "corrosion", "iron oxide"]
+      description: "Rust oxidation texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_patina
+      label: "patina"
+      aliases: ["verdigris", "aged copper", "green oxidation", "weathered metal"]
+      description: "Patina aged metal oxidation texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_crackle
+      label: "crackle"
+      aliases: ["crackle paint", "craquelure", "aged paint", "cracked surface"]
+      description: "Crackle cracked paint texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_peeling_paint
+      label: "peeling paint"
+      aliases: ["chipped paint", "flaking paint", "weathered paint", "exposed layers"]
+      description: "Peeling flaking paint texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_stained
+      label: "stained"
+      aliases: ["discolored", "water stained", "oil stained", "weathered"]
+      description: "Stained discolored surface texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_mold
+      label: "mold"
+      aliases: ["mildew", "fungus", "decay", "biological growth"]
+      description: "Mold biological growth texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_charred
+      label: "charred"
+      aliases: ["burned", "scorched", "blackened", "fire damaged"]
+      description: "Charred burned surface texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_worn_leather
+      label: "worn leather"
+      aliases: ["aged leather", "distressed leather", "vintage leather", "cracked leather"]
+      description: "Worn aged distressed leather texture"
+      explicit: false
+      weight: 1.0
+
+    - id: tex_weathered_wood
+      label: "weathered wood"
+      aliases: ["aged wood", "barn wood", "reclaimed wood", "sun bleached"]
+      description: "Weathered aged wood texture"
+      explicit: false
+      weight: 1.0

@@ -228,8 +228,9 @@ export class NegativePromptEngine {
     customText: string,
     model: SupportedModel
   ): NegativePromptIntelligence {
-    // Midjourney doesn't use negative prompts
     const config = getModelConfig(model)
+
+    // Midjourney doesn't use negative prompts
     if (!config.supportsNegative) {
       return {
         contextAnalysis: {
@@ -249,6 +250,45 @@ export class NegativePromptEngine {
     ].join(' ').toLowerCase()
 
     const categories = new Set(tags.map(t => t.category).filter(Boolean))
+
+    // Illustrious / Civitai anime models use a standard Danbooru negative set
+    if (model === 'illustrious') {
+      const analysis = this.detectContext(tags, allText, categories)
+      const illustriousNegatives: SuggestedNegative[] = [
+        { text: 'lowres', reason: 'Illustrious standard — resolution guard', priority: 1 },
+        { text: 'worst quality', reason: 'Illustrious standard — quality guard', priority: 1 },
+        { text: 'bad anatomy', reason: 'Illustrious standard — anatomy guard', priority: 1 },
+        { text: 'bad hands', reason: 'Illustrious standard — hand guard', priority: 1 },
+        { text: 'text', reason: 'Illustrious standard — artifact removal', priority: 2 },
+        { text: 'error', reason: 'Illustrious standard — artifact removal', priority: 2 },
+        { text: 'missing fingers', reason: 'Illustrious standard — finger guard', priority: 2 },
+        { text: 'extra digit', reason: 'Illustrious standard — digit guard', priority: 2 },
+        { text: 'fewer digits', reason: 'Illustrious standard — digit guard', priority: 2 },
+        { text: 'cropped', reason: 'Illustrious standard — framing guard', priority: 3 },
+        { text: 'jpeg artifacts', reason: 'Illustrious standard — artifact removal', priority: 3 },
+        { text: 'signature', reason: 'Illustrious standard — artifact removal', priority: 3 },
+        { text: 'watermark', reason: 'Illustrious standard — artifact removal', priority: 3 },
+        { text: 'username', reason: 'Illustrious standard — artifact removal', priority: 3 },
+        { text: 'blurry', reason: 'Illustrious standard — sharpness guard', priority: 3 },
+        { text: 'bad feet', reason: 'Illustrious standard — foot guard', priority: 3 },
+        { text: 'mutation', reason: 'Illustrious standard — mutation guard', priority: 3 },
+        { text: 'deformed', reason: 'Illustrious standard — deformation guard', priority: 3 },
+        { text: 'extra limbs', reason: 'Illustrious standard — limb guard', priority: 3 },
+        { text: 'extra arms', reason: 'Illustrious standard — limb guard', priority: 3 },
+        { text: 'extra legs', reason: 'Illustrious standard — limb guard', priority: 3 },
+        { text: 'malformed limbs', reason: 'Illustrious standard — limb guard', priority: 3 },
+        { text: 'fused fingers', reason: 'Illustrious standard — finger guard', priority: 3 },
+        { text: 'too many fingers', reason: 'Illustrious standard — finger guard', priority: 3 },
+        { text: 'long neck', reason: 'Illustrious standard — proportion guard', priority: 3 },
+        { text: 'cross-eyed', reason: 'Illustrious standard — eye guard', priority: 3 },
+        { text: 'mutated hands', reason: 'Illustrious standard — hand guard', priority: 3 },
+      ]
+      return {
+        contextAnalysis: analysis,
+        suggestedNegatives: illustriousNegatives,
+        learnedPatterns: [],
+      }
+    }
 
     // Detect context
     const contextAnalysis = this.detectContext(tags, allText, categories)

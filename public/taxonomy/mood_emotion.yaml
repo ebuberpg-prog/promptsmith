@@ -418,3 +418,38 @@ complex:
       description: "Primal, raw mood"
       explicit: false
       weight: 1.0
+
+    - id: mood_ambivalence
+      label: "ambivalence"
+      aliases: ["mixed feelings", "uncertainty", "conflicted", "torn"]
+      description: "Ambivalent mixed feelings mood"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_nostalgia
+      label: "nostalgia"
+      aliases: ["nostalgic", "wistful", "longing for past", "sentimental"]
+      description: "Nostalgic longing for the past"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_awe
+      label: "awe"
+      aliases: ["wonder", "amazement", "reverence", "sublime"]
+      description: "Awe-filled wonder and amazement"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_schadenfreude
+      label: "schadenfreude"
+      aliases: ["gloating", "malicious joy", "pleasure in misfortune"]
+      description: "Schadenfreude pleasure at others' misfortune"
+      explicit: false
+      weight: 1.0
+
+    - id: mood_ennui
+      label: "ennui"
+      aliases: ["boredom", "listlessness", "world-weariness", "apathy"]
+      description: "Ennui world-weary boredom"
+      explicit: false
+      weight: 1.0

@@ -701,12 +701,7 @@ fetish_specific:
       explicit: true
       weight: 1.0
 
-    - id: int_fetish_footjob
-      label: "footjob"
-      aliases: ["foot sex", "feet pleasure"]
-      description: "Footjob intimate act"
-      explicit: true
-      weight: 1.0
+    
 
     - id: int_fetish_tits_job
       label: "tits job"

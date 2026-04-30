@@ -116,7 +116,7 @@ const EXAMPLE_PROMPTS: ExamplePrompt[] = [
   {
     id: 'ex-dalle',
     title: 'Whimsical Illustration',
-    model: 'dalle-3',
+    model: 'gpt-image',
     customText: 'A cozy treehouse library filled with floating books, warm candlelight, watercolor illustration style, soft pastel colors, storybook aesthetic',
     description: 'DALL-E 3 prefers full sentences that read like a story description.',
   },
@@ -555,10 +555,12 @@ function ModelsSection() {
         <h3 className="text-sm font-medium text-[var(--ui-text)]">Model-specific tips</h3>
         <div className="space-y-2 divide-y divide-[var(--ui-border-faint)]">
           {[
-            { model: 'Midjourney', tip: 'Loves evocative, poetic language. Less is often more. Use the --style and --ar parameters for control.' },
-            { model: 'Stable Diffusion / FLUX', tip: 'Responds well to precise tags, weight syntax like (tag:1.2), and detailed negative prompts.' },
-            { model: 'DALL-E 3 / Ideogram / Gemini', tip: 'Use full sentences and describe the scene like a story. Weights and negative prompts are ignored.' },
-            { model: 'z-image', tip: 'Uses bracket weight syntax [tag:1.2]. Keep prompts tag-heavy for best results.' },
+            { model: 'Midjourney V8', tip: 'More literal than V7. Specify lighting, camera, and mood explicitly. Use --s, --ar, --no, and --sref for control. Test stylize at 50, 200, and 500.' },
+            { model: 'Stable Diffusion 3.5 / FLUX 2', tip: 'Responds well to precise tags, weight syntax like (tag:1.2), and detailed negative prompts. FLUX 2 also handles natural language well.' },
+            { model: 'GPT Image 2', tip: 'Rewards structured prompts: Scene, Subject, Important details, Use case, Constraints. Use visual facts over vague praise. Best-in-class text rendering.' },
+            { model: 'Nano Banana 2 / Ideogram 3.0', tip: 'Use full sentences and describe the scene like a story. Weights and negative prompts are ignored. Great for typography and text-in-image.' },
+            { model: 'Qwen Image 2512', tip: 'Good for realistic humans and fine textures. Supports tag-based prompting with weighting.' },
+            { model: 'Illustrious', tip: 'Danbooru-style tag prompting. Auto-prefixed with masterpiece, best quality, highres. Use detailed negative prompts for best results.' },
           ].map((item) => (
             <div key={item.model} className="flex items-start gap-3 pt-2 first:pt-0">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ui-muted-text-faint)] mt-0.5 min-w-[110px]">

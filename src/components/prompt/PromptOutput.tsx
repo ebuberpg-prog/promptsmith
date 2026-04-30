@@ -41,7 +41,7 @@ export function PromptOutput() {
 
   const handleCopy = async () => {
     let fullPrompt = prompt
-    if (selectedModel === 'midjourney') fullPrompt += ' --v 6 --ar 16:9'
+    if (selectedModel === 'midjourney') fullPrompt += ' --v 8 --ar 16:9'
     await navigator.clipboard.writeText(fullPrompt)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

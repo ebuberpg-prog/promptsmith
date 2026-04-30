@@ -29,7 +29,7 @@ describe('PromptComposer', () => {
   ]
 
   describe('Midjourney format', () => {
-    it('produces comma-separated tags with --ar and --v 6 params', () => {
+    it('produces comma-separated tags with --ar and --v 8 params', () => {
       const result = composer.compose({
         tags: portraitTags,
         customText: '',
@@ -39,7 +39,7 @@ describe('PromptComposer', () => {
       expect(result).toContain('a woman')
       expect(result).toContain('photorealistic')
       expect(result).toContain('--ar 16:9')
-      expect(result).toContain('--v 6')
+      expect(result).toContain('--v 8')
     })
 
     it('respects custom aspect ratio', () => {
@@ -80,12 +80,12 @@ describe('PromptComposer', () => {
     })
   })
 
-  describe('Prose format (DALL-E, Gemini, Ideogram)', () => {
+  describe('Prose format (Nano Banana 2, Ideogram)', () => {
     it('generates natural language sentences', () => {
       const result = composer.compose({
         tags: portraitTags,
         customText: '',
-        model: 'dalle-3',
+        model: 'gemini',
         parameters: {},
       })
       // Should be a sentence-like structure, not just comma-separated
@@ -103,7 +103,7 @@ describe('PromptComposer', () => {
         parameters: {},
       })
       expect(result).not.toContain('--ar')
-      expect(result).not.toContain('--v 6')
+      expect(result).not.toContain('--v 8')
     })
 
     it('handles custom text in prose format', () => {
@@ -117,7 +117,35 @@ describe('PromptComposer', () => {
     })
   })
 
-  describe('Comma-separated format (SDXL, FLUX, Qwen, z-image)', () => {
+  describe('Structured prose format (GPT Image 2)', () => {
+    it('generates structured sections', () => {
+      const result = composer.compose({
+        tags: portraitTags,
+        customText: '',
+        model: 'gpt-image',
+        parameters: {},
+      })
+      expect(result).toContain('Scene:')
+      expect(result).toContain('Subject:')
+      expect(result).toContain('Important details:')
+      expect(result).toContain('Use case:')
+      expect(result).toContain('Constraints:')
+      expect(result).toContain('A woman')
+    })
+
+    it('includes custom text as additional notes', () => {
+      const result = composer.compose({
+        tags: portraitTags,
+        customText: 'Ensure natural skin texture',
+        model: 'gpt-image',
+        parameters: {},
+      })
+      expect(result).toContain('Additional notes:')
+      expect(result).toContain('Ensure natural skin texture')
+    })
+  })
+
+  describe('Comma-separated format (SD 3.5, FLUX 2, Qwen, Illustrious)', () => {
     it('produces comma-separated tags', () => {
       const result = composer.compose({
         tags: portraitTags,
@@ -153,10 +181,10 @@ describe('PromptComposer', () => {
       const result = composer.compose({
         tags,
         customText: '',
-        model: 'dalle-3',
+        model: 'gemini',
         parameters: {},
       })
-      // DALL-E doesn't support weighting, so should use raw label (prose may capitalize)
+      // Prose models don't support weighting, so should use raw label
       expect(result.toLowerCase()).toContain('portrait')
     })
 
@@ -201,6 +229,24 @@ describe('PromptComposer', () => {
       })
       // Painterly styles should not get "sharp focus" / "high detail"
       expect(result).not.toContain('sharp focus')
+    })
+
+    it('auto-prefixes Illustrious with Danbooru quality tags', () => {
+      const tags = [
+        tag('1girl', 'subject'),
+        tag('long hair', 'hair'),
+      ]
+      const result = composer.compose({
+        tags,
+        customText: '',
+        model: 'illustrious',
+        parameters: {},
+      })
+      expect(result).toContain('masterpiece')
+      expect(result).toContain('best quality')
+      expect(result).toContain('highres')
+      expect(result).toContain('newest')
+      expect(result).toContain('1girl')
     })
   })
 

@@ -362,3 +362,45 @@ seasonal:
     description: "Winter season aesthetics"
     explicit: false
     weight: 1.0
+
+  - id: time_bronze_age
+    label: "Bronze Age"
+    aliases: ["bronze era", "ancient bronze", "prehistoric metal"]
+    description: "Bronze Age period aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_iron_age
+    label: "Iron Age"
+    aliases: ["iron era", "ancient iron", "Celtic iron age"]
+    description: "Iron Age period aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_regency
+    label: "Regency era"
+    aliases: ["Regency period", "Jane Austen era", "Georgian regency"]
+    description: "Regency era aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_edwardian
+    label: "Edwardian era"
+    aliases: ["Edwardian period", "early 1900s", "Gilded Age", "Belle Epoque"]
+    description: "Edwardian era aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_1920s
+    label: "1920s"
+    aliases: ["Roaring Twenties", "Art Deco era", "Jazz Age", "Flapper era"]
+    description: "1920s Art Deco and Jazz Age aesthetics"
+    explicit: false
+    weight: 1.0
+
+  - id: time_information_age
+    label: "Information Age"
+    aliases: ["digital age", "internet era", "computer age", "post-internet"]
+    description: "Information Age digital aesthetics"
+    explicit: false
+    weight: 1.0

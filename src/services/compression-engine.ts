@@ -8,12 +8,12 @@ import { getModelConfig } from '@/data/model-configs'
 const MODEL_TOKEN_LIMITS: Record<string, number> = {
   midjourney: 77,
   'stable-diffusion': 75,
-  'dalle-3': 500,
+  'gpt-image': 500,
   flux: 77,
   ideogram: 500,
   'qwen-image': 150,
-  'z-image': 150,
   gemini: 500,
+  illustrious: 75,
   custom: 150,
 }
 
@@ -22,7 +22,7 @@ const MODEL_TOKEN_LIMITS: Record<string, number> = {
 function estimateTokenCount(text: string, model: SupportedModel): number {
   const config = getModelConfig(model)
   const words = text.split(/\s+/).filter(Boolean).length
-  return config.promptStyle === 'prose' ? words : Math.ceil(words / 0.75)
+  return config.promptStyle === 'prose' || config.promptStyle === 'structured-prose' ? words : Math.ceil(words / 0.75)
 }
 
 // ─── Category priority for compression ──────────────────────────────────────

@@ -58,12 +58,12 @@ export type ModelKind = 'natural-language' | 'tag-based' | 'midjourney'
 export type SupportedModel =
   | 'midjourney'
   | 'stable-diffusion'
-  | 'dalle-3'
+  | 'gpt-image'
   | 'flux'
   | 'ideogram'
   | 'qwen-image'
-  | 'z-image'
   | 'gemini'
+  | 'illustrious'
   | 'custom'
 
 export interface ModelConfig {

@@ -1,0 +1,386 @@
+# PROMPTSMITH TAXONOMY - AUDIO & SOUND
+
+audio_devices:
+  - id: aud_headphones
+    label: "headphones"
+    aliases: ["over-ear", "on-ear", "noise cancelling", "wireless headphones"]
+    description: "Headphones audio listening device"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_speakers
+    label: "speakers"
+    aliases: ["loudspeakers", "studio monitors", "hi-fi speakers", "sound system"]
+    description: "Audio speakers"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_bluetooth_speaker
+    label: "Bluetooth speaker"
+    aliases: ["portable speaker", "wireless speaker", "boombox"]
+    description: "Portable wireless Bluetooth speaker"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_soundbar
+    label: "soundbar"
+    aliases: ["home theater soundbar", "TV speaker", "sound bar"]
+    description: "Soundbar audio system"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_turntable
+    label: "turntable"
+    aliases: ["record player", "vinyl player", "DJ turntable", "deck"]
+    description: "Vinyl record turntable"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_cassette_player
+    label: "cassette player"
+    aliases: ["tape deck", "Walkman", "boombox", "cassette deck"]
+    description: "Cassette tape player"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_cd_player
+    label: "CD player"
+    aliases: ["compact disc player", "discman", "CD deck"]
+    description: "Compact disc player"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_radio
+    label: "radio"
+    aliases: ["FM radio", "AM radio", "transistor radio", "vintage radio"]
+    description: "Radio receiver"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_amplifier
+    label: "amplifier"
+    aliases: ["amp", "guitar amp", "tube amp", "power amplifier"]
+    description: "Audio amplifier"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_mixer
+    label: "audio mixer"
+    aliases: ["mixing desk", "soundboard", "console", "DJ mixer"]
+    description: "Audio mixing console"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_microphone
+    label: "microphone"
+    aliases: ["mic", "condenser mic", "dynamic mic", "ribbon mic", "vocal mic"]
+    description: "Audio recording microphone"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_pop_filter
+    label: "pop filter"
+    aliases: ["pop shield", "windscreen", "mic filter"]
+    description: "Microphone pop filter"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_midi_controller
+    label: "MIDI controller"
+    aliases: ["MIDI keyboard", "drum pad", "launchpad", "production controller"]
+    description: "MIDI music production controller"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_synthesizer
+    label: "synthesizer"
+    aliases: ["synth", "modular synth", "analog synth", "digital synth"]
+    description: "Electronic synthesizer instrument"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_drum_machine
+    label: "drum machine"
+    aliases: ["beatbox", "rhythm machine", "TR-808", "TR-909"]
+    description: "Electronic drum machine"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_samplers
+    label: "sampler"
+    aliases: ["sample player", "loop station", "SP-404", "MPC"]
+    description: "Audio sampler instrument"
+    explicit: false
+    weight: 1.0
+
+instruments:
+  string:
+    - id: aud_guitar
+      label: "guitar"
+      aliases: ["acoustic guitar", "electric guitar", "bass guitar", "six string"]
+      description: "Stringed guitar instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_violin
+      label: "violin"
+      aliases: ["fiddle", "string instrument", "violinist"]
+      description: "Violin string instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_cello
+      label: "cello"
+      aliases: ["violoncello", "string instrument", "bass string"]
+      description: "Cello string instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_harp
+      label: "harp"
+      aliases: ["lyre", "string instrument", "plucked strings"]
+      description: "Harp plucked string instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_piano
+      label: "piano"
+      aliases: ["grand piano", "upright piano", "keyboard instrument", "keys"]
+      description: "Piano keyboard instrument"
+      explicit: false
+      weight: 1.0
+
+  wind:
+    - id: aud_flute
+      label: "flute"
+      aliases: ["woodwind", "recorder", "piccolo", "wind instrument"]
+      description: "Flute wind instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_saxophone
+      label: "saxophone"
+      aliases: ["sax", "alto sax", "tenor sax", "brass wind"]
+      description: "Saxophone brass wind instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_trumpet
+      label: "trumpet"
+      aliases: ["horn", "brass instrument", "bugle", "cornet"]
+      description: "Trumpet brass instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_clarinet
+      label: "clarinet"
+      aliases: ["woodwind", "reed instrument", "single reed"]
+      description: "Clarinet woodwind instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: didgeridoo
+      label: "didgeridoo"
+      aliases: ["yidaki", "Aboriginal instrument", "drone instrument"]
+      description: "Didgeridoo Aboriginal wind instrument"
+      explicit: false
+      weight: 1.0
+
+  percussion:
+    - id: aud_drums
+      label: "drums"
+      aliases: ["drum kit", "drum set", "percussion", "snare drum"]
+      description: "Drum kit percussion instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_bongos
+      label: "bongos"
+      aliases: ["congas", "hand drums", "latin percussion", "timbale"]
+      description: "Bongos hand drum percussion"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_xylophone
+      label: "xylophone"
+      aliases: ["marimba", "vibraphone", "mallet instrument", "glockenspiel"]
+      description: "Xylophone mallet percussion instrument"
+      explicit: false
+      weight: 1.0
+
+    - id: aud_taiko
+      label: "taiko drums"
+      aliases: ["Japanese drums", "wadaiko", "big drum", "traditional drum"]
+      description: "Taiko Japanese drum"
+      explicit: false
+      weight: 1.0
+
+music_genres:
+  - id: aud_classical
+    label: "classical music"
+    aliases: ["orchestral", "symphony", "chamber music", "baroque music"]
+    description: "Classical music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_jazz
+    label: "jazz"
+    aliases: ["bebop", "swing", "cool jazz", "fusion", "improvisation"]
+    description: "Jazz music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_blues
+    label: "blues"
+    aliases: ["delta blues", "Chicago blues", "electric blues", "soul blues"]
+    description: "Blues music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_rock
+    label: "rock music"
+    aliases: ["classic rock", "hard rock", "alternative rock", "indie rock"]
+    description: "Rock music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_metal
+    label: "heavy metal"
+    aliases: ["thrash metal", "death metal", "black metal", "power metal"]
+    description: "Heavy metal music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_punk
+    label: "punk rock"
+    aliases: ["hardcore punk", "pop punk", "street punk", "oi"]
+    description: "Punk rock music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_electronic
+    label: "electronic music"
+    aliases: ["EDM", "techno", "house", "trance", "dubstep", "ambient"]
+    description: "Electronic music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_hip_hop
+    label: "hip hop"
+    aliases: ["rap", "trap", "boom bap", "conscious rap", "mumble rap"]
+    description: "Hip hop music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_rnb
+    label: "R&B"
+    aliases: ["rhythm and blues", "soul", "contemporary R&B", "neo soul"]
+    description: "R&B rhythm and blues genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_funk
+    label: "funk"
+    aliases: ["P-funk", "funky", "groove", "funk rock"]
+    description: "Funk music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_reggae
+    label: "reggae"
+    aliases: ["dub", "dancehall", "ska", "roots reggae"]
+    description: "Reggae music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_country
+    label: "country music"
+    aliases: ["country western", "honky tonk", "bluegrass", "alt country"]
+    description: "Country music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_folk
+    label: "folk music"
+    aliases: ["traditional folk", "indie folk", "folk rock", "world folk"]
+    description: "Folk music genre"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_world
+    label: "world music"
+    aliases: ["ethnic music", "traditional music", "cultural music", "global music"]
+    description: "World music genre from various cultures"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_lofi
+    label: "lo-fi"
+    aliases: ["lofi hip hop", "chill beats", "study beats", "ambient lo-fi"]
+    description: "Lo-fi music genre"
+    explicit: false
+    weight: 1.0
+
+sound_effects:
+  - id: aud_echo
+    label: "echo"
+    aliases: ["reverb", "echo effect", "resonance", "reverberation"]
+    description: "Echo reverberation sound effect"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_distortion
+    label: "distortion"
+    aliases: ["overdrive", "fuzz", "crunch", "gain"]
+    description: "Audio distortion effect"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_static
+    label: "static"
+    aliases: ["white noise", "radio static", "interference", "hiss"]
+    description: "Static noise sound"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_feedback
+    label: "feedback"
+    aliases: ["audio feedback", "microphone squeal", "howl", "squeal"]
+    description: "Audio feedback squeal"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_bass_drop
+    label: "bass drop"
+    aliases: ["drop", "wub", "sub bass", "low end"]
+    description: "Heavy bass drop sound effect"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_record_scratch
+    label: "record scratch"
+    aliases: ["needle scratch", "vinyl scratch", "DJ scratch"]
+    description: "Vinyl record scratch sound"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_tape_warp
+    label: "tape warp"
+    aliases: ["tape slowdown", "pitch bend", "wow and flutter", "cassette warp"]
+    description: "Tape speed warp effect"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_bit_crush
+    label: "bit crush"
+    aliases: ["lo-fi distortion", "digital degradation", "8-bit", "reduced sample rate"]
+    description: "Bit crusher digital distortion effect"
+    explicit: false
+    weight: 1.0
+
+  - id: aud_surround
+    label: "surround sound"
+    aliases: ["spatial audio", "5.1", "7.1", "immersive audio", "3D audio"]
+    description: "Surround sound spatial audio"
+    explicit: false
+    weight: 1.0

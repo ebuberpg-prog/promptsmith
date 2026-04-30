@@ -47,20 +47,6 @@ finger_positions:
       weight: 1.0
 
   gestures:
-    - id: hand_ok_sign
-      label: "OK sign"
-      aliases: ["circle gesture", "finger circle"]
-      description: "OK sign (thumb and index circle)"
-      explicit: false
-      weight: 1.0
-
-    - id: hand_thumbs_up
-      label: "thumbs up"
-      aliases: ["approval", "good sign"]
-      description: "Thumbs up gesture"
-      explicit: false
-      weight: 1.0
-
     - id: hand_thumbs_down
       label: "thumbs down"
       aliases: ["disapproval", "bad sign"]
@@ -75,27 +61,6 @@ finger_positions:
       explicit: false
       weight: 1.0
 
-    - id: hand_peace_sign
-      label: "peace sign"
-      aliases: ["V sign", "victory", "peace"]
-      description: "Peace/V sign gesture"
-      explicit: false
-      weight: 1.0
-
-    - id: hand_peace_inverted
-      label: "inverted peace sign"
-      aliases: ["wrong peace", "backwards V"]
-      description: "Inverted peace sign"
-      explicit: false
-      weight: 1.0
-
-    - id: hand_middle_finger
-      label: "middle finger"
-      aliases: ["flipping off", "rude gesture"]
-      description: "Middle finger gesture"
-      explicit: false
-      weight: 1.0
-
     - id: hand_spread_gui
       label: "spreading hands"
       aliases: ["palms up", "open palms gesture"]
@@ -107,13 +72,6 @@ finger_positions:
       label: "clapping"
       aliases: ["applause", "hands together"]
       description: "Clapping hands"
-      explicit: false
-      weight: 1.0
-
-    - id: hand_waving
-      label: "waving"
-      aliases: ["hello", "goodbye wave"]
-      description: "Waving hand gesture"
       explicit: false
       weight: 1.0
 
@@ -210,13 +168,6 @@ nail_styles:
     weight: 1.0
 
 hand_states:
-  - id: hand_holding_object
-    label: "holding object"
-    aliases: ["gripping", "grasping", "carrying"]
-    description: "Hand holding an object"
-    explicit: false
-    weight: 1.0
-
   - id: hand_reaching
     label: "reaching"
     aliases: ["outstretched hand", "reaching for"]

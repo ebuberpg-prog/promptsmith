@@ -1145,12 +1145,7 @@ fantasy_vehicles_expanded:
     explicit: false
     weight: 1.0
 
-  - id: prop_magic_carpet
-    label: "magic carpet"
-    aliases: ["flying carpet", " Arabian nights"]
-    description: "Magic flying carpet"
-    explicit: false
-    weight: 1.0
+
 
   - id: prop_steampunk_ship
     label: "steampunk airship"

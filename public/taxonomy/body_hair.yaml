@@ -133,49 +133,6 @@ body_hair_locations:
       explicit: true
       weight: 1.0
 
-facial_hair_body:
-  - id: bodyhair_facial_light
-    label: "light facial hair"
-    aliases: ["peach fuzz face", "fair facial hair"]
-    description: "Light facial hair (peach fuzz)"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_beard_full
-    label: "full beard"
-    aliases: ["beard", "full facial hair"]
-    description: "Full beard"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_beard_stubble
-    label: "stubble beard"
-    aliases: ["facial stubble", "5 o clock shadow"]
-    description: "Facial stubble"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_mustache
-    label: "mustache"
-    aliases: ["upper lip hair", "mo"]
-    description: "Mustache only"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_goatee
-    label: "goatee"
-    aliases: ["chin beard", "small beard"]
-    description: "Goatee beard"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_sideburns
-    label: "sideburns"
-    aliases: ["facial hair sides", "temple hair"]
-    description: "Prominent sideburns"
-    explicit: false
-    weight: 1.0
-
 body_hair_styles:
   - id: bodyhair_smooth
     label: "completely smooth"
@@ -277,7 +234,8 @@ special:
     explicit: false
     weight: 1.0
 
-  - id: bodyhair_sweat
+body_hair_styles:
+  - id: bodyhair_smooth
     label: "sweaty body hair"
     aliases: ["moisturized with sweat", "glistening"]
     description: "Sweaty body with body hair"
@@ -291,23 +249,4 @@ special:
     explicit: false
     weight: 1.0
 
-  - id: bodyhair_glitter
-    label: "body glitter"
-    aliases: ["shimmer", "glitter on body"]
-    description: "Glitter applied to body"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_body_paint
-    label: "body paint"
-    aliases: ["body art paint", "painted body"]
-    description: "Body covered in paint"
-    explicit: false
-    weight: 1.0
-
-  - id: bodyhair_henna
-    label: "henna body art"
-    aliases: ["mehndi", "temporary tattoo body"]
-    description: "Henna designs on body"
-    explicit: false
-    weight: 1.0
+  

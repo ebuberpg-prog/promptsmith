@@ -74,13 +74,6 @@ tops:
       explicit: false
       weight: 1.0
 
-    - id: top_corset
-      label: "corset"
-      aliases: ["bustier", "waist cincher", "tightlacing corset"]
-      description: "Structured, tight-fitting corset"
-      explicit: false
-      weight: 1.0
-
     - id: top_blazer
       label: "blazer"
       aliases: ["suit jacket", "sport coat"]
@@ -443,27 +436,6 @@ full_body:
 
 lingerie:
   sets:
-    - id: ling_bra_panty_set
-      label: "bra and panty set"
-      aliases: ["lingerie set", "matching set"]
-      description: "Matching bra and underwear set"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_teddy
-      label: "teddy"
-      aliases: ["one-piece lingerie", "bodysuit lingerie"]
-      description: "One-piece lingerie garment"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_babydoll
-      label: "babydoll"
-      aliases: ["babydoll nightie", "chemise"]
-      description: "Short, loose nightgown"
-      explicit: false
-      weight: 1.0
-
     - id: ling_nightgown
       label: "nightgown"
       aliases: ["nightie", "sleep gown", "nightdress"]
@@ -471,117 +443,12 @@ lingerie:
       explicit: false
       weight: 1.0
 
-  fetish:
-    - id: ling_latex
-      label: "latex outfit"
-      aliases: ["rubber suit", "latex dress", "latex catsuit"]
-      description: "Latex/rubber clothing"
+  sleepwear:
+    - id: ling_sleep_mask
+      label: "sleep mask"
+      aliases: ["eye mask", "blindfold sleep"]
+      description: "Sleep mask for eyes"
       explicit: false
-      weight: 1.0
-
-    - id: ling_leather
-      label: "leather outfit"
-      aliases: ["leather dress", "leather catsuit", "biker leather"]
-      description: "Leather clothing"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_pvc
-      label: "PVC outfit"
-      aliases: ["vinyl outfit", "plastic clothing", "shiny outfit"]
-      description: "PVC/vinyl clothing"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_bondage_gear
-      label: "bondage gear"
-      aliases: ["BDSM outfit", "fetish wear", "kink outfit"]
-      description: "Bondage/fetish clothing"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_harness
-      label: "body harness"
-      aliases: ["strap harness", "chest harness", "body straps"]
-      description: "Decorative body harness"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_collar
-      label: "collar"
-      aliases: ["pet collar", "BDSM collar", "choker collar"]
-      description: "Collar worn around neck"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_garter_belt
-      label: "garter belt"
-      aliases: ["suspenders", "stocking belt"]
-      description: "Belt for holding up stockings"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_stockings
-      label: "stockings"
-      aliases: ["thigh highs", "hold-ups", "nylons"]
-      description: "Thigh-high stockings"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_fishnets
-      label: "fishnets"
-      aliases: ["fishnet stockings", "net stockings", "fishnet tights"]
-      description: "Fishnet pattern stockings"
-      explicit: false
-      weight: 1.0
-
-    - id: ling_bodystocking
-      label: "bodystocking"
-      aliases: ["full body stocking", "fishnet bodysuit"]
-      description: "Full body fishnet/stocking garment"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_crotchless
-      label: "crotchless lingerie"
-      aliases: ["open crotch lingerie", "open bottom"]
-      description: "Lingerie with open crotch"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_open_cup
-      label: "open cup bra"
-      aliases: ["shelf bra", "cupless bra", "peek-a-boo bra"]
-      description: "Bra with open/exposed cups"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_sheer_lingerie
-      label: "sheer lingerie"
-      aliases: ["see-through lingerie", "transparent lingerie"]
-      description: "Transparent lingerie"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_restraints
-      label: "restraints"
-      aliases: ["handcuffs", "wrist cuffs", "ankle cuffs", "bondage restraints"]
-      description: "Bondage restraints"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_blindfold
-      label: "blindfold"
-      aliases: ["eye mask", "silk blindfold"]
-      description: "Blindfold for sensory deprivation"
-      explicit: true
-      weight: 1.0
-
-    - id: ling_ball_gag
-      label: "ball gag"
-      aliases: ["gag", "mouth gag"]
-      description: "Ball gag"
-      explicit: true
       weight: 1.0
 
 footwear:
@@ -999,3 +866,90 @@ accessories:
       description: "Holding a beverage"
       explicit: false
       weight: 1.0
+
+techwear:
+  - id: cloth_techwear_jacket
+    label: "techwear jacket"
+    aliases: ["technical jacket", "urban tech", "cyberpunk jacket", "tactical outerwear"]
+    description: "Techwear technical urban jacket"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_techwear_pants
+    label: "techwear pants"
+    aliases: ["technical pants", "cargo tech", "urban tactical pants", "utility trousers"]
+    description: "Techwear technical pants with utility features"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_techwear_vest
+    label: "techwear vest"
+    aliases: ["tactical vest", "utility vest", "chest rig", "modular vest"]
+    description: "Techwear modular utility vest"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_techwear_hoodie
+    label: "techwear hoodie"
+    aliases: ["technical hoodie", "urban tech hoodie", "cyber hoodie", "tactical hoodie"]
+    description: "Techwear technical hoodie"
+    explicit: false
+    weight: 1.0
+
+athleisure:
+  - id: cloth_athleisure_leggings
+    label: "athleisure leggings"
+    aliases: ["yoga pants", "sport leggings", "gym leggings", "activewear bottoms"]
+    description: "Athleisure sport leggings"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_athleisure_sports_bra
+    label: "athleisure sports bra"
+    aliases: ["sports bra top", "athletic top", "gym top", "workout bra"]
+    description: "Athleisure sports bra top"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_athleisure_track_pants
+    label: "track pants"
+    aliases: ["joggers", "sweatpants", "athletic pants", "warm-up pants"]
+    description: "Athleisure track pants joggers"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_athleisure_hoodie
+    label: "athleisure hoodie"
+    aliases: ["sport hoodie", "gym hoodie", "zip-up hoodie", "performance hoodie"]
+    description: "Athleisure performance hoodie"
+    explicit: false
+    weight: 1.0
+
+sustainable_fashion:
+  - id: cloth_upcycled
+    label: "upcycled clothing"
+    aliases: ["recycled fashion", "reclaimed fabric", "repurposed clothing", "zero waste"]
+    description: "Upcycled repurposed clothing"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_organic_cotton
+    label: "organic cotton"
+    aliases: ["natural cotton", "eco fabric", "sustainable cotton", "GOTS cotton"]
+    description: "Organic cotton sustainable fabric"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_hemp
+    label: "hemp fabric"
+    aliases: ["hemp clothing", "natural hemp", "eco hemp", "sustainable hemp"]
+    description: "Hemp sustainable fabric clothing"
+    explicit: false
+    weight: 1.0
+
+  - id: cloth_vintage_secondhand
+    label: "vintage secondhand"
+    aliases: ["thrifted", "pre-loved", "consignment", "retro fashion"]
+    description: "Vintage secondhand thrifted clothing"
+    explicit: false
+    weight: 1.0

@@ -521,56 +521,6 @@ skin:
       explicit: false
       weight: 1.0
 
-  texture:
-    - id: skin_texture_smooth
-      label: "smooth skin"
-      aliases: ["flawless skin", "clear skin"]
-      description: "Smooth, even skin texture"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_freckled
-      label: "freckled skin"
-      aliases: ["freckles", "sprinkled with freckles"]
-      description: "Skin with visible freckles"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_acne_scars
-      label: "acne scars"
-      aliases: ["pitted skin", "acne marks"]
-      description: "Visible acne scarring"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_wrinkled
-      label: "wrinkled skin"
-      aliases: ["aged skin", "fine lines", "crow's feet"]
-      description: "Visible wrinkles and aging"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_birthmarks
-      label: "birthmarks"
-      aliases: ["beauty marks", "moles", "skin marks"]
-      description: "Visible birthmarks or moles"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_vitiligo
-      label: "vitiligo"
-      aliases: ["patchy skin", "pigment loss"]
-      description: "Vitiligo skin condition"
-      explicit: false
-      weight: 1.0
-
-    - id: skin_texture_scarred
-      label: "scarred skin"
-      aliases: ["battle scars", "surgical scars", "injury marks"]
-      description: "Visible scars on skin"
-      explicit: false
-      weight: 1.0
-
 age:
   - id: age_young_adult
     label: "young adult"
@@ -786,45 +736,10 @@ anthropomorphic:
       weight: 1.0
 
 fantasy_races:
-  - id: fantasy_elf
-    label: "elf"
-    aliases: ["high elf", "wood elf", "dark elf", "drow"]
-    description: "Elven humanoid"
-    explicit: false
-    weight: 1.0
-
   - id: fantasy_orc
     label: "orc"
     aliases: ["orcish", "green skin", "tusked"]
     description: "Orc-like humanoid"
-    explicit: false
-    weight: 1.0
-
-  - id: fantasy_dwarf
-    label: "dwarf"
-    aliases: ["dwarven", "short stout", "bearded dwarf"]
-    description: "Dwarven humanoid"
-    explicit: false
-    weight: 1.0
-
-  - id: fantasy_vampire
-    label: "vampire"
-    aliases: ["undead", "pale vampire", "fangs"]
-    description: "Vampiric humanoid"
-    explicit: false
-    weight: 1.0
-
-  - id: fantasy_demon
-    label: "demon"
-    aliases: ["succubus", "incubus", "devil", "fiend"]
-    description: "Demonic humanoid"
-    explicit: false
-    weight: 1.0
-
-  - id: fantasy_angel
-    label: "angel"
-    aliases: ["celestial", "divine being", "winged humanoid"]
-    description: "Angelic humanoid"
     explicit: false
     weight: 1.0
 
@@ -867,106 +782,6 @@ fantasy_races:
     label: "tiefling"
     aliases: ["half-demon", "infernal bloodline", "horned humanoid"]
     description: "Demonic-blooded humanoid"
-    explicit: false
-    weight: 1.0
-
-hands_details:
-  - id: anatomy_hand_long_fingers
-    label: "long fingers"
-    aliases: ["slender fingers", "elegant hands"]
-    description: "Long slender fingers"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_hand_short_fingers
-    label: "short fingers"
-    aliases: ["stubby fingers", "chubby hands"]
-    description: "Short fingers"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_hand_bony
-    label: "bony hands"
-    aliases: ["knuckles prominent", "thin hands", "skeletal hands"]
-    description: "Bony hands with prominent knuckles"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_hand_fleshy
-    label: "fleshy hands"
-    aliases: ["soft hands", "plump hands", "chubby"]
-    description: "Soft fleshy hands"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_hand_large
-    label: "large hands"
-    aliases: ["big hands", "manly hands"]
-    description: "Large hands"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_hand_small
-    label: "small hands"
-    aliases: ["tiny hands", "delicate hands", "petite"]
-    description: "Small delicate hands"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_nails_long
-    label: "long nails"
-    aliases: ["lengthy nails", "acrylic nails"]
-    description: "Long nails"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_nails_painted
-    label: "painted nails"
-    aliases: ["nail polish", "colored nails"]
-    description: "Painted colored nails"
-    explicit: false
-    weight: 1.0
-
-feet_details:
-  - id: anatomy_foot_long
-    label: "long feet"
-    aliases: ["large feet", "big feet"]
-    description: "Long large feet"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_foot_short
-    label: "short feet"
-    aliases: ["small feet", "petite feet"]
-    description: "Short small feet"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_foot_narrow
-    label: "narrow feet"
-    aliases: ["slender feet", "thin feet"]
-    description: "Narrow slender feet"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_foot_wide
-    label: "wide feet"
-    aliases: ["broad feet", "thick feet"]
-    description: "Wide broad feet"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_arch_high
-    label: "high arch"
-    aliases: ["curved arch", "high instep"]
-    description: "High foot arch"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_arch_flat
-    label: "flat feet"
-    aliases: ["low arch", "flat foot"]
-    description: "Flat foot arch"
     explicit: false
     weight: 1.0
 
@@ -1095,42 +910,6 @@ musculature:
     label: "veins visible"
     aliases: ["prominent veins", "vascular"]
     description: "Visible veins on arms/body"
-    explicit: false
-    weight: 1.0
-
-neck_details:
-  - id: anatomy_neck_thick
-    label: "thick neck"
-    aliases: ["muscular neck", "bull neck"]
-    description: "Thick neck"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_neck_thin
-    label: "thin neck"
-    aliases: ["slender neck", "swan neck"]
-    description: "Thin slender neck"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_neck_tattoo
-    label: "neck tattoo"
-    aliases: ["throat tattoo", "neck ink"]
-    description: "Tattoo on neck"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_adams_apple
-    label: "prominent Adam's apple"
-    aliases: ["visible adam's apple", "thyroid cartilage"]
-    description: "Prominent Adam's apple"
-    explicit: false
-    weight: 1.0
-
-  - id: anatomy_collarbone_visible
-    label: "visible collarbone"
-    aliases: ["prominent collarbone", "clavicle"]
-    description: "Visible prominent collarbone"
     explicit: false
     weight: 1.0
 
