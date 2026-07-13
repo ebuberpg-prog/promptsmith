@@ -133,7 +133,7 @@ body_hair_locations:
       explicit: true
       weight: 1.0
 
-body_hair_styles:
+body_hair_conditions:
   - id: bodyhair_smooth
     label: "completely smooth"
     aliases: ["hairless", "bald", "shaved all over"]
@@ -235,7 +235,7 @@ special:
     weight: 1.0
 
 body_hair_styles:
-  - id: bodyhair_smooth
+  - id: bodyhair_sweaty
     label: "sweaty body hair"
     aliases: ["moisturized with sweat", "glistening"]
     description: "Sweaty body with body hair"

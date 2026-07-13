@@ -1,5 +1,6 @@
 import { openDB, type IDBPDatabase } from 'idb'
 import type { TaxonomyTag } from '@/types'
+import { normalizeTaxonomyTags } from './taxonomy-tag'
 
 const DB_NAME = 'muse-taxonomy'
 const DB_VERSION = 1
@@ -33,7 +34,7 @@ export async function getCachedTags(version: string): Promise<TaxonomyTag[] | nu
     const cachedVersion = await database.get(STORE_NAME, VERSION_KEY) as string | undefined
     if (cachedVersion !== version) return null
     const tags = await database.get(STORE_NAME, CACHE_KEY) as TaxonomyTag[] | undefined
-    return tags ?? null
+    return tags ? normalizeTaxonomyTags(tags) : null
   } catch {
     return null
   }
@@ -51,7 +52,16 @@ export async function setCachedTags(version: string, tags: TaxonomyTag[]): Promi
   }
 }
 
-export function computeVersion(fileList: string[]): string {
-  // Simple version: sorted file list joined — changes when files are added/removed
-  return fileList.slice().sort().join('|')
+export function computeVersion(fileList: string[], fileContents: string[] = []): string {
+  const entries = fileList.map((file, index) => `${file}\0${fileContents[index] ?? ''}`).sort()
+  const input = entries.join('\0')
+
+  // FNV-1a gives us a small, deterministic content fingerprint without async crypto APIs.
+  let hash = 0x811c9dc5
+  for (let index = 0; index < input.length; index += 1) {
+    hash ^= input.charCodeAt(index)
+    hash = Math.imul(hash, 0x01000193)
+  }
+
+  return `v2-${(hash >>> 0).toString(16).padStart(8, '0')}`
 }

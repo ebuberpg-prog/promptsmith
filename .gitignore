@@ -6,6 +6,8 @@ node_modules
 # Build outputs
 dist
 dist-ssr
+playwright-report
+test-results
 *.local
 
 # Editor directories and files

@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Dialog } from '@base-ui/react/dialog'
 import {
   ArrowRight,
   ArrowLeft,
@@ -13,14 +14,13 @@ import {
   Eye,
   Shuffle,
   Tag,
-  BookOpen,
   Copy,
   Check as CheckIcon,
 } from '@phosphor-icons/react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { searchTagIndex, getTagById } from '@/utils/tag-index'
+import { searchTagIndex } from '@/utils/tag-index'
 import { MODEL_CONFIGS, MODEL_GROUPS } from '@/data/model-configs'
-import type { SupportedModel, TaxonomyTag } from '@/types'
+import type { ContentVisibility, SupportedModel, TaxonomyTag } from '@/types'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -90,12 +90,12 @@ const STEP_ORDER: WizardStep[] = ['welcome', 'subject', 'setting', 'style', 'mod
 
 /* ─── HELPERS ─────────────────────────────────────────────────────────────── */
 
-function resolveConceptTags(concept: ConceptOption | null, showExplicit: boolean): TaxonomyTag[] {
+function resolveConceptTags(concept: ConceptOption | null, contentVisibility: ContentVisibility): TaxonomyTag[] {
   if (!concept) return []
   const found: TaxonomyTag[] = []
   const seen = new Set<string>()
   for (const query of concept.searchQueries) {
-    const hits = searchTagIndex(query, showExplicit, 5)
+    const hits = searchTagIndex(query, contentVisibility, 5)
     for (const hit of hits) {
       if (seen.has(hit.id)) continue
       seen.add(hit.id)
@@ -123,7 +123,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
   const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
   const setCustomText = usePromptSmithStore((s) => s.setCustomText)
   const setModel = usePromptSmithStore((s) => s.setSelectedModel)
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
   const randomizePrompt = usePromptSmithStore((s) => s.randomizePrompt)
 
   const stepIndex = STEP_ORDER.indexOf(step)
@@ -143,40 +143,20 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
     }
   }, [isOpen])
 
-  /* Keyboard navigation */
-  useEffect(() => {
-    if (!isOpen) return
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose()
-      }
-      if (e.key === 'ArrowRight' && e.metaKey) {
-        e.preventDefault()
-        handleNext()
-      }
-      if (e.key === 'ArrowLeft' && e.metaKey) {
-        e.preventDefault()
-        handleBack()
-      }
-    }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [isOpen, step, subjectInput, subjectConcept, settingConcept, styleConcept, selectedModel])
-
   const resolvedTags = useMemo(() => {
     const tags: TaxonomyTag[] = []
     const seen = new Set<string>()
-    for (const tag of resolveConceptTags(subjectConcept, showExplicit)) {
+    for (const tag of resolveConceptTags(subjectConcept, contentVisibility)) {
       if (!seen.has(tag.id)) { seen.add(tag.id); tags.push(tag) }
     }
-    for (const tag of resolveConceptTags(settingConcept, showExplicit)) {
+    for (const tag of resolveConceptTags(settingConcept, contentVisibility)) {
       if (!seen.has(tag.id)) { seen.add(tag.id); tags.push(tag) }
     }
-    for (const tag of resolveConceptTags(styleConcept, showExplicit)) {
+    for (const tag of resolveConceptTags(styleConcept, contentVisibility)) {
       if (!seen.has(tag.id)) { seen.add(tag.id); tags.push(tag) }
     }
     return tags
-  }, [subjectConcept, settingConcept, styleConcept, showExplicit])
+  }, [subjectConcept, settingConcept, styleConcept, contentVisibility])
 
   const handleClose = useCallback(() => {
     if (dontShowAgain) onSkip()
@@ -196,6 +176,23 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
       setStep(STEP_ORDER[idx - 1])
     }
   }, [step])
+
+  /* Keyboard navigation */
+  useEffect(() => {
+    if (!isOpen) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' && e.metaKey) {
+        e.preventDefault()
+        handleNext()
+      }
+      if (e.key === 'ArrowLeft' && e.metaKey) {
+        e.preventDefault()
+        handleBack()
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [handleBack, handleNext, isOpen])
 
   const handleApply = useCallback(() => {
     const store = usePromptSmithStore.getState()
@@ -256,33 +253,14 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
   }, [step, subjectInput, subjectConcept])
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[var(--ui-overlay)] z-50"
-            onClick={handleClose}
-          />
-
-          {/* Modal */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="w-full max-w-xl max-h-[90vh] bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-2xl shadow-lg flex flex-col overflow-hidden pointer-events-auto"
-              role="dialog"
-              aria-label="Quick start wizard"
-            >
+    <Dialog.Root open={isOpen} onOpenChange={(open) => { if (!open) handleClose() }}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 bg-[var(--ui-overlay)] z-40" />
+        <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-xl max-h-[90vh] -translate-x-1/2 -translate-y-1/2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-2xl shadow-lg flex flex-col overflow-hidden" aria-label="Quick start wizard">
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--ui-border)]">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full border border-[var(--ui-border)] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg border border-[var(--ui-border)] flex items-center justify-center">
                     <Sparkle weight="fill" className="w-4 h-4 text-[var(--ui-text)]" />
                   </div>
                   <div>
@@ -292,13 +270,12 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={handleClose}
-                  className="p-2 rounded-lg text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors"
+                <Dialog.Close
+                  className="size-11 rounded-full text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors flex items-center justify-center"
                   aria-label="Close wizard"
                 >
                   <X weight="bold" className="w-4 h-4" />
-                </button>
+                </Dialog.Close>
               </div>
 
               {/* Progress bar */}
@@ -323,7 +300,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                         if (i <= stepIndex) setStep(s)
                       }}
                       className={cn(
-                        'text-[10px] uppercase tracking-wider font-medium px-2 py-1 rounded-full transition-colors whitespace-nowrap',
+                        'min-h-11 text-[10px] uppercase tracking-wider font-medium px-3 rounded-lg transition-colors whitespace-nowrap',
                         isActive
                           ? 'text-[var(--ui-bg)] bg-[var(--ui-text)]'
                           : isPast
@@ -354,7 +331,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                         <div className="w-14 h-14 mx-auto rounded-2xl border border-[var(--ui-border)] flex items-center justify-center mb-4">
                           <Sparkle weight="fill" className="w-7 h-7 text-[var(--ui-text)]" />
                         </div>
-                        <h3 className="text-xl font-display text-[var(--ui-text)]">Welcome to PromptSmith</h3>
+                        <h3 className="text-xl font-display text-[var(--ui-text)]">Welcome to MUSE Prompt Studio</h3>
                         <p className="text-sm text-[var(--ui-muted-text)] max-w-sm mx-auto">
                           Build your first prompt in under a minute. Pick a subject, setting, and style — then let the app handle the details.
                         </p>
@@ -444,15 +421,15 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                         <div className="border border-[var(--ui-border-faint)] rounded-xl p-3 space-y-1.5">
                           <p className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text)]/50 font-medium">Tags we will add</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {resolveConceptTags(subjectConcept, showExplicit).map((tag) => (
+                            {resolveConceptTags(subjectConcept, contentVisibility).map((tag) => (
                               <span
                                 key={tag.id}
-                                className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
+                                className="text-[10px] px-2 py-0.5 rounded-lg border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
                               >
                                 {tag.label}
                               </span>
                             ))}
-                            {resolveConceptTags(subjectConcept, showExplicit).length === 0 && (
+                            {resolveConceptTags(subjectConcept, contentVisibility).length === 0 && (
                               <span className="text-[10px] text-[var(--ui-muted-text)]/40">No matching tags found in taxonomy</span>
                             )}
                           </div>
@@ -505,15 +482,15 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                         <div className="border border-[var(--ui-border-faint)] rounded-xl p-3 space-y-1.5">
                           <p className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text)]/50 font-medium">Tags we will add</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {resolveConceptTags(settingConcept, showExplicit).map((tag) => (
+                            {resolveConceptTags(settingConcept, contentVisibility).map((tag) => (
                               <span
                                 key={tag.id}
-                                className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
+                                className="text-[10px] px-2 py-0.5 rounded-lg border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
                               >
                                 {tag.label}
                               </span>
                             ))}
-                            {resolveConceptTags(settingConcept, showExplicit).length === 0 && (
+                            {resolveConceptTags(settingConcept, contentVisibility).length === 0 && (
                               <span className="text-[10px] text-[var(--ui-muted-text)]/40">No matching tags found in taxonomy</span>
                             )}
                           </div>
@@ -566,15 +543,15 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                         <div className="border border-[var(--ui-border-faint)] rounded-xl p-3 space-y-1.5">
                           <p className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text)]/50 font-medium">Tags we will add</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {resolveConceptTags(styleConcept, showExplicit).map((tag) => (
+                            {resolveConceptTags(styleConcept, contentVisibility).map((tag) => (
                               <span
                                 key={tag.id}
-                                className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
+                                className="text-[10px] px-2 py-0.5 rounded-lg border border-[var(--ui-text)]/10 text-[var(--ui-text)]/70"
                               >
                                 {tag.label}
                               </span>
                             ))}
-                            {resolveConceptTags(styleConcept, showExplicit).length === 0 && (
+                            {resolveConceptTags(styleConcept, contentVisibility).length === 0 && (
                               <span className="text-[10px] text-[var(--ui-muted-text)]/40">No matching tags found in taxonomy</span>
                             )}
                           </div>
@@ -595,7 +572,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                     >
                       <div>
                         <h3 className="text-lg font-display text-[var(--ui-text)] mb-1">Which model are you using?</h3>
-                        <p className="text-sm text-[var(--ui-muted-text)]">PromptSmith formats your prompt to match the target generator.</p>
+                        <p className="text-sm text-[var(--ui-muted-text)]">MUSE formats your prompt to match the target generator.</p>
                       </div>
 
                       <div className="space-y-3">
@@ -625,16 +602,16 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                                       <p className="text-xs text-[var(--ui-muted-text)]/70">{model.desc}</p>
                                       <div className="flex items-center gap-1.5 pt-0.5">
                                         {cfg.supportsNegative && (
-                                          <span className="text-[9px] uppercase tracking-wider text-emerald-400/70 border border-emerald-400/20 rounded-full px-1.5 py-0.5">
+                                          <span className="text-[9px] uppercase tracking-wider text-emerald-400/70 border border-emerald-400/20 rounded-lg px-1.5 py-0.5">
                                             Negative
                                           </span>
                                         )}
                                         {cfg.supportsWeighting && (
-                                          <span className="text-[9px] uppercase tracking-wider text-sky-400/70 border border-sky-400/20 rounded-full px-1.5 py-0.5">
+                                          <span className="text-[9px] uppercase tracking-wider text-sky-400/70 border border-sky-400/20 rounded-lg px-1.5 py-0.5">
                                             Weights
                                           </span>
                                         )}
-                                        <span className="text-[9px] uppercase tracking-wider text-[var(--ui-muted-text-faint)] border border-[var(--ui-border-faint)] rounded-full px-1.5 py-0.5">
+                                        <span className="text-[9px] uppercase tracking-wider text-[var(--ui-muted-text-faint)] border border-[var(--ui-border-faint)] rounded-lg px-1.5 py-0.5">
                                           {cfg.promptStyle.replace(/-/g, ' ')}
                                         </span>
                                       </div>
@@ -668,7 +645,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                       {/* Model pill */}
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text)]/50 font-medium">Model</span>
-                        <span className="text-xs px-2.5 py-1 rounded-full border border-[var(--ui-border)] text-[var(--ui-text)]">
+                        <span className="text-xs px-2.5 py-1 rounded-lg border border-[var(--ui-border)] text-[var(--ui-text)]">
                           {MODEL_CONFIGS[selectedModel].name} {MODEL_CONFIGS[selectedModel].version}
                         </span>
                       </div>
@@ -691,7 +668,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                             {resolvedTags.map((tag) => (
                               <span
                                 key={tag.id}
-                                className="text-xs px-2.5 py-1 rounded-full border border-[var(--ui-text)]/15 text-[var(--ui-text)]/80"
+                                className="text-xs px-2.5 py-1 rounded-lg border border-[var(--ui-text)]/15 text-[var(--ui-text)]/80"
                               >
                                 {tag.label}
                               </span>
@@ -709,14 +686,14 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           onClick={handleCopyPreview}
-                          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--ui-border)] text-sm text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
+                          className="min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl border border-[var(--ui-border)] text-sm text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
                         >
                           {copied ? <CheckIcon weight="bold" className="w-3.5 h-3.5" /> : <Copy weight="regular" className="w-3.5 h-3.5" />}
                           {copied ? 'Copied' : 'Copy prompt'}
                         </button>
                         <button
                           onClick={handleApplyAndRandomize}
-                          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--ui-border)] text-sm text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
+                          className="min-h-11 flex items-center justify-center gap-2 px-4 rounded-xl border border-[var(--ui-border)] text-sm text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
                         >
                           <Shuffle weight="regular" className="w-3.5 h-3.5" />
                           Apply + randomize
@@ -743,7 +720,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                   {step !== 'welcome' && (
                     <button
                       onClick={handleBack}
-                      className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors"
+                      className="min-h-11 flex items-center gap-1.5 px-3 text-sm text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors"
                     >
                       <ArrowLeft weight="regular" className="w-3.5 h-3.5" />
                       Back
@@ -753,7 +730,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                   {step === 'preview' ? (
                     <button
                       onClick={handleApply}
-                      className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:opacity-90 transition-opacity"
+                      className="min-h-11 flex items-center gap-2 px-5 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:opacity-90 transition-opacity"
                     >
                       <Check weight="bold" className="w-3.5 h-3.5" />
                       Apply & start
@@ -762,7 +739,7 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                     <button
                       onClick={handleNext}
                       disabled={!canAdvance}
-                      className="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
+                      className="min-h-11 flex items-center gap-2 px-5 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40"
                     >
                       <span>Next</span>
                       <ArrowRight weight="regular" className="w-3.5 h-3.5" />
@@ -770,10 +747,8 @@ export function QuickStartWizard({ isOpen, onClose, onSkip }: QuickStartWizardPr
                   )}
                 </div>
               </div>
-            </motion.div>
-          </div>
-        </>
-      )}
-    </AnimatePresence>
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }

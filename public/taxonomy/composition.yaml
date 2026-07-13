@@ -87,13 +87,6 @@ perspective:
     explicit: false
     weight: 1.0
 
-  - id: comp_forced_perspective
-    label: "forced perspective"
-    aliases: ["Trompe-l'œil", "illusionary scale"]
-    description: "Forced perspective composition"
-    explicit: false
-    weight: 1.0
-
   - id: comp_aerial_view
     label: "bird's eye view"
     aliases: ["top-down", "overhead", "aerial"]
@@ -199,13 +192,6 @@ depth:
     label: "flat 2D"
     aliases: ["2D plane", "graphic", "poster-like"]
     description: "Flat 2D composition"
-    explicit: false
-    weight: 1.0
-
-  - id: comp_negative_space
-    label: "negative space"
-    aliases: ["empty space", "minimalist composition"]
-    description: "Negative space composition"
     explicit: false
     weight: 1.0
 

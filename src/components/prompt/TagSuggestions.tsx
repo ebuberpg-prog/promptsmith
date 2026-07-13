@@ -1,227 +1,74 @@
-import { useMemo, useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkle, Spinner, WarningCircle } from '@phosphor-icons/react'
+import { useEffect, useMemo, useState } from 'react'
+import { Spinner, Sparkle, WarningCircle } from '@phosphor-icons/react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { getSuggestionsForTags } from '@/data/tag-relationships'
-import { getTagById, getTagsByCategory, getAllIndexedTags } from '@/utils/tag-index'
-import { getGroupForCategory, SEMANTIC_GROUPS } from '@/data/category-colors'
+import { analyzeComposerInput } from '@/services/composer-analysis'
 import { aiService, type AIServiceState } from '@/services/local-ai-service'
-
-// Complementary groups: if you have tags in X, suggest from Y
-const COMPLEMENTARY_GROUPS: Record<string, string[]> = {
-  subject: ['appearance', 'setting', 'style', 'mood'],
-  appearance: ['subject', 'setting', 'style'],
-  setting: ['subject', 'style', 'mood', 'appearance'],
-  style: ['subject', 'setting', 'mood', 'appearance'],
-  mood: ['subject', 'setting', 'style'],
-  quality: ['style', 'subject'],
-}
-
-function getTagSignature(tags: { id: string }[]): string {
-  return tags.map((t) => t.id).sort().join(',')
-}
+import { searchTagIndexScored } from '@/utils/tag-index'
 
 export function TagSuggestions() {
-  const selectedTags = usePromptSmithStore((s) => s.selectedTags)
-  const toggleTag = usePromptSmithStore((s) => s.toggleTag)
+  const selectedTags = usePromptSmithStore((state) => state.selectedTags)
+  const customText = usePromptSmithStore((state) => state.customText)
+  const contentVisibility = usePromptSmithStore((state) => state.contentVisibility)
+  const toggleTag = usePromptSmithStore((state) => state.toggleTag)
+  const aiSettings = usePromptSmithStore((state) => state.aiSettings)
+  const [service, setService] = useState<AIServiceState>(aiService.getState())
+  const [aiTags, setAiTags] = useState<ReturnType<typeof searchTagIndexScored>>([])
+  const [error, setError] = useState('')
 
-  const [aiState, setAIState] = useState<AIServiceState>(aiService.getState())
-  const [aiLabels, setAiLabels] = useState<string[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  useEffect(() => aiService.subscribe(setService), [])
 
-  const tagSignature = useMemo(() => getTagSignature(selectedTags), [selectedTags])
+  const local = useMemo(() => {
+    const selected = new Set(selectedTags.map((tag) => tag.id))
+    return (analyzeComposerInput(customText, contentVisibility, 6).scoredSuggestions ?? [])
+      .filter((result) => !selected.has(result.tag.id))
+      .slice(0, 3)
+  }, [contentVisibility, customText, selectedTags])
 
-  useEffect(() => {
-    const unsub = aiService.subscribe(setAIState)
-    return () => {
-      unsub()
-    }
-  }, [])
-
-  const fetchAISuggestions = useCallback(async () => {
-    if (selectedTags.length === 0 || aiState.status !== 'connected') return
-    setIsLoading(true)
-    setError(null)
+  const askLocalAI = async () => {
+    setError('')
+    setAiTags([])
+    aiService.setUrls(aiSettings.ollamaUrl, aiSettings.lmStudioUrl)
+    aiService.setCompatibleUrls(aiSettings.openAICompatibleUrl, aiSettings.anthropicCompatibleUrl, aiSettings.useApiGateway !== false ? (aiSettings.apiGatewayUrl || 'https://prompt-smith.ebuberpg.workers.dev') : '')
+    if (service.status !== 'connected') await aiService.discover(aiSettings.preferredAIProvider)
     try {
-      const labels = await aiService.suggestTags(selectedTags.map((t) => t.label))
-      setAiLabels(labels)
-    } catch (err) {
-      setError(String(err))
-      setAiLabels([])
-    } finally {
-      setIsLoading(false)
+      const selected = new Set(selectedTags.map((tag) => tag.id))
+      const localIds = new Set(local.map((result) => result.tag.id))
+      const candidateWords = [...new Set((customText.toLowerCase().match(/[\p{L}\p{N}'-]{4,}/gu) ?? []))]
+      const candidateResults = candidateWords.flatMap((word) => searchTagIndexScored(word, contentVisibility, 3))
+        .filter((result) => {
+          const confidenceLimit = result.matchedField === 'description' ? 0.12 : 0.18
+          return result.score <= confidenceLimit && !selected.has(result.tag.id) && !localIds.has(result.tag.id)
+        })
+      const allowedLabels = [...new Set(candidateResults.map((result) => result.tag.label))].slice(0, 60)
+      const labels = await aiService.suggestTags(selectedTags.map((tag) => tag.label), customText, allowedLabels)
+      const seen = new Set<string>()
+      const strict = labels.flatMap((label) => searchTagIndexScored(label, contentVisibility, 1))
+        .filter((result) => {
+          const confidenceLimit = result.matchedField === 'description' ? 0.12 : 0.18
+          return result.score <= confidenceLimit && !selected.has(result.tag.id) && !localIds.has(result.tag.id) && !seen.has(result.tag.id) && seen.add(result.tag.id)
+        })
+        .slice(0, 4)
+      setAiTags(strict)
+      if (strict.length === 0) setError('MUSE received ideas, but none matched the taxonomy confidently enough to suggest.')
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Local suggestions failed. Nothing was changed.')
     }
-  }, [selectedTags, aiState.status])
+  }
 
-  // Auto-fetch when AI connects or tags change meaningfully
-  useEffect(() => {
-    if (aiState.status === 'connected' && selectedTags.length > 0) {
-      fetchAISuggestions()
-    }
-  }, [aiState.status, tagSignature, fetchAISuggestions, selectedTags.length])
-
-  const suggestions = useMemo(() => {
-    if (selectedTags.length === 0) return []
-    const selectedIds = new Set(selectedTags.map((t) => t.id))
-    const suggested: Array<NonNullable<ReturnType<typeof getTagById>>> = []
-
-    const addTag = (tag: ReturnType<typeof getTagById>): boolean => {
-      if (!tag) return false
-      if (selectedIds.has(tag.id)) return false
-      if (suggested.some((s) => s.id === tag.id)) return false
-      suggested.push(tag)
-      return true
-    }
-
-    // 1. AI suggestions
-    for (const label of aiLabels) {
-      const allTags = getAllIndexedTags()
-      const exact = allTags.find((t) => t.label.toLowerCase() === label.toLowerCase())
-      if (addTag(exact)) continue
-      const partial = allTags.find(
-        (t) =>
-          t.label.toLowerCase().includes(label.toLowerCase()) ||
-          label.toLowerCase().includes(t.label.toLowerCase())
-      )
-      if (addTag(partial)) continue
-      // Word-by-word fallback
-      const words = label.toLowerCase().split(/\s+/).filter((w) => w.length > 2)
-      for (const word of words) {
-        const wordMatch = allTags.find((t) => t.label.toLowerCase().includes(word))
-        if (addTag(wordMatch)) break
-      }
-    }
-
-    // 2. Static relationships
-    const staticIds = getSuggestionsForTags(
-      selectedTags.map((t) => t.id),
-      selectedIds
-    )
-    for (const id of staticIds) {
-      addTag(getTagById(id))
-    }
-
-    // 3. Complementary group suggestions
-    if (suggested.length < 6) {
-      const groupCounts = new Map<string, number>()
-      for (const tag of selectedTags) {
-        const group = getGroupForCategory(tag.category || '')
-        groupCounts.set(group, (groupCounts.get(group) || 0) + 1)
-      }
-
-      const neededGroups: string[] = []
-      for (const [group, compGroups] of Object.entries(COMPLEMENTARY_GROUPS)) {
-        const count = groupCounts.get(group) || 0
-        if (count > 0) {
-          for (const comp of compGroups) {
-            if (!neededGroups.includes(comp) && (groupCounts.get(comp) || 0) === 0) {
-              neededGroups.push(comp)
-            }
-          }
-        }
-      }
-
-      for (const groupId of neededGroups) {
-        const group = SEMANTIC_GROUPS.find((g) => g.id === groupId)
-        if (!group) continue
-        for (const catId of group.categoryIds) {
-          const catTags = getTagsByCategory(catId)
-          for (const tag of catTags) {
-            if (addTag(tag)) {
-              if (suggested.length >= 6) break
-            }
-          }
-          if (suggested.length >= 6) break
-        }
-        if (suggested.length >= 6) break
-      }
-    }
-
-    // 4. Same-group variety
-    if (suggested.length < 6) {
-      const groupCounts = new Map<string, number>()
-      for (const tag of selectedTags) {
-        const group = getGroupForCategory(tag.category || '')
-        groupCounts.set(group, (groupCounts.get(group) || 0) + 1)
-      }
-      const topGroup = Array.from(groupCounts.entries()).sort((a, b) => b[1] - a[1])[0]?.[0]
-      if (topGroup) {
-        const group = SEMANTIC_GROUPS.find((g) => g.id === topGroup)
-        if (group) {
-          for (const catId of group.categoryIds) {
-            const catTags = getTagsByCategory(catId)
-            for (const tag of catTags) {
-              if (addTag(tag)) {
-                if (suggested.length >= 6) break
-              }
-            }
-            if (suggested.length >= 6) break
-          }
-        }
-      }
-    }
-
-    return suggested.slice(0, 6)
-  }, [selectedTags, aiLabels])
-
-  const isConnected = aiState.status === 'connected'
-  const isChecking = aiState.status === 'checking'
-
-  if (selectedTags.length === 0) return null
-
+  const running = service.status === 'running' || service.status === 'checking'
   return (
-    <div className="space-y-2">
-      <div className="flex items-center gap-2">
-        <Sparkle weight="fill" className="w-3 h-3 text-[var(--ui-muted-text-faint)]" />
-        <span className="text-[10px] text-[var(--ui-muted-text-faint)] uppercase tracking-wider font-medium">
-          {isLoading || isChecking ? 'Analyzing draft…' : isConnected ? 'AI suggestions' : 'Related tags'}
-        </span>
-        {(isLoading || isChecking) && (
-          <Spinner weight="regular" className="w-3 h-3 animate-spin" style={{ color: 'var(--ui-muted-text-faint)' }} />
-        )}
-      </div>
-
-      {error && (
-        <div className="flex items-center gap-1.5 text-[10px]" style={{ color: 'hsl(var(--destructive))' }}>
-          <WarningCircle weight="regular" className="w-3 h-3 flex-shrink-0" />
-          {error}
-        </div>
-      )}
-
-      <div className="flex flex-wrap gap-1.5">
-        <AnimatePresence>
-          {suggestions.map((tag) => (
-            <motion.button
-              key={tag.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => toggleTag(tag)}
-              data-group={getGroupForCategory(tag.category || '')}
-              className="tag-chip"
-              title={tag.description}
-            >
-              <span className="truncate">{tag.label}</span>
-            </motion.button>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {suggestions.length === 0 && !isLoading && (
-        <p className="text-[11px] leading-relaxed" style={{ color: 'var(--ui-muted-text-faint)' }}>
-          {isConnected
-            ? 'No suggestions found. Try selecting different tags.'
-            : 'Select more tags or connect a local AI provider for smarter suggestions.'}
-        </p>
-      )}
-
-      {!isConnected && !isChecking && suggestions.length > 0 && (
-        <p className="text-[10px] leading-relaxed" style={{ color: 'var(--ui-muted-text-faint)' }}>
-          Connect a local AI provider (Ollama, LM Studio, or OpenAI) for context-aware suggestions.
-        </p>
-      )}
+    <div className="space-y-3">
+      {local.length > 0 && <SuggestionRow label="MUSE · on device" results={local} onChoose={(tag) => toggleTag(tag)} />}
+      <button type="button" onClick={() => void askLocalAI()} disabled={running || (!customText.trim() && selectedTags.length === 0)} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] flex items-center gap-2 text-xs disabled:opacity-40" title="Contacts only your configured local model after this click">
+        {running ? <Spinner className="size-4 animate-spin" /> : <Sparkle className="size-4" />}
+        Ask MUSE for ideas
+      </button>
+      {aiTags.length > 0 && <SuggestionRow label={`MUSE · ${service.selectedModel ?? 'configured model'}`} results={aiTags} onChoose={(tag) => toggleTag(tag)} />}
+      {error && <p className="flex gap-2 text-xs leading-5 text-[var(--destructive)]" role="status"><WarningCircle className="mt-0.5 size-4 shrink-0" />{error}</p>}
     </div>
   )
+}
+
+function SuggestionRow({ label, results, onChoose }: { label: string; results: ReturnType<typeof searchTagIndexScored>; onChoose: (tag: ReturnType<typeof searchTagIndexScored>[number]['tag']) => void }) {
+  return <div className="space-y-2"><p className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text)]">{label}</p><div className="flex flex-wrap gap-2">{results.map((result) => <button key={result.tag.id} type="button" onClick={() => onChoose(result.tag)} aria-description={`Matched ${result.matchedPhrase} in ${result.matchedField}`} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] text-xs hover:border-[var(--ui-border-hover)]">+ {result.tag.label}</button>)}</div></div>
 }

@@ -161,5 +161,13 @@ export async function applyPwaUpdate() {
     lastCheckedAt: Date.now(),
   })
 
-  await updateServiceWorker(true)
+  try {
+    await updateServiceWorker(true)
+  } catch (error) {
+    setState({
+      status: 'error',
+      message: error instanceof Error ? error.message : 'The update could not be installed. Your draft remains saved.',
+      lastCheckedAt: Date.now(),
+    })
+  }
 }

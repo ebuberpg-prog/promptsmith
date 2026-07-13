@@ -689,6 +689,7 @@ anthropomorphic:
 
     - id: anthro_feat_tail
       label: "animal tail"
+      aliases: []
       description: "Human with animal tail"
       explicit: false
       weight: 1.0

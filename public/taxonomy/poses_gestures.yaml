@@ -295,7 +295,7 @@ action_poses:
 
   - id: pose_celebrating
     label: "celebrating"
-    arms: ["arms raised", "fist pump", "victory pose"]
+    aliases: ["arms raised", "fist pump", "victory pose"]
     description: "Celebratory pose"
     explicit: false
     weight: 1.0

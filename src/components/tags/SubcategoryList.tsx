@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CaretDown } from '@phosphor-icons/react'
 import { TagChip } from './TagChip'
-import type { TaxonomyCategory, TaxonomyTag } from '@/types'
+import type { ContentVisibility, TaxonomyCategory, TaxonomyTag } from '@/types'
 
 function flattenTags(cat: TaxonomyCategory): TaxonomyTag[] {
   const tags: TaxonomyTag[] = []
@@ -21,7 +21,7 @@ interface SubcategoryListProps {
   pinnedIds: Set<string>
   toggleTag: (tag: TaxonomyTag) => void
   onPin: (tagId: string) => void
-  showExplicit: boolean
+  contentVisibility: ContentVisibility
 }
 
 export function SubcategoryList({
@@ -30,7 +30,7 @@ export function SubcategoryList({
   pinnedIds,
   toggleTag,
   onPin,
-  showExplicit,
+  contentVisibility,
 }: SubcategoryListProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
 
@@ -82,7 +82,7 @@ export function SubcategoryList({
       {categories.map((cat) => {
         const isExpanded = expandedIds.has(cat.id)
         const allTags = flattenTags(cat)
-        const tags = allTags.filter(t => showExplicit || !t.explicit)
+        const tags = allTags.filter(t => contentVisibility === 'all' || !t.explicit)
         const selectedCount = allTags.filter(t => selectedIds.has(t.id)).length
 
         if (tags.length === 0 && selectedCount === 0) return null
@@ -101,7 +101,7 @@ export function SubcategoryList({
                   {cat.name.replace(/_/g, ' ')}
                 </span>
                 {selectedCount > 0 && (
-                  <span className="text-[10px] text-[var(--ui-muted-text-faint)] border border-[var(--ui-border)] rounded-full px-2 py-0.5">
+                  <span className="text-[10px] text-[var(--ui-muted-text-faint)] border border-[var(--ui-border)] rounded-lg px-2 py-0.5">
                     {selectedCount}
                   </span>
                 )}

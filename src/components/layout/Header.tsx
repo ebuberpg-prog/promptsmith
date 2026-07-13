@@ -24,8 +24,8 @@ interface HeaderProps {
 }
 
 export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
-  const toggleExplicit = usePromptSmithStore((s) => s.toggleExplicit)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
+  const toggleContentVisibility = usePromptSmithStore((s) => s.toggleContentVisibility)
   const selectedModel = usePromptSmithStore((s) => s.selectedModel)
   const setSelectedModel = usePromptSmithStore((s) => s.setSelectedModel)
   const undo = usePromptSmithStore((s) => s.undo)
@@ -53,7 +53,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
 
       {/* Logo */}
       <div className="flex items-center gap-3 flex-shrink-0">
-        <div className="w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0" style={{ borderColor: 'var(--ui-border)' }}>
+        <div className="w-7 h-7 rounded-lg border flex items-center justify-center flex-shrink-0" style={{ borderColor: 'var(--ui-border)' }}>
           <Lightning weight="fill" className="w-3.5 h-3.5" style={{ color: 'var(--ui-text)' }} />
         </div>
         <span className="font-display text-lg font-normal leading-none tracking-tight hidden sm:block" style={{ color: 'var(--ui-text)' }}>
@@ -67,7 +67,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
       <div className="relative" ref={modelRef}>
         <button
           onClick={() => setModelOpen(o => !o)}
-          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors duration-150 text-[13px] min-h-[40px]"
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors duration-150 text-[13px] min-h-[40px]"
           style={{ borderColor: 'var(--ui-border)' }}
           onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border-hover)')}
           onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--ui-border)')}
@@ -79,7 +79,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
 
         <button
           onClick={() => setModelOpen(o => !o)}
-          className="sm:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-colors duration-150 text-[12px] min-h-[36px]"
+          className="sm:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-colors duration-150 text-[12px] min-h-[36px]"
           style={{ borderColor: 'var(--ui-border)' }}
         >
           <span className="font-medium truncate max-w-[84px]" style={{ color: 'var(--ui-text)' }}>{currentModel.name}</span>
@@ -127,7 +127,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
         {/* Search (mobile) */}
         <button
           onClick={onSearchOpen}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 sm:hidden"
+          className="w-8 h-8 flex items-center justify-center rounded-lg border border-transparent transition-colors duration-150 sm:hidden"
           style={{ color: 'var(--ui-muted-text)' }}
           aria-label="Search"
         >
@@ -139,7 +139,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
           <button
             onClick={undo}
             disabled={!canUndo()}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 disabled:opacity-30"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-transparent transition-colors duration-150 disabled:opacity-30"
             style={{ color: 'var(--ui-muted-text)' }}
             title="Undo (Ctrl+Z)"
             aria-label="Undo"
@@ -149,7 +149,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
           <button
             onClick={redo}
             disabled={!canRedo()}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150 disabled:opacity-30"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-transparent transition-colors duration-150 disabled:opacity-30"
             style={{ color: 'var(--ui-muted-text)' }}
             title="Redo (Ctrl+Shift+Z)"
             aria-label="Redo"
@@ -162,7 +162,7 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
 
         <button
           onClick={onToggleTheme}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
+          className="w-8 h-8 flex items-center justify-center rounded-lg border border-transparent transition-colors duration-150"
           style={{ color: 'var(--ui-muted-text)' }}
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           aria-label="Toggle theme"
@@ -172,28 +172,27 @@ export function Header({ theme, onToggleTheme, onSearchOpen }: HeaderProps) {
             : <Moon weight="regular" className="w-4 h-4" />}
         </button>
 
-        {/* Safe mode toggle */}
+        {/* Taxonomy visibility toggle */}
         <button
-          onClick={toggleExplicit}
-          className={`flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border transition-colors duration-150 text-[11px] font-medium min-h-[36px] sm:min-h-[40px] ${
-            showExplicit
+          onClick={toggleContentVisibility}
+          className={`flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border transition-colors duration-150 text-[11px] font-medium min-h-[36px] sm:min-h-[40px] ${
+            contentVisibility === 'all'
               ? 'border-red-900/60 text-red-400'
               : ''
           }`}
-          style={showExplicit ? {} : { borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
-          onMouseEnter={(e) => { if (!showExplicit) { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' } }}
-          onMouseLeave={(e) => { if (!showExplicit) { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' } }}
+          style={contentVisibility === 'all' ? {} : { borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+          aria-label={contentVisibility === 'all' ? 'Showing all taxonomy tags' : 'Showing filtered taxonomy tags'}
         >
-          {showExplicit
+          {contentVisibility === 'all'
             ? <Eye weight="regular" className="w-3.5 h-3.5" />
             : <EyeSlash weight="regular" className="w-3.5 h-3.5" />}
-          <span className="hidden sm:inline">{showExplicit ? 'Unfiltered' : 'Safe'}</span>
+          <span className="hidden sm:inline">{contentVisibility === 'all' ? 'All tags' : 'Filtered tags'}</span>
         </button>
 
         {/* Settings */}
         <button
           onClick={() => setSettingsOpen(true)}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-transparent transition-colors duration-150"
+          className="w-8 h-8 flex items-center justify-center rounded-lg border border-transparent transition-colors duration-150"
           style={{ color: 'var(--ui-muted-text)' }}
           title="Local connections"
         >

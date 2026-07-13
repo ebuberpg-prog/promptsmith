@@ -1,9 +1,33 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useMemo, useState } from 'react'
+import { Dialog } from '@base-ui/react/dialog'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { searchTagIndex } from '@/utils/tag-index'
-import { X, ArrowRight, ArrowLeft, Check, User, Image, Sword, Presentation, Palette, Package, Lightning, Bird, Confetti, Moon, Sun, CloudRain, Mountains, Flower, Camera, PencilSimple, PaintBrush, GameController, Cube } from '@phosphor-icons/react'
-import type { SelectedTag } from '@/types'
+import { getTagById } from '@/utils/tag-index'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Bird,
+  Camera,
+  Check,
+  CloudRain,
+  Confetti,
+  Cube,
+  Flower,
+  GameController,
+  Image,
+  Lightning,
+  Moon,
+  Mountains,
+  Package,
+  PaintBrush,
+  Palette,
+  PencilSimple,
+  Presentation,
+  Sun,
+  Sword,
+  User,
+  X,
+} from '@phosphor-icons/react'
+import type { ContentVisibility, SelectedTag } from '@/types'
 
 interface WizardStep {
   id: string
@@ -11,45 +35,63 @@ interface WizardStep {
   description: string
 }
 
+interface WizardChoice {
+  id: string
+  label: string
+  icon: React.ElementType
+  prompt: string
+  tagIds: string[]
+}
+
 const STEPS: WizardStep[] = [
-  { id: 'genre', title: 'Genre', description: 'What kind of image are you making?' },
-  { id: 'mood', title: 'Mood', description: 'What feeling should it have?' },
-  { id: 'style', title: 'Style', description: 'How should it look visually?' },
-  { id: 'review', title: 'Review', description: 'Preview your template before applying' },
+  { id: 'genre', title: 'Subject', description: 'What kind of image are you building?' },
+  { id: 'mood', title: 'Mood', description: 'What emotional register should guide it?' },
+  { id: 'style', title: 'Medium', description: 'What visual language should shape it?' },
+  { id: 'review', title: 'Review', description: 'Inspect the exact prompt and ingredients before applying.' },
 ]
 
-const GENRES = [
-  { id: 'portrait', label: 'Portrait', icon: User, promptHint: 'close-up portrait, person' },
-  { id: 'landscape', label: 'Landscape', icon: Image, promptHint: 'wide landscape, scenic environment' },
-  { id: 'character', label: 'Character', icon: Sword, promptHint: 'full body character design' },
-  { id: 'scene', label: 'Scene', icon: Presentation, promptHint: 'environmental scene, setting' },
-  { id: 'abstract', label: 'Abstract', icon: Palette, promptHint: 'abstract art, non-representational' },
-  { id: 'product', label: 'Product', icon: Package, promptHint: 'product shot, clean background' },
+const GENRES: WizardChoice[] = [
+  { id: 'portrait', label: 'Portrait', icon: User, prompt: 'a waist-up portrait of {subject}, photographed at eye level', tagIds: ['style_portrait_photography', 'cam_dist_medium', 'cam_angle_eye_level'] },
+  { id: 'landscape', label: 'Landscape', icon: Image, prompt: 'a panoramic landscape of {location} with layered foreground, middle ground, and distance', tagIds: ['cam_dist_extreme_wide', 'cam_lens_wide', 'comp_rule_thirds'] },
+  { id: 'character', label: 'Character', icon: Sword, prompt: 'a full-body design for {character} with a clear silhouette and functional details', tagIds: ['style_concept_art', 'cam_dist_full', 'comp_centered'] },
+  { id: 'scene', label: 'Scene', icon: Presentation, prompt: 'an environmental scene of {scene} with one clear focal event and a navigable foreground', tagIds: ['cam_dist_wide', 'comp_rule_thirds', 'comp_leading_lines'] },
+  { id: 'abstract', label: 'Abstract', icon: Palette, prompt: 'an abstract composition based on {concept}, organized around one dominant visual rhythm', tagIds: ['style_abstract', 'comp_off_center', 'abs_rhythm'] },
+  { id: 'product', label: 'Product', icon: Package, prompt: 'a considered studio study of {product} with accurate materials and deliberate negative space', tagIds: ['comp_centered', 'light_source_studio', 'light_soft'] },
 ]
 
-const MOODS = [
-  { id: 'dramatic', label: 'Dramatic', icon: Lightning, keywords: ['dramatic', 'intense', 'moody'] },
-  { id: 'peaceful', label: 'Peaceful', icon: Bird, keywords: ['peaceful', 'serene', 'calm'] },
-  { id: 'playful', label: 'Playful', icon: Confetti, keywords: ['playful', 'whimsical', 'fun'] },
-  { id: 'dark', label: 'Dark', icon: Moon, keywords: ['dark', 'shadow', 'mysterious'] },
-  { id: 'bright', label: 'Bright', icon: Sun, keywords: ['bright', 'vibrant', 'energetic'] },
-  { id: 'mysterious', label: 'Mysterious', icon: CloudRain, keywords: ['mysterious', 'ethereal', 'mystical'] },
-  { id: 'romantic', label: 'Romantic', icon: Flower, keywords: ['romantic', 'soft', 'warm'] },
-  { id: 'epic', label: 'Epic', icon: Mountains, keywords: ['epic', 'grand', 'majestic'] },
+const MOODS: WizardChoice[] = [
+  { id: 'dramatic', label: 'Dramatic', icon: Lightning, prompt: 'dramatic but controlled, with strong tonal separation', tagIds: ['mood_dramatic', 'light_low_key'] },
+  { id: 'peaceful', label: 'Peaceful', icon: Bird, prompt: 'quiet and restorative, with gentle pacing and open space', tagIds: ['mood_peaceful', 'light_soft'] },
+  { id: 'playful', label: 'Playful', icon: Confetti, prompt: 'playful and energetic, with one unexpected visual relationship', tagIds: ['mood_playful', 'light_high_key'] },
+  { id: 'dark', label: 'Dark', icon: Moon, prompt: 'shadow-led and restrained, while keeping the focal subject readable', tagIds: ['light_low_key', 'mood_mysterious'] },
+  { id: 'bright', label: 'Bright', icon: Sun, prompt: 'bright and optimistic, with clean highlights and controlled color', tagIds: ['light_high_key', 'mood_playful'] },
+  { id: 'mysterious', label: 'Mysterious', icon: CloudRain, prompt: 'mysterious and suggestive, revealing less than it implies', tagIds: ['mood_mysterious', 'light_rim'] },
+  { id: 'romantic', label: 'Romantic', icon: Flower, prompt: 'warm and intimate, with soft transitions rather than sentimental decoration', tagIds: ['mood_romantic', 'light_soft'] },
+  { id: 'epic', label: 'Epic', icon: Mountains, prompt: 'monumental in scale, with a small human or familiar cue for contrast', tagIds: ['mood_epic', 'cam_dist_extreme_wide'] },
 ]
 
-const STYLES = [
-  { id: 'photo', label: 'Photography', icon: Camera, keywords: ['photorealistic', 'photograph', 'realistic'] },
-  { id: 'illustration', label: 'Illustration', icon: PencilSimple, keywords: ['illustration', 'digital art', 'artwork'] },
-  { id: 'painting', label: 'Painting', icon: PaintBrush, keywords: ['oil painting', 'painterly', 'brushstroke'] },
-  { id: 'concept-art', label: 'Concept Art', icon: GameController, keywords: ['concept art', 'professional', 'detailed'] },
-  { id: 'anime', label: 'Anime', icon: Flower, keywords: ['anime', 'manga', 'japanese animation'] },
-  { id: '3d', label: '3D Render', icon: Cube, keywords: ['3d render', 'cgi', 'octane render'] },
+const STYLES: WizardChoice[] = [
+  { id: 'photo', label: 'Photography', icon: Camera, prompt: 'naturalistic photography with believable optics, texture, and exposure', tagIds: ['style_fine_art_photo'] },
+  { id: 'illustration', label: 'Illustration', icon: PencilSimple, prompt: 'a deliberate digital illustration with clear shape language and selective detail', tagIds: ['style_digital_painting'] },
+  { id: 'painting', label: 'Painting', icon: PaintBrush, prompt: 'an oil painting with visible brush decisions and a coherent edge hierarchy', tagIds: ['style_oil_painting'] },
+  { id: 'concept-art', label: 'Concept Art', icon: GameController, prompt: 'production concept art that communicates function, scale, and material logic', tagIds: ['style_concept_art'] },
+  { id: 'anime', label: 'Anime', icon: Flower, prompt: 'anime illustration with clean silhouettes, purposeful line weight, and restrained effects', tagIds: ['style_anime'] },
+  { id: '3d', label: '3D Render', icon: Cube, prompt: 'a physically plausible 3D render with controlled materials and studio-grade lighting', tagIds: ['med_3d_octane'] },
 ]
 
 interface TemplateWizardProps {
   isOpen: boolean
   onClose: () => void
+}
+
+function resolveExactTags(tagIds: string[], contentVisibility: ContentVisibility): SelectedTag[] {
+  const seen = new Set<string>()
+  return tagIds.flatMap((id) => {
+    const tag = getTagById(id)
+    if (!tag || seen.has(tag.id) || (contentVisibility === 'filtered' && tag.explicit)) return []
+    seen.add(tag.id)
+    return [{ ...tag, selectedAt: Date.now() }]
+  })
 }
 
 export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
@@ -58,295 +100,161 @@ export function TemplateWizard({ isOpen, onClose }: TemplateWizardProps) {
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null)
   const [templateName, setTemplateName] = useState('')
-  const [previewTags, setPreviewTags] = useState<SelectedTag[]>([])
-  const [isBuilding, setIsBuilding] = useState(false)
 
-  const toggleTag = usePromptSmithStore((s) => s.toggleTag)
-  const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
-  const setCustomText = usePromptSmithStore((s) => s.setCustomText)
-  const savePrompt = usePromptSmithStore((s) => s.savePrompt)
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
+  const toggleTag = usePromptSmithStore((state) => state.toggleTag)
+  const clearAllTags = usePromptSmithStore((state) => state.clearAllTags)
+  const setCustomText = usePromptSmithStore((state) => state.setCustomText)
+  const savePrompt = usePromptSmithStore((state) => state.savePrompt)
+  const contentVisibility = usePromptSmithStore((state) => state.contentVisibility)
+  const captureDraftSnapshot = usePromptSmithStore((state) => state.captureDraftSnapshot)
+  const setWorkspaceView = usePromptSmithStore((state) => state.setWorkspaceView)
 
-  const buildPreviewTags = async () => {
-    setIsBuilding(true)
-    const allKeywords: string[] = []
+  const genre = GENRES.find((choice) => choice.id === selectedGenre)
+  const mood = MOODS.find((choice) => choice.id === selectedMood)
+  const style = STYLES.find((choice) => choice.id === selectedStyle)
 
-    const genre = GENRES.find(g => g.id === selectedGenre)
-    const mood = MOODS.find(m => m.id === selectedMood)
-    const style = STYLES.find(s => s.id === selectedStyle)
+  const previewPrompt = useMemo(() => {
+    if (!genre || !mood || !style) return ''
+    return `Create ${genre.prompt}. Make the emotional register ${mood.prompt}. Render it as ${style.prompt}. Keep the focal idea legible, avoid conflicting styles, and preserve believable spatial relationships.`
+  }, [genre, mood, style])
 
-    if (genre) allKeywords.push(...genre.promptHint.split(', '))
-    if (mood) allKeywords.push(...mood.keywords)
-    if (style) allKeywords.push(...style.keywords)
-
-    const resolved: SelectedTag[] = []
-    const seenIds = new Set<string>()
-
-    for (const kw of allKeywords) {
-      const matches = searchTagIndex(kw, showExplicit, 2)
-      for (const tag of matches) {
-        if (!seenIds.has(tag.id)) {
-          seenIds.add(tag.id)
-          resolved.push({ ...tag, selectedAt: Date.now() })
-        }
-      }
-    }
-
-    setPreviewTags(resolved.slice(0, 12))
-    setIsBuilding(false)
-  }
-
-  const handleNext = async () => {
-    if (step === 2) {
-      await buildPreviewTags()
-      const genre = GENRES.find(g => g.id === selectedGenre)
-      const mood = MOODS.find(m => m.id === selectedMood)
-      const style = STYLES.find(s => s.id === selectedStyle)
-      setTemplateName(`${genre?.label ?? ''} · ${mood?.label ?? ''} · ${style?.label ?? ''}`)
-    }
-    setStep(s => Math.min(s + 1, STEPS.length - 1))
-  }
-
-  const handleBack = () => setStep(s => Math.max(s - 1, 0))
-
-  const handleUseNow = () => {
-    clearAllTags()
-    for (const tag of previewTags) toggleTag(tag)
-    const genre = GENRES.find(g => g.id === selectedGenre)
-    const mood = MOODS.find(m => m.id === selectedMood)
-    setCustomText(`${genre?.promptHint ?? ''}, ${mood?.keywords[0] ?? ''}`)
-    onClose()
-    reset()
-  }
-
-  const handleSaveAsTemplate = () => {
-    clearAllTags()
-    for (const tag of previewTags) toggleTag(tag)
-    const name = templateName.trim() || 'Custom Template'
-    savePrompt(name)
-    handleUseNow()
-  }
+  const previewTags = useMemo(() => {
+    if (!genre || !mood || !style) return []
+    return resolveExactTags([...genre.tagIds, ...mood.tagIds, ...style.tagIds], contentVisibility)
+  }, [contentVisibility, genre, mood, style])
 
   const reset = () => {
     setStep(0)
     setSelectedGenre(null)
     setSelectedMood(null)
     setSelectedStyle(null)
-    setPreviewTags([])
     setTemplateName('')
   }
 
-  const canGoNext =
-    (step === 0 && selectedGenre !== null) ||
-    (step === 1 && selectedMood !== null) ||
-    (step === 2 && selectedStyle !== null) ||
-    step === 3
+  const closeAndReset = () => {
+    onClose()
+    reset()
+  }
+
+  const handleNext = () => {
+    if (step === 2 && genre && mood && style) setTemplateName(`${genre.label} · ${mood.label} · ${style.label}`)
+    setStep((current) => Math.min(current + 1, STEPS.length - 1))
+  }
+
+  const applyDraft = () => {
+    captureDraftSnapshot('template')
+    clearAllTags()
+    previewTags.forEach((tag) => toggleTag(tag))
+    setCustomText(previewPrompt)
+  }
+
+  const handleUseNow = () => {
+    applyDraft()
+    setWorkspaceView('craft')
+    closeAndReset()
+  }
+
+  const handleSaveAsTemplate = () => {
+    applyDraft()
+    savePrompt(templateName.trim() || 'Custom Blueprint')
+    setWorkspaceView('craft')
+    closeAndReset()
+  }
+
+  const canGoNext = (step === 0 && Boolean(genre)) || (step === 1 && Boolean(mood)) || (step === 2 && Boolean(style)) || step === 3
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => { onClose(); reset() }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
-          />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
-          >
-            <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-2xl w-full max-w-lg shadow-2xl pointer-events-auto">
-
-              {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-[#1a1a1a]">
-                <div>
-                  <h2 className="font-display text-lg font-normal text-[#f5f5f5] tracking-tight">
-                    Template Wizard
-                  </h2>
-                  <p className="text-xs text-[#c2c2c2]/50 mt-0.5">{STEPS[step].description}</p>
-                </div>
-                <button onClick={() => { onClose(); reset() }} className="text-[#c2c2c2]/40 hover:text-[#f5f5f5] transition-colors">
-                  <X weight="regular" className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Step indicator */}
-              <div className="flex items-center gap-1.5 px-6 py-3 border-b border-[#1a1a1a]">
-                {STEPS.map((s, i) => (
-                  <div key={s.id} className="flex items-center gap-1.5">
-                    <div className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                      i < step ? 'bg-[#f5f5f5]' : i === step ? 'bg-[#f5f5f5] ring-2 ring-[#f5f5f5]/20' : 'bg-[#333]'
-                    }`} />
-                    {i < STEPS.length - 1 && <div className={`w-8 h-px ${i < step ? 'bg-[#f5f5f5]/30' : 'bg-[#222]'}`} />}
-                  </div>
-                ))}
-                <span className="ml-2 text-[10px] text-[#c2c2c2]/40">{STEPS[step].title}</span>
-              </div>
-
-              {/* Step content */}
-              <div className="p-6 min-h-[280px]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={step}
-                    initial={{ opacity: 0, x: 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -12 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    {step === 0 && (
-                      <div className="grid grid-cols-3 gap-2">
-                        {GENRES.map(g => (
-                          <OptionCard
-                            key={g.id}
-                            label={g.label}
-                            Icon={g.icon}
-                            selected={selectedGenre === g.id}
-                            onClick={() => setSelectedGenre(g.id)}
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    {step === 1 && (
-                      <div className="grid grid-cols-4 gap-2">
-                        {MOODS.map(m => (
-                          <OptionCard
-                            key={m.id}
-                            label={m.label}
-                            Icon={m.icon}
-                            selected={selectedMood === m.id}
-                            onClick={() => setSelectedMood(m.id)}
-                            compact
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    {step === 2 && (
-                      <div className="grid grid-cols-3 gap-2">
-                        {STYLES.map(s => (
-                          <OptionCard
-                            key={s.id}
-                            label={s.label}
-                            Icon={s.icon}
-                            selected={selectedStyle === s.id}
-                            onClick={() => setSelectedStyle(s.id)}
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    {step === 3 && (
-                      <div className="space-y-4">
-                        <div>
-                          <label className="text-xs text-[#c2c2c2]/50 uppercase tracking-wider">Template Name</label>
-                          <input
-                            type="text"
-                            value={templateName}
-                            onChange={e => setTemplateName(e.target.value)}
-                            className="mt-1.5 w-full px-3 py-2 bg-transparent border border-[#222] rounded-full text-sm text-[#f5f5f5] outline-none focus:border-[#444] transition-colors"
-                          />
-                        </div>
-
-                        {isBuilding ? (
-                          <div className="flex items-center gap-2 py-4">
-                            <div className="w-4 h-4 rounded-full border border-[#333] border-t-[#f5f5f5] animate-spin" />
-                            <span className="text-xs text-[#c2c2c2]/50">Building tag set…</span>
-                          </div>
-                        ) : (
-                          <div className="space-y-2">
-                            <span className="text-xs text-[#c2c2c2]/50">{previewTags.length} tags selected</span>
-                            <div className="flex flex-wrap gap-1.5">
-                              {previewTags.map(tag => (
-                                <span key={tag.id} className="text-xs px-2.5 py-1 rounded-full border border-[#f5f5f5]/20 text-[#f5f5f5]/70">
-                                  {tag.label}
-                                </span>
-                              ))}
-                              {previewTags.length === 0 && (
-                                <span className="text-xs text-[#c2c2c2]/30 italic">No matching tags found in taxonomy — you can still use the prompt text</span>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between px-6 py-4 border-t border-[#1a1a1a]">
-                <button
-                  onClick={step === 0 ? () => { onClose(); reset() } : handleBack}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] hover:text-[#f5f5f5] transition-all"
-                >
-                  <ArrowLeft weight="regular" className="w-3.5 h-3.5" />
-                  {step === 0 ? 'Cancel' : 'Back'}
-                </button>
-
-                <div className="flex items-center gap-2">
-                  {step === 3 ? (
-                    <>
-                      <button
-                        onClick={handleSaveAsTemplate}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#333] text-sm text-[#c2c2c2] hover:border-[#555] transition-all"
-                      >
-                        Save Template
-                      </button>
-                      <button
-                        onClick={handleUseNow}
-                        className="flex items-center gap-2 px-5 py-2 rounded-full bg-[#f5f5f5] text-black text-sm font-medium hover:bg-white transition-colors"
-                      >
-                        <Check weight="bold" className="w-3.5 h-3.5" />
-                        Use Now
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      onClick={handleNext}
-                      disabled={!canGoNext}
-                      className="flex items-center gap-2 px-5 py-2 rounded-full bg-[#f5f5f5] text-black text-sm font-medium disabled:opacity-30 hover:bg-white transition-all"
-                    >
-                      Next
-                      <ArrowRight weight="regular" className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-              </div>
+    <Dialog.Root open={isOpen} onOpenChange={(open) => { if (!open) closeAndReset() }}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--ui-overlay)]" />
+        <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 flex max-h-[90vh] w-[min(620px,calc(100vw_-_2rem))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-bg)] text-[var(--ui-text)] shadow-lg">
+          <div className="flex items-start justify-between gap-4 border-b border-[var(--ui-border)] px-5 py-4 sm:px-6">
+            <div>
+              <Dialog.Title className="font-display text-2xl text-balance">Build a blueprint</Dialog.Title>
+              <Dialog.Description className="mt-1 text-sm text-pretty text-[var(--ui-muted-text)]">{STEPS[step].description}</Dialog.Description>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+            <Dialog.Close className="size-11 shrink-0 rounded-lg border border-[var(--ui-border)] text-[var(--ui-muted-text)]" aria-label="Close template wizard"><X className="mx-auto size-4" /></Dialog.Close>
+          </div>
+
+          <ol className="grid grid-cols-4 border-b border-[var(--ui-border)] px-5 py-3 sm:px-6" aria-label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step].title}`}>
+            {STEPS.map((wizardStep, index) => (
+              <li key={wizardStep.id} aria-current={index === step ? 'step' : undefined} className={`border-t-2 pt-2 text-[10px] font-medium ${index <= step ? 'border-[var(--ui-text)] text-[var(--ui-text)]' : 'border-[var(--ui-border)] text-[var(--ui-muted-text-faint)]'}`}>
+                {index + 1}. {wizardStep.title}
+              </li>
+            ))}
+          </ol>
+
+          <div className="min-h-80 overflow-y-auto p-5 pb-8 sm:p-6 sm:pb-8">
+            {step === 0 && <ChoiceGrid choices={GENRES} selectedId={selectedGenre} onSelect={setSelectedGenre} columns="grid-cols-2 sm:grid-cols-3" />}
+            {step === 1 && <ChoiceGrid choices={MOODS} selectedId={selectedMood} onSelect={setSelectedMood} columns="grid-cols-2 sm:grid-cols-4" compact />}
+            {step === 2 && <ChoiceGrid choices={STYLES} selectedId={selectedStyle} onSelect={setSelectedStyle} columns="grid-cols-2 sm:grid-cols-3" />}
+            {step === 3 && genre && mood && style && (
+              <div className="space-y-5">
+                <label className="block text-xs font-medium uppercase text-[var(--ui-muted-text)]">
+                  Blueprint name
+                  <input type="text" value={templateName} onChange={(event) => setTemplateName(event.target.value)} className="mt-2 min-h-11 w-full rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] px-3 text-sm text-[var(--ui-text)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-border-strong)]" />
+                </label>
+
+                <section aria-labelledby="wizard-anatomy-title">
+                  <h3 id="wizard-anatomy-title" className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">Prompt anatomy</h3>
+                  <dl className="mt-2 grid gap-px overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-border)] sm:grid-cols-3">
+                    {[['Subject', genre.label], ['Mood', mood.label], ['Medium', style.label]].map(([label, value]) => (
+                      <div key={label} className="bg-[var(--ui-bg)] p-3"><dt className="text-[10px] uppercase text-[var(--ui-muted-text-faint)]">{label}</dt><dd className="mt-1 text-sm font-medium">{value}</dd></div>
+                    ))}
+                  </dl>
+                </section>
+
+                <section aria-labelledby="wizard-prompt-title">
+                  <h3 id="wizard-prompt-title" className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">Editable starter prompt</h3>
+                  <p className="mt-2 rounded-xl bg-[var(--ui-surface-soft)] p-4 text-sm leading-6 text-pretty">{previewPrompt}</p>
+                </section>
+
+                <section aria-labelledby="wizard-ingredients-title">
+                  <h3 id="wizard-ingredients-title" className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">{previewTags.length} exact ingredients</h3>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {previewTags.map((tag) => <span key={tag.id} className="rounded-lg border border-[var(--ui-border)] px-2.5 py-1.5 text-xs text-[var(--ui-muted-text)]">{tag.label}</span>)}
+                  </div>
+                </section>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between gap-3 border-t border-[var(--ui-border)] px-5 py-4 sm:px-6">
+            <button type="button" onClick={step === 0 ? closeAndReset : () => setStep((current) => Math.max(current - 1, 0))} className="min-h-11 rounded-lg border border-[var(--ui-border)] px-4 text-sm text-[var(--ui-muted-text)]"><span className="flex items-center gap-2"><ArrowLeft className="size-4" />{step === 0 ? 'Cancel' : 'Back'}</span></button>
+            {step === 3 ? (
+              <div className="flex gap-2">
+                <button type="button" onClick={handleSaveAsTemplate} className="min-h-11 rounded-lg border border-[var(--ui-border)] px-4 text-sm">Save blueprint</button>
+                <button type="button" onClick={handleUseNow} className="min-h-11 rounded-lg bg-[var(--ui-text)] px-4 text-sm font-medium text-[var(--ui-bg)]"><span className="flex items-center gap-2"><Check className="size-4" />Use in Craft</span></button>
+              </div>
+            ) : (
+              <button type="button" onClick={handleNext} disabled={!canGoNext} className="min-h-11 rounded-lg bg-[var(--ui-text)] px-4 text-sm font-medium text-[var(--ui-bg)] disabled:opacity-30"><span className="flex items-center gap-2">Next<ArrowRight className="size-4" /></span></button>
+            )}
+          </div>
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }
 
-function OptionCard({
-  label, Icon, selected, onClick, compact,
-}: {
-  label: string
-  Icon: React.ElementType
-  selected: boolean
-  onClick: () => void
+function ChoiceGrid({ choices, selectedId, onSelect, columns, compact = false }: {
+  choices: WizardChoice[]
+  selectedId: string | null
+  onSelect: (id: string) => void
+  columns: string
   compact?: boolean
 }) {
   return (
-    <button
-      onClick={onClick}
-      className={`flex flex-col items-center justify-center gap-1.5 ${compact ? 'p-2' : 'p-3'} rounded-xl border transition-all duration-150 ${
-        selected
-          ? 'border-[#f5f5f5]/60 bg-white/5 text-[#f5f5f5]'
-          : 'border-[#222] text-[#c2c2c2] hover:border-[#444] hover:text-[#f5f5f5]'
-      }`}
-    >
-      <Icon weight={selected ? 'fill' : 'regular'} className={compact ? 'w-4 h-4' : 'w-6 h-6'} />
-      <span className={`font-medium leading-snug text-center ${compact ? 'text-[9px]' : 'text-xs'}`}>{label}</span>
-    </button>
+    <div className={`grid gap-2 ${columns}`}>
+      {choices.map((choice) => {
+        const Icon = choice.icon
+        const selected = selectedId === choice.id
+        return (
+          <button key={choice.id} type="button" aria-pressed={selected} onClick={() => onSelect(choice.id)} className={`flex min-h-24 flex-col items-center justify-center gap-2 rounded-xl border px-3 text-center ${compact ? 'min-h-20' : ''} ${selected ? 'border-[var(--ui-text)] bg-[var(--ui-surface-soft)] text-[var(--ui-text)]' : 'border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]'}`}>
+            <Icon weight={selected ? 'fill' : 'regular'} className="size-5" />
+            <span className="text-xs font-medium">{choice.label}</span>
+          </button>
+        )
+      })}
+    </div>
   )
 }

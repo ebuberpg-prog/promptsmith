@@ -38,7 +38,7 @@
     --ui-text: #26251e;
     --ui-text-secondary: rgba(38, 37, 30, 0.55);
     --ui-muted-text: rgba(38, 37, 30, 0.65);
-    --ui-muted-text-faint: rgba(38, 37, 30, 0.33);
+    --ui-muted-text-faint: rgba(38, 37, 30, 0.62);
     --ui-border: rgba(38, 37, 30, 0.14);
     --ui-border-hover: rgba(38, 37, 30, 0.24);
     --ui-border-strong: rgba(38, 37, 30, 0.28);
@@ -88,7 +88,7 @@
     --ui-text: #f2f1ed;
     --ui-text-secondary: rgba(242, 241, 237, 0.55);
     --ui-muted-text: rgba(242, 241, 237, 0.65);
-    --ui-muted-text-faint: rgba(242, 241, 237, 0.33);
+    --ui-muted-text-faint: rgba(242, 241, 237, 0.62);
     --ui-border: rgba(242, 241, 237, 0.1);
     --ui-border-hover: rgba(242, 241, 237, 0.18);
     --ui-border-strong: rgba(242, 241, 237, 0.28);
@@ -170,6 +170,21 @@
   ::selection {
     background-color: color-mix(in oklab, var(--ui-text) 18%, transparent);
     color: var(--ui-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ui-text);
+    outline-offset: 2px;
+  }
+
+  @media (pointer: coarse) {
+    button,
+    [role='button'],
+    [role='tab'] {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+    }
   }
 
   /* Reduced motion support */
@@ -269,7 +284,7 @@
   }
 
   .skeleton-pill {
-    border-radius: 999px;
+    border-radius: 8px;
   }
 
   @keyframes skeleton-shimmer {
@@ -298,14 +313,14 @@
     border-color: var(--ui-border-hover);
   }
 
-  /* Tag chip — pill shape (DESIGN.md L116-128) */
+  /* Tag chip */
   .tag-chip {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 500;
     border: 1px solid var(--ui-border);
@@ -434,7 +449,7 @@
     padding: 10px 20px;
     background: transparent;
     color: var(--ui-text);
-    border-radius: 999px;
+    border-radius: 8px;
     font-weight: 500;
     border: 1px solid var(--ui-border);
     transition: all 150ms ease;
@@ -449,7 +464,7 @@
     padding: 8px 16px;
     background: transparent;
     color: hsl(var(--destructive));
-    border-radius: 999px;
+    border-radius: 8px;
     font-weight: 500;
     border: 1px solid hsl(var(--destructive) / 0.5);
     transition: all 150ms ease;
@@ -466,7 +481,7 @@
     padding: 8px 16px 6px;
     background: transparent;
     border: 1px solid var(--ui-border);
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 14px;
     color: var(--ui-text);
     transition: border-color 150ms ease;
@@ -483,7 +498,7 @@
     padding: 8px 16px 8px 40px;
     background: transparent;
     border: 1px solid var(--ui-border);
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 14px;
     color: var(--ui-text);
     transition: border-color 150ms ease;
@@ -542,7 +557,7 @@
     display: inline-flex;
     align-items: center;
     padding: 2px 8px;
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
@@ -651,7 +666,7 @@
   .status-indicator {
     width: 8px;
     height: 8px;
-    border-radius: 999px;
+    border-radius: 8px;
   }
 
   .status-indicator.active {
@@ -695,7 +710,7 @@
 
   .chip-button {
     padding: 6px 12px;
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 500;
     transition: all 150ms ease;

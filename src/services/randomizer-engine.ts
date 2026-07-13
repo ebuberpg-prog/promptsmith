@@ -1,4 +1,4 @@
-import type { TaxonomyTag } from '@/types'
+import type { ContentVisibility, TaxonomyTag } from '@/types'
 import type { SlotId } from '@/data/randomizer-slots'
 import { PROMPT_SLOTS, wouldConflictWithAny } from '@/data/randomizer-slots'
 import { getVibeById, type VibeDefinition } from '@/data/randomizer-vibes'
@@ -43,7 +43,7 @@ export interface RandomizerOptions {
   intent?: string
   storySeed?: string
   intensity: 'light' | 'full'
-  showExplicit: boolean
+  contentVisibility: ContentVisibility
   seed: number
   mode?: RandomizerMode
   lockedTagIds?: string[]
@@ -58,7 +58,9 @@ export class RandomizerEngine {
 
     switch (mode) {
       case 'smart':
-        return this.randomizeCoherenceAware({ ...options, seed, mode: 'smart' })
+        return options.storySeed?.trim()
+          ? this.randomizeStoryDriven({ ...options, seed, mode: 'smart' })
+          : this.randomizeCoherenceAware({ ...options, seed, mode: 'smart' })
       case 'wild':
         return this.randomizeClassic({ ...options, seed, mode: 'wild' })
       default:
@@ -97,7 +99,7 @@ export class RandomizerEngine {
           : this.pickCountClassic(slot, rng)
 
       if (count === 0) continue
-      const candidates = this.getCandidates(slot, allTags, options.showExplicit, lockedIds)
+      const candidates = this.getCandidates(slot, allTags, options.contentVisibility, lockedIds)
       if (candidates.length === 0) continue
 
       const vibeCandidates = vibe ? this.filterByVibe(slot, candidates, vibe) : candidates
@@ -143,7 +145,7 @@ export class RandomizerEngine {
       if (!slot) continue
 
       const { keywords, count } = slotIntent
-      const candidates = this.getCandidates(slot, allTags, options.showExplicit, lockedIds)
+      const candidates = this.getCandidates(slot, allTags, options.contentVisibility, lockedIds)
       const matched = candidates.filter(tag =>
         keywords.some(kw => tag.label.toLowerCase().includes(kw.toLowerCase()))
       )
@@ -190,7 +192,7 @@ export class RandomizerEngine {
           : this.pickCountClassic(slot, rng)
 
       if (count === 0) continue
-      const candidates = this.getCandidates(slot, allTags, options.showExplicit, lockedIds)
+      const candidates = this.getCandidates(slot, allTags, options.contentVisibility, lockedIds)
       if (candidates.length === 0) continue
 
       const vibeCandidates = vibe ? this.filterByVibe(slot, candidates, vibe) : candidates
@@ -199,7 +201,7 @@ export class RandomizerEngine {
     }
 
     if (options.intensity === 'full' && vibe && vibe.accentKeywords.length > 0) {
-      this.addAccentTags(allTags, selectedBySlot, allSelected, vibe, options.showExplicit, lockedIds, rng)
+      this.addAccentTags(allTags, selectedBySlot, allSelected, vibe, options.contentVisibility, lockedIds, rng)
     }
 
     const coherenceWarnings = this.runCoherencePass(selectedBySlot)
@@ -243,7 +245,7 @@ export class RandomizerEngine {
           : this.pickCountSlotFilled(slot, rng)
 
       if (count === 0) continue
-      const candidates = this.getCandidates(slot, allTags, options.showExplicit, lockedIds)
+      const candidates = this.getCandidates(slot, allTags, options.contentVisibility, lockedIds)
       if (candidates.length === 0) continue
 
       const vibeCandidates = vibe ? this.filterByVibe(slot, candidates, vibe) : candidates
@@ -252,7 +254,7 @@ export class RandomizerEngine {
     }
 
     if (options.intensity === 'full' && vibe && vibe.accentKeywords.length > 0) {
-      this.addAccentTags(allTags, selectedBySlot, allSelected, vibe, options.showExplicit, lockedIds, rng)
+      this.addAccentTags(allTags, selectedBySlot, allSelected, vibe, options.contentVisibility, lockedIds, rng)
     }
 
     return {
@@ -267,7 +269,7 @@ export class RandomizerEngine {
   }
 
   // ─── STORY-DRIVEN ───────────────────────────────────────────────────────────
-  private _randomizeStoryDriven(options: RandomizerOptions): RandomizerResult {
+  private randomizeStoryDriven(options: RandomizerOptions): RandomizerResult {
     const rng = mulberry32(options.seed)
     const allTags = getAllIndexedTags()
     const lockedIds = new Set(options.lockedTagIds ?? [])
@@ -301,7 +303,7 @@ export class RandomizerEngine {
           : this.pickCountClassic(slot, rng)
 
       if (count === 0) continue
-      const candidates = this.getCandidates(slot, allTags, options.showExplicit, lockedIds)
+      const candidates = this.getCandidates(slot, allTags, options.contentVisibility, lockedIds)
       if (candidates.length === 0) continue
 
       const storyMatched = candidates.filter(tag =>
@@ -337,11 +339,11 @@ export class RandomizerEngine {
   private getCandidates(
     slot: (typeof PROMPT_SLOTS)[number],
     allTags: TaxonomyTag[],
-    showExplicit: boolean,
+    contentVisibility: ContentVisibility,
     lockedIds: Set<string>
   ): TaxonomyTag[] {
     return allTags.filter(tag => {
-      if (!showExplicit && tag.explicit) return false
+      if (contentVisibility === 'filtered' && tag.explicit) return false
       if (lockedIds.has(tag.id)) return false
       return slot.taxonomyCategoryIds.some(catId =>
         tag.category === catId || tag.category?.startsWith(catId)
@@ -400,13 +402,13 @@ export class RandomizerEngine {
     selectedBySlot: Partial<Record<SlotId, TaxonomyTag[]>>,
     allSelected: TaxonomyTag[],
     vibe: VibeDefinition,
-    showExplicit: boolean,
+    contentVisibility: ContentVisibility,
     lockedIds: Set<string>,
     rng: () => number
   ): void {
     if (vibe.accentKeywords.length === 0) return
     const accentCandidates = allTags.filter(tag => {
-      if (!showExplicit && tag.explicit) return false
+      if (contentVisibility === 'filtered' && tag.explicit) return false
       if (lockedIds.has(tag.id)) return false
       if (allSelected.some(s => s.id === tag.id)) return false
       return vibe.accentKeywords.some(kw => tag.label.toLowerCase().includes(kw.toLowerCase()))

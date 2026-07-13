@@ -1,524 +1,106 @@
-import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AlertDialog } from '@base-ui/react/alert-dialog'
+import { Dialog } from '@base-ui/react/dialog'
+import { Menu } from '@base-ui/react/menu'
+import { CaretDown, CheckCircle, CircleNotch, X } from '@phosphor-icons/react'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { aiService, type AIModel, type ProviderStatus } from '@/services/local-ai-service'
-import { X, CircleNotch } from '@phosphor-icons/react'
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { aiService, type AIModel } from '@/services/local-ai-service'
+import { FormatterProfileSettings } from './FormatterProfileSettings'
+import { createDiagnosticSummary, downloadJson } from '@/services/diagnostics-service'
+import { getIndexedTagCount } from '@/utils/tag-index'
 import { applyPwaUpdate, checkForPwaUpdates, getPwaUpdateState, subscribePwaUpdates } from '@/utils/pwa-updater'
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
-interface AISettingsPanelProps {
-  isOpen: boolean
-  onClose: () => void
-}
+import type { LocalAIProviderId } from '@/types'
+import { getSessionAIKey, setSessionAIKey } from '@/services/ai-credential-vault'
+import { useDraftPersistenceState } from '@/hooks/useDraftPersistenceState'
 
 type TestState = 'idle' | 'testing' | 'ok' | 'fail'
 
-export function AISettingsPanel({ isOpen, onClose }: AISettingsPanelProps) {
-  const aiSettings = usePromptSmithStore((s) => s.aiSettings)
-  const updateAISettings = usePromptSmithStore((s) => s.updateAISettings)
+export function AISettingsPanel({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const store = usePromptSmithStore()
+  const providerModels = store.aiSettings.providerModels ?? {}
+  const persistenceState = useDraftPersistenceState()
+  const [ollamaUrl, setOllamaUrl] = useState(store.aiSettings.ollamaUrl)
+  const [lmStudioUrl, setLmStudioUrl] = useState(store.aiSettings.lmStudioUrl)
+  const [openAIUrl, setOpenAIUrl] = useState(store.aiSettings.openAICompatibleUrl)
+  const [anthropicUrl, setAnthropicUrl] = useState(store.aiSettings.anthropicCompatibleUrl)
+  const [gatewayUrl, setGatewayUrl] = useState(store.aiSettings.apiGatewayUrl ?? 'https://prompt-smith.ebuberpg.workers.dev')
+  const [useGateway, setUseGateway] = useState(store.aiSettings.useApiGateway ?? true)
+  const [keys, setKeys] = useState({ 'openai-compatible': getSessionAIKey('openai-compatible'), 'anthropic-compatible': getSessionAIKey('anthropic-compatible') })
+  const [tests, setTests] = useState<Record<LocalAIProviderId, TestState>>({ ollama: 'idle', lmstudio: 'idle', 'openai-compatible': 'idle', 'anthropic-compatible': 'idle' })
+  const [models, setModels] = useState<Record<LocalAIProviderId, AIModel[]>>({ ollama: [], lmstudio: [], 'openai-compatible': [], 'anthropic-compatible': [] })
+  const [providerErrors, setProviderErrors] = useState<Partial<Record<LocalAIProviderId, string>>>({})
+  const [pendingBackup, setPendingBackup] = useState<string | null>(null)
+  const [backupMessage, setBackupMessage] = useState('')
+  const [includePrompt, setIncludePrompt] = useState(false)
+  const [pwa, setPwa] = useState(getPwaUpdateState())
+  const [section, setSection] = useState<'general' | 'ai' | 'formats' | 'data'>('general')
+  const [openProvider, setOpenProvider] = useState<LocalAIProviderId | null>(store.aiSettings.preferredAIProvider)
+  const backupInput = useRef<HTMLInputElement>(null)
 
-  const [ollamaUrl, setOllamaUrl] = useState(aiSettings.ollamaUrl)
-  const [lmStudioUrl, setLmStudioUrl] = useState(aiSettings.lmStudioUrl)
-  const [openaiUrl, setOpenaiUrl] = useState(aiSettings.openaiUrl)
-  const [openaiApiKey, setOpenaiApiKey] = useState(aiSettings.openaiApiKey)
-  const [corsProxyUrl, setCorsProxyUrl] = useState(aiSettings.corsProxyUrl)
+  useEffect(() => { if (isOpen) { setOllamaUrl(store.aiSettings.ollamaUrl); setLmStudioUrl(store.aiSettings.lmStudioUrl); setOpenAIUrl(store.aiSettings.openAICompatibleUrl); setAnthropicUrl(store.aiSettings.anthropicCompatibleUrl); setGatewayUrl(store.aiSettings.apiGatewayUrl ?? 'https://prompt-smith.ebuberpg.workers.dev'); setUseGateway(store.aiSettings.useApiGateway ?? true) } }, [isOpen, store.aiSettings])
+  useEffect(() => subscribePwaUpdates(() => setPwa(getPwaUpdateState())), [])
 
-  const [ollamaTest, setOllamaTest] = useState<TestState>('idle')
-  const [lmStudioTest, setLmStudioTest] = useState<TestState>('idle')
-  const [openaiTest, setOpenaiTest] = useState<TestState>('idle')
-
-  const [openaiTestError, setOpenaiTestError] = useState<string>('')
-
-  const [ollamaModels, setOllamaModels] = useState<AIModel[]>([])
-  const [lmStudioModels, setLmStudioModels] = useState<AIModel[]>([])
-  const [openaiModels, setOpenaiModels] = useState<AIModel[]>([])
-  const [aiStatus, setAIStatus] = useState<ProviderStatus>('disconnected')
-  const [openaiInputMode, setOpenaiInputMode] = useState<'auto' | 'manual'>(aiSettings.openaiModelInputMode)
-  const [openaiManualModel, setOpenaiManualModel] = useState(aiSettings.openaiManualModel)
-  const [pwaUpdateState, setPwaUpdateState] = useState(getPwaUpdateState())
-
-  // Sync from store when opened
-  useEffect(() => {
-    if (isOpen) {
-      setOllamaUrl(aiSettings.ollamaUrl)
-      setLmStudioUrl(aiSettings.lmStudioUrl)
-      setOpenaiUrl(aiSettings.openaiUrl)
-      setOpenaiApiKey(aiSettings.openaiApiKey)
-      setCorsProxyUrl(aiSettings.corsProxyUrl)
-    }
-  }, [isOpen, aiSettings])
-
-  // Subscribe to AI service state
-  useEffect(() => {
-    const unsub = aiService.subscribe(state => {
-      setAIStatus(state.status)
-      if (state.activeProvider === 'ollama') setOllamaModels(state.availableModels)
-      if (state.activeProvider === 'lmstudio') setLmStudioModels(state.availableModels)
-      if (state.activeProvider === 'openai') setOpenaiModels(state.availableModels)
-    })
-    return () => { unsub() }
-  }, [])
-
-  useEffect(() => subscribePwaUpdates(() => setPwaUpdateState(getPwaUpdateState())), [])
-
-  const save = useCallback(() => {
-    updateAISettings({
-      ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey,
-      openaiModelInputMode: openaiInputMode,
-      openaiManualModel,
-      corsProxyUrl,
-    })
-    aiService.setUrls(ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, corsProxyUrl)
-    if (aiSettings.preferredAIModel) {
-      aiService.setSelectedModel(aiSettings.preferredAIModel)
-    }
-    if (aiSettings.preferredAIProvider) {
-      aiService.setActiveProvider(aiSettings.preferredAIProvider)
-    }
-  }, [ollamaUrl, lmStudioUrl, openaiUrl, openaiApiKey, openaiInputMode, openaiManualModel, corsProxyUrl, updateAISettings, aiSettings.preferredAIModel, aiSettings.preferredAIProvider])
-
-  const testOllama = async () => {
-    save()
-    setOllamaTest('testing')
-    setOllamaModels([])
-    const { ok, models } = await aiService.testProvider('ollama')
-    setOllamaTest(ok ? 'ok' : 'fail')
-    if (ok) {
-      setOllamaModels(models)
-      aiService.setActiveProvider('ollama')
-      if (models.length > 0) {
-        aiService.setSelectedModel(models[0].id)
-        updateAISettings({ preferredAIProvider: 'ollama', preferredAIModel: models[0].id })
-      }
-    }
+  const saveConnections = () => {
+    const normalizedOpenAIUrl = openAIUrl.trim().replace(/\/+$/, '')
+    store.updateAISettings({ ollamaUrl, lmStudioUrl, openAICompatibleUrl: normalizedOpenAIUrl, anthropicCompatibleUrl: anthropicUrl, apiGatewayUrl: gatewayUrl.trim(), useApiGateway: useGateway })
+    aiService.setUrls(ollamaUrl, lmStudioUrl)
+    aiService.setCompatibleUrls(normalizedOpenAIUrl, anthropicUrl, useGateway ? gatewayUrl : '')
+    setSessionAIKey('openai-compatible', keys['openai-compatible'])
+    setSessionAIKey('anthropic-compatible', keys['anthropic-compatible'])
   }
 
-  const testLMStudio = async () => {
-    save()
-    setLmStudioTest('testing')
-    setLmStudioModels([])
-    const { ok, models } = await aiService.testProvider('lmstudio')
-    setLmStudioTest(ok ? 'ok' : 'fail')
-    if (ok) {
-      setLmStudioModels(models)
-      aiService.setActiveProvider('lmstudio')
-      if (models.length > 0) {
-        aiService.setSelectedModel(models[0].id)
-        updateAISettings({ preferredAIProvider: 'lmstudio', preferredAIModel: models[0].id })
-      }
-    }
+  const testProvider = async (provider: LocalAIProviderId) => {
+    saveConnections()
+    setTests((value) => ({ ...value, [provider]: 'testing' }))
+    setModels((value) => ({ ...value, [provider]: [] }))
+    setProviderErrors((value) => ({ ...value, [provider]: undefined }))
+    const result = await aiService.testProvider(provider)
+    setTests((value) => ({ ...value, [provider]: result.ok ? 'ok' : 'fail' }))
+    setModels((value) => ({ ...value, [provider]: result.models }))
+    if (!result.ok) { setProviderErrors((value) => ({ ...value, [provider]: result.error })); return }
+    const selected = providerModels[provider] && result.models.some((model) => model.id === providerModels[provider]) ? providerModels[provider]! : result.models[0].id
+    await aiService.activate(provider)
+    aiService.setSelectedModel(selected)
+    store.updateAISettings({ preferredAIProvider: provider, providerModels: { ...providerModels, [provider]: selected } })
   }
 
-  const testOpenAI = async () => {
-    save()
-    setOpenaiTest('testing')
-    setOpenaiModels([])
-    setOpenaiTestError('')
-    try {
-      const { ok, models, error } = await aiService.testProvider('openai')
-      setOpenaiTest(ok ? 'ok' : 'fail')
-      if (ok) {
-        setOpenaiModels(models)
-        aiService.setActiveProvider('openai')
-        if (models.length > 0) {
-          aiService.setSelectedModel(models[0].id)
-          updateAISettings({ preferredAIProvider: 'openai', preferredAIModel: models[0].id })
-        } else {
-          // No models returned — switch to manual mode with a default
-          const defaultModel = 'kimi-k2.5'
-          setOpenaiInputMode('manual')
-          setOpenaiManualModel(defaultModel)
-          aiService.setSelectedModel(defaultModel)
-          updateAISettings({ preferredAIProvider: 'openai', preferredAIModel: defaultModel, openaiModelInputMode: 'manual', openaiManualModel: defaultModel })
-        }
-      } else {
-        setOpenaiTestError(error || 'Could not reach the endpoint.')
-      }
-    } catch (err) {
-      setOpenaiTest('fail')
-      setOpenaiTestError(String(err))
-    }
+  const chooseModel = async (provider: LocalAIProviderId, model: string) => {
+    await aiService.activate(provider); aiService.setSelectedModel(model)
+    store.updateAISettings({ preferredAIProvider: provider, providerModels: { ...providerModels, [provider]: model } })
   }
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70]"
-          />
+  const readBackup = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => { setPendingBackup(String(reader.result ?? '')); setBackupMessage('Backup validated after you choose a restore mode.') }
+    reader.onerror = () => setBackupMessage('The backup file could not be read.')
+    reader.readAsText(file); event.target.value = ''
+  }
 
-          {/* Panel */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 bottom-0 w-[480px] max-w-full bg-[var(--ui-bg)] border-l border-[var(--ui-surface)] z-[80] overflow-y-auto scrollbar-hide"
-          >
-            <div className="p-8 pb-[max(2rem,env(safe-area-inset-bottom))] space-y-8">
-              {/* Header */}
-              <div className="flex items-start justify-between">
-                <div>
-                  <h2 className="font-display text-xl font-normal text-[var(--ui-text)] tracking-tight">AI Connections</h2>
-                  <p className="text-xs text-[var(--ui-muted-text)]/60 mt-1">
-                    Connect to local AI services or any OpenAI-compatible API.
-                  </p>
-                </div>
-                <button
-                  onClick={() => { save(); onClose() }}
-                  className="text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-text)] transition-colors"
-                >
-                  <X weight="regular" className="w-5 h-5" />
-                </button>
-              </div>
+  const restore = (mode: 'merge' | 'replace') => {
+    if (!pendingBackup) return
+    const result = store.restoreCompleteBackup(pendingBackup, mode)
+    setBackupMessage(result.ok ? `Backup ${mode === 'merge' ? 'merged' : 'restored'} on this device.` : result.error ?? 'Restore failed; existing data was not changed.')
+    if (result.ok) setPendingBackup(null)
+  }
 
-              {/* AI Text Providers */}
-              <section className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-medium text-[var(--ui-text)]">AI Text Providers</h3>
-                  <StatusBadge status={aiStatus === 'connected' ? 'ok' : aiStatus === 'checking' ? 'testing' : 'idle'} />
-                </div>
-                <p className="text-xs text-[var(--ui-muted-text)]/50">Used for prompt enhancement, text-to-tags, and tag suggestions.</p>
+  return <Dialog.Root open={isOpen} onOpenChange={(open) => { if (!open) { saveConnections(); onClose() } }}><Dialog.Portal><Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--ui-overlay)]" /><Dialog.Popup className="fixed right-0 inset-y-0 z-50 w-[min(100%,560px)] overflow-y-auto border-l border-[var(--ui-border)] bg-[var(--ui-bg)] safe-bottom" aria-label="Workspace settings">
+    <header className="sticky top-0 z-20 border-b border-[var(--ui-border)] bg-[var(--ui-bg)] p-5 sm:px-8 sm:pt-8"><div className="flex items-start justify-between gap-4"><div><Dialog.Title className="font-display text-3xl text-balance">Workspace settings</Dialog.Title><Dialog.Description className="mt-1 text-sm text-pretty text-[var(--ui-muted-text)]">One place for preferences, AI, formats, and your local data.</Dialog.Description></div><Dialog.Close className="size-11 shrink-0 rounded-lg border border-[var(--ui-border)] flex items-center justify-center" aria-label="Save and close settings"><X className="size-5" /></Dialog.Close></div><div className="mt-5 grid grid-cols-4 gap-1 rounded-xl border border-[var(--ui-border)] p-1" role="tablist" aria-label="Settings sections">{(['general', 'ai', 'formats', 'data'] as const).map((item) => <button key={item} type="button" role="tab" aria-selected={section === item} onClick={() => setSection(item)} className={`min-h-11 rounded-lg px-2 text-xs capitalize ${section === item ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)]'}`}>{item}</button>)}</div></header>
+    <div className="p-5 sm:p-8">
+      {section === 'general' && <div className="space-y-8"><SettingsSection title="Tag discovery" description="Choose what appears in suggestions and randomization. Existing words and ingredients are never changed."><div className="grid grid-cols-2 gap-2" role="group" aria-label="Taxonomy visibility">{(['filtered', 'all'] as const).map((visibility) => <button key={visibility} type="button" aria-pressed={store.contentVisibility === visibility} onClick={() => store.setContentVisibility(visibility)} className={`min-h-11 rounded-lg border px-3 text-xs ${store.contentVisibility === visibility ? 'border-[var(--ui-border-strong)] bg-[var(--ui-surface-soft)]' : 'border-[var(--ui-border)]'}`}>{visibility === 'filtered' ? 'Filtered tags' : 'All tags'}</button>)}</div></SettingsSection><SettingsSection title="Inspiration" description="Built-in inspiration stays offline and changes nothing until you choose an action."><label className="min-h-11 flex items-center gap-3 text-sm"><input type="checkbox" checked={store.showInspiration} onChange={(event) => store.setShowInspiration(event.target.checked)} />Show inspiration</label></SettingsSection></div>}
 
-                <ProviderRow
-                  label="Ollama"
-                  url={ollamaUrl}
-                  onUrlChange={setOllamaUrl}
-                  testState={ollamaTest}
-                  onTest={testOllama}
-                  models={ollamaModels}
-                  selectedModel={aiSettings.preferredAIModel}
-                  onModelChange={m => { aiService.setSelectedModel(m); updateAISettings({ preferredAIModel: m, preferredAIProvider: 'ollama' }) }}
-                  hint="localhost:11434"
-                />
+      {section === 'ai' && <div className="space-y-6"><div className="rounded-xl border border-[var(--ui-border-strong)] bg-[var(--ui-surface-soft)] p-4"><p className="text-xs text-[var(--ui-muted-text)]">Active connection</p><p className="mt-1 text-sm font-medium">{store.aiSettings.preferredAIProvider ? `${providerLabel(store.aiSettings.preferredAIProvider)} · ${providerModels[store.aiSettings.preferredAIProvider] ?? 'choose a model'}` : 'No provider selected'}</p><p className="mt-2 text-xs leading-5 text-pretty text-[var(--ui-muted-text)]">MUSE connects only after you test a provider or use an explicit AI action.</p></div><div className="space-y-2"><ProviderCard provider="ollama" label="Ollama" url={ollamaUrl} setUrl={setOllamaUrl} state={tests.ollama} error={providerErrors.ollama} models={models.ollama} selected={providerModels.ollama} active={store.aiSettings.preferredAIProvider === 'ollama'} expanded={openProvider === 'ollama'} onToggle={() => setOpenProvider(openProvider === 'ollama' ? null : 'ollama')} onTest={() => void testProvider('ollama')} onChoose={(model) => void chooseModel('ollama', model)} /><ProviderCard provider="lmstudio" label="LM Studio" url={lmStudioUrl} setUrl={setLmStudioUrl} state={tests.lmstudio} error={providerErrors.lmstudio} models={models.lmstudio} selected={providerModels.lmstudio} active={store.aiSettings.preferredAIProvider === 'lmstudio'} expanded={openProvider === 'lmstudio'} onToggle={() => setOpenProvider(openProvider === 'lmstudio' ? null : 'lmstudio')} onTest={() => void testProvider('lmstudio')} onChoose={(model) => void chooseModel('lmstudio', model)} /><ProviderCard provider="openai-compatible" label="OpenAI compatible" url={openAIUrl} setUrl={setOpenAIUrl} presets={[{ label: 'OpenCode Go', url: 'https://opencode.ai/zen/go/v1' }, { label: 'OpenCode Zen', url: 'https://opencode.ai/zen/v1' }, { label: 'OpenAI', url: 'https://api.openai.com/v1' }]} apiKey={keys['openai-compatible']} setApiKey={(value) => setKeys((current) => ({ ...current, 'openai-compatible': value }))} state={tests['openai-compatible']} error={providerErrors['openai-compatible']} models={models['openai-compatible']} selected={providerModels['openai-compatible']} active={store.aiSettings.preferredAIProvider === 'openai-compatible'} expanded={openProvider === 'openai-compatible'} onToggle={() => setOpenProvider(openProvider === 'openai-compatible' ? null : 'openai-compatible')} onTest={() => void testProvider('openai-compatible')} onChoose={(model) => void chooseModel('openai-compatible', model)} /><ProviderCard provider="anthropic-compatible" label="Anthropic compatible" url={anthropicUrl} setUrl={setAnthropicUrl} apiKey={keys['anthropic-compatible']} setApiKey={(value) => setKeys((current) => ({ ...current, 'anthropic-compatible': value }))} state={tests['anthropic-compatible']} error={providerErrors['anthropic-compatible']} models={models['anthropic-compatible']} selected={providerModels['anthropic-compatible']} active={store.aiSettings.preferredAIProvider === 'anthropic-compatible'} expanded={openProvider === 'anthropic-compatible'} onToggle={() => setOpenProvider(openProvider === 'anthropic-compatible' ? null : 'anthropic-compatible')} onTest={() => void testProvider('anthropic-compatible')} onChoose={(model) => void chooseModel('anthropic-compatible', model)} /></div><details className="rounded-xl border border-[var(--ui-border)]"><summary className="min-h-12 cursor-pointer px-4 flex items-center text-sm">Browser gateway</summary><div className="border-t border-[var(--ui-border)] p-4 space-y-3"><label className="min-h-11 flex items-center gap-3 text-xs"><input type="checkbox" checked={useGateway} onChange={(event) => setUseGateway(event.target.checked)} />Use gateway for OpenAI-compatible browser requests</label>{useGateway && <label className="block"><span className="text-xs text-[var(--ui-muted-text)]">Gateway URL</span><input value={gatewayUrl} onChange={(event) => setGatewayUrl(event.target.value)} className="mt-2 w-full min-h-11 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] px-3 text-xs" /></label>}<p className="text-xs leading-5 text-pretty text-[var(--ui-muted-text)]">Session keys are excluded from storage and backups. The gateway is contacted only for explicit AI actions.</p></div></details></div>}
 
-                <ProviderRow
-                  label="LM Studio"
-                  url={lmStudioUrl}
-                  onUrlChange={setLmStudioUrl}
-                  testState={lmStudioTest}
-                  onTest={testLMStudio}
-                  models={lmStudioModels}
-                  selectedModel={aiSettings.preferredAIModel}
-                  onModelChange={m => { aiService.setSelectedModel(m); updateAISettings({ preferredAIModel: m, preferredAIProvider: 'lmstudio' }) }}
-                  hint="localhost:1234/v1"
-                />
+      {section === 'formats' && <FormatterProfileSettings />}
 
-                <OpenAIProviderRow
-                  url={openaiUrl}
-                  apiKey={openaiApiKey}
-                  onUrlChange={setOpenaiUrl}
-                  onApiKeyChange={setOpenaiApiKey}
-                  corsProxyUrl={corsProxyUrl}
-                  onCorsProxyUrlChange={setCorsProxyUrl}
-                  testState={openaiTest}
-                  onTest={testOpenAI}
-                  models={openaiModels}
-                  selectedModel={aiSettings.preferredAIModel}
-                  onModelChange={m => { aiService.setSelectedModel(m); updateAISettings({ preferredAIModel: m, preferredAIProvider: 'openai' }) }}
-                  inputMode={openaiInputMode}
-                  onInputModeChange={setOpenaiInputMode}
-                  manualModel={openaiManualModel}
-                  onManualModelChange={v => { aiService.setSelectedModel(v); setOpenaiManualModel(v) }}
-                  onRefreshModels={testOpenAI}
-                  testError={openaiTestError}
-                />
-              </section>
-
-              <div className="h-px bg-[var(--ui-surface)]" />
-
-              <div className="h-px bg-[var(--ui-surface)]" />
-
-              <section className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-medium text-[var(--ui-text)]">App Updates</h3>
-                  <StatusBadge status={mapPwaStatusToTestState(pwaUpdateState.status)} />
-                </div>
-                <div className="flex items-center justify-between gap-4 p-4 border border-[var(--ui-surface)] rounded-2xl">
-                  <div className="space-y-1">
-                    <p className="text-xs text-[var(--ui-text)]">Refresh cached app files when a new build is available.</p>
-                    <p className="text-[10px] text-[var(--ui-muted-text)]/50">{pwaUpdateState.message}</p>
-                  </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <button
-                      onClick={checkForPwaUpdates}
-                      disabled={pwaUpdateState.status === 'checking' || pwaUpdateState.status === 'updating'}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] transition-all disabled:opacity-40"
-                    >
-                      {pwaUpdateState.status === 'checking' ? <CircleNotch weight="regular" className="w-2.5 h-2.5 animate-spin" /> : null}
-                      Check now
-                    </button>
-                    {pwaUpdateState.status === 'available' && (
-                      <button
-                        onClick={applyPwaUpdate}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium transition-colors duration-150"
-                        style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
-                      >
-                        Update now
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </section>
-
-              {/* Save */}
-              <button
-                onClick={() => { save(); onClose() }}
-                className="w-full py-3 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-sm font-medium hover:bg-[var(--ui-surface)] transition-colors"
-              >
-                Save & Close
-              </button>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  )
-}
-
-// ── Sub-components ───────────────────────────────────────
-
-function ProviderRow({
-  label, url, onUrlChange, testState, onTest, models, selectedModel, onModelChange, hint,
-}: {
-  label: string
-  url: string
-  onUrlChange: (v: string) => void
-  testState: TestState
-  onTest: () => void
-  models: AIModel[]
-  selectedModel: string | null
-  onModelChange: (v: string) => void
-  hint: string
-}) {
-  return (
-    <div className="space-y-2 p-4 border border-[var(--ui-surface)] rounded-2xl">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-[var(--ui-muted-text)]">{label}</span>
-        <StatusBadge status={testState} />
-      </div>
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={url}
-          onChange={e => onUrlChange(e.target.value)}
-          placeholder={hint}
-          className="flex-1 px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-        />
-        <button
-          onClick={onTest}
-          disabled={testState === 'testing'}
-          className="px-4 py-2 rounded-xl border border-[var(--ui-border)] text-xs text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all disabled:opacity-40"
-        >
-          {testState === 'testing' ? 'Testing…' : 'Test'}
-        </button>
-      </div>
-      {models.length > 0 && (
-        <div>
-          <label className="text-[10px] text-[var(--ui-muted-text)]/50 uppercase tracking-wider">Model</label>
-          <select
-            value={selectedModel ?? ''}
-            onChange={e => onModelChange(e.target.value)}
-            className="mt-1 w-full px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] outline-none"
-          >
-            {models.map(m => (
-              <option key={m.id} value={m.id}>{m.name}{m.size ? ` (${m.size})` : ''}</option>
-            ))}
-          </select>
-        </div>
-      )}
+      {section === 'data' && <div className="space-y-8"><SettingsSection title="Storage and recovery" description="Backups include drafts, prompts, versions, covers, and references—never AI credentials."><dl className="rounded-xl border border-[var(--ui-border)] p-4 text-xs space-y-3"><Info label="Storage" value={store.storageDurability.replace('-', ' ')} /><Info label="Draft" value={persistenceState.replace('-', ' ')} /><Info label="Library" value={`${store.savedPrompts.length} prompts · ${store.referenceImages.length} references`} /><Info label="Last backup" value={store.lastBackupAt ? new Date(store.lastBackupAt).toLocaleString() : 'Not yet'} /></dl>{store.storageDurability === 'denied' && <p className="text-xs leading-5 text-[var(--destructive)]">This browser denied durable storage. Export a backup before clearing browser data.</p>}<div className="flex flex-wrap gap-2"><button type="button" onClick={() => void store.requestPersistentStorage()} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] text-xs">Request durable storage</button><button type="button" onClick={() => downloadJson(`muse-backup-${new Date().toISOString().slice(0, 10)}.json`, store.exportCompleteBackup())} className="min-h-11 px-3 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs">Export backup</button><input ref={backupInput} type="file" accept=".json" hidden onChange={readBackup} /><button type="button" onClick={() => backupInput.current?.click()} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] text-xs">Restore backup</button></div>{pendingBackup && <div className="flex flex-wrap gap-2 rounded-xl bg-[var(--ui-surface-soft)] p-3"><button type="button" onClick={() => restore('merge')} className="min-h-11 px-3 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs">Merge</button><AlertDialog.Root><AlertDialog.Trigger className="min-h-11 px-3 rounded-lg border border-[var(--destructive)] text-xs">Replace everything</AlertDialog.Trigger><AlertDialog.Portal><AlertDialog.Backdrop className="fixed inset-0 z-[60] bg-[var(--ui-overlay)]" /><AlertDialog.Popup className="fixed left-1/2 top-1/2 z-[70] w-[min(92vw,440px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-bg)] p-6"><AlertDialog.Title className="font-display text-2xl text-balance">Replace this workspace?</AlertDialog.Title><AlertDialog.Description className="mt-2 text-sm text-pretty text-[var(--ui-muted-text)]">A recovery snapshot is created first. Library, references, formatters, and preferences are then replaced.</AlertDialog.Description><div className="mt-6 flex justify-end gap-2"><AlertDialog.Close className="min-h-11 px-4 rounded-lg border border-[var(--ui-border)]">Cancel</AlertDialog.Close><AlertDialog.Close onClick={() => restore('replace')} className="min-h-11 px-4 rounded-lg border border-[var(--destructive)]">Replace</AlertDialog.Close></div></AlertDialog.Popup></AlertDialog.Portal></AlertDialog.Root></div>}{backupMessage && <p className="text-xs text-[var(--ui-muted-text)]" aria-live="polite">{backupMessage}</p>}</SettingsSection><SettingsSection title="Diagnostics" description="Create a local report. Nothing is transmitted."><label className="min-h-11 flex items-center gap-3 text-xs"><input type="checkbox" checked={includePrompt} onChange={(event) => setIncludePrompt(event.target.checked)} />Include current prompt text</label><button type="button" onClick={() => downloadJson('muse-diagnostics.json', createDiagnosticSummary({ storageDurability: store.storageDurability, taxonomyTagCount: getIndexedTagCount(), savedPromptCount: store.savedPrompts.length, savedEntityCount: store.savedEntities.length, referenceCount: store.referenceImages.length, ...(includePrompt ? { promptText: store.customText } : {}) }))} className="min-h-11 px-4 rounded-lg border border-[var(--ui-border)] text-xs">Export diagnostics</button></SettingsSection><SettingsSection title="App updates" description={pwa.message}><div className="flex gap-2"><button type="button" onClick={() => void checkForPwaUpdates()} disabled={pwa.status === 'checking'} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] text-xs">{pwa.status === 'checking' ? 'Checking…' : 'Check now'}</button>{pwa.status === 'available' && <button type="button" onClick={() => { void store.flushDraft().then(() => applyPwaUpdate()) }} className="min-h-11 px-3 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs">Update safely</button>}</div></SettingsSection></div>}
     </div>
-  )
+  </Dialog.Popup></Dialog.Portal></Dialog.Root>
 }
 
-function OpenAIProviderRow({
-  url, apiKey, onUrlChange, onApiKeyChange, corsProxyUrl, onCorsProxyUrlChange, testState, onTest, models, selectedModel, onModelChange,
-  inputMode, onInputModeChange, manualModel, onManualModelChange, onRefreshModels, testError,
-}: {
-  url: string
-  apiKey: string
-  onUrlChange: (v: string) => void
-  onApiKeyChange: (v: string) => void
-  corsProxyUrl: string
-  onCorsProxyUrlChange: (v: string) => void
-  testState: TestState
-  onTest: () => void
-  models: AIModel[]
-  selectedModel: string | null
-  onModelChange: (v: string) => void
-  inputMode: 'auto' | 'manual'
-  onInputModeChange: (mode: 'auto' | 'manual') => void
-  manualModel: string
-  onManualModelChange: (v: string) => void
-  onRefreshModels: () => void
-  testError?: string
-}) {
-  return (
-    <div className="space-y-2 p-4 border border-[var(--ui-surface)] rounded-2xl">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-[var(--ui-muted-text)]">OpenAI API</span>
-        <StatusBadge status={testState} />
-      </div>
-      <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-        Paste any OpenAI-compatible base URL and API key here. PromptSmith will connect directly to local or LAN servers, and will automatically use the API Gateway for hosted providers so they work cleanly in the browser and installed PWA. Example URLs: <code className="text-[var(--ui-muted-text)]/50">https://opencode.ai/zen/go/v1</code> for OpenCode Go and <code className="text-[var(--ui-muted-text)]/50">https://integrate.api.nvidia.com/v1</code> for NVIDIA NIM.
-      </p>
-      <input
-        type="text"
-        value={url}
-        onChange={e => onUrlChange(e.target.value)}
-        placeholder="https://opencode.ai/zen/go/v1"
-        className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-      />
-      <div className="flex gap-2">
-        <input
-          type="password"
-          value={apiKey}
-          onChange={e => onApiKeyChange(e.target.value)}
-          placeholder="API key"
-          className="flex-1 px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-        />
-        <button
-          onClick={onTest}
-          disabled={testState === 'testing'}
-          className="px-4 py-2 rounded-xl border border-[var(--ui-border)] text-xs text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all disabled:opacity-40"
-        >
-          {testState === 'testing' ? 'Testing…' : 'Test'}
-        </button>
-      </div>
-
-      {/* API Gateway */}
-      <div>
-        <label className="text-[10px] text-[var(--ui-muted-text)]/40 uppercase tracking-wider mb-1 block">API Gateway</label>
-        <input
-          type="text"
-          value={corsProxyUrl}
-          onChange={e => onCorsProxyUrlChange(e.target.value)}
-          placeholder="https://your-worker.workers.dev"
-          className="w-full px-3 py-2 bg-transparent border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-        />
-        <p className="text-[10px] text-[var(--ui-muted-text)]/25 mt-1">
-          This is only used for hosted HTTPS providers. Leave the default gateway in place, or swap it for your own worker if you want to self-host it.
-        </p>
-      </div>
-
-      {testError && testState === 'fail' && (
-        <div className="space-y-1">
-          <p className="text-[10px] text-red-400/60 leading-relaxed">{testError}</p>
-          <p className="text-[10px] text-[var(--ui-muted-text)]/30 leading-relaxed">
-            For NVIDIA: some models need to be enabled in build.nvidia.com before requests will succeed. Local and LAN servers do not use the gateway.
-          </p>
-        </div>
-      )}
-
-      {/* Model selection: auto-discover or manual */}
-      {(testState === 'ok' || models.length > 0 || inputMode === 'manual') && (
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-[10px] text-[var(--ui-muted-text)]/50 uppercase tracking-wider">Model</label>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => onInputModeChange('auto')}
-                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'auto' ? 'bg-[var(--ui-surface-soft)] text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)]'}`}
-              >
-                Auto
-              </button>
-              <button
-                onClick={() => onInputModeChange('manual')}
-                className={`text-[9px] px-2 py-0.5 rounded-full transition-colors ${inputMode === 'manual' ? 'bg-[var(--ui-surface-soft)] text-[var(--ui-text)]' : 'text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)]'}`}
-              >
-                Manual
-              </button>
-            </div>
-          </div>
-
-          {inputMode === 'auto' && models.length > 0 && (
-            <div className="flex gap-2">
-              <select
-                value={selectedModel ?? ''}
-                onChange={e => onModelChange(e.target.value)}
-                className="flex-1 px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] outline-none"
-              >
-                {models.map(m => (
-                  <option key={m.id} value={m.id}>{m.name}{m.size ? ` (${m.size})` : ''}</option>
-                ))}
-              </select>
-              <button
-                onClick={onRefreshModels}
-                className="px-3 py-2 rounded-xl border border-[var(--ui-border)] text-[10px] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)] transition-all"
-                title="Refresh model list"
-              >
-                Refresh
-              </button>
-            </div>
-          )}
-
-          {inputMode === 'auto' && models.length === 0 && testState === 'ok' && (
-            <p className="text-[10px] text-[var(--ui-muted-text)]/30">
-              This provider doesn't expose a model list. Switch to Manual to enter a model ID.
-            </p>
-          )}
-
-          {inputMode === 'manual' && (
-            <div>
-              <input
-                type="text"
-                value={manualModel}
-                onChange={e => onManualModelChange(e.target.value)}
-                placeholder="kimi-k2.5"
-                className="w-full px-3 py-2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl text-xs text-[var(--ui-text)] placeholder:text-[var(--ui-muted-text)]/30 outline-none focus:border-[var(--ui-border-hover)]"
-              />
-              <div className="flex flex-wrap gap-1 mt-1.5">
-                {['kimi-k2.5', 'kimi-k2.6', 'qwen3.6-plus', 'qwen3.5-plus', 'glm-5', 'deepseek-v4-flash'].map(m => (
-                  <button
-                    key={m}
-                    onClick={() => onManualModelChange(m)}
-                    className="text-[9px] px-2 py-0.5 rounded-full border border-[var(--ui-border)] text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-text)] hover:border-[var(--ui-border-hover)] transition-colors"
-                  >
-                    {m}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  )
-}
-
-
-
-function StatusBadge({ status }: { status: TestState | 'idle' }) {
-  const map: Record<string, { label: string; cls: string }> = {
-    idle: { label: 'Not tested', cls: 'text-[var(--ui-muted-text)]/40 border-[var(--ui-border)]' },
-    testing: { label: 'Connecting…', cls: 'text-yellow-500/70 border-yellow-500/30' },
-    ok: { label: 'Connected', cls: 'text-green-500/70 border-green-500/30' },
-    fail: { label: 'Not found', cls: 'text-red-500/70 border-red-500/30' },
-  }
-  const { label, cls } = map[status] ?? map.idle
-  return (
-    <span className={cn('text-[9px] font-medium uppercase tracking-wider border rounded-full px-2 py-0.5', cls)}>
-      {label}
-    </span>
-  )
-}
-
-function mapPwaStatusToTestState(status: 'idle' | 'checking' | 'available' | 'updating' | 'offline-ready' | 'error'): TestState | 'idle' {
-  if (status === 'checking' || status === 'updating') return 'testing'
-  if (status === 'available' || status === 'offline-ready') return 'ok'
-  if (status === 'error') return 'idle'
-  return 'idle'
-}
-
-
+function SettingsSection({ title, description, children }: { title: string; description: string; children: React.ReactNode }) { return <section className="space-y-3"><div><h2 className="text-sm font-medium">{title}</h2><p className="mt-1 text-xs leading-5 text-pretty text-[var(--ui-muted-text)]">{description}</p></div>{children}</section> }
+function Info({ label, value }: { label: string; value: string }) { return <div className="flex justify-between gap-4"><dt className="text-[var(--ui-muted-text)]">{label}</dt><dd className="text-right capitalize">{value}</dd></div> }
+function ProviderCard({ provider, label, url, setUrl, presets, apiKey, setApiKey, state, error, models, selected, active, expanded, onToggle, onTest, onChoose }: { provider: LocalAIProviderId; label: string; url: string; setUrl: (value: string) => void; presets?: Array<{ label: string; url: string }>; apiKey?: string; setApiKey?: (value: string) => void; state: TestState; error?: string; models: AIModel[]; selected?: string; active: boolean; expanded: boolean; onToggle: () => void; onTest: () => void; onChoose: (model: string) => void }) { const cloud = provider.includes('compatible'); const panelId = `provider-${provider}`; return <section className={`rounded-xl border ${active ? 'border-[var(--ui-border-strong)]' : 'border-[var(--ui-border)]'}`}><button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panelId} className="w-full min-h-14 px-4 flex items-center gap-3 text-left"><span className="min-w-0 flex-1"><span className="block text-sm font-medium">{label}{active ? ' · active' : ''}</span><span className="mt-0.5 block truncate text-xs text-[var(--ui-muted-text)]">{selected || (state === 'ok' ? 'Choose a model' : 'Not connected')}</span></span><span className="flex items-center gap-1 text-[10px] text-[var(--ui-muted-text)]">{state === 'testing' && <CircleNotch className="size-3 animate-spin" />}{state === 'ok' && <CheckCircle className="size-3" />}{state !== 'idle' ? state : ''}</span><CaretDown className={`size-4 text-[var(--ui-muted-text)] ${expanded ? 'rotate-180' : ''}`} /></button>{expanded && <div id={panelId} className="border-t border-[var(--ui-border)] p-4 space-y-3">{presets && <div className="flex flex-wrap gap-1.5" aria-label={`${label} endpoint presets`}>{presets.map((preset) => <button key={preset.url} type="button" onClick={() => setUrl(preset.url)} aria-pressed={url.replace(/\/+$/, '') === preset.url} className="min-h-9 rounded-lg border border-[var(--ui-border)] px-2.5 text-[10px] aria-pressed:bg-[var(--ui-text)] aria-pressed:text-[var(--ui-bg)]">{preset.label}</button>)}</div>}<label className="block"><span className="text-xs text-[var(--ui-muted-text)]">Base URL</span><input value={url} onChange={(event) => setUrl(event.target.value)} className="mt-2 w-full min-h-11 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] px-3 text-xs" /></label>{cloud && <label className="block"><span className="text-xs text-[var(--ui-muted-text)]">Session API key</span><input type="password" autoComplete="off" value={apiKey ?? ''} onChange={(event) => setApiKey?.(event.target.value)} placeholder="Not stored" className="mt-2 w-full min-h-11 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] px-3 text-xs" /></label>}<button type="button" onClick={onTest} disabled={state === 'testing'} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] text-xs">{cloud ? 'Connect and load models' : 'Test and use'}</button>{models.length > 0 && <ModelMenu models={models} selected={selected ?? models[0].id} onChoose={onChoose} />}{error && <p className="text-xs leading-5 text-pretty text-[var(--destructive)]" role="alert">{error}</p>}</div>}</section> }
+function ModelMenu({ models, selected, onChoose }: { models: AIModel[]; selected: string; onChoose: (model: string) => void }) { const current = models.find((model) => model.id === selected) ?? models[0]; return <div><p className="mb-2 text-xs text-[var(--ui-muted-text)]">Model</p><Menu.Root><Menu.Trigger className="w-full min-h-11 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] px-3 flex items-center justify-between gap-3 text-left text-xs"><span className="min-w-0 truncate">{current.name}{current.capabilities.vision ? ' · vision' : ''}</span><CaretDown className="size-4 shrink-0" /></Menu.Trigger><Menu.Portal><Menu.Positioner align="start" sideOffset={6} className="z-[60]"><Menu.Popup className="w-[min(88vw,480px)] max-h-64 overflow-y-auto rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-elevated)] p-1.5 shadow-lg">{models.map((model) => <Menu.Item key={model.id} onClick={() => onChoose(model.id)} className="min-h-11 px-3 rounded-lg flex items-center justify-between gap-3 text-xs outline-none data-[highlighted]:bg-[var(--ui-surface-soft)]"><span className="min-w-0 truncate">{model.name}</span>{model.capabilities.vision && <span className="text-[10px] text-[var(--ui-muted-text)]">Vision</span>}</Menu.Item>)}</Menu.Popup></Menu.Positioner></Menu.Portal></Menu.Root></div> }
+function providerLabel(provider: LocalAIProviderId) { return provider === 'ollama' ? 'Ollama' : provider === 'lmstudio' ? 'LM Studio' : provider === 'openai-compatible' ? 'OpenAI compatible' : 'Anthropic compatible' }

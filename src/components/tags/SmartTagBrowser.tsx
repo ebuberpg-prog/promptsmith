@@ -63,12 +63,13 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
 
   const taxonomy = taxonomyProp
 
-  const searchQuery = externalSearch ?? debouncedSearch
-  const rawSearch = externalSearch ?? localSearch
+  const hasExternalSearch = Boolean(externalSearch?.trim())
+  const searchQuery = hasExternalSearch ? externalSearch! : debouncedSearch
+  const rawSearch = hasExternalSearch ? externalSearch! : localSearch
 
   const selectedTags = usePromptSmithStore((s) => s.selectedTags)
   const toggleTag = usePromptSmithStore((s) => s.toggleTag)
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
   const pinnedTags = usePromptSmithStore((s) => s.pinnedTags)
   const pinTag = usePromptSmithStore((s) => s.pinTag)
   const unpinTag = usePromptSmithStore((s) => s.unpinTag)
@@ -124,8 +125,8 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
   }, [taxonomy])
 
   const searchResults = useMemo(
-    () => searchQuery.trim() ? searchTagIndex(searchQuery, showExplicit, 100) : [],
-    [searchQuery, showExplicit]
+    () => searchQuery.trim() ? searchTagIndex(searchQuery, contentVisibility, 100) : [],
+    [searchQuery, contentVisibility]
   )
 
   const groupedResults = useMemo(() => groupSearchResults(searchResults), [searchResults])
@@ -198,14 +199,14 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
               onChange={(e) => handleSearchChange(e.target.value)}
               onKeyDown={handleResultKeyDown}
               placeholder="Search tags..."
-              className="w-full pl-11 pr-4 py-2 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors duration-150 text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
+              className="w-full pl-11 pr-4 py-2 bg-transparent border rounded-lg outline-none focus:border-[var(--ui-border-hover)] transition-colors duration-150 text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
               style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
             />
           </div>
         )}
 
         {externalSearch && (
-          <span className="text-sm border rounded-full px-3 py-1.5" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
+          <span className="text-sm border rounded-lg px-3 py-1.5" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
             Searching "{externalSearch}"
           </span>
         )}
@@ -306,7 +307,7 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
               pinnedIds={pinnedIds}
               toggleTag={toggleTag}
               onPin={handlePin}
-              showExplicit={showExplicit}
+              contentVisibility={contentVisibility}
             />
           </motion.div>
         )}
