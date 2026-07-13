@@ -18,7 +18,7 @@ interface SemanticGroupNavProps {
 
 export function SemanticGroupNav({ activeGroup, onGroupChange, groupCounts }: SemanticGroupNavProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label="Ingredient directions">
       {SEMANTIC_GROUPS.map((group) => {
         const isActive = activeGroup === group.id
         const Icon = ICON_MAP[group.icon] || Gear
@@ -26,21 +26,17 @@ export function SemanticGroupNav({ activeGroup, onGroupChange, groupCounts }: Se
         return (
           <button
             key={group.id}
+            type="button"
             onClick={() => onGroupChange(group.id === activeGroup ? 'all' : group.id)}
-            className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all duration-150 whitespace-nowrap min-h-[44px] ${
+            className={`min-h-20 rounded-xl border p-3 text-left transition-colors duration-150 ${
               isActive
                 ? 'border-[var(--ui-text)] bg-[var(--ui-surface-soft)] text-[var(--ui-text)]'
                 : 'border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]'
             }`}
             aria-pressed={isActive}
           >
-            <Icon weight={isActive ? 'fill' : 'regular'} className="w-3.5 h-3.5" />
-            <span>{group.label}</span>
-            {groupCounts[group.id] !== undefined && (
-              <span className="text-[10px] text-[var(--ui-muted-text-faint)]">
-                ({groupCounts[group.id]})
-              </span>
-            )}
+            <span className="flex items-center gap-2"><Icon weight={isActive ? 'fill' : 'regular'} className="size-4" /><strong className="text-sm font-medium">{group.label}</strong>{groupCounts[group.id] !== undefined && <span className="ml-auto text-[11px] tabular-nums text-[var(--ui-muted-text)]">{groupCounts[group.id]}</span>}</span>
+            <span className="mt-2 block text-xs leading-5 text-[var(--ui-muted-text)]">{group.description}</span>
           </button>
         )
       })}

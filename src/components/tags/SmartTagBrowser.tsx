@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { searchTagIndex, getTagById } from '@/utils/tag-index'
+import { searchTagIndex } from '@/utils/tag-index'
 import { QuickAccessBar } from './QuickAccessBar'
 import { SemanticGroupNav } from './SemanticGroupNav'
 import { SubcategoryList } from './SubcategoryList'
@@ -57,6 +57,7 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
   const [localSearch, setLocalSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [activeGroup, setActiveGroup] = useState<string>('all')
+  const [showCompleteTaxonomy, setShowCompleteTaxonomy] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -130,6 +131,9 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
   )
 
   const groupedResults = useMemo(() => groupSearchResults(searchResults), [searchResults])
+  const starterTags = useMemo(() => STARTER_SUGGESTIONS
+    .map((query) => searchTagIndex(query, contentVisibility, 1)[0])
+    .filter((tag): tag is TaxonomyTag => Boolean(tag)), [contentVisibility])
 
   const totalResults = searchResults.length
 
@@ -174,19 +178,15 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
     return catName
   }, [])
 
-  const handleStarterClick = useCallback((id: string) => {
-    const tag = getTagById(id)
-    if (tag) toggleTag(tag)
-  }, [toggleTag])
-
-  const showEmpty = !rawSearch.trim() && searchResults.length === 0
+  const handleStarterClick = useCallback((tag: TaxonomyTag) => toggleTag(tag), [toggleTag])
+  const showGuidedStart = !rawSearch.trim() && activeGroup === 'all' && !showCompleteTaxonomy
 
   return (
     <div className="space-y-5 pb-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-[2rem] font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Browse Tags</h2>
-          <p className="text-[13px] mt-1" style={{ color: 'var(--ui-muted-text)' }}>Click any tag to add it to your prompt. Press <kbd className="text-[10px] font-mono px-1 py-0.5 rounded" style={{ backgroundColor: 'var(--ui-surface)', borderColor: 'var(--ui-border)', border: '1px solid var(--ui-border)' }}>/</kbd> to search.</p>
+          <h2 className="font-display text-[2rem] font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Find ingredients</h2>
+          <p className="text-[13px] mt-1" style={{ color: 'var(--ui-muted-text)' }}>Choose a direction or search for something precise. Ingredients guide the output without replacing your words.</p>
         </div>
 
         {!externalSearch && (
@@ -215,12 +215,14 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
       {!rawSearch.trim() && (
         <SemanticGroupNav
           activeGroup={activeGroup}
-          onGroupChange={setActiveGroup}
+          onGroupChange={(groupId) => { setActiveGroup(groupId); if (groupId !== 'all') setShowCompleteTaxonomy(false) }}
           groupCounts={groupCounts}
         />
       )}
 
       <QuickAccessBar />
+
+      {!rawSearch.trim() && <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ui-border-faint)] pb-4"><p className="text-xs text-[var(--ui-muted-text)]">{activeGroup === 'all' ? (showCompleteTaxonomy ? 'Complete taxonomy · every available category' : 'Guided discovery · start with intent') : `${SEMANTIC_GROUPS.find((group) => group.id === activeGroup)?.label ?? 'Selected'} categories`}</p><button type="button" onClick={() => { setActiveGroup('all'); setShowCompleteTaxonomy((value) => !value) }} className="min-h-11 rounded-lg border border-[var(--ui-border)] px-3 text-xs text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]">{showCompleteTaxonomy ? 'Back to guided discovery' : 'Browse complete taxonomy'}</button></div>}
 
       <AnimatePresence mode="wait">
         {rawSearch.trim() ? (
@@ -294,6 +296,8 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
               </div>
             ) : null}
           </motion.div>
+        ) : showGuidedStart ? (
+          <section key="guided" className="rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface-soft)] p-4 sm:p-5" aria-labelledby="guided-tags-heading"><div className="max-w-xl"><h3 id="guided-tags-heading" className="font-display text-2xl text-balance">Start with one useful direction.</h3><p className="mt-1 text-sm leading-6 text-pretty text-[var(--ui-muted-text)]">Pick a familiar ingredient now, or choose Subject, Appearance, Setting, Style, Mood, or Quality above to browse a smaller part of the Library.</p></div><div className="mt-4 flex flex-wrap gap-2">{starterTags.map((tag) => <button key={tag.id} type="button" onClick={() => handleStarterClick(tag)} aria-pressed={selectedIds.has(tag.id)} className={`min-h-11 rounded-lg border px-3 text-xs ${selectedIds.has(tag.id) ? 'border-[var(--ui-text)] bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'border-[var(--ui-border)] bg-[var(--ui-surface-elevated)] text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]'}`}>{tag.label}</button>)}</div></section>
         ) : (
           <motion.div
             key="browse"
@@ -313,29 +317,6 @@ export function SmartTagBrowser({ externalSearch, taxonomy: taxonomyProp }: { ex
         )}
       </AnimatePresence>
 
-      {showEmpty && selectedTags.length === 0 && pinnedTags.length === 0 && (
-        <div className="py-8 text-center space-y-4">
-          <p className="text-sm text-[var(--ui-muted-text-faint)]">
-            Start with a person, place, or style — or try one of these:
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {STARTER_SUGGESTIONS.map(id => {
-              const tag = getTagById(id)
-              if (!tag) return null
-              return (
-                <button
-                  key={id}
-                  onClick={() => handleStarterClick(id)}
-                  className="tag-chip text-xs"
-                  data-group={getGroupForCategory(tag.category || '')}
-                >
-                  {tag.label}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      )}
     </div>
   )
 }

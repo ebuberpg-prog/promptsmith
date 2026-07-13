@@ -26,6 +26,7 @@ test('crafts locally, offers related tags, saves and reopens the exact authored 
 
   await page.goto('./')
   await expect(page.getByRole('heading', { name: 'Begin with the image in your head.' })).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Your first prompt' })).toContainText('Describe')
   await page.getByPlaceholder('Describe what you want to create or paste a prompt…').fill(RAW_PROMPT)
   await expect(page.getByLabel('Related taxonomy ingredients')).toBeVisible()
   await page.getByRole('button', { name: 'Craft prompt' }).click()
@@ -41,7 +42,10 @@ test('crafts locally, offers related tags, saves and reopens the exact authored 
 
   await openWorkspaceView(page, testInfo, 'Library')
   await expect(page.getByRole('heading', { name: 'Rain window study' })).toBeVisible()
-  await page.getByRole('article').filter({ hasText: 'Rain window study' }).getByRole('button', { name: 'Use in Craft', exact: true }).click()
+  await page.getByRole('group', { name: 'Prompt filter' }).getByRole('button', { name: /^Favorites/ }).click()
+  await expect(page.getByRole('heading', { name: 'No prompts match this view.' })).toBeVisible()
+  await page.getByRole('button', { name: 'Clear filters' }).click()
+  await page.getByRole('article').filter({ hasText: 'Rain window study' }).getByRole('button', { name: 'Open in Craft', exact: true }).click()
   await expect(page.getByLabel('Authored prompt')).toHaveValue(RAW_PROMPT)
   await page.getByLabel('Authored prompt').fill(`${RAW_PROMPT}, closer crop`)
   await page.getByRole('button', { name: 'Update prompt', exact: true }).click()
@@ -52,7 +56,7 @@ test('crafts locally, offers related tags, saves and reopens the exact authored 
 test('ingredient-only randomization stays visible in Simple mode', async ({ page }, testInfo) => {
   await page.goto('./')
   await openWorkspaceView(page, testInfo, 'Craft')
-  await page.getByRole('button', { name: 'Studio', exact: true }).click()
+  await page.getByRole('button', { name: 'Studio tools', exact: true }).click()
   await page.getByRole('button', { name: 'Variations', exact: true }).click()
   await page.getByRole('button', { name: 'Randomize', exact: true }).click()
   await expect(page.getByText(/Preview · \d+ ingredients?/)).toBeVisible()
@@ -71,6 +75,18 @@ test('variation changes ingredients without deleting authored words', async ({ p
   await page.getByRole('menuitem', { name: 'Create a variation' }).click()
   await expect(page.getByText('Created a light variation · Undo is available')).toBeAttached()
   await expect(page.getByLabel('Authored prompt')).toHaveValue(RAW_PROMPT)
+})
+
+test('tag discovery starts guided and keeps the complete taxonomy available', async ({ page }, testInfo) => {
+  await page.goto('./')
+  await openWorkspaceView(page, testInfo, 'Library')
+  await page.getByRole('tab', { name: 'tags' }).click()
+  await expect(page.getByRole('heading', { name: 'Find one useful direction at a time.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Start with one useful direction.' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Browse complete taxonomy' })).toBeVisible()
+  await page.getByRole('button', { name: /^Subject/ }).click()
+  await expect(page.getByText('Subject categories', { exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Start with one useful direction.' })).toHaveCount(0)
 })
 
 test('legacy v4 text migrates into IndexedDB without being rewritten', async ({ page }, testInfo) => {

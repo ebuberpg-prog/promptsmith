@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CaretDown } from '@phosphor-icons/react'
 import { TagChip } from './TagChip'
@@ -33,12 +33,6 @@ export function SubcategoryList({
   contentVisibility,
 }: SubcategoryListProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
-
-  useEffect(() => {
-    if (categories.length > 0) {
-      setExpandedIds(new Set([categories[0].id]))
-    }
-  }, [categories])
 
   const handleToggle = (cat: TaxonomyCategory) => {
     setExpandedIds(prev => {
