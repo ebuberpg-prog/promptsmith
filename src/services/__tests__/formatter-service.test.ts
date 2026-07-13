@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { composeWithProfile, detectPromptVariables, resolvePromptVariables } from '../formatter-service'
+import { composeWithProfile, conceptAppearsInText, detectPromptVariables, resolvePromptVariables } from '../formatter-service'
 import { BUILT_IN_FORMATTER_PROFILES } from '@/data/formatter-profiles'
 
 describe('formatter profiles and variables', () => {
@@ -35,5 +35,29 @@ describe('formatter profiles and variables', () => {
     const tag = { id: 'natural-light', label: 'natural light', aliases: ['daylight'], description: '', explicit: false, weight: 1, selectedAt: 1 }
     const natural = composeWithProfile({ profile: BUILT_IN_FORMATTER_PROFILES[0], tags: [tag], customText: 'A quiet portrait', parameters: {} })
     expect(natural.prompt).toBe('A quiet portrait The visual direction includes natural light.')
+  })
+
+  it('reconciles an enhanced phrase that inserts a modifier or changes inflection', () => {
+    const tag = { id: 'cinematic-lighting', label: 'cinematic lighting', aliases: [], description: '', explicit: false, weight: 1, selectedAt: 1 }
+    const enhanced = 'A portrait shaped by cinematic studio light and restrained shadows.'
+    const natural = composeWithProfile({ profile: BUILT_IN_FORMATTER_PROFILES[0], tags: [tag], customText: enhanced, parameters: {} })
+    const tagList = composeWithProfile({ profile: BUILT_IN_FORMATTER_PROFILES[1], tags: [tag], customText: enhanced, parameters: {} })
+
+    expect(natural.prompt).toBe(enhanced)
+    expect(tagList.prompt).toBe(enhanced)
+  })
+
+  it('does not absorb a multi-word ingredient when only part of it is present', () => {
+    const tag = { id: 'golden-hour', label: 'golden hour', aliases: [], description: '', explicit: false, weight: 1, selectedAt: 1 }
+    expect(conceptAppearsInText('A golden portrait made at noon', tag)).toBe(false)
+
+    const natural = composeWithProfile({ profile: BUILT_IN_FORMATTER_PROFILES[0], tags: [tag], customText: 'A golden portrait made at noon', parameters: {} })
+    expect(natural.prompt).toContain('golden hour')
+  })
+
+  it('does not combine distant words into an already-represented concept', () => {
+    const tag = { id: 'warm-lighting', label: 'warm lighting', aliases: [], description: '', explicit: false, weight: 1, selectedAt: 1 }
+    const text = 'A warm ceramic vessel sits in a cool room with hard lighting across the far wall.'
+    expect(conceptAppearsInText(text, tag)).toBe(false)
   })
 })

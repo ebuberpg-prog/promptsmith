@@ -296,6 +296,7 @@ const FORMAT_ENHANCEMENT_GUIDANCE: Record<FormatFamily, string> = {
 const ENHANCEMENT_SYSTEM = `You revise authored art-direction text inside a private prompt studio.
 Preserve the subject, action, relationships, medium, location, and important wording.
 Use selected ingredients only as supporting context; never turn them into formatter headings.
+When an ingredient is used, keep its label wording intact where natural and express it only once so the local formatter can recognize that it is already represented.
 The requested format family may guide diction and density only. Never perform final formatting.
 Never insert field headings, bullet lists, tag-list delimiters, weights, negative-prompt syntax, model parameters, or template wrappers.
 Do not invent a new location, objects, equipment, artist names, neon, bokeh, 8K, masterpiece, best quality, or other quality clichés.

@@ -63,11 +63,56 @@ export function composeWithProfile(options: {
 }
 
 export function conceptAppearsInText(text: string, tag: SelectedTag) {
-  const normalizedText = ` ${text.toLowerCase().replace(/[^\p{L}\p{N}'-]+/gu, ' ').trim()} `
-  return [tag.label, ...(Array.isArray(tag.aliases) ? tag.aliases : [])].some((phrase) => {
-    const normalizedPhrase = phrase.toLowerCase().replace(/[^\p{L}\p{N}'-]+/gu, ' ').trim()
-    return normalizedPhrase.length >= 3 && normalizedText.includes(` ${normalizedPhrase} `)
-  })
+  const textTokens = tokenizeConcept(text)
+  if (textTokens.length === 0) return false
+
+  return [tag.label, ...(Array.isArray(tag.aliases) ? tag.aliases : [])]
+    .some((phrase) => phraseAppearsInTokens(phrase, textTokens))
+}
+
+const CONCEPT_STOP_WORDS = new Set(['a', 'an', 'and', 'at', 'by', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with'])
+
+function tokenizeConcept(value: string) {
+  return value.toLowerCase().replace(/[^\p{L}\p{N}']+/gu, ' ').trim().split(/\s+/).filter(Boolean)
+}
+
+function phraseAppearsInTokens(phrase: string, textTokens: string[]) {
+  const phraseTokens = tokenizeConcept(phrase).filter((token) => token.length >= 3 && !CONCEPT_STOP_WORDS.has(token))
+  if (phraseTokens.length === 0) return false
+
+  const phraseStems = phraseTokens.map(conceptStem)
+  const textStems = textTokens.map(conceptStem)
+  if (phraseStems.length === 1) return textStems.includes(phraseStems[0])
+
+  // Enhancement models often insert a useful modifier (for example,
+  // "cinematic studio light" for "cinematic lighting"). Treat a concept as
+  // represented only when all of its meaningful words remain close together;
+  // this avoids suppressing a tag merely because its words occur in unrelated
+  // parts of a long prompt.
+  const maximumSpan = phraseStems.length + 2
+  for (let start = 0; start < textStems.length; start += 1) {
+    const window = textStems.slice(start, start + maximumSpan + 1)
+    if (phraseStems.every((stem) => window.includes(stem))) return true
+  }
+  return false
+}
+
+function conceptStem(token: string) {
+  if (token.length > 5 && token.endsWith('ies')) return `${token.slice(0, -3)}y`
+  if (token.length > 5 && token.endsWith('ing')) {
+    const base = token.slice(0, -3)
+    if (base.endsWith('at') || base.endsWith('it') || base.endsWith('iz')) return `${base}e`
+    const finalCharacter = base[base.length - 1]
+    return finalCharacter && base.endsWith(finalCharacter.repeat(2)) ? base.slice(0, -1) : base
+  }
+  if (token.length > 4 && token.endsWith('ed')) {
+    const base = token.slice(0, -2)
+    const finalCharacter = base[base.length - 1]
+    return finalCharacter && base.endsWith(finalCharacter.repeat(2)) ? base.slice(0, -1) : base
+  }
+  if (token.length > 4 && token.endsWith('es')) return token.slice(0, -2)
+  if (token.length > 3 && token.endsWith('s')) return token.slice(0, -1)
+  return token
 }
 
 function uniqueLabels(tags: SelectedTag[]) {
