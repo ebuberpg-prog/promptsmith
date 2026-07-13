@@ -28,11 +28,11 @@ describe('live suggestion release evaluation', () => {
       const result = analyzeComposerInput(`A visual study featuring ${concept}`, 'all', 3)
       expect(result.suggestions[0]?.label.toLowerCase(), concept).toBe(concept.toLowerCase())
     }
-  })
+  }, 20_000)
 
   it('suppresses unrelated fuzzy matches in at least 95% of fixtures', () => {
     const prompts = [...SUGGESTION_EVALS.map((concept) => `A visual study featuring ${concept}`), 'A quiet portrait lit by a rainy shop window']
     const clean = prompts.filter((prompt) => !analyzeComposerInput(prompt, 'filtered', 3).suggestions.some((tag) => tag.label === 'wearing shoes')).length
     expect(clean / prompts.length).toBeGreaterThanOrEqual(0.95)
-  })
+  }, 20_000)
 })

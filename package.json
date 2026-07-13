@@ -4,6 +4,9 @@
   "type": "module",
   "private": true,
   "description": "A local-first prompt workspace for AI image creators",
+  "engines": {
+    "node": ">=22 <27"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

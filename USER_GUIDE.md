@@ -1,429 +1,244 @@
 # MUSE User Guide
 
-> Your complete guide to building world-class AI image generation prompts.
+MUSE helps you turn an image idea into a formatted prompt while keeping your original words visible, editable, and separate from the optional structure MUSE adds.
 
----
+## The shortest path to a useful prompt
 
-## Table of Contents
+1. Open **Home**.
+2. Describe the image in your own words.
+3. Choose **Craft prompt**.
+4. Review **What MUSE added** and the **Ready to use** output.
+5. Copy the result, or save it to the Library.
 
-- [Introduction](#introduction)
-- [First Launch & Quick Start](#first-launch--quick-start)
-- [The Interface](#the-interface)
-- [Building Prompts](#building-prompts)
-- [Templates](#templates)
-- [The Prompt Inspector](#the-prompt-inspector)
-- [Creative Tools](#creative-tools)
-- [Organization & Workflow](#organization--workflow)
-- [Local AI Integration](#local-ai-integration)
-- [Settings](#settings)
-- [Keyboard Shortcuts](#keyboard-shortcuts)
-- [Tips & Best Practices](#tips--best-practices)
-- [Troubleshooting](#troubleshooting)
+For an empty Library, MUSE shows **Describe → Refine → Save** as lightweight orientation. It does not block or require any feature.
 
----
+## Navigation
 
-## Introduction
+MUSE has three workspaces:
 
-MUSE is a professional prompt engineering studio for AI image generation. Instead of typing prompts from scratch and guessing what works, MUSE gives you a structured taxonomy of thousands of curated tags, smart composition tools, and model-aware formatting — so you can build precise, evocative prompts in seconds.
+- **Home** — Start a prompt, continue a recent idea, or use inspiration and starting points.
+- **Craft** — Edit authored text, manage ingredients, inspect output, and use optional refinement tools.
+- **Library** — Find saved prompts, preview templates, browse ingredients, and manage references.
 
-Whether you're creating characters, landscapes, product shots, or abstract art, MUSE helps you:
+Desktop navigation appears in the header. Mobile navigation appears at the bottom. Search and the overflow menu remain in the header on both layouts.
 
-- **Discover** the right tags through search and browsing
-- **Compose** prompts optimized for your chosen model
-- **Experiment** with randomization and variations
-- **Organize** your work with templates, saved prompts, and version history
-- **Enhance** prompts with optional local AI assistance
+## Home
 
----
+### Start with your words
 
-## First Launch & Quick Start
+Write a concrete image description in the main field. MUSE may show related local taxonomy ingredients while you type. Choosing one adds structure; ignoring them leaves your text unchanged.
 
-When you open MUSE for the first time, the **Quick Start Wizard** appears automatically. This four-step wizard builds your first prompt in under a minute:
+Use **Craft prompt** when you are ready to inspect the formatted result. The current formatter can be changed from the header control.
 
-1. **Subject** — Describe what you want to create (e.g., "a cyberpunk warrior", "a serene mountain lake"). Pick from suggested starters or type your own.
-2. **Style** — Choose a visual style (photorealistic, oil painting, anime, cinematic, etc.).
-3. **Mood** — Set the atmosphere (melancholic, vibrant, mysterious, serene, etc.).
-4. **Model** — Pick your target image generation model. This determines how your prompt is formatted.
+### Starting points and inspiration
 
-After finishing, MUSE automatically applies the relevant tags, sets your custom text, and selects the model. You can disable the wizard from appearing again by checking **"Don't show again"**.
+- Example descriptions fill the authored-text field without saving anything.
+- Starting points open Craft with an editable prompt.
+- Built-in inspiration images can start a prompt or suggest a visual direction.
+- **Guided start** opens a structured Subject → Style → Mood → Model sequence. It is optional and does not open automatically.
 
-> **Tip:** You can always reopen the wizard from the command palette (`Cmd/Ctrl + K`) by searching "Quick Start".
+## Craft
 
----
+### Your words
 
-## The Interface
+The authored prompt remains the source text you control. Edit it directly at any time. If it contains variables such as `{subject}`, MUSE shows inputs for their values while preserving the variable-bearing source.
 
-MUSE adapts its layout to your device:
+Undo and redo operate on the current draft. Starting a new blank prompt clears the working draft and its Library link; it does not delete saved prompts.
 
-### Desktop (Two-Panel Layout)
+### Ingredients
 
-- **Left Panel** — Main workspace for browsing tags, templates, the randomizer, and the prompting guide.
-- **Right Panel** — The **Prompt Inspector**, where you see your live prompt, selected tags, suggestions, and tools.
-- **Top Bar** — App header with theme toggle, search, and settings access.
+Ingredients are structured taxonomy tags that guide formatting. Each selected ingredient can be removed or adjusted without rewriting the authored prompt.
 
-### Mobile (Bottom Tabs)
+Choose **Find ingredients** to open the browser:
 
-On phones and small tablets, MUSE uses three bottom tabs:
+1. Start with Subject, Appearance, Setting, Style, Mood, or Quality.
+2. Select a smaller category within that direction.
+3. Search when you know the exact term.
+4. Use **Browse complete taxonomy** only when you want the full hierarchy.
 
-- **Templates** — Browse and apply prompt templates.
-- **Build** — Search tags, browse categories, randomize, and read the guide.
-- **Prompt** — View and edit your prompt, see suggestions, and access advanced tools.
+The complete taxonomy remains available. Guided discovery changes how it is presented, not which tags exist.
 
-### View Modes (Desktop & Tablet)
+### What MUSE added
 
-At the top of the main workspace, four tabs let you switch contexts:
+This section states how many structured ingredients affect the output and names the first few. Your authored words remain editable above it. If no ingredients are selected, the output preserves your text without adding taxonomy structure.
 
-| Tab | Purpose |
-|-----|---------|
-| **Templates** | Browse built-in and saved prompt templates |
-| **Browse Tags** | Explore the taxonomy by category or search |
-| **Randomize** | Break creative block with AI-assisted randomization |
-| **Guide** | Read best practices for prompting each model |
+### Ready to use
 
----
+The output is formatted for the selected formatter profile and model workflow. You can:
 
-## Building Prompts
+- Copy it to the clipboard.
+- Save it as a new prompt.
+- Update the active saved prompt.
+- Add the draft as a version of another saved prompt.
+- Create a duplicate or a variation from the prompt actions menu.
 
-### Searching Tags
+### Simple and Studio tools
 
-The fastest way to build a prompt is to use the **hero search bar** at the top of the workspace:
+**Simple** is the default and keeps writing, ingredients, and output central.
 
-1. Click the search field (or press `Cmd/Ctrl + K`).
-2. Type what you're looking for — e.g., "golden hour", "cyberpunk", "elderly woman".
-3. Results appear instantly via fuzzy search across all taxonomy tags.
-4. Click a tag to add it to your prompt.
+**Studio tools** reveals an accordion rail. Only one section opens at a time:
 
-Tags are organized into **20+ categories** including:
+- **Prompt check** — Optional coverage guidance for subject, setting, lighting, composition, and style.
+- **Suggestions** — Related local ingredients.
+- **Variations** — Seeded or randomized ingredient changes that preserve authored words.
+- **Negatives** — Model-aware negative-prompt help where the selected workflow supports it.
+- **References** — Attach local visual context.
+- **Compare formats** — Inspect how the same draft changes across formatter profiles.
 
-- Subjects & Characters
-- Clothing & Accessories
-- Facial Features & Hair
-- Poses & Gestures
-- Environments & Backgrounds
-- Lighting & Camera Style
-- Art Medium & Style
-- Mood & Emotion
-- Fantasy & Sci-Fi Elements
-- Props & Objects
-- Weather & Effects
-- Composition
-- Time Period & Subculture
-- And more...
+### Optional AI enhancement
 
-### Browsing by Category
+When an AI provider is connected, the enhancement panel can perform explicit actions such as refining text or analyzing a reference. MUSE does not call a provider merely because you typed or selected an ingredient.
 
-In **Browse Tags** mode, tags are grouped by category. Click a category to expand it, then click individual tags to add them. Each tag shows:
+## Saving and versions
 
-- **Label** — The tag name
-- **Description** — What it represents
-- **Aliases** — Alternative names you can search by
-- **Weight** — Implicit importance (used by some models)
+### Save a new prompt
 
-### Managing Selected Tags
+1. Choose **Save new prompt**.
+2. Review the suggested short title.
+3. Edit the title to match how you will remember the idea.
+4. Confirm the save.
 
-Selected tags appear in the **Prompt Inspector** on the right (or in the Prompt tab on mobile). Here you can:
+Suggested titles remove generic generation instructions and unresolved variable tokens when possible.
 
-- **Reorder** tags by dragging (on supported devices)
-- **Remove** a tag by clicking its × button
-- **Pin** a tag to prevent it from being cleared or randomized
-- **Adjust trigger words** for advanced control over how a tag is rendered
-- **Clear all** tags at once
+### Update a saved prompt
 
-> **Explicit Content:** Some tags are marked as explicit. Toggle the explicit filter in settings if you want access to mature-content tags.
+Opening a Library prompt links the current draft to it. MUSE shows whether the draft still matches the saved prompt. Use **Update prompt** to create an explicit saved version.
 
-### Custom Text
+Undo history, draft-recovery snapshots, and Library versions are different:
 
-For free-form descriptions that aren't in the taxonomy, use the **Custom Text** field in the Prompt Inspector. This text is merged with your selected tags when the final prompt is composed. Good uses include:
+- **Undo/redo** covers current editing actions.
+- **Draft recovery** stores recent working snapshots on this device.
+- **Library versions** are created by explicit save/update actions and remain attached to the saved prompt.
 
-- Specific scene descriptions
-- Character backstory context
-- Narrative framing
-- Unique concepts not yet in the taxonomy
+## Library
 
----
+The Library has four sections.
 
-## Templates
+### Prompts
 
-Templates are pre-built prompt structures that give you a head start.
+- Search titles, authored text, and ingredient labels.
+- Filter by **All prompts** or **Favorites**.
+- Sort by recent use or name.
+- Read model, version count, and ingredient count from each card.
+- Choose **Open in Craft** to continue editing.
+- Choose **Versions** to inspect, copy, edit, or delete an individual version.
+- Use the card menu to duplicate, rename, export, or delete a saved prompt.
+- Import a previously exported `.muse.json` prompt from the Library header.
 
-### Built-In Templates
+Deleting a saved prompt removes that prompt and its local version history. It does not clear an unrelated current draft.
 
-MUSE ships with a library of built-in templates for common use cases:
+### Templates
 
-- Portrait photography
-- Character design
-- Landscape scenes
-- Product shots
-- Abstract art
-- Fantasy illustrations
+Templates are curated blueprints rather than saved prompts.
 
-### Applying a Template
+- The default collection is curated; the complete catalog remains available.
+- Preview a blueprint before it changes the draft.
+- The preview shows purpose, anatomy, editable starter text, exact ingredient count, and model compatibility.
+- **Apply here** keeps you in the Library; **Apply and continue in Craft** opens the result for editing.
+- The template wizard builds a Subject → Mood → Medium → Review blueprint before applying it.
 
-1. Go to the **Templates** tab.
-2. Browse or search the gallery.
-3. Click a template to apply its tags and structure to your current session.
-4. Customize by adding, removing, or reordering tags.
+### Tags
 
-### Saving Your Own Templates
+This is the full ingredient-discovery experience described in the Craft section. Selecting tags here updates the current draft; it does not create or delete taxonomy records.
 
-When you've built a prompt you want to reuse:
+### References
 
-1. Open the **Command Palette** (`Cmd/Ctrl + K`).
-2. Search for **"Save prompt"** and select it.
-3. Enter a name.
-4. Your template is now available in the gallery.
+References are stored locally in the current browser. Add supported images, review their local metadata, and use them from Craft. Large collections consume browser storage, so export a workspace backup before clearing site data.
 
-To load a saved template, search for it by name in the command palette or browse the gallery.
+## Search and commands
 
-### Template Slots
+Open global search with the header search button or `Cmd/Ctrl + K`.
 
-Advanced templates use **slots** — required or optional placeholders that you fill in. For example, a portrait template might have slots for:
+Search can find:
 
-- Subject (required)
-- Lighting style (required)
-- Background (optional)
-- Mood (optional)
+- Taxonomy ingredients
+- Built-in templates
+- Saved prompts
+- Model presets
+- Commands such as opening Home, Craft, or Library and starting a blank prompt
 
-Fill the slots to complete the template.
-
----
-
-## The Prompt Inspector
-
-The right-side panel (or Prompt tab on mobile) is your mission control. It contains several sections:
-
-### Live Prompt Output
-
-This shows your composed prompt in real time as you add or remove tags. It is formatted specifically for your **selected model**:
-
-- **Midjourney** — Prose-style with parameters (`--ar`, `--v`, `--style`)
-- **Stable Diffusion** — Comma-separated tags with weight brackets `(tag:1.2)`
-- **DALL-E 3** — Natural language sentences
-- **Flux** — Detailed structured descriptions
-
-### Actions on the Prompt
-
-- **Copy** — Copies the formatted prompt to your clipboard
-- **View Negative Prompt** — Shows the auto-generated negative prompt
-- **Edit Custom Text** — Opens the free-form text editor
-- **Expert Mode** — Reveals advanced controls like trigger words and per-tag weights
-
-### Tag Suggestions
-
-MUSE analyzes your current selections and suggests related tags that complement your prompt. These appear as tappable chips below the prompt output.
-
-### Entity Presets
-
-Save the current tag selection as a named **Entity** (character, environment, style, mood, or custom). Entities are reusable building blocks you can load into any future prompt.
-
-### Reference Images
-
-Upload reference images to attach visual context to your prompt. You can also use the **AI Tools** panel to extract descriptive tags from an uploaded image via a connected vision model.
-
----
-
-## Creative Tools
-
-### Randomizer
-
-Stuck? The **Randomizer** generates unexpected but coherent tag combinations.
-
-**Modes:**
-
-- **Smart** — Coherence-driven randomization that picks conflict-free tags across prompt slots. Optionally provide a story seed to guide the narrative direction.
-- **Wild** — Chaos-driven randomization with no coherence checks. Great for breaking out of familiar patterns.
-
-**Options:**
-
-- **Intensity** — Quick (3–5 tags across core slots) or Full (8–14 tags across all slots)
-- **Vibe** — Lock to a specific aesthetic direction (Cinematic, Dreamy, Gritty, etc.)
-- **Story Seed** — Provide a narrative theme to guide randomization in Smart mode
-- **Lock pinned tags** — Pinned tags are preserved during randomization
-
-> **Tip:** After randomizing, use Undo (`Cmd/Ctrl + Z`) to step back if you don't like the result.
-
-### AI Tools
-
-When connected to a local or remote LLM (Ollama, LM Studio, or OpenAI-compatible), MUSE offers several AI-powered assistance features:
-
-- **Enhance Prompt** — Rewrite your current prompt with improved structure, lighting, and mood details.
-- **Describe → Tags** — Type a natural language description and get matching taxonomy tags back.
-- **Suggest More** — Based on your selected tags, get AI-generated complementary suggestions.
-- **Image → Tags** — Upload an image to a vision-capable model and extract descriptive tags.
-
-Open the **AI Tools** panel from the header to access these features.
-
----
-
-## Organization & Workflow
-
-### Version History
-
-Every significant change is automatically saved as a version snapshot. You can:
-
-- **Undo** (`Cmd/Ctrl + Z`) — Step back through changes
-- **Redo** (`Cmd/Ctrl + Shift + Z` or `Cmd/Ctrl + Y`) — Step forward
-- **Save a named version** — Lock a milestone with notes
-- **Load a previous version** — Return to any saved snapshot
-
-Version history is stored locally in your browser.
-
-### Saved Prompts
-
-Save your current tag selections and custom text as reusable templates.
-
-**To save a prompt:**
-
-1. Build your prompt.
-2. Open the **Command Palette** (`Cmd/Ctrl + K`) and select **Save prompt**.
-3. Enter a name.
-4. It appears in your saved templates gallery for future use.
-
-**To load a saved prompt:**
-
-1. Browse the **Templates** tab or search for it by name in the command palette.
-2. Click to apply its tags and structure to your current session.
-
----
-
-## Local AI Integration
-
-MUSE can connect directly to local and remote AI services for text enhancement and tag extraction.
-
-### Text Enhancement (LLMs)
-
-Connect to a local or remote LLM to enhance your prompts with AI:
-
-- **Ollama** — Local open-source models (default: `http://localhost:11434`)
-- **LM Studio** — Local model server (default: `http://localhost:1234/v1`)
-- **OpenAI-compatible** — Any API that follows the OpenAI format
-
-**Setup:**
-
-1. Open **Settings** → **AI Integration**.
-2. Enter the URL of your running service.
-3. Click **Test Connection**.
-4. If successful, select your preferred model.
-
-### CORS Proxy
-
-If your local service blocks browser requests due to CORS, enter a CORS proxy URL in settings (e.g., a local Cloudflare Worker or a public proxy).
-
----
+Use Up/Down to move through results, Enter to choose, and Escape to close.
 
 ## Settings
 
-Open settings from the header menu. Available options include:
+Open **Settings** from the desktop header or **Local connections and settings** from the overflow menu.
 
-| Setting | Description |
-|---------|-------------|
-| **Theme** | Toggle between Dark and Light modes |
-| **Explicit Content** | Show or hide mature-content tags |
-| **AI Provider URLs** | Configure connections to Ollama, LM Studio, and OpenAI-compatible APIs |
-| **API Keys** | Enter OpenAI API key (stored locally) |
-| **CORS Proxy** | URL for bypassing CORS restrictions |
-| **Model Input Mode** | Auto-detect or manually specify OpenAI models |
+### General
 
-All settings are saved locally in your browser.
+- Choose filtered or complete taxonomy visibility for suggestions and randomization.
+- Show or hide built-in inspiration.
 
----
+### AI
 
-## Keyboard Shortcuts
+- Configure and test Ollama or LM Studio.
+- Configure OpenAI-compatible or Anthropic-compatible endpoints.
+- Load available models after a successful connection test.
+- Optionally use the browser gateway for OpenAI-compatible requests.
+
+Cloud API keys are stored only for the browser session. They are not written into the durable workspace and are not included in backups.
+
+### Formats
+
+Review built-in formatter profiles and manage custom formatters. The active formatter controls output structure independently of the authored text.
+
+### Data
+
+- Inspect storage durability, draft state, and Library counts.
+- Request persistent browser storage.
+- Export a complete workspace backup.
+- Restore by merging with current data or replacing it after a recovery snapshot.
+- Export local diagnostics, optionally including the current prompt text.
+- Check for and safely apply PWA updates.
+
+Backups include drafts, saved prompts, versions, formatter profiles, references, covers, and preferences. They exclude AI credentials.
+
+## Storage and offline behavior
+
+MUSE stores the workspace in IndexedDB. If IndexedDB cannot be opened, it can use recoverable legacy storage and clearly reports the reduced durability.
+
+The first successful online load installs the PWA shell and local assets. After that, tested core workflows can reload offline. Optional AI providers still require their corresponding local or network connection.
+
+Browser storage is not the same as cloud sync. To move devices or protect against cleared site data, export a backup.
+
+## Keyboard shortcuts
 
 | Shortcut | Action |
-|----------|--------|
-| `Cmd/Ctrl + K` | Open Command Palette |
+| --- | --- |
+| `Cmd/Ctrl + K` | Open global search |
 | `Cmd/Ctrl + Z` | Undo |
 | `Cmd/Ctrl + Shift + Z` | Redo |
-| `Cmd/Ctrl + Y` | Redo (alternative) |
-| `Esc` | Close Command Palette |
-| `↑ / ↓` | Navigate Command Palette results |
-| `Enter` | Select highlighted Command Palette result |
-
-> **Tip:** The Command Palette is the fastest way to find tags, load templates, save prompts, and execute commands without reaching for the mouse.
-
----
-
-## Tips & Best Practices
-
-### Start with the Subject
-
-The most important part of any prompt is the subject. Name it clearly, add physical details, and place it in context before layering style and mood.
-
-### Layer Style and Mood
-
-Style tags shape the feel of the image more than almost anything else. Pick:
-
-1. A lighting style (golden hour, neon, overcast)
-2. An art style (photorealistic, oil painting, anime)
-3. A mood word (melancholic, vibrant, serene)
-
-### Match Your Model
-
-Each model responds differently to prompt structure:
-
-- **Midjourney** — Loves evocative, poetic language. Less is often more.
-- **Stable Diffusion** — Responds well to precise tags, weighting, and negative prompts.
-- **DALL-E 3** — Use full sentences and describe the scene like a story.
-- **Flux** — Prefers detailed, structured prompts with clear hierarchy.
-
-### Use the Negative Prompt
-
-Don't ignore the negative prompt. MUSE auto-generates one based on your positive selections, but you can customize it. Common negatives include: blurry, low quality, deformed hands, extra limbs, watermark.
-
-### Pin What Matters
-
-When experimenting with the Randomizer, **pin** the tags you definitely want to keep. This prevents them from being changed.
-
-### Save Early, Save Often
-
-Use **Saved Prompts** for workflows you want to reuse, **Entities** for reusable characters or scenes, and **Templates** for repeatable starting points. Version history protects your experiments.
-
-### Reference Images
-
-Upload reference images that capture the vibe you want. They serve as visual context alongside your prompt. For deeper analysis, use the **Image → Tags** feature in the AI Tools panel if you have a vision-capable model connected.
-
----
+| `Cmd/Ctrl + Y` | Redo alternative |
+| `/` | Focus ingredient search when the tag browser is open |
+| `Escape` | Close search or clear focused ingredient search |
 
 ## Troubleshooting
 
-### App won't load / stays on loading screen
+### The app still shows an older version
 
-- Check your internet connection (the taxonomy is fetched on first load).
-- Clear browser cache and reload.
-- If installed as a PWA, uninstall and reinstall.
+Open **Settings → Data → App updates** and choose **Check now**. When an update is available, use **Update safely** so the draft is flushed before reload. A hard refresh can also request the newest deployment, but the in-app update path is safer for an active draft.
 
-### Tags don't appear in search
+### The prompt library cannot load
 
-- Wait for the taxonomy to finish loading (the loading screen shows a lightning icon).
-- Try searching with aliases or partial words — Fuse.js handles fuzzy matching.
-- If a category seems empty, check that explicit content is enabled in settings if the tags are marked mature.
+Retry from the error screen. The taxonomy is a static part of the deployment and is cached after loading. If the issue persists, verify that the deployment base path is correct and that `taxonomy/*.yaml` requests succeed.
 
-### Can't connect to local AI service
+### Storage needs attention
 
-- Verify the service is running and accessible at the URL in settings.
-- Check for CORS errors in the browser console. If present, configure a CORS proxy.
-- Ensure firewall rules allow connections from your browser to the local port.
-- For Ollama, make sure the Ollama server is started (`ollama serve`).
+Use **Retry** first. If IndexedDB remains unavailable, export recoverable data before continuing with legacy storage or changing browser privacy settings.
 
-### Undo/Redo not working
+### A local AI provider will not connect
 
-- History snapshots are saved per session. If you clear browser storage, history is lost.
-- Ensure you're not in the middle of a batch operation — history is batched during bulk changes.
+- Confirm the provider is running at the configured URL.
+- Verify its model endpoint responds in the browser environment.
+- Check provider CORS configuration.
+- Use the browser gateway only for a compatible remote endpoint you trust.
+- Remember that an installed PWA cannot make an offline cloud provider available.
 
-### Prompt looks wrong for my model
+### A saved idea is missing
 
-- Verify the correct model is selected in the model dropdown.
-- Different models use different syntax. MUSE auto-formats, but if you've manually edited custom text, it may need adjustment.
+Search the Library with words from the title, authored text, or ingredients. Clear the Favorites filter and sort by Recent. If browser data was cleared, restore the latest exported backup.
 
-### Mobile layout issues
+## More information
 
-- MUSE is designed for modern mobile browsers. Ensure your browser is up to date.
-- On iOS, use "Add to Home Screen" for the best PWA experience.
-- If the bottom tab bar overlaps content, check that your browser isn't in a compressed view mode.
-
----
-
-<p align="center">
-  <sub>Happy prompting.</sub>
-</p>
+- [Privacy and data handling](PRIVACY.md)
+- [Security policy](SECURITY.md)
+- [Release history](CHANGELOG.md)
