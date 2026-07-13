@@ -1,12 +1,12 @@
-import type { PromptTemplate, SelectedTag, SupportedModel, ModelParameters } from '@/types'
+import type { ContentVisibility, PromptTemplate, SelectedTag, SupportedModel, ModelParameters } from '@/types'
 import type { GalleryTemplate } from '@/types/templates'
-import { getTagById, searchTagIndex } from './tag-index'
+import { getTagById } from './tag-index'
 
 /** Resolve a GalleryTemplate's tagIds (or tags) to SelectedTag objects for the store */
 export async function applyGalleryTemplate(
   template: GalleryTemplate,
   selectedModel: SupportedModel,
-  showExplicit: boolean
+  contentVisibility: ContentVisibility
 ): Promise<{ tags: SelectedTag[]; customText: string; modelParams?: Partial<ModelParameters> }> {
   const resolvedTags: SelectedTag[] = []
 
@@ -14,24 +14,15 @@ export async function applyGalleryTemplate(
   if (template.tagIds && template.tagIds.length > 0) {
     for (const id of template.tagIds) {
       const tag = getTagById(id)
-      if (tag && (showExplicit || !tag.explicit)) {
+      if (tag && (contentVisibility === 'all' || !tag.explicit)) {
         resolvedTags.push({ ...tag, selectedAt: Date.now() })
       }
     }
   }
 
-  // If no tagIds matched (e.g., not yet mapped), fall back to fuzzy search on label strings
-  if (resolvedTags.length === 0 && template.tags.length > 0) {
-    for (const label of template.tags) {
-      const matches = searchTagIndex(label, showExplicit, 1)
-      if (matches.length > 0) {
-        const tag = matches[0]
-        if (!resolvedTags.some(t => t.id === tag.id)) {
-          resolvedTags.push({ ...tag, selectedAt: Date.now() })
-        }
-      }
-    }
-  }
+  // Display labels are intentionally not fuzzy-resolved. Until a template has
+  // exact taxonomy IDs its examplePrompt remains authored template language,
+  // preventing an unrelated tag from being silently selected.
 
   const modelParams = template.modelParams?.[selectedModel]
 
@@ -46,7 +37,7 @@ export async function applyGalleryTemplate(
 export function applyPromptTemplate(
   template: PromptTemplate,
   selectedModel: SupportedModel,
-  showExplicit: boolean
+  contentVisibility: ContentVisibility
 ): { tags: SelectedTag[]; customText: string; modelParams?: Partial<ModelParameters> } {
   let tags = template.selections ?? []
 
@@ -56,7 +47,7 @@ export function applyPromptTemplate(
     for (const id of template.tagIds) {
       if (existingIds.has(id)) continue
       const tag = getTagById(id)
-      if (tag && (showExplicit || !tag.explicit)) {
+      if (tag && (contentVisibility === 'all' || !tag.explicit)) {
         tags = [...tags, { ...tag, selectedAt: Date.now() }]
       }
     }

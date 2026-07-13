@@ -7,7 +7,6 @@ import { RANDOMIZER_MODES } from '@/data/randomizer-modes'
 import { MODEL_CONFIGS, MODEL_GROUPS } from '@/data/model-configs'
 import type { SupportedModel } from '@/types'
 import {
-  BookOpen,
   Rocket,
   SquaresFour,
   Shuffle,
@@ -135,7 +134,7 @@ export function PromptGuide() {
 
   const setCustomText = usePromptSmithStore((s) => s.setCustomText)
   const setSelectedModel = usePromptSmithStore((s) => s.setSelectedModel)
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
 
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -159,7 +158,7 @@ export function PromptGuide() {
       <div>
         <h2 className="font-display text-[2rem] font-normal text-[var(--ui-text)] tracking-tight">Prompting Guide</h2>
         <p className="text-[13px] text-[var(--ui-muted-text)] mt-1">
-          Learn how PromptSmith thinks about prompts — then make it your own.
+          Learn how MUSE thinks about prompts — then make it your own.
         </p>
       </div>
 
@@ -173,7 +172,7 @@ export function PromptGuide() {
               key={sec.id}
               onClick={() => setActiveSection(sec.id)}
               className={cn(
-                'flex items-center gap-2 px-3.5 py-2 rounded-full border text-sm font-medium transition-all duration-150',
+                'flex items-center gap-2 px-3.5 py-2 rounded-lg border text-sm font-medium transition-all duration-150',
                 active
                   ? 'bg-[var(--ui-text)] text-[var(--ui-bg)] border-[var(--ui-text)]'
                   : 'border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]'
@@ -213,7 +212,7 @@ export function PromptGuide() {
           {activeSection === 'slots' && <SlotSystemSection />}
           {activeSection === 'randomizer' && <RandomizerSection />}
           {activeSection === 'models' && <ModelsSection />}
-          {activeSection === 'power' && <PowerFeaturesSection showExplicit={showExplicit} />}
+          {activeSection === 'power' && <PowerFeaturesSection contentVisibility={contentVisibility} />}
           {activeSection === 'patterns' && <PatternsSection onCopy={handleCopy} copiedId={copiedId} />}
         </motion.div>
       </AnimatePresence>
@@ -253,7 +252,7 @@ function QuickStartSection({
     {
       number: '4',
       title: 'Copy and generate',
-      body: 'PromptSmith formats your tags and custom text for your target model. Copy the result, paste into your generator, and iterate.',
+      body: 'MUSE formats your tags and custom text for your target model. Copy the result, use it as drawing reference, or paste it into your generator.',
     },
   ]
 
@@ -289,21 +288,21 @@ function QuickStartSection({
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-[var(--ui-text)]">{ex.title}</span>
-                  <span className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text-faint)] border border-[var(--ui-border-faint)] rounded-full px-2 py-0.5">
+                  <span className="text-[10px] uppercase tracking-wider text-[var(--ui-muted-text-faint)] border border-[var(--ui-border-faint)] rounded-lg px-2 py-0.5">
                     {MODEL_CONFIGS[ex.model].name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => onCopy(ex.customText, ex.id)}
-                    className="flex items-center gap-1 text-[10px] text-[var(--ui-muted-text)]/60 hover:text-[var(--ui-text)] border border-[var(--ui-border)] rounded-full px-2.5 py-1 transition-all duration-150"
+                    className="flex items-center gap-1 text-[10px] text-[var(--ui-muted-text)]/60 hover:text-[var(--ui-text)] border border-[var(--ui-border)] rounded-lg px-2.5 py-1 transition-all duration-150"
                   >
                     {copiedId === ex.id ? <Check weight="bold" className="w-3 h-3" /> : <Copy weight="regular" className="w-3 h-3" />}
                     {copiedId === ex.id ? 'Copied' : 'Copy'}
                   </button>
                   <button
                     onClick={() => onLoadExample(ex)}
-                    className="flex items-center gap-1 text-[10px] text-[var(--ui-bg)] bg-[var(--ui-text)] hover:opacity-90 rounded-full px-2.5 py-1 transition-all duration-150"
+                    className="flex items-center gap-1 text-[10px] text-[var(--ui-bg)] bg-[var(--ui-text)] hover:opacity-90 rounded-lg px-2.5 py-1 transition-all duration-150"
                   >
                     <DownloadSimple weight="regular" className="w-3 h-3" />
                     {loadedId === ex.id ? 'Loaded' : 'Load'}
@@ -330,7 +329,7 @@ function SlotSystemSection() {
       <div className="border border-[var(--ui-border)] rounded-2xl p-5 space-y-3">
         <h3 className="text-sm font-medium text-[var(--ui-text)]">The 8-slot philosophy</h3>
         <p className="text-xs leading-relaxed text-[var(--ui-muted-text)]">
-          PromptSmith organizes tags into 8 distinct roles. You do not need to fill every slot — a clear Subject, Setting, and one strong Style or Lighting choice is usually enough to start. The Randomizer uses these same slots to build coherent prompts.
+          MUSE organizes tags into 8 distinct roles. You do not need to fill every slot — a clear Subject, Setting, and one strong Style or Lighting choice is usually enough to start. The Randomizer uses these same slots to build coherent prompts.
         </p>
       </div>
 
@@ -346,7 +345,7 @@ function SlotSystemSection() {
                 <Icon weight="regular" className="w-4 h-4 text-[var(--ui-muted-text)]/40" />
                 <h4 className="text-sm font-medium text-[var(--ui-text)]">{slot.label}</h4>
                 {slot.required && (
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400/70 border border-amber-400/20 rounded-full px-1.5 py-0.5">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400/70 border border-amber-400/20 rounded-lg px-1.5 py-0.5">
                     Required
                   </span>
                 )}
@@ -358,7 +357,7 @@ function SlotSystemSection() {
                 {slot.taxonomyCategoryIds.map((cat) => (
                   <span
                     key={cat}
-                    className="text-[10px] text-[var(--ui-muted-text-faint)] bg-[var(--ui-surface-soft)] border border-[var(--ui-border-faint)] rounded-full px-2 py-0.5"
+                    className="text-[10px] text-[var(--ui-muted-text-faint)] bg-[var(--ui-surface-soft)] border border-[var(--ui-border-faint)] rounded-lg px-2 py-0.5"
                   >
                     {cat.replace(/_/g, ' ')}
                   </span>
@@ -437,7 +436,7 @@ function RandomizerSection() {
                 {vibe.accentKeywords.slice(0, 3).map((kw) => (
                   <span
                     key={kw}
-                    className="text-[10px] text-[var(--ui-muted-text-faint)] bg-[var(--ui-surface-soft)] border border-[var(--ui-border-faint)] rounded-full px-2 py-0.5"
+                    className="text-[10px] text-[var(--ui-muted-text-faint)] bg-[var(--ui-surface-soft)] border border-[var(--ui-border-faint)] rounded-lg px-2 py-0.5"
                   >
                     {kw}
                   </span>
@@ -487,9 +486,9 @@ function ModelsSection() {
   return (
     <div className="space-y-6">
       <div className="border border-[var(--ui-border)] rounded-2xl p-5 space-y-3">
-        <h3 className="text-sm font-medium text-[var(--ui-text)]">How PromptSmith formats for each model</h3>
+        <h3 className="text-sm font-medium text-[var(--ui-text)]">How MUSE formats for each model</h3>
         <p className="text-xs leading-relaxed text-[var(--ui-muted-text)]">
-          Different generators expect different prompt syntax. PromptSmith automatically adapts your tag selection, custom text, weights, and parameters to match the target model. Here is what each family expects.
+          Different generators expect different prompt syntax. MUSE automatically adapts your tag selection, custom text, weights, and parameters to match the target model. Here is what each family expects.
         </p>
       </div>
 
@@ -511,12 +510,12 @@ function ModelsSection() {
                     </div>
                     <div className="flex items-center gap-1.5">
                       {cfg.supportsNegative && (
-                        <span className="text-[9px] uppercase tracking-wider text-emerald-400/70 border border-emerald-400/20 rounded-full px-1.5 py-0.5">
+                        <span className="text-[9px] uppercase tracking-wider text-emerald-400/70 border border-emerald-400/20 rounded-lg px-1.5 py-0.5">
                           Negative
                         </span>
                       )}
                       {cfg.supportsWeighting && (
-                        <span className="text-[9px] uppercase tracking-wider text-sky-400/70 border border-sky-400/20 rounded-full px-1.5 py-0.5">
+                        <span className="text-[9px] uppercase tracking-wider text-sky-400/70 border border-sky-400/20 rounded-lg px-1.5 py-0.5">
                           Weights
                         </span>
                       )}
@@ -577,7 +576,7 @@ function ModelsSection() {
 
 // ─── POWER FEATURES ──────────────────────────────────────────────────────────
 
-function PowerFeaturesSection({ showExplicit }: { showExplicit: boolean }) {
+function PowerFeaturesSection({ contentVisibility }: { contentVisibility: 'filtered' | 'all' }) {
   const features = [
     {
       icon: Tray,
@@ -604,11 +603,11 @@ function PowerFeaturesSection({ showExplicit }: { showExplicit: boolean }) {
     },
     {
       icon: Lock,
-      title: 'Safe / Unfiltered Toggle',
+      title: 'Taxonomy visibility',
       description:
-        'Control whether explicit content tags appear in search, browsing, and randomization. When Safe is on, explicit tags are hidden from the entire interface.',
-      badge: showExplicit ? 'Unfiltered' : 'Safe',
-      badgeColor: showExplicit ? 'text-amber-400/70 border-amber-400/20' : 'text-emerald-400/70 border-emerald-400/20',
+        'Control whether mature taxonomy tags appear in search, browsing, and randomization. This never changes your own words or saved prompts.',
+      badge: contentVisibility === 'all' ? 'All tags' : 'Filtered tags',
+      badgeColor: contentVisibility === 'all' ? 'text-amber-400/70 border-amber-400/20' : 'text-emerald-400/70 border-emerald-400/20',
     },
     {
       icon: Keyboard,
@@ -631,7 +630,7 @@ function PowerFeaturesSection({ showExplicit }: { showExplicit: boolean }) {
               {'badge' in f && f.badge && (
                 <span
                   className={cn(
-                    'text-[9px] font-bold uppercase tracking-wider border rounded-full px-1.5 py-0.5 ml-auto',
+                    'text-[9px] font-bold uppercase tracking-wider border rounded-lg px-1.5 py-0.5 ml-auto',
                     f.badgeColor
                   )}
                 >
@@ -699,7 +698,7 @@ function PatternsSection({ onCopy, copiedId }: { onCopy: (text: string, id: stri
       title: 'Negative prompt strategy',
       before: '(no negative prompt)',
       after: 'blurry, low quality, deformed hands, extra fingers, mutated, watermark, signature, text, cropped, worst quality',
-      note: 'Negative prompts are especially powerful on Stable Diffusion and FLUX. PromptSmith auto-generates them, but you can customize.',
+      note: 'Negative prompts are especially powerful on Stable Diffusion and FLUX. MUSE auto-generates them, but you can customize.',
     },
   ]
 
@@ -722,7 +721,7 @@ function PatternsSection({ onCopy, copiedId }: { onCopy: (text: string, id: stri
               <h4 className="text-sm font-medium text-[var(--ui-text)]">{pat.title}</h4>
               <button
                 onClick={() => onCopy(pat.after, pat.id)}
-                className="flex items-center gap-1 text-[10px] text-[var(--ui-muted-text)]/60 hover:text-[var(--ui-text)] border border-[var(--ui-border)] rounded-full px-2.5 py-1 transition-all duration-150"
+                className="flex items-center gap-1 text-[10px] text-[var(--ui-muted-text)]/60 hover:text-[var(--ui-text)] border border-[var(--ui-border)] rounded-lg px-2.5 py-1 transition-all duration-150"
               >
                 {copiedId === pat.id ? <Check weight="bold" className="w-3 h-3" /> : <Copy weight="regular" className="w-3 h-3" />}
                 {copiedId === pat.id ? 'Copied' : 'Copy improved'}

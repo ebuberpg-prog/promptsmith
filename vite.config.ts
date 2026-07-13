@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      registerType: 'prompt',
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', 'inspiration/*.avif'],
       manifest: {
         name: 'MUSE — Prompt Studio',
         short_name: 'MUSE',
@@ -48,7 +48,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,yaml}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,avif,woff,woff2,yaml}'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
       }
     })

@@ -1,5 +1,8 @@
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Dialog } from '@base-ui/react/dialog'
+import { Menu } from '@base-ui/react/menu'
+import { AlertDialog } from '@base-ui/react/alert-dialog'
 import {
   FloppyDisk,
   FolderOpen,
@@ -26,7 +29,7 @@ const KIND_LABELS: Record<EntityKind, string> = {
 
 const KIND_ORDER: EntityKind[] = ['character', 'environment', 'style', 'mood', 'custom']
 
-export function EntityPresets() {
+export function EntityPresets({ embedded = false }: { embedded?: boolean }) {
   const savedEntities = usePromptSmithStore((s) => s.savedEntities)
   const saveEntity = usePromptSmithStore((s) => s.saveEntity)
   const loadEntity = usePromptSmithStore((s) => s.loadEntity)
@@ -105,11 +108,11 @@ export function EntityPresets() {
   const favoriteCount = savedEntities.filter(e => e.isFavorite).length
 
   return (
-    <div className="border border-[var(--ui-border)] rounded-2xl p-5 space-y-4">
+    <div className={embedded ? 'space-y-4' : 'border border-[var(--ui-border)] rounded-2xl p-5 space-y-4'}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xs font-medium text-[var(--ui-text)]">Saved Entities</h3>
+          <h3 className="text-xs font-medium text-[var(--ui-text)]">Reusable building blocks</h3>
           <p className="text-[10px] text-[var(--ui-muted-text)]/40 mt-0.5">
             {totalEntities === 0 ? 'No saved entities yet' : `${totalEntities} saved${favoriteCount > 0 ? `, ${favoriteCount} starred` : ''}`}
           </p>
@@ -177,7 +180,7 @@ export function EntityPresets() {
       {/* Entity list */}
       {totalEntities === 0 ? (
         <div className="py-6 text-center">
-          <p className="text-xs text-[var(--ui-muted-text)]/20">Save tag combinations as reusable entities.</p>
+          <p className="text-xs text-[var(--ui-muted-text)]">Save the current ingredients as a character, environment, style, or mood.</p>
         </div>
       ) : (
         <div className="space-y-1 max-h-[400px] overflow-y-auto scrollbar-hide">
@@ -225,28 +228,15 @@ export function EntityPresets() {
       )}
 
       {/* Save dialog */}
-      <AnimatePresence>
-        {showSaveDialog && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[var(--ui-bg)]/60 z-50 flex items-center justify-center"
-            onClick={() => setShowSaveDialog(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 8 }}
-              transition={{ duration: 0.15 }}
-              onClick={e => e.stopPropagation()}
-              className="w-full max-w-sm mx-4 border border-[var(--ui-border)] rounded-2xl bg-[var(--ui-bg)] p-5 space-y-4"
-            >
+      <Dialog.Root open={showSaveDialog} onOpenChange={setShowSaveDialog}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--ui-overlay)]" />
+          <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 border border-[var(--ui-border)] rounded-2xl bg-[var(--ui-bg)] p-5 space-y-4" aria-label="Save entity">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-medium text-[var(--ui-text)]">Save Entity</h4>
-                <button onClick={() => setShowSaveDialog(false)} className="text-[var(--ui-muted-text)]/40 hover:text-[var(--ui-muted-text)] transition-colors">
+                <Dialog.Close className="size-11 flex items-center justify-center text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors" aria-label="Close save entity">
                   <X weight="bold" className="w-4 h-4" />
-                </button>
+                </Dialog.Close>
               </div>
 
               <div className="space-y-3">
@@ -269,7 +259,7 @@ export function EntityPresets() {
                       <button
                         key={kind}
                         onClick={() => setSaveKind(kind)}
-                        className={`px-2.5 py-1 rounded-full text-[10px] border transition-colors ${
+                        className={`px-2.5 py-1 rounded-lg text-[10px] border transition-colors ${
                           saveKind === kind
                             ? 'border-[var(--ui-text)]/40 text-[var(--ui-text)] bg-[var(--ui-surface-soft)]'
                             : 'border-[var(--ui-border)] text-[var(--ui-muted-text)]/40 hover:border-[var(--ui-border-hover)]'
@@ -296,17 +286,16 @@ export function EntityPresets() {
                   <button
                     onClick={handleSave}
                     disabled={!saveName.trim()}
-                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[var(--ui-surface)] transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-xs font-medium disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[var(--ui-surface)] transition-colors"
                   >
                     <FloppyDisk weight="fill" className="w-3.5 h-3.5" />
                     Save
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   )
 }
@@ -324,7 +313,7 @@ function EntityRow({
   onDelete: () => void
   onToggleFavorite: () => void
 }) {
-  const [showActions, setShowActions] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   return (
     <div className="group flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-[var(--ui-surface-soft)] transition-colors">
@@ -353,41 +342,25 @@ function EntityRow({
 
       {/* Actions */}
       <div className="relative flex-shrink-0">
-        <button
-          onClick={() => setShowActions(!showActions)}
-          className="p-1 rounded opacity-0 group-hover:opacity-100 text-[var(--ui-muted-text)]/25 hover:text-[var(--ui-muted-text)]/50 transition-all"
-        >
-          <CaretDown weight="bold" className="w-2.5 h-2.5" />
-        </button>
-
-        <AnimatePresence>
-          {showActions && (
-            <>
-              <div className="fixed inset-0 z-10" onClick={() => setShowActions(false)} />
-              <motion.div
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="absolute right-0 top-full mt-1 w-36 border border-[var(--ui-border)] rounded-lg bg-[var(--ui-bg)] z-20 py-1"
-              >
-                <button
-                  onClick={() => { onLoadAppend(); setShowActions(false) }}
-                  className="w-full px-3 py-1.5 text-left text-[10px] text-[var(--ui-muted-text)]/50 hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-soft)] transition-colors flex items-center gap-2"
+        <Menu.Root><Menu.Trigger className="size-11 rounded-full flex items-center justify-center text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-all" aria-label={`More actions for ${entity.name}`}>
+          <CaretDown weight="bold" className="w-3 h-3" />
+        </Menu.Trigger><Menu.Portal><Menu.Positioner align="end" sideOffset={6} className="z-40"><Menu.Popup className="w-40 border border-[var(--ui-border)] rounded-lg bg-[var(--ui-bg)] p-1.5 shadow-lg">
+                <Menu.Item
+                  onClick={onLoadAppend}
+                  className="min-h-11 px-3 rounded-md text-left text-xs text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] data-[highlighted]:bg-[var(--ui-surface-soft)] outline-none flex items-center gap-2"
                 >
                   <FolderOpen weight="regular" className="w-3 h-3" />
                   Append to current
-                </button>
-                <button
-                  onClick={() => { onDelete(); setShowActions(false) }}
-                  className="w-full px-3 py-1.5 text-left text-[10px] text-red-400/50 hover:text-red-400 hover:bg-[var(--ui-surface-soft)] transition-colors flex items-center gap-2"
+                </Menu.Item>
+                <Menu.Item
+                  onClick={() => setDeleteOpen(true)}
+                  className="min-h-11 px-3 rounded-md text-left text-xs text-[var(--destructive)] data-[highlighted]:bg-[var(--ui-surface-soft)] outline-none flex items-center gap-2"
                 >
                   <Trash weight="regular" className="w-3 h-3" />
                   Delete
-                </button>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
+                </Menu.Item>
+        </Menu.Popup></Menu.Positioner></Menu.Portal></Menu.Root>
+        <AlertDialog.Root open={deleteOpen} onOpenChange={setDeleteOpen}><AlertDialog.Portal><AlertDialog.Backdrop className="fixed inset-0 z-40 bg-[var(--ui-overlay)]" /><AlertDialog.Popup className="fixed left-1/2 top-1/2 z-50 w-[min(92vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-bg)] p-6"><AlertDialog.Title className="font-display text-2xl">Delete {entity.name}?</AlertDialog.Title><AlertDialog.Description className="mt-2 text-sm text-[var(--ui-muted-text)]">This removes the local entity preset from this device.</AlertDialog.Description><div className="mt-6 flex justify-end gap-2"><AlertDialog.Close className="min-h-11 px-4 rounded-lg border border-[var(--ui-border)]">Cancel</AlertDialog.Close><AlertDialog.Close onClick={onDelete} className="min-h-11 px-4 rounded-lg border border-[var(--destructive)]">Delete</AlertDialog.Close></div></AlertDialog.Popup></AlertDialog.Portal></AlertDialog.Root>
       </div>
     </div>
   )

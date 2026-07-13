@@ -1,5 +1,6 @@
 export interface TaxonomyTag {
   id: string
+  sourceId?: string
   label: string
   aliases: string[]
   description: string
@@ -44,6 +45,142 @@ export interface PromptTemplate {
   icon?: string
   description?: string
   category?: string
+  isFavorite?: boolean
+  lastOpenedAt?: number
+  source?: 'composer' | 'template' | 'manual' | 'import' | 'formatter' | 'variation' | 'enhance' | 'restore'
+  formatterProfileId?: string
+  variables?: PromptVariable[]
+  coverImageDataUrl?: string
+}
+
+export type ContentVisibility = 'filtered' | 'all'
+export type WorkspaceDepth = 'simple' | 'studio'
+export type WorkspaceView = 'home' | 'craft' | 'library'
+export type PromptDimension = 'subject' | 'setting' | 'lighting' | 'composition' | 'style'
+export type FormatFamily = 'natural-language' | 'tag-list' | 'midjourney-params' | 'structured-instruction' | 'custom'
+export type StorageDurability = 'persistent' | 'best-effort' | 'unavailable' | 'denied'
+export type LocalAIProviderId = 'ollama' | 'lmstudio' | 'openai-compatible' | 'anthropic-compatible'
+export type DraftPersistenceState = 'saving' | 'saved' | 'best-effort' | 'error'
+export type EnhancementGoal = 'preserve-intent' | 'more-visual' | 'lighting' | 'composition' | 'concise'
+export type FeatureIntegrity = 'complete' | 'partial' | 'simulated' | 'misleading' | 'unreachable'
+
+export interface AIEnhancementRequest {
+  authoredText: string
+  ingredients: Array<{ label: string; dimension?: string; weight?: number }>
+  goal: EnhancementGoal
+  formatFamily?: FormatFamily
+  formatGuidance?: string
+}
+
+export interface AIEnhancementResult {
+  text: string
+  provider: LocalAIProviderId
+  model: string
+  goal: EnhancementGoal
+  completedAt: number
+}
+
+export interface LocalModelCapabilities {
+  text: boolean
+  vision: boolean
+}
+
+export interface InspirationAsset {
+  id: string
+  src: string
+  srcSet: string
+  width: number
+  height: number
+  alt: string
+  territory: string
+  promptSeed: string
+  tagIds: string[]
+  palette: string[]
+  mood?: string
+  composition?: string
+  source: 'muse-original'
+}
+
+export interface ReferenceAssetMetadata {
+  mimeType: string
+  width: number
+  height: number
+  originalBytes: number
+  thumbnailDataUrl?: string
+  altText: string
+  analysisStatus: 'not-analyzed' | 'analyzing' | 'analyzed' | 'unsupported' | 'error'
+  analyzedBy?: { provider: LocalAIProviderId; model: string; analyzedAt: number }
+  analysisError?: string
+}
+
+export interface PromptVariable {
+  name: string
+  defaultValue?: string
+  value?: string
+}
+
+export interface FormatterProfile {
+  id: string
+  name: string
+  family: FormatFamily
+  model?: SupportedModel
+  version?: string
+  supportsNegative: boolean
+  supportsWeighting: boolean
+  triggerWordStyle: 'prefix' | 'inline' | 'none'
+  parameterDefaults: ModelParameters
+  template?: string
+  enhancementGuidance?: string
+  isBuiltIn: boolean
+}
+
+export interface DraftSnapshot {
+  id: string
+  createdAt: number
+  source: 'idle' | 'randomize' | 'template' | 'enhance' | 'import' | 'restore' | 'manual'
+  customText: string
+  selectedTags: SelectedTag[]
+  selectedModel: SupportedModel
+  formatterProfileId: string
+  parameters: ModelParameters
+  variables?: PromptVariable[]
+}
+
+export interface TagSearchResult {
+  tag: TaxonomyTag
+  score: number
+  matchedPhrase: string
+  matchedField: 'label' | 'alias' | 'description'
+}
+
+export interface MuseBackupV1 {
+  _schema: 'muse-backup-v1'
+  exportedAt: number
+  appVersion: string
+  state: {
+    draft: DraftSnapshot
+    savedPrompts: PromptTemplate[]
+    savedEntities: SavedEntity[]
+    referenceImages: ReferenceImage[]
+    promptVersions: Record<string, PromptVersion[]>
+    draftSnapshots: DraftSnapshot[]
+    formatterProfiles: FormatterProfile[]
+    preferences: {
+      contentVisibility: ContentVisibility
+      workspaceDepth: WorkspaceDepth
+      theme: 'light' | 'dark'
+      pinnedTags: string[]
+      recentlyUsedTags: string[]
+    }
+  }
+}
+
+export interface ComposerAnalysis {
+  rawInput: string
+  suggestions: TaxonomyTag[]
+  scoredSuggestions?: TagSearchResult[]
+  presentDimensions: PromptDimension[]
+  missingDimensions: PromptDimension[]
 }
 
 export interface TemplateSlot {
@@ -112,6 +249,7 @@ export interface ReferenceImage {
   name: string
   analysis?: ImageAnalysis
   visualFeatures?: VisualFeatures
+  metadata?: ReferenceAssetMetadata
 }
 
 export interface ExtractedTag {
@@ -178,6 +316,7 @@ export interface PromptVersion {
   content: string
   negativeContent?: string
   model: SupportedModel
+  formatterProfileId?: string
   parameters: ModelParameters
   createdAt: number
   notes?: string
@@ -336,10 +475,24 @@ export interface AppState {
   selectedTags: SelectedTag[]
   customText: string
   selectedModel: SupportedModel
-  showExplicit: boolean
+  contentVisibility: ContentVisibility
+  workspaceDepth: WorkspaceDepth
+  workspaceView: WorkspaceView
   activeCategory: string | null
   searchQuery: string
   savedPrompts: PromptTemplate[]
   referenceImages: ReferenceImage[]
   negativeIntelligence: NegativePromptIntelligence | null
+  selectedFormatterProfileId: string
+  customFormatterProfiles: FormatterProfile[]
+  promptVariables: PromptVariable[]
+  promptVersions: Record<string, PromptVersion[]>
+  draftSnapshots: DraftSnapshot[]
+  storageDurability: StorageDurability
+  lastBackupAt: number | null
+  activePromptId: string | null
+  draftDirty: boolean
+  draftPersistenceState: DraftPersistenceState
+  lastEnhancement: AIEnhancementResult | null
+  showInspiration: boolean
 }

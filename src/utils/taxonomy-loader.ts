@@ -2,6 +2,7 @@ import yaml from 'js-yaml'
 import type { TaxonomyCategory, TaxonomyTag } from '@/types'
 import { getCachedTags, setCachedTags, computeVersion } from './taxonomy-cache'
 import { addTagsToIndex } from './tag-index'
+import { normalizeTaxonomyTag } from './taxonomy-tag'
 
 const TAXONOMY_BASE = `${import.meta.env.BASE_URL}taxonomy/`
 
@@ -60,11 +61,11 @@ export function processTags(obj: Record<string, unknown>, categoryId: string, su
     if (Array.isArray(value)) {
       for (const item of value) {
         if (item && typeof item === 'object' && 'id' in item && 'label' in item) {
-          tags.push({
+          tags.push(normalizeTaxonomyTag({
             ...(item as TaxonomyTag),
             category: categoryId,
             subcategory: subcategoryId || key,
-          })
+          }))
         }
       }
     } else if (value && typeof value === 'object') {
@@ -89,7 +90,7 @@ function buildCategoryStructure(
         .filter((item): item is TaxonomyTag =>
           item !== null && typeof item === 'object' && 'id' in item && 'label' in item
         )
-        .map((tag) => ({
+        .map((tag) => normalizeTaxonomyTag({
           ...tag,
           category: parentId || key,
           subcategory: key,
@@ -181,62 +182,48 @@ function dedupeCategories(categories: TaxonomyCategory[]): TaxonomyCategory[] {
 /** Load all taxonomy files. Uses IndexedDB cache on repeat visits. */
 export async function loadTaxonomy(): Promise<TaxonomyCategory[]> {
   const allCategories: TaxonomyCategory[] = []
-  const cacheVersion = computeVersion(TAXONOMY_FILES)
 
   // Clear loadedFiles to handle HMR (hot module replacement) in dev
   // The Set persists across reloads, causing files to be skipped
   loadedFiles.clear()
 
-  // Try cache first
+  // Fetch concurrently so startup time is not multiplied by the number of files.
+  const loaded = (await Promise.all(
+    TAXONOMY_FILES.map(async (file) => {
+      try {
+      const response = await fetch(file)
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const text = await response.text()
+      const data = yaml.load(text) as Record<string, unknown>
+        return data ? { file, text, data } : null
+      } catch (error) {
+        console.error(`Failed to load taxonomy file: ${file}`, error)
+        return null
+      }
+    })
+  )).filter((entry): entry is { file: string; text: string; data: Record<string, unknown> } => entry !== null)
+
+  if (loaded.length === 0) return []
+
+  for (const { file, data } of loaded) {
+    allCategories.push(...buildCategoryStructure(data))
+    loadedFiles.add(file)
+  }
+
+  const cacheVersion = computeVersion(
+    loaded.map(({ file }) => file),
+    loaded.map(({ text }) => text)
+  )
   const cached = await getCachedTags(cacheVersion)
+
   if (cached) {
     addTagsToIndex(cached)
-    // Still need to build category structure — load files but use cache for tags
-    for (const file of TAXONOMY_FILES) {
-      try {
-        if (loadedFiles.has(file)) continue
-        const response = await fetch(file)
-        if (!response.ok) continue
-        const text = await response.text()
-        const data = yaml.load(text) as Record<string, unknown>
-        if (data) {
-          allCategories.push(...buildCategoryStructure(data))
-          loadedFiles.add(file)
-        }
-      } catch {
-        // non-fatal
-      }
-    }
     return dedupeCategories(allCategories)
   }
 
-  // No cache — load fresh
-  const allTags: TaxonomyTag[] = []
-
-  for (const file of TAXONOMY_FILES) {
-    if (loadedFiles.has(file)) continue
-    try {
-      const response = await fetch(file)
-      if (!response.ok) continue
-      const text = await response.text()
-      const data = yaml.load(text) as Record<string, unknown>
-
-      if (data) {
-        const categoryId = fileKeyToId(file)
-        const tags = processTags(data, categoryId)
-        allTags.push(...tags)
-        allCategories.push(...buildCategoryStructure(data))
-        loadedFiles.add(file)
-      }
-    } catch (error) {
-      console.error(`Failed to load taxonomy file: ${file}`, error)
-    }
-  }
-
+  const allTags = loaded.flatMap(({ file, data }) => processTags(data, fileKeyToId(file)))
   addTagsToIndex(allTags)
   await setCachedTags(cacheVersion, allTags)
 
   return dedupeCategories(allCategories)
 }
-
-

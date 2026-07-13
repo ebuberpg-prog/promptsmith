@@ -999,9 +999,9 @@ export const TEMPLATE_CATEGORIES = [
 ]
 
 export const DIFFICULTY_LABELS = {
-  beginner: 'Easy',
-  intermediate: 'Medium',
-  advanced: 'Advanced',
+  beginner: 'Quick start',
+  intermediate: 'Guided',
+  advanced: 'Technical',
 }
 
 export const DIFFICULTY_COLORS = {

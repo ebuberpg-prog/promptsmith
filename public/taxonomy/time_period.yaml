@@ -162,20 +162,6 @@ modern:
       explicit: false
       weight: 1.0
 
-    - id: time_edwardian
-      label: "Edwardian"
-      aliases: ["pre-WWI", "early 1900s"]
-      description: "Edwardian period aesthetics"
-      explicit: false
-      weight: 1.0
-
-    - id: time_1920s
-      label: "1920s"
-      aliases: ["Roaring Twenties", "Jazz Age", "Art Deco"]
-      description: "1920s Roaring Twenties aesthetics"
-      explicit: false
-      weight: 1.0
-
     - id: time_1930s
       label: "1930s"
       aliases: ["Great Depression", "Art Deco", "Golden Age Hollywood"]

@@ -33,7 +33,7 @@ function CategoryItem({ category, depth = 0 }: { category: TaxonomyCategory; dep
             ? expanded
               ? <CaretDown weight="regular" className="w-3 h-3" />
               : <CaretRight weight="regular" className="w-3 h-3" />
-            : <span className={`w-1 h-1 rounded-full ${isActive ? 'bg-[#f5f5f5]' : 'bg-[#555]'}`} />
+            : <span className={`w-1 h-1 rounded-lg ${isActive ? 'bg-[#f5f5f5]' : 'bg-[#555]'}`} />
           }
         </span>
         <span className="truncate font-medium text-xs">{category.name}</span>
@@ -80,7 +80,7 @@ export function Sidebar({ taxonomy }: { taxonomy: TaxonomyCategory[] }) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search..."
-            className="w-full pl-9 pr-3 py-2 bg-transparent border border-[#1a1a1a] rounded-full text-xs text-[#f5f5f5] placeholder:text-[#333] outline-none focus:border-[#333] transition-colors duration-150"
+            className="w-full pl-9 pr-3 py-2 bg-transparent border border-[#1a1a1a] rounded-lg text-xs text-[#f5f5f5] placeholder:text-[#333] outline-none focus:border-[#333] transition-colors duration-150"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ export function Sidebar({ taxonomy }: { taxonomy: TaxonomyCategory[] }) {
       {/* Footer */}
       <div className="px-4 py-3 border-t border-[#1a1a1a]">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#333]" />
+          <span className="w-1.5 h-1.5 rounded-lg bg-[#333]" />
           <span className="text-[10px] font-mono text-[#333]">MUSE v0.9.4</span>
         </div>
       </div>

@@ -182,27 +182,6 @@ fashion:
     explicit: false
     weight: 1.0
 
-  - id: sub_vaporwave
-    label: "vaporwave"
-    aliases: ["retrowave", "synthwave aesthetic", "90s digital"]
-    description: "Vaporwave aesthetic"
-    explicit: false
-    weight: 1.0
-
-  - id: sub_cottagecore
-    label: "cottagecore"
-    aliases: ["farmcore", "countryside aesthetic", "romantic rural"]
-    description: "Cottagecore aesthetic"
-    explicit: false
-    weight: 1.0
-
-  - id: sub_dark_academia
-    label: "dark academia"
-    aliases: ["tome aesthetic", "literary dark", "scholar gothic"]
-    description: "Dark academia aesthetic"
-    explicit: false
-    weight: 1.0
-
   - id: sub_light_academia
     label: "light academia"
     aliases: ["bright scholarly", "preppy academic"]

@@ -2,8 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import { usePromptSmithStore } from '@/store/prompt-store'
 import { searchTagIndex } from '@/utils/tag-index'
 import { getGroupForCategory } from '@/data/category-colors'
+import { MODEL_CONFIGS } from '@/data/model-configs'
+import { BLUEPRINT_TEMPLATES } from '@/data/template-blueprints'
+import { applyGalleryTemplate } from '@/utils/template-engine'
 
-export type CommandResultType = 'tag' | 'template' | 'command'
+export type CommandResultType = 'tag' | 'template' | 'model' | 'command'
 
 export interface CommandResult {
   id: string
@@ -21,16 +24,16 @@ export function useCommandPalette() {
   const [results, setResults] = useState<CommandResult[]>([])
 
   const toggleTag = usePromptSmithStore((s) => s.toggleTag)
-  const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
-  const savePrompt = usePromptSmithStore((s) => s.savePrompt)
+  const startNewPrompt = usePromptSmithStore((s) => s.startNewPrompt)
   const savedPrompts = usePromptSmithStore((s) => s.savedPrompts)
   const loadPrompt = usePromptSmithStore((s) => s.loadPrompt)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
 
   const buildCommands = useCallback((): CommandResult[] => {
     const cmds: CommandResult[] = []
 
     if (query.length >= 2) {
-      const tagResults = searchTagIndex(query, true, 20)
+      const tagResults = searchTagIndex(query, contentVisibility, 20)
       for (const tag of tagResults) {
         cmds.push({
           id: `tag-${tag.id}`,
@@ -41,6 +44,46 @@ export function useCommandPalette() {
           action: () => toggleTag(tag),
         })
         if (cmds.filter(c => c.type === 'tag').length >= 8) break
+      }
+
+      const builtInTemplates = BLUEPRINT_TEMPLATES.filter((template) =>
+        `${template.name} ${template.description} ${template.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase()),
+      ).slice(0, 4)
+      for (const template of builtInTemplates) {
+        cmds.push({
+          id: `built-in-${template.id}`,
+          type: 'template',
+          label: template.name,
+          description: template.description,
+          group: 'Starter',
+          action: () => {
+            void (async () => {
+              const store = usePromptSmithStore.getState()
+              const resolved = await applyGalleryTemplate(template, store.selectedModel, store.contentVisibility)
+              store.captureDraftSnapshot('template')
+              store.startHistoryBatch()
+              store.clearAllTags()
+              resolved.tags.forEach((tag) => store.toggleTag(tag))
+              store.setCustomText(resolved.customText)
+              if (resolved.modelParams) store.setModelParameters(resolved.modelParams)
+              store.endHistoryBatch()
+              store.setWorkspaceView('craft')
+            })()
+          },
+        })
+      }
+
+      for (const model of Object.values(MODEL_CONFIGS).filter((model) =>
+        `${model.name} ${model.version}`.toLowerCase().includes(query.toLowerCase()),
+      ).slice(0, 4)) {
+        cmds.push({
+          id: `model-${model.id}`,
+          type: 'model',
+          label: model.name,
+          description: model.version,
+          group: 'Model',
+          action: () => usePromptSmithStore.getState().setSelectedModel(model.id),
+        })
       }
     }
 
@@ -59,13 +102,13 @@ export function useCommandPalette() {
       }
     }
 
-    if (query.length === 0 || 'clear'.includes(query.toLowerCase())) {
+    if (query.length === 0 || 'new blank clear reset'.includes(query.toLowerCase())) {
       cmds.push({
         id: 'cmd-clear',
         type: 'command',
-        label: 'Clear all tags',
-        description: 'Remove all selected tags',
-        action: () => clearAllTags(),
+        label: 'New blank prompt',
+        description: 'Clear words, ingredients, negatives, and the Library link',
+        action: () => startNewPrompt(),
       })
     }
 
@@ -75,15 +118,25 @@ export function useCommandPalette() {
         type: 'command',
         label: 'Save prompt',
         description: 'Save current prompt as template',
-        action: () => {
-          const name = prompt('Name this prompt:')
-          if (name) savePrompt(name)
-        },
+        action: () => window.dispatchEvent(new CustomEvent('prompt-save')),
       })
     }
 
+    if (query.length === 0 || 'home craft library'.includes(query.toLowerCase())) {
+      for (const view of ['home', 'craft', 'library'] as const) {
+        if (query && !view.includes(query.toLowerCase())) continue
+        cmds.push({
+          id: `cmd-view-${view}`,
+          type: 'command',
+          label: `Open ${view}`,
+          description: `Go to the ${view} workspace`,
+          action: () => usePromptSmithStore.getState().setWorkspaceView(view),
+        })
+      }
+    }
+
     return cmds
-  }, [query, savedPrompts, toggleTag, clearAllTags, savePrompt, loadPrompt])
+  }, [query, savedPrompts, toggleTag, startNewPrompt, loadPrompt, contentVisibility])
 
   useEffect(() => {
     setResults(buildCommands())

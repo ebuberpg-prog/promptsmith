@@ -1,12 +1,13 @@
 import { useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { MagnifyingGlass, Tag, User, TerminalWindow, X } from '@phosphor-icons/react'
+import { Dialog } from '@base-ui/react/dialog'
+import { Cpu, MagnifyingGlass, Tag, User, TerminalWindow, X } from '@phosphor-icons/react'
 import { useCommandPalette, type CommandResult } from '@/hooks/useCommandPalette'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 
 const ICON_MAP: Record<string, React.ElementType> = {
   tag: Tag,
   template: User,
+  model: Cpu,
   command: TerminalWindow,
 }
 
@@ -55,12 +56,6 @@ export function CommandPalette() {
   const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (open) {
-      inputRef.current?.focus()
-    }
-  }, [open])
-
-  useEffect(() => {
     if (selectedIndex >= 0 && listRef.current) {
       const selected = listRef.current.querySelector('[aria-selected="true"]')
       selected?.scrollIntoView({ block: 'nearest' })
@@ -85,25 +80,12 @@ export function CommandPalette() {
   const isMobileView = isMobile || isTabletSmall
 
   return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[var(--ui-overlay)] z-50"
-            onClick={() => setOpen(false)}
-          />
-
-          {isMobileView ? (
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 bg-[var(--ui-overlay)] z-40" />
+        {isMobileView ? (
+            <Dialog.Popup
               className="fixed bottom-0 left-0 right-0 z-50 bg-[var(--ui-bg)] border-t border-[var(--ui-border)] rounded-t-2xl max-h-[80vh] flex flex-col safe-bottom"
-              role="dialog"
               aria-label="Search"
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--ui-border)]">
@@ -111,6 +93,7 @@ export function CommandPalette() {
                   <MagnifyingGlass weight="regular" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ui-muted-text)]" />
                   <input
                     ref={inputRef}
+                    autoFocus
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -120,13 +103,12 @@ export function CommandPalette() {
                     aria-label="Search query"
                   />
                 </div>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="p-2 rounded-lg text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] transition-colors"
+                <Dialog.Close
+                  className="size-11 rounded-full text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] flex items-center justify-center"
                   aria-label="Close search"
                 >
                   <X weight="bold" className="w-4 h-4" />
-                </button>
+                </Dialog.Close>
               </div>
 
               <div ref={listRef} className="flex-1 overflow-y-auto" role="listbox">
@@ -146,22 +128,17 @@ export function CommandPalette() {
                   ))
                 )}
               </div>
-            </motion.div>
+            </Dialog.Popup>
           ) : (
-            <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] px-4 pointer-events-none">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97, y: -8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: -8 }}
-              transition={{ duration: 0.15 }}
-              className="w-full max-w-xl bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl shadow-lg overflow-hidden pointer-events-auto"
-              role="dialog"
+            <Dialog.Popup
+              className="fixed left-1/2 top-[15vh] z-50 w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 bg-[var(--ui-bg)] border border-[var(--ui-border)] rounded-xl shadow-lg overflow-hidden"
               aria-label="Command palette"
             >
               <div className="flex items-center px-4 border-b border-[var(--ui-border)]">
                 <MagnifyingGlass weight="regular" className="w-4 h-4 text-[var(--ui-muted-text)]" />
                 <input
                   ref={inputRef}
+                  autoFocus
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -196,11 +173,9 @@ export function CommandPalette() {
                 <span><kbd className="font-mono">Enter</kbd> select</span>
                 <span><kbd className="font-mono">Esc</kbd> close</span>
               </div>
-            </motion.div>
-            </div>
+            </Dialog.Popup>
           )}
-        </>
-      )}
-    </AnimatePresence>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }

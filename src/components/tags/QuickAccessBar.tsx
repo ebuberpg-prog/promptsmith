@@ -111,7 +111,7 @@ function QuickChip({
       {showRemove && onRemove && (
         <button
           onClick={(e) => { e.stopPropagation(); onRemove() }}
-          className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-muted-text-faint)] hover:text-[var(--ui-text)] hidden group-hover:flex items-center justify-center text-[8px]"
+          className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-lg bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-muted-text-faint)] hover:text-[var(--ui-text)] hidden group-hover:flex items-center justify-center text-[8px]"
         >
           ×
         </button>

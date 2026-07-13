@@ -52,13 +52,13 @@ export function BottomTabBar({ activeTab, onTabChange, tagCount, onSearch }: Bot
           >
             {activeTab === tab.id && (
               <span className="absolute inset-x-0 top-0 flex justify-center pointer-events-none">
-                <span className="w-8 h-0.5 bg-[var(--ui-text)] rounded-full" />
+                <span className="w-8 h-0.5 bg-[var(--ui-text)] rounded-lg" />
               </span>
             )}
             <span className="text-[var(--ui-text)]">{tab.icon}</span>
             <span className="text-[10px] font-medium">{tab.label}</span>
             {tab.id === 'prompt' && tagCount > 0 && (
-              <span className="absolute top-1 right-[calc(50%-16px)] w-4 h-4 rounded-full bg-[var(--ui-text)] text-[var(--ui-bg)] text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute top-1 right-[calc(50%-16px)] w-4 h-4 rounded-lg bg-[var(--ui-text)] text-[var(--ui-bg)] text-[9px] font-bold flex items-center justify-center">
                 {tagCount > 9 ? '9+' : tagCount}
               </span>
             )}

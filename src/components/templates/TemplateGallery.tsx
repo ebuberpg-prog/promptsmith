@@ -1,7 +1,8 @@
 import { useState, useMemo, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Dialog } from '@base-ui/react/dialog'
 import { usePromptSmithStore } from '@/store/prompt-store'
-import { PROMPT_TEMPLATES, TEMPLATE_CATEGORIES, DIFFICULTY_LABELS, type GalleryTemplate } from '@/types/templates'
+import { TEMPLATE_CATEGORIES, DIFFICULTY_LABELS } from '@/types/templates'
 import { applyGalleryTemplate, exportTemplate, importTemplate } from '@/utils/template-engine'
 import { TemplateWizard } from './TemplateWizard'
 import {
@@ -52,8 +53,16 @@ import {
   Car,
   PersonSimpleRun,
   SquaresFour,
+  X,
 } from '@phosphor-icons/react'
-import type { PromptTemplate } from '@/types'
+import type { PromptTemplate, SupportedModel } from '@/types'
+import { getModelConfig } from '@/data/model-configs'
+import {
+  BLUEPRINT_TEMPLATES,
+  FLAGSHIP_TEMPLATES,
+  getTemplateImage,
+  type BlueprintGalleryTemplate,
+} from '@/data/template-blueprints'
 
 const ICON_MAP: Record<string, React.ElementType> = {
   Sparkle,
@@ -104,28 +113,36 @@ function renderIcon(name: string, className = 'w-4 h-4') {
 }
 
 type GalleryTab = 'built-in' | 'my-templates'
+type CollectionView = 'flagship' | 'all'
 
 export function TemplateGallery() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<GalleryTab>('built-in')
+  const [collectionView, setCollectionView] = useState<CollectionView>('flagship')
+  const [previewTemplate, setPreviewTemplate] = useState<BlueprintGalleryTemplate | null>(null)
   const [wizardOpen, setWizardOpen] = useState(false)
+  const [importMessage, setImportMessage] = useState('')
   const importRef = useRef<HTMLInputElement>(null)
 
   const setCustomText = usePromptSmithStore((s) => s.setCustomText)
   const clearAllTags = usePromptSmithStore((s) => s.clearAllTags)
   const toggleTag = usePromptSmithStore((s) => s.toggleTag)
   const setModelParameters = usePromptSmithStore((s) => s.setModelParameters)
-  const showExplicit = usePromptSmithStore((s) => s.showExplicit)
+  const contentVisibility = usePromptSmithStore((s) => s.contentVisibility)
   const selectedModel = usePromptSmithStore((s) => s.selectedModel)
   const savedPrompts = usePromptSmithStore((s) => s.savedPrompts)
   const deletePrompt = usePromptSmithStore((s) => s.deletePrompt)
   const savePrompt = usePromptSmithStore((s) => s.savePrompt)
   const loadPrompt = usePromptSmithStore((s) => s.loadPrompt)
+  const setWorkspaceView = usePromptSmithStore((s) => s.setWorkspaceView)
 
   const filteredBuiltIn = useMemo(() => {
-    return PROMPT_TEMPLATES.filter((template) => {
+    const templates = searchQuery.trim()
+      ? BLUEPRINT_TEMPLATES
+      : collectionView === 'flagship' ? FLAGSHIP_TEMPLATES : BLUEPRINT_TEMPLATES
+    return templates.filter((template) => {
       const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory
       const matchesSearch = searchQuery === '' ||
         template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -133,7 +150,13 @@ export function TemplateGallery() {
         template.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       return matchesCategory && matchesSearch
     })
-  }, [selectedCategory, searchQuery])
+  }, [collectionView, selectedCategory, searchQuery])
+
+  const visibleCategories = useMemo(() => {
+    const templates = collectionView === 'flagship' ? FLAGSHIP_TEMPLATES : BLUEPRINT_TEMPLATES
+    const categoryIds = new Set(templates.map((template) => template.category))
+    return TEMPLATE_CATEGORIES.filter((category) => category.id === 'all' || categoryIds.has(category.id as BlueprintGalleryTemplate['category']))
+  }, [collectionView])
 
   const filteredUserTemplates = useMemo(() => {
     if (!searchQuery) return savedPrompts
@@ -142,17 +165,20 @@ export function TemplateGallery() {
     )
   }, [savedPrompts, searchQuery])
 
-  const handleUseBuiltIn = async (template: GalleryTemplate) => {
+  const handleUseBuiltIn = async (template: BlueprintGalleryTemplate, continueInCraft: boolean) => {
     const store = usePromptSmithStore.getState()
+    store.captureDraftSnapshot('template')
     store._saveHistory()
     store.startHistoryBatch()
     clearAllTags()
-    const { tags, customText, modelParams } = await applyGalleryTemplate(template, selectedModel, showExplicit)
+    const { tags, customText, modelParams } = await applyGalleryTemplate(template, selectedModel, contentVisibility)
     for (const tag of tags) toggleTag(tag)
     setCustomText(customText)
     if (modelParams) setModelParameters(modelParams)
     store.endHistoryBatch()
     setSelectedTemplate(template.id)
+    setPreviewTemplate(null)
+    if (continueInCraft) setWorkspaceView('craft')
   }
 
   const handleUseUserTemplate = (template: PromptTemplate) => {
@@ -190,8 +216,9 @@ export function TemplateGallery() {
         store.endHistoryBatch()
         savePrompt(template.name)
         setActiveTab('my-templates')
+        setImportMessage('Template imported to your local Library.')
       } else {
-        alert('Invalid template file.')
+        setImportMessage('That file is not a valid MUSE prompt template. Nothing was changed.')
       }
     }
     reader.readAsText(file)
@@ -203,15 +230,15 @@ export function TemplateGallery() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
         <div className="space-y-2">
-          <h2 className="font-display text-[2rem] font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>Blueprint Library</h2>
-          <p className="text-[13px] max-w-md" style={{ color: 'var(--ui-muted-text)' }}>Standardized starting points for rapid visual development.</p>
+          <h2 className="font-display text-[2rem] font-normal text-balance" style={{ color: 'var(--ui-text)' }}>Blueprint Library</h2>
+          <p className="text-[13px] max-w-xl text-pretty" style={{ color: 'var(--ui-muted-text)' }}>Structured starting points with an editable subject, composition, light, medium, and constraints.</p>
         </div>
 
         <div className="flex items-center gap-2">
           <input ref={importRef} type="file" accept=".json" className="hidden" onChange={handleImportFile} />
           <button
             onClick={handleImportClick}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full border text-[13px] transition-all duration-150"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-lg border text-[13px] transition-all duration-150"
             style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
@@ -222,7 +249,7 @@ export function TemplateGallery() {
 
           <button
             onClick={() => setWizardOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full text-[13px] font-medium transition-colors duration-150"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[13px] font-medium transition-colors duration-150"
             style={{ backgroundColor: 'var(--ui-text)', color: 'var(--ui-bg)' }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
@@ -232,10 +259,11 @@ export function TemplateGallery() {
           </button>
         </div>
       </div>
+      {importMessage && <p role="status" className="text-xs text-[var(--ui-muted-text)]">{importMessage}</p>}
 
       {/* Tabs + search row */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-        <div className="flex items-center gap-1 border rounded-full p-1 w-fit" style={{ borderColor: 'var(--ui-border)' }}>
+        <div role="tablist" aria-label="Template sources" className="flex items-center gap-1 border rounded-lg p-1 w-fit" style={{ borderColor: 'var(--ui-border)' }}>
           <TabButton active={activeTab === 'built-in'} onClick={() => setActiveTab('built-in')} icon={<SelectionAll weight="regular" className="w-3.5 h-3.5" />} label="Templates" />
           <TabButton
             active={activeTab === 'my-templates'}
@@ -252,7 +280,7 @@ export function TemplateGallery() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search templates..."
-            className="w-full pl-10 pr-4 py-2 bg-transparent border rounded-full outline-none focus:border-[var(--ui-border-hover)] transition-colors text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
+            className="w-full pl-10 pr-4 py-2 bg-transparent border rounded-lg outline-none focus:border-[var(--ui-border-hover)] transition-colors text-[13px] placeholder:text-[var(--ui-muted-text-faint)]"
             style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-text)' }}
           />
         </div>
@@ -261,12 +289,29 @@ export function TemplateGallery() {
       <AnimatePresence mode="wait">
         {activeTab === 'built-in' ? (
           <motion.div key="built-in" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-5">
+            <div className="flex flex-col gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-elevated)] p-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-medium">Choose the depth of the library</p>
+                <p className="mt-0.5 text-xs text-pretty text-[var(--ui-muted-text)]">
+                  {collectionView === 'flagship'
+                    ? `${FLAGSHIP_TEMPLATES.length} verified blueprints with exact ingredients and distinct visual references.`
+                    : 'The complete legacy collection, including text-only starters still awaiting structured ingredients.'}
+                </p>
+              </div>
+              <div className="flex shrink-0 gap-1 rounded-lg border border-[var(--ui-border)] p-1" role="group" aria-label="Template collection">
+                <button type="button" aria-pressed={collectionView === 'flagship'} onClick={() => { setCollectionView('flagship'); setSelectedCategory('all') }} className={`min-h-10 rounded-lg px-3 text-xs font-medium ${collectionView === 'flagship' ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)]'}`}>Curated {FLAGSHIP_TEMPLATES.length}</button>
+                <button type="button" aria-pressed={collectionView === 'all'} onClick={() => { setCollectionView('all'); setSelectedCategory('all') }} className={`min-h-10 rounded-lg px-3 text-xs font-medium ${collectionView === 'all' ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)]'}`}>All {BLUEPRINT_TEMPLATES.length}</button>
+              </div>
+            </div>
+
             <div className="flex items-center gap-2 flex-wrap">
-              {TEMPLATE_CATEGORIES.map((category) => (
+              {visibleCategories.map((category) => (
                 <button
+                  type="button"
                   key={category.id}
+                  aria-pressed={selectedCategory === category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150"
                   style={{
                     backgroundColor: selectedCategory === category.id ? 'var(--ui-text)' : 'transparent',
                     color: selectedCategory === category.id ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
@@ -298,7 +343,7 @@ export function TemplateGallery() {
                     key={template.id}
                     template={template}
                     isSelected={selectedTemplate === template.id}
-                    onSelect={() => handleUseBuiltIn(template)}
+                    onPreview={() => setPreviewTemplate(template)}
                   />
                 ))}
               </motion.div>
@@ -315,7 +360,7 @@ export function TemplateGallery() {
                 <p className="text-sm mb-4" style={{ color: 'var(--ui-muted-text-faint)' }}>No saved templates yet</p>
                 <button
                   onClick={() => setWizardOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-all"
                   style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
@@ -343,6 +388,13 @@ export function TemplateGallery() {
       </AnimatePresence>
 
       <TemplateWizard isOpen={wizardOpen} onClose={() => setWizardOpen(false)} />
+      <TemplatePreviewDialog
+        template={previewTemplate}
+        selectedModel={selectedModel}
+        onClose={() => setPreviewTemplate(null)}
+        onApply={(template) => void handleUseBuiltIn(template, false)}
+        onApplyAndContinue={(template) => void handleUseBuiltIn(template, true)}
+      />
     </div>
   )
 }
@@ -352,8 +404,11 @@ export function TemplateGallery() {
 function TabButton({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
     <button
+      type="button"
+      role="tab"
+      aria-selected={active}
       onClick={onClick}
-      className="flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-150"
+      className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-150"
       style={{
         backgroundColor: active ? 'var(--ui-text)' : 'transparent',
         color: active ? 'var(--ui-bg)' : 'var(--ui-muted-text)',
@@ -368,48 +423,44 @@ function TabButton({ active, onClick, icon, label }: { active: boolean; onClick:
 }
 
 function BuiltInCard({
-  template, isSelected, onSelect,
+  template, isSelected, onPreview,
 }: {
-  template: GalleryTemplate
+  template: BlueprintGalleryTemplate
   isSelected: boolean
-  onSelect: () => void
+  onPreview: () => void
 }) {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      onSelect()
-    }
-  }
+  const image = getTemplateImage(template)
+  const ingredientLabel = template.tagIds.length > 0 ? `${template.tagIds.length} exact ingredients` : 'Text blueprint'
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      aria-label={`Preview ${template.name} blueprint`}
       layout
-      role="button"
-      tabIndex={0}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -2 }}
-      onClick={onSelect}
-      onKeyDown={handleKeyDown}
-      className="group relative rounded-2xl border p-6 transition-all duration-300 cursor-pointer"
+      onClick={onPreview}
+      className="group relative rounded-2xl border p-3 text-left transition-all duration-150 cursor-pointer"
       style={{
         borderColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 40%, transparent)' : 'var(--ui-border)',
         backgroundColor: isSelected ? 'color-mix(in oklab, var(--ui-text) 3%, transparent)' : 'transparent',
       }}
     >
       <div className="space-y-4">
+        <span className="block w-full aspect-[16/9] rounded-xl overflow-hidden"><img src={image.src} srcSet={image.srcSet} sizes="(max-width: 640px) 90vw, 320px" alt="" width={image.width} height={image.height} loading="lazy" className="size-full scale-[1.12] object-cover" /></span>
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full border flex items-center justify-center transition-colors duration-300" style={{ borderColor: 'var(--ui-border)' }}>
+            <div className="size-12 rounded-lg border flex items-center justify-center transition-colors duration-150" style={{ borderColor: 'var(--ui-border)' }}>
               {renderIcon(template.icon, 'w-5 h-5')}
             </div>
             <div className="space-y-1">
-              <h3 className="font-display text-xl font-normal tracking-tight" style={{ color: 'var(--ui-text)' }}>
+              <h3 className="font-display text-xl font-normal text-balance" style={{ color: 'var(--ui-text)' }}>
                 {template.name}
               </h3>
               <div className="flex items-center gap-2">
                 <span
-                  className="px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider"
+                  className="px-2 py-0.5 rounded-lg text-[10px] font-medium uppercase"
                   style={{
                     backgroundColor: template.difficulty === 'beginner' ? 'color-mix(in oklab, var(--ui-text) 10%, transparent)' : template.difficulty === 'intermediate' ? 'color-mix(in oklab, var(--ui-muted-text) 10%, transparent)' : 'hsl(var(--destructive) / 0.1)',
                     color: template.difficulty === 'advanced' ? 'hsl(var(--destructive))' : 'var(--ui-muted-text)',
@@ -424,7 +475,7 @@ function BuiltInCard({
             <motion.div
               initial={{ rotate: -90, scale: 0 }}
               animate={{ rotate: 0, scale: 1 }}
-              className="w-6 h-6 rounded-full flex items-center justify-center"
+              className="w-6 h-6 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: 'var(--ui-text)' }}
             >
               <CheckCircle weight="fill" className="w-3.5 h-3.5" style={{ color: 'var(--ui-bg)' }} />
@@ -432,18 +483,18 @@ function BuiltInCard({
           )}
         </div>
 
-        <p className="text-sm leading-relaxed line-clamp-2" style={{ color: 'var(--ui-muted-text)' }}>
+        <p className="text-sm leading-relaxed text-pretty line-clamp-2" style={{ color: 'var(--ui-muted-text)' }}>
           {template.description}
         </p>
 
         <div className="flex flex-wrap gap-2">
           {template.tags.slice(0, 4).map((tag) => (
-            <span key={tag} className="px-3 py-1 rounded-full text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
+            <span key={tag} className="px-3 py-1 rounded-lg text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
               {tag}
             </span>
           ))}
           {template.tags.length > 4 && (
-            <span className="px-3 py-1 rounded-full text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
+            <span className="px-3 py-1 rounded-lg text-[10px] font-medium border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
               +{template.tags.length - 4}
             </span>
           )}
@@ -452,17 +503,89 @@ function BuiltInCard({
         <div className="flex items-center justify-between pt-2 border-t" style={{ borderTopColor: 'var(--ui-border)' }}>
           <div className="flex items-center gap-2">
             <SelectionAll weight="regular" className="w-3.5 h-3.5" style={{ color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text-faint)' }} />
-            <span className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--ui-muted-text)' }}>
-              {template.tags.length} tags
+            <span className="text-[10px] uppercase" style={{ color: 'var(--ui-muted-text)' }}>
+              {ingredientLabel}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider transition-all" style={{ color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text)' }}>
-            <span>{isSelected ? 'Applied' : 'Apply'}</span>
+          <div className="flex items-center gap-2 text-xs font-medium uppercase" style={{ color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text)' }}>
+            <span>{isSelected ? 'Applied · Preview' : 'Preview'}</span>
             <ArrowRight weight="regular" className="w-3.5 h-3.5" />
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
+  )
+}
+
+function TemplatePreviewDialog({
+  template,
+  selectedModel,
+  onClose,
+  onApply,
+  onApplyAndContinue,
+}: {
+  template: BlueprintGalleryTemplate | null
+  selectedModel: SupportedModel
+  onClose: () => void
+  onApply: (template: BlueprintGalleryTemplate) => void
+  onApplyAndContinue: (template: BlueprintGalleryTemplate) => void
+}) {
+  const image = template ? getTemplateImage(template) : null
+  const selectedModelName = getModelConfig(selectedModel).name
+  const isTunedForModel = Boolean(template?.modelParams?.[selectedModel])
+
+  return (
+    <Dialog.Root open={Boolean(template)} onOpenChange={(open) => { if (!open) onClose() }}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--ui-overlay)]" />
+        <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 grid max-h-[min(90vh,760px)] w-[min(900px,calc(100vw_-_2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-bg)] shadow-lg lg:grid-cols-[0.9fr_1.1fr]">
+          {template && image && (
+            <>
+              <div className="min-h-56 overflow-hidden bg-[var(--ui-surface-soft)] lg:min-h-full">
+                <img src={image.src} srcSet={image.srcSet} sizes="(max-width: 1024px) 100vw, 420px" alt={image.alt} width={image.width} height={image.height} className="size-full object-cover" />
+              </div>
+              <div className="flex min-w-0 flex-col p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">{DIFFICULTY_LABELS[template.difficulty]} blueprint</p>
+                    <Dialog.Title className="mt-1 font-display text-3xl text-balance">{template.name}</Dialog.Title>
+                    <Dialog.Description className="mt-2 text-sm text-pretty text-[var(--ui-muted-text)]">{template.description}</Dialog.Description>
+                  </div>
+                  <Dialog.Close className="size-11 shrink-0 rounded-lg border border-[var(--ui-border)] text-[var(--ui-muted-text)]" aria-label={`Close ${template.name} preview`}><X className="mx-auto size-4" /></Dialog.Close>
+                </div>
+
+                <section className="mt-6" aria-labelledby="prompt-anatomy-title">
+                  <h3 id="prompt-anatomy-title" className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">Prompt anatomy</h3>
+                  <dl className="mt-2 grid gap-px overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-border)] sm:grid-cols-2">
+                    {template.anatomy.map((part) => (
+                      <div key={`${part.dimension}-${part.value}`} className="bg-[var(--ui-bg)] p-3">
+                        <dt className="text-[10px] font-medium uppercase text-[var(--ui-muted-text-faint)]">{part.dimension}</dt>
+                        <dd className="mt-1 text-sm text-pretty">{part.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+
+                <section className="mt-5" aria-labelledby="starter-prompt-title">
+                  <h3 id="starter-prompt-title" className="text-xs font-medium uppercase text-[var(--ui-muted-text)]">Editable starter prompt</h3>
+                  <p className="mt-2 rounded-xl bg-[var(--ui-surface-soft)] p-4 text-sm leading-6 text-pretty">{template.examplePrompt}</p>
+                </section>
+
+                <div className="mt-5 flex flex-wrap gap-2 text-xs text-[var(--ui-muted-text)]">
+                  <span className="rounded-lg border border-[var(--ui-border)] px-2.5 py-1.5">{template.tagIds.length > 0 ? `${template.tagIds.length} exact taxonomy ingredients` : 'Text-only starter'}</span>
+                  <span className="rounded-lg border border-[var(--ui-border)] px-2.5 py-1.5">{isTunedForModel ? `Tuned for ${selectedModelName}` : `Compatible with ${selectedModelName}`}</span>
+                </div>
+
+                <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                  <button type="button" onClick={() => onApply(template)} className="min-h-11 rounded-lg border border-[var(--ui-border)] px-4 text-sm">Apply here</button>
+                  <button type="button" onClick={() => onApplyAndContinue(template)} className="min-h-11 rounded-lg bg-[var(--ui-text)] px-4 text-sm font-medium text-[var(--ui-bg)]">Apply and continue in Craft</button>
+                </div>
+              </div>
+            </>
+          )}
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }
 
@@ -493,21 +616,21 @@ function UserTemplateCard({
           </p>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={onExport} title="Export as JSON" className="w-7 h-7 flex items-center justify-center rounded-full transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
+          <button onClick={onExport} title="Export as JSON" className="w-7 h-7 flex items-center justify-center rounded-lg transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ui-text)'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)'; e.currentTarget.style.backgroundColor = 'transparent' }}
           >
             <Download weight="regular" className="w-3.5 h-3.5" />
           </button>
           {confirmDelete ? (
-            <button onClick={onDelete} className="text-[10px] border rounded-full px-2 py-0.5 transition-colors" style={{ color: 'hsl(var(--destructive))', borderColor: 'hsl(var(--destructive) / 0.5)' }}
+            <button onClick={onDelete} className="text-[10px] border rounded-lg px-2 py-0.5 transition-colors" style={{ color: 'hsl(var(--destructive))', borderColor: 'hsl(var(--destructive) / 0.5)' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive) / 0.8)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(var(--destructive))')}
             >
               Confirm
             </button>
           ) : (
-            <button onClick={() => setConfirmDelete(true)} title="Delete" className="w-7 h-7 flex items-center justify-center rounded-full transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
+            <button onClick={() => setConfirmDelete(true)} title="Delete" className="w-7 h-7 flex items-center justify-center rounded-lg transition-all" style={{ color: 'var(--ui-muted-text-faint)' }}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'hsl(var(--destructive))'; e.currentTarget.style.backgroundColor = 'color-mix(in oklab, var(--ui-text) 5%, transparent)' }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ui-muted-text-faint)'; e.currentTarget.style.backgroundColor = 'transparent' }}
             >
@@ -520,12 +643,12 @@ function UserTemplateCard({
       {template.selections && template.selections.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {template.selections.slice(0, 6).map(tag => (
-            <span key={tag.id} className="text-[10px] px-2.5 py-1 rounded-full border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
+            <span key={tag.id} className="text-[10px] px-2.5 py-1 rounded-lg border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}>
               {tag.label}
             </span>
           ))}
           {template.selections.length > 6 && (
-            <span className="text-[10px] px-2.5 py-1 rounded-full border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
+            <span className="text-[10px] px-2.5 py-1 rounded-lg border" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text-faint)' }}>
               +{template.selections.length - 6}
             </span>
           )}
@@ -534,7 +657,7 @@ function UserTemplateCard({
 
       <button
         onClick={onUse}
-        className="w-full py-2.5 rounded-full border text-xs font-medium transition-all duration-150"
+        className="w-full py-2.5 rounded-lg border text-xs font-medium transition-all duration-150"
         style={{
           borderColor: isSelected ? 'var(--ui-text)' : 'var(--ui-border)',
           color: isSelected ? 'var(--ui-text)' : 'var(--ui-muted-text)',
@@ -553,7 +676,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
     <div className="flex flex-col items-center justify-center py-24 rounded-2xl border border-dashed" style={{ borderColor: 'var(--ui-border)' }}>
       <Funnel weight="regular" className="w-10 h-10 mb-4" style={{ color: 'var(--ui-muted-text-faint)' }} />
       <p className="text-sm mb-4" style={{ color: 'var(--ui-muted-text)' }}>No matching templates found.</p>
-      <button onClick={onReset} className="text-xs border rounded-full px-4 py-2 transition-all duration-150" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
+      <button onClick={onReset} className="text-xs border rounded-lg px-4 py-2 transition-all duration-150" style={{ borderColor: 'var(--ui-border)', color: 'var(--ui-muted-text)' }}
         onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border-hover)'; e.currentTarget.style.color = 'var(--ui-text)' }}
         onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--ui-border)'; e.currentTarget.style.color = 'var(--ui-muted-text)' }}
       >

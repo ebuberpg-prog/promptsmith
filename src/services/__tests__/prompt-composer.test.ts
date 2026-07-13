@@ -117,31 +117,47 @@ describe('PromptComposer', () => {
     })
   })
 
-  describe('Structured prose format (GPT Image 2)', () => {
-    it('generates structured sections', () => {
+  describe('Natural prose format (GPT Image 2)', () => {
+    it('generates flowing prose without outline headings', () => {
       const result = composer.compose({
         tags: portraitTags,
         customText: '',
         model: 'gpt-image',
         parameters: {},
       })
-      expect(result).toContain('Scene:')
-      expect(result).toContain('Subject:')
-      expect(result).toContain('Important details:')
-      expect(result).toContain('Use case:')
-      expect(result).toContain('Constraints:')
+      expect(result).not.toMatch(/^(Request|Scene|Subject|Important details|Visual direction):/m)
+      expect(result).not.toContain('A neutral environment')
+      expect(result).not.toContain('A person or object')
       expect(result).toContain('A woman')
+      expect(result.endsWith('.')).toBe(true)
     })
 
-    it('includes custom text as additional notes', () => {
+    it('preserves authored text as the primary request', () => {
       const result = composer.compose({
         tags: portraitTags,
         customText: 'Ensure natural skin texture',
         model: 'gpt-image',
         parameters: {},
       })
-      expect(result).toContain('Additional notes:')
-      expect(result).toContain('Ensure natural skin texture')
+      expect(result.startsWith('Ensure natural skin texture')).toBe(true)
+      expect(result).not.toContain('Request:')
+      expect(result).toContain('A woman')
+    })
+
+    it('turns randomized pose and camera tags into a natural sentence', () => {
+      const result = composer.compose({
+        tags: [
+          tag('straddling chair', 'poses_gestures'),
+          tag('point of view', 'camera_lighting_style'),
+        ],
+        customText: '',
+        model: 'gpt-image',
+        parameters: {},
+      })
+      expect(result).toContain('Straddling chair')
+      expect(result).toContain('Point of view')
+      expect(result).not.toContain('Subject:')
+      expect(result).not.toContain('Important details:')
     })
   })
 
@@ -201,7 +217,7 @@ describe('PromptComposer', () => {
       expect(result).toContain('trigger1, trigger2, portrait')
     })
 
-    it('auto-adds quality boosters for SD/FLUX', () => {
+    it('does not add implicit quality boosters for SD/FLUX', () => {
       const tags = [
         tag('photorealistic', 'art_medium'),
         tag('portrait', 'subject'),
@@ -212,8 +228,8 @@ describe('PromptComposer', () => {
         model: 'flux',
         parameters: {},
       })
-      expect(result).toContain('high detail')
-      expect(result).toContain('sharp focus')
+      expect(result).not.toContain('high detail')
+      expect(result).not.toContain('sharp focus')
     })
 
     it('does not add quality boosters for painterly styles', () => {
@@ -231,7 +247,7 @@ describe('PromptComposer', () => {
       expect(result).not.toContain('sharp focus')
     })
 
-    it('auto-prefixes Illustrious with Danbooru quality tags', () => {
+    it('does not prefix Illustrious with unselected quality tags', () => {
       const tags = [
         tag('1girl', 'subject'),
         tag('long hair', 'hair'),
@@ -242,10 +258,10 @@ describe('PromptComposer', () => {
         model: 'illustrious',
         parameters: {},
       })
-      expect(result).toContain('masterpiece')
-      expect(result).toContain('best quality')
-      expect(result).toContain('highres')
-      expect(result).toContain('newest')
+      expect(result).not.toContain('masterpiece')
+      expect(result).not.toContain('best quality')
+      expect(result).not.toContain('highres')
+      expect(result).not.toContain('newest')
       expect(result).toContain('1girl')
     })
   })
@@ -266,6 +282,30 @@ describe('PromptComposer', () => {
       const subjectIdx = result.indexOf('a man')
       const styleIdx = result.indexOf('oil painting')
       expect(subjectIdx).toBeLessThan(styleIdx)
+    })
+  })
+
+  describe('durable output invariants', () => {
+    it('is byte-identical for unchanged state', () => {
+      const input = { tags: portraitTags, customText: 'A rainy-window portrait', model: 'gemini' as const, parameters: {} }
+      expect(composer.compose(input)).toBe(composer.compose(input))
+    })
+
+    it('does not duplicate prepositions in setting phrases', () => {
+      const result = composer.compose({ tags: [tag('rain', 'environments')], customText: '', model: 'gpt-image', parameters: {} })
+      expect(result).toContain('Set in the rain')
+      expect(result).not.toContain('in in the rain')
+    })
+
+    it.each(['midjourney', 'stable-diffusion', 'gemini', 'gpt-image'] as const)('keeps authored text first for %s', (model) => {
+      const result = composer.compose({ tags: [tag('portrait', 'subject')], customText: 'Exact authored opening', model, parameters: {} })
+      expect(result.startsWith('Exact authored opening')).toBe(true)
+    })
+
+    it('uses exact phrase mappings rather than partial substrings', () => {
+      const result = composer.compose({ tags: [tag('rainbow glass', 'environments')], customText: '', model: 'gpt-image', parameters: {} })
+      expect(result).toContain('rainbow glass')
+      expect(result).not.toContain('in the rain')
     })
   })
 

@@ -196,14 +196,11 @@ const TAG_PHRASES: Record<string, string> = {
 
 // ─── Prose connectors for assembling natural language ──────────────────────
 
-const SETTING_CONNECTORS = {
-  prefix: ['set in', 'situated in', 'placed within', 'found in'],
-  standalone: ['in', 'within', 'amidst', 'surrounded by'],
-}
-const STYLE_CONNECTORS = ['Rendered in', 'Created as', 'Depicted in', 'Painted in', 'Captured in']
+const PREPOSITIONAL_SETTING = /^(?:in|on|at|by|under|inside|outside|among|amid|amidst|within|near|beside|around|through|across)\b/i
 
-function pickRandom<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
+function settingClause(phrases: string[]): string {
+  const phrase = phrases.join(' and ')
+  return PREPOSITIONAL_SETTING.test(phrase) ? `Set ${phrase}` : `Set in ${phrase}`
 }
 
 // ─── Slot classification ────────────────────────────────────────────────────
@@ -259,9 +256,7 @@ export class PromptComposer {
       case 'midjourney-params':
         return this.composeMidjourney(sorted, options)
       case 'structured-prose':
-        // Fall through to prose — structured-prose is not a registered ModelConfig style,
-        // but guard here in case legacy templates reference it.
-        return this.composeProse(sorted, options)
+        return this.composeStructuredProse(sorted, options)
       case 'prose':
         return this.composeProse(sorted, options)
       case 'comma-separated':
@@ -275,17 +270,14 @@ export class PromptComposer {
   private composeMidjourney(tags: SelectedTag[], options: ComposeOptions): string {
     const parts: string[] = []
 
+    if (options.customText.trim()) parts.push(options.customText.trim())
+
     for (const tag of tags) {
       const formatted = this.formatTagForModel(tag, 'midjourney')
       if (formatted) parts.push(formatted)
     }
 
-    if (options.customText.trim()) {
-      parts.push(options.customText.trim())
-    }
-
-    // Add quality boosters if room
-    const boosters = options.qualityBoosters ?? this.getQualityBoosters(tags, 'midjourney')
+    const boosters = options.qualityBoosters ?? []
     for (const b of boosters) {
       if (!parts.some(p => p.toLowerCase().includes(b.toLowerCase()))) {
         parts.push(b)
@@ -307,7 +299,7 @@ export class PromptComposer {
     return prompt
   }
 
-  // ─── Structured Prose (GPT Image 2) ─────────────────────────────────────
+  // ─── Natural prose (GPT Image 2) ────────────────────────────────────────
 
   private composeStructuredProse(tags: SelectedTag[], options: ComposeOptions): string {
     const slots = this.classifyIntoSlots(tags)
@@ -321,52 +313,38 @@ export class PromptComposer {
     const cameraPhrases = slots.camera.map(t => this.tagToPhrase(t))
     const stylePhrases = slots.style.map(t => this.tagToPhrase(t))
     const moodPhrases = slots.mood.map(t => this.tagToPhrase(t))
+    const qualityPhrases = slots.quality.map(t => this.tagToPhrase(t)).filter(Boolean)
 
-    const lines: string[] = []
+    const pieces: string[] = []
 
-    // Scene
-    if (settingPhrases.length > 0) {
-      lines.push(`Scene:\n${this.joinPhrases(settingPhrases)}`)
-    } else {
-      lines.push('Scene:\nA neutral environment.')
+    // The artist's words stay first and remain verbatim within the composed prompt.
+    if (options.customText.trim()) {
+      pieces.push(options.customText.trim())
     }
 
-    // Subject
     const subjectParts: string[] = []
     if (subjectPhrases.length > 0) subjectParts.push(this.joinPhrases(subjectPhrases))
     if (bodyPhrases.length > 0) subjectParts.push(this.joinPhrases(bodyPhrases))
     if (clothingPhrases.length > 0) subjectParts.push(this.joinPhrases(clothingPhrases))
     if (subjectParts.length > 0) {
-      lines.push(`Subject:\n${this.capitalizeFirst(subjectParts.join(', '))}`)
-    } else {
-      lines.push('Subject:\nA person or object.')
+      pieces.push(this.capitalizeFirst(subjectParts.join(', ')))
     }
 
-    // Important details
-    const detailParts: string[] = []
-    if (lightingPhrases.length > 0) detailParts.push(this.joinPhrases(lightingPhrases))
-    if (cameraPhrases.length > 0) detailParts.push(this.joinPhrases(cameraPhrases))
-    if (moodPhrases.length > 0) detailParts.push(this.joinPhrases(moodPhrases))
-    if (detailParts.length > 0) {
-      lines.push(`Important details:\n${this.capitalizeFirst(detailParts.join('. '))}`)
-    }
+    if (settingPhrases.length > 0) pieces.push(settingClause(settingPhrases))
 
-    // Use case
+    if (lightingPhrases.length > 0) pieces.push(this.capitalizeFirst(this.joinPhrases(lightingPhrases)))
+    if (moodPhrases.length > 0) pieces.push(this.capitalizeFirst(this.joinPhrases(moodPhrases)))
+    if (cameraPhrases.length > 0) pieces.push(this.capitalizeFirst(this.joinPhrases(cameraPhrases)))
+
     if (stylePhrases.length > 0) {
-      lines.push(`Use case:\n${this.capitalizeFirst(this.joinPhrases(stylePhrases))}`)
-    } else {
-      lines.push('Use case:\nConcept art.')
+      pieces.push(`Rendered in ${this.joinPhrases(stylePhrases)}`)
     }
 
-    // Constraints
-    lines.push('Constraints:\nNo watermark, no logos, no extra text.')
+    const qualityBoosters = options.qualityBoosters ?? []
+    const quality = [...qualityPhrases, ...qualityBoosters].filter(Boolean)
+    if (quality.length > 0) pieces.push(this.capitalizeFirst(this.joinPhrases(quality)))
 
-    // Custom text appended as extra detail
-    if (options.customText.trim()) {
-      lines.push(`Additional notes:\n${options.customText.trim()}`)
-    }
-
-    return lines.join('\n\n')
+    return this.assembleProse(pieces)
   }
 
   // ─── Prose (Nano Banana 2, Ideogram) ─────────────────────────────────────
@@ -386,8 +364,8 @@ export class PromptComposer {
     const moodPhrases = slots.mood.map(t => this.tagToPhrase(t))
     const qualityPhrases = slots.quality.map(t => this.tagToPhrase(t))
 
-    // Assemble into a flowing sentence
-    const pieces: string[] = []
+    // The artist's exact words always lead the effective prompt.
+    const pieces: string[] = options.customText.trim() ? [options.customText.trim()] : []
 
     // Subject + body + clothing
     const subjectStr = this.joinPhrases(subjectPhrases)
@@ -404,9 +382,7 @@ export class PromptComposer {
     // Setting
     if (settingPhrases.length > 0) {
       const settingStr = this.joinPhrases(settingPhrases)
-      // Use a connector like "set in" or "in"
-      const connector = pickRandom(SETTING_CONNECTORS.prefix)
-      pieces.push(`${connector} ${settingStr}`)
+      pieces.push(settingClause([settingStr]))
     }
 
     // Lighting
@@ -430,21 +406,15 @@ export class PromptComposer {
     // Style — use a connector
     if (stylePhrases.length > 0) {
       const styleStr = this.joinPhrases(stylePhrases)
-      const connector = pickRandom(STYLE_CONNECTORS)
-      pieces.push(`${connector} ${styleStr}`)
+      pieces.push(`Rendered in ${styleStr}`)
     }
 
     // Quality boosters
-    const qualityStr = [...qualityPhrases, ...(options.qualityBoosters ?? this.getQualityBoosters(tags, 'prose'))]
+    const qualityStr = [...qualityPhrases, ...(options.qualityBoosters ?? [])]
       .filter(q => q)
       .join(', ')
     if (qualityStr) {
       pieces.push(qualityStr)
-    }
-
-    // Custom text
-    if (options.customText.trim()) {
-      pieces.push(options.customText.trim())
     }
 
     return this.assembleProse(pieces)
@@ -460,22 +430,14 @@ export class PromptComposer {
   ): string {
     const parts: string[] = []
 
-    // Illustrious / Civitai models benefit from standard quality prefixes
-    if (options.model === 'illustrious') {
-      parts.push('masterpiece', 'best quality', 'highres', 'newest')
-    }
+    if (options.customText.trim()) parts.push(options.customText.trim())
 
     for (const tag of tags) {
       const formatted = this.formatTagForModel(tag, options.model)
       if (formatted) parts.push(formatted)
     }
 
-    if (options.customText.trim()) {
-      parts.push(options.customText.trim())
-    }
-
-    // Add quality boosters
-    const boosters = options.qualityBoosters ?? this.getQualityBoosters(tags, 'tag-based', options.model)
+    const boosters = options.qualityBoosters ?? []
     for (const b of boosters) {
       if (!parts.some(p => p.toLowerCase().includes(b.toLowerCase()))) {
         parts.push(b)
@@ -512,11 +474,7 @@ export class PromptComposer {
     const key = tag.label.toLowerCase()
     // Check exact match first
     if (TAG_PHRASES[key]) return TAG_PHRASES[key]
-    // Check partial matches
-    for (const [phraseKey, phrase] of Object.entries(TAG_PHRASES)) {
-      if (key.includes(phraseKey)) return phrase
-    }
-    // Default: just use the label
+    // Unknown taxonomy labels remain exact authored ingredient language.
     return tag.label
   }
 
@@ -552,55 +510,6 @@ export class PromptComposer {
     return joined.endsWith('.') ? joined : joined + '.'
   }
 
-  /**
-   * Generate model-appropriate quality boosters based on selected tags.
-   * Avoids adding boosters that already overlap with existing tags.
-   */
-  private getQualityBoosters(
-    tags: SelectedTag[],
-    context: 'midjourney' | 'prose' | 'tag-based',
-    model?: SupportedModel
-  ): string[] {
-    const existingLabels = new Set(tags.map(t => t.label.toLowerCase()))
-    const boosters: string[] = []
-
-    // Check for photorealistic-adjacent styles
-    const hasRealistStyle = existingLabels.has('photorealistic') || existingLabels.has('realistic')
-    const hasPainterlyStyle = existingLabels.has('oil painting') || existingLabels.has('watercolor') || existingLabels.has('illustration')
-    const hasAnimeStyle = existingLabels.has('anime') || existingLabels.has('cartoon')
-
-    if (context === 'tag-based') {
-      if (model === 'illustrious') {
-        // Illustrious uses Danbooru-style quality tags; prefix is already handled
-        // so we only add scene-specific boosters here
-        if (!hasAnimeStyle && !hasPainterlyStyle) {
-          if (!existingLabels.has('detailed background')) boosters.push('detailed background')
-        }
-        return boosters
-      }
-
-      // SD / FLUX / Qwen quality boosters
-      if (!hasPainterlyStyle && !hasAnimeStyle) {
-        if (!existingLabels.has('high detail')) boosters.push('high detail')
-        if (!existingLabels.has('sharp focus')) boosters.push('sharp focus')
-      }
-      if (hasRealistStyle) {
-        if (!existingLabels.has('masterpiece')) boosters.push('masterpiece')
-        if (!existingLabels.has('best quality')) boosters.push('best quality')
-      }
-    } else if (context === 'midjourney') {
-      // Midjourney benefits from shorter prompts; fewer boosters
-      if (hasRealistStyle && !existingLabels.has('photorealistic')) {
-        boosters.push('photorealistic')
-      }
-    } else if (context === 'prose') {
-      // Prose models get quality as descriptive phrases
-      if (hasRealistStyle) boosters.push('highly detailed')
-      else if (!hasPainterlyStyle && !hasAnimeStyle) boosters.push('highly detailed')
-    }
-
-    return boosters
-  }
 }
 
 // Singleton
