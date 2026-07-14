@@ -35,6 +35,62 @@ describe('image analysis engine', () => {
     expect(first[0].hex).toBe('#F0E6D2')
   })
 
+  it('preserves a small chromatic accent when tonal background variations fill the image', () => {
+    const pixels: number[] = []
+    for (const grey of [240, 205, 170, 135, 100, 65]) {
+      for (let index = 0; index < 100; index += 1) pixels.push(grey, grey, grey, 255)
+    }
+    for (let index = 0; index < 20; index += 1) pixels.push(255, 0, 0, 255)
+
+    const result = extractDominantPalette({ width: 31, height: 20, data: new Uint8ClampedArray(pixels) } as ImageData, 6)
+
+    expect(result.some((swatch) => {
+      const red = Number.parseInt(swatch.hex.slice(1, 3), 16)
+      const green = Number.parseInt(swatch.hex.slice(3, 5), 16)
+      const blue = Number.parseInt(swatch.hex.slice(5, 7), 16)
+      return red > 220 && green < 60 && blue < 60
+    })).toBe(true)
+    expect(result.reduce((sum, swatch) => sum + swatch.prominence, 0)).toBeCloseTo(1, 4)
+  })
+
+  it('measures prominence against every opaque pixel rather than selected buckets', () => {
+    const pixels: number[] = []
+    for (const [grey, count] of [[240, 100], [232, 100], [0, 20]] as const) {
+      for (let index = 0; index < count; index += 1) pixels.push(grey, grey, grey, 255)
+    }
+
+    const result = extractDominantPalette({ width: 22, height: 10, data: new Uint8ClampedArray(pixels) } as ImageData, 6)
+    const darkest = result.reduce((best, swatch) => Number.parseInt(swatch.hex.slice(1), 16) < Number.parseInt(best.hex.slice(1), 16) ? swatch : best)
+
+    expect(result).toHaveLength(2)
+    expect(darkest.prominence).toBeCloseTo(20 / 220, 4)
+  })
+
+  it('retains a saturated detail across a continuous tonal field', () => {
+    const width = 128
+    const height = 64
+    const pixels = new Uint8ClampedArray(width * height * 4)
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        const index = (y * width + x) * 4
+        const grey = 40 + Math.round(x / (width - 1) * 190)
+        const accent = x >= 60 && x < 68 && y >= 28 && y < 36
+        pixels[index] = accent ? 20 : grey
+        pixels[index + 1] = accent ? 90 : grey
+        pixels[index + 2] = accent ? 245 : grey
+        pixels[index + 3] = 255
+      }
+    }
+
+    const result = extractDominantPalette({ width, height, data: pixels } as ImageData, 6)
+
+    expect(result.some((swatch) => {
+      const blue = Number.parseInt(swatch.hex.slice(5, 7), 16)
+      const red = Number.parseInt(swatch.hex.slice(1, 3), 16)
+      return blue - red > 100
+    })).toBe(true)
+  })
+
   it('parses a structured study while preserving exact locally extracted colors', () => {
     const result = parseImageAnalysisResponse(JSON.stringify({
       literalDescription: 'A glass vessel on paper.',
