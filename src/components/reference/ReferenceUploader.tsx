@@ -9,8 +9,6 @@ import { getTagById } from '@/utils/tag-index'
 import type { ReferenceImage } from '@/types'
 import { cn } from '@/utils/cn'
 
-const MAX_REFERENCES = 12
-
 export function ReferenceUploader({ layout = 'compact' }: { layout?: 'compact' | 'library' }) {
   const referenceImages = usePromptSmithStore((state) => state.referenceImages)
   const addReferenceImage = usePromptSmithStore((state) => state.addReferenceImage)
@@ -34,9 +32,7 @@ export function ReferenceUploader({ layout = 'compact' }: { layout?: 'compact' |
   const handleFiles = async (files: FileList | null) => {
     if (!files) return
     setMessage('')
-    const available = MAX_REFERENCES - referenceImages.length
-    if (available <= 0) { setMessage('Remove a reference before adding another.'); return }
-    for (const file of Array.from(files).slice(0, available)) {
+    for (const file of Array.from(files)) {
       try {
         const prepared = await prepareReference(file)
         addReferenceImage(prepared)
@@ -81,9 +77,8 @@ export function ReferenceUploader({ layout = 'compact' }: { layout?: 'compact' |
 
   return (
     <section className="space-y-3" aria-labelledby="reference-heading">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div><h3 id="reference-heading" className="text-sm font-medium">References</h3><p className="mt-1 text-xs leading-5 text-[var(--ui-muted-text)]">Stored privately. Analyze only when you choose.</p></div><div className="flex items-center gap-3"><span className="text-xs tabular-nums text-[var(--ui-muted-text)]">{referenceImages.length} of {MAX_REFERENCES}</span>{libraryLayout && <button type="button" onClick={() => inputRef.current?.click()} disabled={referenceImages.length >= MAX_REFERENCES} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] flex items-center gap-2 text-xs disabled:opacity-55"><Upload className="size-4" />{referenceImages.length >= MAX_REFERENCES ? 'Library full' : 'Add reference'}</button>}</div></div>
-      {!libraryLayout && <button type="button" onClick={() => inputRef.current?.click()} onDragOver={(event) => { event.preventDefault(); if (referenceImages.length < MAX_REFERENCES) setDragActive(true) }} onDragLeave={() => setDragActive(false)} onDrop={(event) => { event.preventDefault(); setDragActive(false); void handleFiles(event.dataTransfer.files) }} className={cn('w-full min-h-20 rounded-xl border border-dashed flex items-center justify-center gap-2 text-sm disabled:cursor-not-allowed disabled:opacity-55', dragActive ? 'border-[var(--ui-border-strong)] bg-[var(--ui-surface-soft)]' : 'border-[var(--ui-border)] text-[var(--ui-muted-text)]')} disabled={referenceImages.length >= MAX_REFERENCES} aria-describedby={referenceImages.length >= MAX_REFERENCES ? 'reference-capacity-message' : undefined}><Upload className="size-5" />{referenceImages.length >= MAX_REFERENCES ? 'Reference library full' : 'Add a local reference'}</button>}
-      {referenceImages.length >= MAX_REFERENCES && <p id="reference-capacity-message" className="text-xs text-[var(--ui-muted-text)]">Remove a reference before adding another. Export a complete backup first if you want to keep it elsewhere.</p>}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div><h3 id="reference-heading" className="text-sm font-medium">References</h3><p className="mt-1 text-xs leading-5 text-[var(--ui-muted-text)]">Stored privately. Analyze only when you choose.</p></div><div className="flex items-center gap-3"><span className="text-xs tabular-nums text-[var(--ui-muted-text)]">{referenceImages.length} stored locally</span>{libraryLayout && <button type="button" onClick={() => inputRef.current?.click()} className="min-h-11 px-3 rounded-lg border border-[var(--ui-border)] flex items-center gap-2 text-xs"><Upload className="size-4" />Add reference</button>}</div></div>
+      {!libraryLayout && <button type="button" onClick={() => inputRef.current?.click()} onDragOver={(event) => { event.preventDefault(); setDragActive(true) }} onDragLeave={() => setDragActive(false)} onDrop={(event) => { event.preventDefault(); setDragActive(false); void handleFiles(event.dataTransfer.files) }} className={cn('w-full min-h-20 rounded-xl border border-dashed flex items-center justify-center gap-2 text-sm', dragActive ? 'border-[var(--ui-border-strong)] bg-[var(--ui-surface-soft)]' : 'border-[var(--ui-border)] text-[var(--ui-muted-text)]')}><Upload className="size-5" />Add a local reference</button>}
       <input ref={inputRef} type="file" accept={REFERENCE_ACCEPT} multiple hidden onChange={(event) => { void handleFiles(event.target.files); event.target.value = '' }} />
       {message && <p role="status" className="text-xs text-[var(--destructive)]">{message}</p>}
       {visionUnavailable && <p className="rounded-lg bg-[var(--ui-surface-soft)] px-3 py-2 text-xs leading-5 text-[var(--ui-muted-text)]">{aiState.selectedModel} is text-only. References remain stored locally; choose a vision-capable model to analyze them.</p>}

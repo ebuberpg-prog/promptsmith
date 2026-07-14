@@ -44,6 +44,10 @@ Default to Simple. Keep authored text, ingredients, attribution, formatted outpu
 
 Treat the reference image as evidence, not decoration. Separate literal description from creative interpretation, keep the measured palette and editable Visual Anatomy Ledger inspectable, and derive portable prompts locally from included observations. Images are stored locally and analyzed only after an explicit action.
 
+### Workspace folios
+
+Treat a workspace as a labelled studio folio, not an account or generic dashboard tenant. Keep the active folio visible in the global header. Switching must flush the current draft first; each folio owns its prompts, references, analyses, recovery history, and preferences.
+
 ### Library
 
 Optimize for retrieval, not decoration. Titles, search, favorites, sorting, metadata, versions, and `Open in Craft` should make a growing collection scannable.

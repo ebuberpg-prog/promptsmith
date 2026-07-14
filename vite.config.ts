@@ -3,11 +3,12 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path'
 
-export default defineConfig({
-  base: '/promptsmith/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'desktop' ? './' : '/promptsmith/',
   plugins: [
     react(),
     VitePWA({
+      disable: mode === 'desktop',
       registerType: 'prompt',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', 'inspiration/*.avif'],
       manifest: {
@@ -72,4 +73,4 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 600,
   }
-})
+}))

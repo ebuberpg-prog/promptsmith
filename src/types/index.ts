@@ -64,6 +64,27 @@ export type DraftPersistenceState = 'saving' | 'saved' | 'best-effort' | 'error'
 export type EnhancementGoal = 'preserve-intent' | 'more-visual' | 'lighting' | 'composition' | 'concise'
 export type FeatureIntegrity = 'complete' | 'partial' | 'simulated' | 'misleading' | 'unreachable'
 
+export interface MuseWorkspace {
+  id: string
+  name: string
+  createdAt: number
+  updatedAt: number
+  lastOpenedAt: number
+}
+
+export interface MuseWorkspaceRegistry {
+  schemaVersion: 1
+  activeWorkspaceId: string
+  workspaces: MuseWorkspace[]
+}
+
+export interface MuseStorageEstimate {
+  runtime: 'browser' | 'desktop'
+  usage: number
+  quota: number | null
+  persisted: boolean | null
+}
+
 export type AnalysisIntent = 'recreate' | 'art-direction'
 export type AnalysisEvidence = 'observed' | 'inferred'
 export type AnalysisScope = 'scene' | 'direction' | 'both'

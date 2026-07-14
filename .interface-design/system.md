@@ -102,6 +102,16 @@ Use a sticky reference sheet beside the continuous study on desktop and a stacke
 
 `Use in Craft` starts a new unsaved draft without a confirmation interruption, but captures the previous draft for recovery first. Transfer generator-neutral natural language plus exact recognized taxonomy ingredients; model-specific formatting remains Craft's responsibility.
 
+## Workspace folio patterns
+
+Workspaces are labelled studio folios for separating client, campaign, and personal bodies of work. They are not user profiles and should not look like an account switcher.
+
+- Keep the active folio visible in the global header with a folder-tab affordance.
+- Manage folios in a right-side editorial drawer using one continuous list, quiet dividers, last-opened metadata, and an explicit fresh-folio section.
+- Flush pending state before switching or creating a folio. Reload into the new isolated persistence key so no transient store state crosses the boundary.
+- Never delete the active or only remaining folio. Destructive deletion names the local data that will be removed and recommends exporting first.
+- Storage settings show runtime, actual bytes used, reported quota when available, reference count, and durability. Use a single restrained capacity rule rather than dashboard metrics.
+
 ## Saved-prompt retrieval patterns
 
 Suggested names should be short, recognisable phrases derived from the first meaningful subject clause, not a raw six-word truncation. Remove generic generation instructions and unresolved variable tokens. Keep the save-name field editable and explain that naming supports future recall.

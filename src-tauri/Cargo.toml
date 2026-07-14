@@ -1,0 +1,20 @@
+[package]
+name = "muse-prompt-studio"
+version = "1.0.1"
+description = "A local-first prompt workspace for visual creators"
+authors = ["MUSE"]
+edition = "2021"
+
+[lib]
+name = "muse_prompt_studio_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2", features = [] }
+tauri-plugin-fs = "2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }

@@ -1,9 +1,10 @@
 import type { InspirationAsset } from '@/types'
+import { publicAssetPath } from '@/utils/public-asset'
 
 const asset = (id: string, territory: string, alt: string, promptSeed: string, palette: string[], mood: string, composition: string): InspirationAsset => ({
   id,
-  src: `/promptsmith/inspiration/${id}-640.avif`,
-  srcSet: `/promptsmith/inspiration/${id}-320.avif 320w, /promptsmith/inspiration/${id}-640.avif 640w`,
+  src: publicAssetPath(`inspiration/${id}-640.avif`),
+  srcSet: `${publicAssetPath(`inspiration/${id}-320.avif`)} 320w, ${publicAssetPath(`inspiration/${id}-640.avif`)} 640w`,
   width: 640,
   height: 640,
   alt,

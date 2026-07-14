@@ -34,6 +34,7 @@ import { ActionToast } from '@/components/feedback/ActionToast'
 import { TagSuggestions } from '@/components/prompt/TagSuggestions'
 import { RandomizerPanel } from '@/components/randomizer/RandomizerPanel'
 import { ReferenceUploader } from '@/components/reference/ReferenceUploader'
+import { WorkspaceSwitcher } from '@/components/workspace/WorkspaceSwitcher'
 import { SmartTagBrowser } from '@/components/tags/SmartTagBrowser'
 import { TemplateGallery } from '@/components/templates/TemplateGallery'
 import { getModelConfig, MODEL_GROUPS } from '@/data/model-configs'
@@ -105,9 +106,9 @@ function StudioHeader({ activeView, onViewChange, onSettings }: {
 
   return (
     <header className="min-h-14 flex items-center gap-3 px-3 sm:px-5 border-b border-[var(--ui-border)] safe-top bg-[var(--ui-bg)]">
-      <button type="button" onClick={() => onViewChange('home')} className="min-h-11 min-w-11 flex items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label="MUSE Prompt Studio home">
+      <button type="button" onClick={() => onViewChange('home')} className="min-h-11 min-w-11 flex items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label="MUSE home">
         <span className="size-8 rounded-full border border-[var(--ui-border)] flex items-center justify-center"><Lightning weight="fill" className="size-4" /></span>
-        <span className="hidden sm:block font-display text-lg">MUSE <span className="font-sans text-[11px] text-[var(--ui-muted-text)]">Prompt Studio</span></span>
+        <span className="hidden sm:block font-display text-lg">MUSE</span>
       </button>
 
       <nav className="hidden md:flex items-center gap-1 ml-2" aria-label="Workspace">
@@ -118,6 +119,7 @@ function StudioHeader({ activeView, onViewChange, onSettings }: {
       </nav>
 
       <div className="flex-1" />
+      <WorkspaceSwitcher />
       <div className="hidden sm:block"><FormatterProfilePicker /></div>
       <button type="button" onClick={openSearch} className="size-11 rounded-full flex items-center justify-center text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label="Search prompts, templates, tags, and commands"><MagnifyingGlass className="size-5" /></button>
       <button type="button" onClick={onSettings} className="hidden sm:flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm text-[var(--ui-muted-text)] hover:text-[var(--ui-text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" aria-label="Open settings"><Gear className="size-4" /><span className="hidden lg:inline">Settings</span></button>

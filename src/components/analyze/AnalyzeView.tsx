@@ -19,8 +19,6 @@ import { renderAnalysisPrompt, updateAnalysisObservation } from '@/services/imag
 import type { AnalysisIntent, ImageAnalysis, PaletteSwatch, ReferenceImage } from '@/types'
 import { cn } from '@/utils/cn'
 
-const MAX_REFERENCES = 12
-
 export function AnalyzeView({ onOpenSettings, onNotify }: { onOpenSettings: () => void; onNotify: (message: string) => void }) {
   const references = usePromptSmithStore((state) => state.referenceImages)
   const activeReferenceId = usePromptSmithStore((state) => state.activeReferenceId)
@@ -45,10 +43,6 @@ export function AnalyzeView({ onOpenSettings, onNotify }: { onOpenSettings: () =
     const file = files?.[0]
     if (!file) return
     setMessage('')
-    if (references.length >= MAX_REFERENCES) {
-      setMessage('Your References library is full. Remove one before adding another study.')
-      return
-    }
     try {
       const reference = await prepareReference(file)
       addReferenceImage(reference)

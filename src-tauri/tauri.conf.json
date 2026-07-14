@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "MUSE",
+  "version": "1.0.1",
+  "identifier": "studio.muse.prompt",
+  "build": {
+    "beforeDevCommand": "npm run dev:desktop",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run build:desktop",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "MUSE — Prompt Studio",
+        "width": 1440,
+        "height": 940,
+        "minWidth": 940,
+        "minHeight": 680,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.png"],
+    "category": "GraphicsAndDesign",
+    "shortDescription": "Local-first prompt and visual direction studio",
+    "longDescription": "MUSE is a private prompt-craft, reference-analysis, and visual-direction workspace for creative professionals.",
+    "macOS": {
+      "minimumSystemVersion": "11.0"
+    }
+  }
+}

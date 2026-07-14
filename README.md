@@ -11,6 +11,7 @@ MUSE is a local-first workspace for turning an image idea into a deliberate, reu
 - **Keep work retrievable.** Saved prompts have editable names, versions, favorites, search, sorting, and import/export.
 - **Stay local by default.** The core prompt workflow needs no account or AI provider.
 - **Make durability visible.** Draft state, backup/restore, storage status, diagnostics, and PWA updates are surfaced in the interface.
+- **Separate real bodies of work.** Workspace folios isolate client, campaign, and personal libraries without introducing an account requirement.
 
 ## The v1 workflow
 
@@ -42,14 +43,36 @@ The first-prompt path teaches those steps in context. A separate Guided start is
 - Intent-led ingredient discovery with the complete taxonomy available as an advanced view
 - Local reference-image collection
 
+### Analyze
+
+- Explicit upload-then-analyze workflow for JPEG, PNG, WebP, and AVIF references
+- Literal description, creative reading, locally measured palette, and editable Visual Anatomy Ledger
+- Recreate and transferable art-direction intents without additional model calls
+- Generator-neutral natural-language and tag prompts with direct Craft handoff
+
+### Workspace folios
+
+- Independent drafts, prompts, references, analyses, recovery history, and local preferences
+- Create, rename, switch, and delete from the global folio control
+- Existing browser data remains the default `My studio` workspace
+- Complete backups operate on the currently open workspace
+
 ### Local-first and PWA
 
 - IndexedDB persistence with verified migration from legacy local storage
+- Reference image binaries stored as IndexedDB Blobs rather than inside the serialized workspace JSON
 - Fallback storage and recoverable-data handling when IndexedDB is unavailable
 - Optional persistent-storage request
 - Offline app shell, taxonomy, and built-in inspiration after the first successful load
 - In-app update checks and safe service-worker updates
 - Light and dark themes, responsive navigation, reduced-motion support, and accessible controls
+
+### Mac desktop
+
+- Tauri 2 shell sharing the same React interface and product logic as the PWA
+- SQLite workspace metadata and native app-local reference files
+- Disk-based storage rather than browser quota for the desktop runtime
+- Native workspace registry mirrored into SQLite for recovery
 
 ### Optional AI connections
 
@@ -65,7 +88,7 @@ Cloud API keys are kept in session storage, excluded from workspace persistence,
 
 ## Data and privacy
 
-MUSE has no account system and does not include product analytics or telemetry. Drafts, prompts, versions, formatter profiles, preferences, and references are stored in the browser on the current device.
+MUSE has no account system and does not include product analytics or telemetry. In the PWA, workspace metadata and Blob assets are stored in IndexedDB. In the Mac app, metadata is stored in SQLite and reference binaries are stored in the app-local data directory.
 
 Clearing site data can remove that workspace. Use **Settings → Data → Export backup** before clearing browser data or moving devices. See [PRIVACY.md](PRIVACY.md) for the complete data-flow summary.
 
@@ -76,9 +99,10 @@ Clearing site data can remove that workspace. Use **Settings → Data → Export
 | UI | React 18, TypeScript, Base UI, Tailwind CSS |
 | Build | Vite 5 |
 | State | Zustand |
-| Durable storage | IndexedDB through `idb`, with local-storage fallback |
+| Durable storage | Browser: IndexedDB + Blob assets; desktop: SQLite + native files |
 | Search | Fuse.js and a local taxonomy index |
 | PWA | vite-plugin-pwa and Workbox |
+| Desktop | Tauri 2 with filesystem and SQL plugins |
 | Unit/integration tests | Vitest |
 | Browser/accessibility tests | Playwright and axe-core |
 
@@ -88,6 +112,7 @@ Clearing site data can remove that workspace. Use **Settings → Data → Export
 
 - Node.js 24 LTS recommended; Node 22–26 supported by the repository engine range
 - npm
+- Rust stable and Xcode command-line tools for native Mac builds
 
 ```bash
 git clone https://github.com/ebuberpg-prog/promptsmith.git
@@ -104,6 +129,9 @@ The development server defaults to `http://localhost:5173/promptsmith/` because 
 | --- | --- |
 | `npm run dev` | Start the Vite development server |
 | `npm run build` | Type-check and create `dist/` |
+| `npm run build:desktop` | Type-check and create the desktop frontend bundle |
+| `npm run tauri:dev` | Launch the native development app |
+| `npm run tauri:build -- --bundles app` | Build the macOS application bundle |
 | `npm run preview` | Preview the production build |
 | `npm run lint` | Run ESLint with zero warnings allowed |
 | `npm test` | Run the Vitest suite once |
@@ -128,6 +156,7 @@ promptsmith/
 │   ├── services/            # Composition, AI, backup, analysis engines
 │   ├── store/               # Zustand state, migration, IndexedDB adapter
 │   └── utils/               # Search, taxonomy, PWA, template utilities
+├── src-tauri/                # Native shell, capabilities, SQLite/filesystem plugins
 ├── tests/e2e/               # Desktop/mobile release flows
 ├── USER_GUIDE.md
 ├── PRIVACY.md
@@ -139,7 +168,9 @@ promptsmith/
 
 ### Persistence
 
-The Zustand workspace is persisted asynchronously to IndexedDB. Legacy `localStorage` state is migrated, verified, and retained as a recovery backup before the new database becomes authoritative. Writes are debounced and flushed on page exit. Theme remains mirrored to local storage so the initial appearance can be restored quickly.
+Each workspace uses an isolated persistence key. Browser metadata is persisted asynchronously to IndexedDB while reference binaries are externalized into a separate Blob object store. Legacy `localStorage` state is migrated, verified, and retained as a recovery backup before IndexedDB becomes authoritative. The desktop adapter stores the same versioned state in SQLite and writes reference binaries to app-local files. Writes are debounced and flushed before workspace switches and on page exit.
+
+The workspace registry keeps the default folio compatible with the original `promptsmith-storage` key. Additional folios use namespaced keys. The Mac runtime mirrors the registry into SQLite before rendering so clearing WebView cache does not orphan native workspaces.
 
 ### Prompt composition
 

@@ -4,6 +4,21 @@ import path from 'node:path'
 
 const RAW_PROMPT = 'A romanticism portrait under controlled studio light'
 
+async function readMuseDatabase(page: Page) {
+  return page.evaluate(async () => new Promise<{ state: string; assetCount: number }>((resolve, reject) => {
+    const request = indexedDB.open('muse-prompt-studio')
+    request.onerror = () => reject(request.error)
+    request.onsuccess = () => {
+      const database = request.result
+      const transaction = database.transaction(['state', 'assets'], 'readonly')
+      const stateRequest = transaction.objectStore('state').get('promptsmith-storage')
+      const assetsRequest = transaction.objectStore('assets').count()
+      transaction.oncomplete = () => resolve({ state: String(stateRequest.result ?? ''), assetCount: Number(assetsRequest.result ?? 0) })
+      transaction.onerror = () => reject(transaction.error)
+    }
+  }))
+}
+
 async function openWorkspaceView(page: Page, testInfo: TestInfo, view: 'Home' | 'Craft' | 'Analyze' | 'Library') {
   const navName = testInfo.project.name.startsWith('mobile') ? 'Main navigation' : 'Workspace'
   await page.getByRole('navigation', { name: navName }).getByRole('button', { name: view, exact: true }).click()
@@ -120,6 +135,23 @@ test('home has no serious accessibility violations', async ({ page }) => {
   expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([])
 })
 
+test('workspace folios isolate drafts and reopen the previous local studio', async ({ page }) => {
+  await page.goto('./')
+  const authored = page.getByPlaceholder('Describe what you want to create or paste a prompt…')
+  await authored.fill('Default workspace draft')
+  await page.getByRole('button', { name: /Current workspace: My studio/ }).click()
+  await expect(page.getByRole('heading', { name: 'Studio workspaces' })).toBeVisible()
+  await page.getByLabel('Workspace name').fill('Client campaign')
+  await page.getByRole('button', { name: 'Create and open' }).click()
+  await expect(page.getByRole('button', { name: /Current workspace: Client campaign/ })).toBeVisible()
+  await expect(authored).toHaveValue('')
+
+  await page.getByRole('button', { name: /Current workspace: Client campaign/ }).click()
+  await page.getByRole('button', { name: /^My studio Last opened/ }).click()
+  await expect(page.getByRole('button', { name: /Current workspace: My studio/ })).toBeVisible()
+  await expect(authored).toHaveValue('Default workspace draft')
+})
+
 test('Analyze is a first-class accessible workspace and does not transmit an upload automatically', async ({ page }, testInfo) => {
   const externalRequests: string[] = []
   page.on('request', (request) => {
@@ -137,6 +169,9 @@ test('Analyze is a first-class accessible workspace and does not transmit an upl
   await (await chooser).setFiles(path.resolve('public/pwa-192x192.png'))
   await expect(page.getByRole('heading', { name: 'pwa-192x192' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Inspect the decisions behind the frame.' })).toBeVisible()
+  await expect.poll(async () => readMuseDatabase(page)).toMatchObject({ assetCount: 2, state: expect.stringContaining('muse-asset://reference/') })
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'pwa-192x192' })).toBeVisible()
   expect(externalRequests).toEqual([])
 })
 
