@@ -40,6 +40,10 @@ Lead with authored language. Related ingredients, formats, guided start, and ins
 
 Default to Simple. Keep authored text, ingredients, attribution, formatted output, and save/copy actions central. Studio tools are opt-in, collapsed by default, and limited to one open refinement section at a time.
 
+### Analyze
+
+Treat the reference image as evidence, not decoration. Separate literal description from creative interpretation, keep the measured palette and editable Visual Anatomy Ledger inspectable, and derive portable prompts locally from included observations. Images are stored locally and analyzed only after an explicit action.
+
 ### Library
 
 Optimize for retrieval, not decoration. Titles, search, favorites, sorting, metadata, versions, and `Open in Craft` should make a growing collection scannable.

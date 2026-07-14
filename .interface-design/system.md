@@ -82,6 +82,26 @@ Studio tools use a single accordion rail for prompt check, suggestions, variatio
 
 When content exists, show a compact `What MUSE added` explanation before the formatted output. Distinguish structured ingredients from authored text, state the ingredient count, and name a few examples. Label the formatted result `Ready to use`; do not imply that MUSE authored or replaced the person's original language.
 
+## Visual analysis patterns
+
+Analyze is the top-level workspace for turning one visible reference into an inspectable art-direction study. Its sequence is **Upload → Analyze explicitly → Inspect → Use in Craft**.
+
+### Visual Anatomy Ledger
+
+Keep visual analysis as one continuous editorial document rather than a dashboard grid. The uploaded image remains the stable evidence surface; the literal description, creative read, palette, ledger, and prompt outputs follow in that order.
+
+- Every observation names a visual dimension, distinguishes observed evidence from inference, and can be edited or excluded.
+- Ledger edits update natural-language and tag-based prompts locally. Generated outputs remain read-only until they enter Craft.
+- `Recreate closely` retains scene-specific observations. `Extract art direction` removes scene-specific subject matter while retaining transferable composition, light, palette, medium, texture, and mood.
+- Palette hex values come from local pixel analysis. Show semantic name, role, and prominence without allowing a vision model to replace the measured color.
+- Do not send an image automatically. Uploads save locally; analysis always requires an explicit action and a vision-capable provider.
+
+### Analyze layout and handoff
+
+Use a sticky reference sheet beside the continuous study on desktop and a stacked reference-first layout on mobile. Keep previous studies in Library → References rather than adding a competing history rail.
+
+`Use in Craft` starts a new unsaved draft without a confirmation interruption, but captures the previous draft for recovery first. Transfer generator-neutral natural language plus exact recognized taxonomy ingredients; model-specific formatting remains Craft's responsibility.
+
 ## Saved-prompt retrieval patterns
 
 Suggested names should be short, recognisable phrases derived from the first meaningful subject clause, not a raw six-word truncation. Remove generic generation instructions and unresolved variable tokens. Keep the save-name field editable and explain that naming supports future recall.

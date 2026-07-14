@@ -1,9 +1,10 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page, type TestInfo } from '@playwright/test'
+import path from 'node:path'
 
 const RAW_PROMPT = 'A romanticism portrait under controlled studio light'
 
-async function openWorkspaceView(page: Page, testInfo: TestInfo, view: 'Home' | 'Craft' | 'Library') {
+async function openWorkspaceView(page: Page, testInfo: TestInfo, view: 'Home' | 'Craft' | 'Analyze' | 'Library') {
   const navName = testInfo.project.name.startsWith('mobile') ? 'Main navigation' : 'Workspace'
   await page.getByRole('navigation', { name: navName }).getByRole('button', { name: view, exact: true }).click()
 }
@@ -117,6 +118,67 @@ test('home has no serious accessibility violations', async ({ page }) => {
   await page.goto('./')
   const results = await new AxeBuilder({ page }).analyze()
   expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([])
+})
+
+test('Analyze is a first-class accessible workspace and does not transmit an upload automatically', async ({ page }, testInfo) => {
+  const externalRequests: string[] = []
+  page.on('request', (request) => {
+    const url = new URL(request.url())
+    if (!['127.0.0.1', 'localhost'].includes(url.hostname)) externalRequests.push(request.url())
+  })
+  await page.goto('./')
+  await openWorkspaceView(page, testInfo, 'Analyze')
+  await expect(page.getByRole('heading', { name: 'Read the image. Rebuild the direction.' })).toBeVisible()
+  await expect(page.getByRole('button', { name: /Drop a reference onto the desk/ })).toBeVisible()
+  const results = await new AxeBuilder({ page }).analyze()
+  expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([])
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: /Drop a reference onto the desk/ }).click()
+  await (await chooser).setFiles(path.resolve('public/pwa-192x192.png'))
+  await expect(page.getByRole('heading', { name: 'pwa-192x192' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Inspect the decisions behind the frame.' })).toBeVisible()
+  expect(externalRequests).toEqual([])
+})
+
+test('an analyzed study edits locally, changes intent, and starts a new Craft draft', async ({ page }, testInfo) => {
+  await page.addInitScript(() => {
+    const reference = {
+      id: 'study-1', name: 'glass-study.webp', dataUrl: 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEALmk0mk0iIiIiIgBoSygABc6zbAAA', uploadedAt: 1,
+      extractedTags: [],
+      metadata: { mimeType: 'image/webp', width: 1, height: 1, originalBytes: 128, altText: 'Glass study', analysisStatus: 'analyzed', analyzedBy: { provider: 'ollama', model: 'vision', analyzedAt: 1 } },
+      analysis: {
+        schemaVersion: 2,
+        literalDescription: 'A glass vessel rests on folded paper.',
+        creativeRead: 'A restrained editorial material study.',
+        selectedIntent: 'recreate',
+        observations: [
+          { id: 'subject', dimension: 'subject', text: 'a translucent glass vessel', evidence: 'observed', scope: 'scene', included: true },
+          { id: 'lighting', dimension: 'lighting', text: 'large diffused side light', evidence: 'inferred', scope: 'direction', included: true },
+        ],
+        palette: [{ hex: '#E8DED0', prominence: 1, name: 'paper ivory', role: 'dominant', included: true }],
+        provenance: { provider: 'ollama', model: 'vision', analyzedAt: 1 },
+      },
+    }
+    window.localStorage.setItem('promptsmith-storage', JSON.stringify({
+      state: { workspaceView: 'analyze', activeReferenceId: reference.id, referenceImages: [reference], customText: 'Previous draft' },
+      version: 7,
+    }))
+  })
+  await page.goto('./')
+  await expect(page.getByRole('heading', { name: 'glass-study' })).toBeVisible()
+  await page.getByRole('textbox', { name: 'lighting observation' }).fill('soft overcast window light')
+  await page.getByRole('button', { name: 'Extract art direction' }).click()
+  const natural = page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Natural language' }) })
+  await expect(natural).not.toContainText('glass vessel')
+  await expect(natural).toContainText('soft overcast window light')
+  await natural.getByRole('button', { name: 'Use in Craft' }).click()
+  await expect(page.getByLabel('Authored prompt')).toHaveValue(/soft overcast window light/)
+  await expect(page.getByLabel('Authored prompt')).not.toHaveValue(/glass vessel/)
+  await expect(page.getByText('Started a new Craft draft · previous draft kept in recovery')).toBeVisible()
+  await openWorkspaceView(page, testInfo, 'Library')
+  await page.getByRole('tab', { name: 'references' }).click()
+  await page.getByRole('button', { name: 'Open in Analyze' }).click()
+  await expect(page.getByRole('heading', { name: 'glass-study' })).toBeVisible()
 })
 
 test('the installed PWA reloads offline with the current draft', async ({ page, context }) => {

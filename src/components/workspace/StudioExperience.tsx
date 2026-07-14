@@ -1,5 +1,6 @@
-import { useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useMemo, useRef, useState } from 'react'
 import {
+  Aperture,
   ArrowRight,
   Copy,
   CaretDown,
@@ -57,11 +58,14 @@ const STARTERS = [
   { label: 'Surprise me', prompt: 'An unexpected visual idea combining an ordinary ritual with an impossible place' },
 ]
 
+const AnalyzeView = lazy(() => import('@/components/analyze/AnalyzeView').then((module) => ({ default: module.AnalyzeView })))
+
 export function StudioExperience({ taxonomy }: { taxonomy: TaxonomyCategory[] }) {
   const workspaceView = usePromptSmithStore((state) => state.workspaceView)
   const setWorkspaceView = usePromptSmithStore((state) => state.setWorkspaceView)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [wizardOpen, setWizardOpen] = useState(false)
+  const [notice, setNotice] = useState('')
 
   return (
     <div className="h-dvh flex flex-col overflow-hidden bg-[var(--ui-bg)] text-[var(--ui-text)]">
@@ -74,6 +78,7 @@ export function StudioExperience({ taxonomy }: { taxonomy: TaxonomyCategory[] })
       <main key={workspaceView} className={`flex-1 min-h-0 overflow-y-auto md:pb-0 ${workspaceView === 'craft' ? 'pb-36' : 'pb-20'}`}>
         {workspaceView === 'home' && <HomeView onGuidedStart={() => setWizardOpen(true)} />}
         {workspaceView === 'craft' && <CraftView taxonomy={taxonomy} />}
+        {workspaceView === 'analyze' && <Suspense fallback={<div className="max-w-7xl mx-auto px-6 py-12 text-sm text-[var(--ui-muted-text)]" role="status">Opening the visual study desk…</div>}><AnalyzeView onOpenSettings={() => setSettingsOpen(true)} onNotify={setNotice} /></Suspense>}
         {workspaceView === 'library' && <LibraryView taxonomy={taxonomy} />}
       </main>
 
@@ -81,6 +86,7 @@ export function StudioExperience({ taxonomy }: { taxonomy: TaxonomyCategory[] })
       <CommandPalette />
       <AISettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <QuickStartWizard isOpen={wizardOpen} onClose={() => setWizardOpen(false)} onSkip={() => setWizardOpen(false)} />
+      <ActionToast message={notice} onDismiss={() => setNotice('')} />
     </div>
   )
 }
@@ -107,6 +113,7 @@ function StudioHeader({ activeView, onViewChange, onSettings }: {
       <nav className="hidden md:flex items-center gap-1 ml-2" aria-label="Workspace">
         <HeaderTab label="Home" active={activeView === 'home'} onClick={() => onViewChange('home')} />
         <HeaderTab label="Craft" active={activeView === 'craft'} onClick={() => onViewChange('craft')} />
+        <HeaderTab label="Analyze" active={activeView === 'analyze'} onClick={() => onViewChange('analyze')} />
         <HeaderTab label="Library" active={activeView === 'library'} onClick={() => onViewChange('library')} />
       </nav>
 
@@ -131,7 +138,7 @@ function StudioHeader({ activeView, onViewChange, onSettings }: {
 }
 
 function HeaderTab({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
-  return <button type="button" onClick={onClick} aria-current={active ? 'page' : undefined} className={`min-h-11 px-4 rounded-lg text-sm transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${active ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]'}`}>{label}</button>
+  return <button type="button" onClick={onClick} aria-current={active ? 'page' : undefined} className={`min-h-11 px-4 rounded-lg text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${active ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)] hover:text-[var(--ui-text)]'}`}>{label}</button>
 }
 
 function FirstPromptPath({ stage }: { stage: 'describe' | 'refine' | 'save' }) {
@@ -451,8 +458,7 @@ async function createPromptCover(file: File): Promise<string> {
 }
 
 function MobileNavigation({ activeView, onViewChange }: { activeView: WorkspaceView; onViewChange: (view: WorkspaceView) => void }) {
-  const openSearch = () => window.dispatchEvent(new CustomEvent('command-palette-open'))
-  return <nav className="md:hidden fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 min-h-16 border-t border-[var(--ui-border)] bg-[var(--ui-bg)] safe-bottom" aria-label="Main navigation"><MobileNavButton label="Home" icon={<House className="size-5" />} active={activeView === 'home'} onClick={() => onViewChange('home')} /><MobileNavButton label="Craft" icon={<Sparkle className="size-5" />} active={activeView === 'craft'} onClick={() => onViewChange('craft')} /><MobileNavButton label="Library" icon={<SquaresFour className="size-5" />} active={activeView === 'library'} onClick={() => onViewChange('library')} /><MobileNavButton label="Search" icon={<MagnifyingGlass className="size-5" />} active={false} onClick={openSearch} /></nav>
+  return <nav className="md:hidden fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 min-h-16 border-t border-[var(--ui-border)] bg-[var(--ui-bg)] safe-bottom" aria-label="Main navigation"><MobileNavButton label="Home" icon={<House className="size-5" />} active={activeView === 'home'} onClick={() => onViewChange('home')} /><MobileNavButton label="Craft" icon={<Sparkle className="size-5" />} active={activeView === 'craft'} onClick={() => onViewChange('craft')} /><MobileNavButton label="Analyze" icon={<Aperture className="size-5" />} active={activeView === 'analyze'} onClick={() => onViewChange('analyze')} /><MobileNavButton label="Library" icon={<SquaresFour className="size-5" />} active={activeView === 'library'} onClick={() => onViewChange('library')} /></nav>
 }
 
 function MobileNavButton({ label, icon, active, onClick }: { label: string; icon: React.ReactNode; active: boolean; onClick: () => void }) {

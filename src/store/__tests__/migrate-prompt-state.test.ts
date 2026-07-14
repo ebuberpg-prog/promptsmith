@@ -42,4 +42,16 @@ describe('migratePromptState', () => {
     expect(JSON.stringify(migrated.aiSettings)).not.toContain('openaiApiKey')
     expect(state.aiSettings.openaiApiKey).toBe('must-not-persist')
   })
+
+  it('accepts Analyze in v7 and clears a missing active reference', () => {
+    const migrated = migratePromptState({ workspaceView: 'analyze', activeReferenceId: 'missing', referenceImages: [] }, 6)
+    expect(migrated.workspaceView).toBe('analyze')
+    expect(migrated.activeReferenceId).toBeNull()
+  })
+
+  it('keeps a valid active reference during the v7 migration', () => {
+    const reference = { id: 'reference-1', name: 'Study', dataUrl: 'data:image/webp;base64,abc', uploadedAt: 1, extractedTags: [] }
+    const migrated = migratePromptState({ workspaceView: 'analyze', activeReferenceId: reference.id, referenceImages: [reference] }, 6)
+    expect(migrated.activeReferenceId).toBe(reference.id)
+  })
 })

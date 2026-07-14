@@ -1,4 +1,4 @@
-import type { PromptTemplate } from '@/types'
+import type { PromptTemplate, ReferenceImage } from '@/types'
 import { MODEL_PROFILE_MAP } from '@/data/formatter-profiles'
 
 export function migratePromptState(persistedState: unknown, version: number): Record<string, unknown> {
@@ -72,6 +72,22 @@ export function migratePromptState(persistedState: unknown, version: number): Re
     state.draftDirty = Boolean(state.draftDirty)
     state.lastEnhancement = null
     state.showInspiration = state.showInspiration !== false
+  }
+
+  if (version < 7) {
+    state.workspaceView = ['home', 'craft', 'analyze', 'library'].includes(String(state.workspaceView)) ? state.workspaceView : 'home'
+    const references = Array.isArray(state.referenceImages) ? state.referenceImages as ReferenceImage[] : []
+    state.referenceImages = references.map((reference) => {
+      if (!reference.analysis || reference.analysis.schemaVersion === 2) return reference
+      const rest = { ...reference }
+      delete rest.analysis
+      return {
+        ...rest,
+        metadata: reference.metadata ? { ...reference.metadata, analysisStatus: 'not-analyzed', analyzedBy: undefined, analysisError: undefined } : reference.metadata,
+      }
+    })
+    const activeReferenceId = typeof state.activeReferenceId === 'string' ? state.activeReferenceId : null
+    state.activeReferenceId = activeReferenceId && references.some((reference) => reference.id === activeReferenceId) ? activeReferenceId : null
   }
 
   return state

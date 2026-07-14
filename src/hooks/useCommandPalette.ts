@@ -122,8 +122,8 @@ export function useCommandPalette() {
       })
     }
 
-    if (query.length === 0 || 'home craft library'.includes(query.toLowerCase())) {
-      for (const view of ['home', 'craft', 'library'] as const) {
+    if (query.length === 0 || 'home craft analyze library'.includes(query.toLowerCase())) {
+      for (const view of ['home', 'craft', 'analyze', 'library'] as const) {
         if (query && !view.includes(query.toLowerCase())) continue
         cmds.push({
           id: `cmd-view-${view}`,

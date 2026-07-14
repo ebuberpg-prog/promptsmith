@@ -1,5 +1,6 @@
-import type { AIEnhancementRequest, AIEnhancementResult, EnhancementGoal, FormatFamily, LocalAIProviderId, LocalModelCapabilities } from '@/types'
+import type { AIEnhancementRequest, AIEnhancementResult, EnhancementGoal, FormatFamily, LocalAIProviderId, LocalModelCapabilities, PaletteSwatch } from '@/types'
 import { getSessionAIKey } from './ai-credential-vault'
+import { parseImageAnalysisResponse, type ParsedImageAnalysis } from './image-analysis-engine'
 
 export interface AIModel {
   id: string
@@ -304,6 +305,16 @@ Do not add contradictions. Return only replacement authored text with no heading
 
 const TAG_SYSTEM = `Suggest complementary visual taxonomy labels for the supplied art direction. Return only a JSON array of 3 to 6 labels. When allowed labels are supplied, copy choices verbatim from that list. Do not repeat existing labels and do not add quality clichés.`
 const IMAGE_SYSTEM = `Analyze this image as a visual reference. Return only a JSON array of 10 to 16 concise visual labels covering visible subject, objects, setting, lighting, mood, medium, color, texture and composition. Each array item must contain exactly one concept. Never combine concepts with commas, semicolons, slashes or "and". Do not infer identity or hidden context.`
+const IMAGE_STUDY_SYSTEM = `Read the supplied image like an experienced art director preparing a reproducible visual study.
+Return one JSON object with exactly these top-level keys: literalDescription, creativeRead, observations, palette, suggestedTags.
+literalDescription must describe only visible facts in clear prose. creativeRead may interpret the art direction, emotional effect, visual hierarchy, and production logic, but must not identify people or invent hidden context.
+observations must contain 10 to 20 objects. Each object has dimension, text, evidence, and scope.
+dimension must be one of: subject, setting, composition, camera, lighting, color, medium, material, texture, mood, era, typography, motion.
+evidence is observed or inferred. scope is scene for image-specific subject matter, direction for transferable visual language, or both.
+Write concrete generator-neutral phrases. Do not name artists, add quality clichés, model syntax, weights, or parameters.
+palette must contain one object for each supplied hex and no other colors, with keys hex, name, role. Copy every hex exactly. role is ground, dominant, support, accent, or deepest.
+suggestedTags must be a JSON array of 8 to 16 concise atomic visual concepts derived from the image.
+Return JSON only, without markdown.`
 const NEGATIVE_SYSTEM = `Return JSON with detectedIssues and negatives. Negatives must address technical image-generation failure modes only. Shape: {"detectedIssues":[],"negatives":[{"text":"","reason":"","priority":1,"category":"quality"}]}`
 
 class AIServiceManager {
@@ -442,6 +453,27 @@ class AIServiceManager {
   async imageToTags(imageBase64: string, imageMimeType = 'image/jpeg') {
     if (!this.getSelectedModelCapabilities().vision) throw new Error('The selected local model is not marked as vision-capable. Choose a vision model, then retry.')
     return parseStringArray(await this.complete({ systemPrompt: IMAGE_SYSTEM, userMessage: 'Analyze this reference only after this explicit request. Return 10 to 16 separate atomic labels.', imageBase64, imageMimeType, format: 'json', maxTokens: 500 })).slice(0, 16)
+  }
+
+  async analyzeImage(imageBase64: string, imageMimeType: string, palette: PaletteSwatch[]): Promise<ParsedImageAnalysis> {
+    if (!this.getSelectedModelCapabilities().vision) throw new Error('The selected model is not marked as vision-capable. Choose a vision model, then retry.')
+    const state = this.getState()
+    if (!state.activeProvider || !state.selectedModel) throw new Error('Choose and connect a vision-capable AI provider in Settings first.')
+    const paletteHex = palette.map((swatch) => swatch.hex.toUpperCase())
+    const content = await this.complete({
+      systemPrompt: IMAGE_STUDY_SYSTEM,
+      userMessage: `Analyze this reference only after this explicit request. The locally extracted palette is: ${paletteHex.join(', ')}. Return a complete art-direction study using those exact colors.`,
+      imageBase64,
+      imageMimeType,
+      format: 'json',
+      temperature: 0.18,
+      maxTokens: 2_200,
+    }, 75_000)
+    return parseImageAnalysisResponse(content, palette, {
+      provider: state.activeProvider,
+      model: state.selectedModel,
+      analyzedAt: Date.now(),
+    })
   }
 
   async analyzeNegatives(prompt: string): Promise<{ detectedIssues: string[]; negatives: Array<{ text: string; reason: string; priority: number; category: string }> }> {

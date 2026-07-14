@@ -20,6 +20,7 @@ import type {
   DraftPersistenceState,
   AIEnhancementResult,
   LocalAIProviderId,
+  AnalysisIntent,
 } from '@/types'
 import { RandomizerEngine, type RandomizerResult } from '@/services/randomizer-engine'
 import type { RandomizerMode } from '@/data/randomizer-modes'
@@ -31,6 +32,8 @@ import { DEFAULT_FORMATTER_PROFILE_ID, getFormatterProfile, MODEL_PROFILE_MAP, v
 import { composeWithProfile, detectPromptVariables } from '@/services/formatter-service'
 import { createMuseBackup, mergeById, mergePromptBackups, parseMuseBackup } from '@/services/backup-service'
 import { normalizeTaxonomyTag, normalizeTaxonomyTags } from '@/utils/taxonomy-tag'
+import { getTagById } from '@/utils/tag-index'
+import { renderAnalysisPrompt } from '@/services/image-analysis-engine'
 
 let isHistoryBatching = false
 
@@ -68,6 +71,9 @@ interface PromptSmithStore extends AppState {
   toggleContentVisibility: () => void
   setWorkspaceDepth: (depth: WorkspaceDepth) => void
   setWorkspaceView: (view: WorkspaceView) => void
+  setActiveReferenceId: (id: string | null) => void
+  openReferenceInAnalyze: (id: string) => void
+  applyReferenceAnalysisToCraft: (id: string, intent: AnalysisIntent) => boolean
   setActiveCategory: (category: string | null) => void
   setSearchQuery: (query: string) => void
   savePrompt: (name: string, source?: PromptTemplate['source']) => PromptTemplate
@@ -165,6 +171,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       contentVisibility: 'filtered' as ContentVisibility,
       workspaceDepth: 'simple' as WorkspaceDepth,
       workspaceView: 'home' as WorkspaceView,
+      activeReferenceId: null,
       activeCategory: null,
       searchQuery: '',
       savedPrompts: [],
@@ -329,6 +336,40 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       setWorkspaceDepth: (workspaceDepth) => set({ workspaceDepth }),
 
       setWorkspaceView: (workspaceView) => { set({ workspaceView }); void flushPendingState() },
+
+      setActiveReferenceId: (activeReferenceId) => set({ activeReferenceId }),
+
+      openReferenceInAnalyze: (activeReferenceId) => {
+        set({ activeReferenceId, workspaceView: 'analyze' })
+        void flushPendingState()
+      },
+
+      applyReferenceAnalysisToCraft: (id, intent) => {
+        const state = get()
+        const reference = state.referenceImages.find((image) => image.id === id)
+        if (!reference?.analysis) return false
+        if (state.customText || state.selectedTags.length) get().captureDraftSnapshot('manual')
+        get()._saveHistory()
+        const customText = renderAnalysisPrompt(reference.analysis, intent, 'natural-language')
+        const selectedTags = reference.extractedTags.flatMap((tag) => {
+          const taxonomyTag = getTagById(tag.id)
+          return taxonomyTag ? [{ ...normalizeTaxonomyTag(taxonomyTag), selectedAt: Date.now() }] : []
+        })
+        set({
+          customText,
+          selectedTags,
+          customNegativePrompt: '',
+          modelParameters: {},
+          promptVariables: detectPromptVariables(customText),
+          activePromptId: null,
+          draftDirty: true,
+          lastEnhancement: null,
+          negativeIntelligence: null,
+          workspaceView: 'craft',
+        })
+        void flushPendingState()
+        return true
+      },
 
       setActiveCategory: (category) => set({ activeCategory: category }),
 
@@ -590,6 +631,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
       removeReferenceImage: (id) =>
         set((state) => ({
           referenceImages: state.referenceImages.filter((i) => i.id !== id),
+          activeReferenceId: state.activeReferenceId === id ? null : state.activeReferenceId,
         })),
 
       setModelParameters: (params) => set({ modelParameters: params, draftDirty: true }),
@@ -841,7 +883,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
     }),
     {
       name: 'promptsmith-storage',
-      version: 6,
+      version: 7,
       storage: createJSONStorage(() => indexedDbStorage),
       migrate: (persistedState, version) => migratePromptState(persistedState, version) as unknown as PromptSmithStore,
       merge: (persistedState, currentState) => {
@@ -905,6 +947,7 @@ export const usePromptSmithStore = create<PromptSmithStore>()(
         contentVisibility: state.contentVisibility,
         workspaceDepth: state.workspaceDepth,
         workspaceView: state.workspaceView,
+        activeReferenceId: state.activeReferenceId,
         savedPrompts: state.savedPrompts,
         modelParameters: state.modelParameters,
         pinnedTags: state.pinnedTags,

@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { usePromptSmithStore } from '../prompt-store'
+import type { ReferenceImage } from '@/types'
 
 describe('prompt document workflow', () => {
   beforeAll(() => {
@@ -61,5 +62,27 @@ describe('prompt document workflow', () => {
     const second = usePromptSmithStore.getState().savePrompt('Portrait')
     expect(usePromptSmithStore.getState().promptVersions[first.id]).toHaveLength(versionCount)
     expect(second.version).toBe(first.version)
+  })
+
+  it('starts a new Craft draft from an analyzed reference and preserves recovery', () => {
+    const reference: ReferenceImage = {
+      id: 'reference-1', name: 'Glass study.webp', dataUrl: 'data:image/webp;base64,abc', uploadedAt: 1, extractedTags: [],
+      analysis: {
+        schemaVersion: 2,
+        literalDescription: 'A glass vessel.',
+        creativeRead: 'A quiet study.',
+        selectedIntent: 'recreate',
+        observations: [{ id: 'subject', dimension: 'subject', text: 'a glass vessel', evidence: 'observed', scope: 'scene', included: true }],
+        palette: [],
+        provenance: { provider: 'ollama', model: 'vision', analyzedAt: 1 },
+      },
+    }
+    usePromptSmithStore.setState({ customText: 'Existing draft', referenceImages: [reference], workspaceView: 'analyze' })
+    expect(usePromptSmithStore.getState().applyReferenceAnalysisToCraft(reference.id, 'recreate')).toBe(true)
+    const state = usePromptSmithStore.getState()
+    expect(state.customText).toBe('A glass vessel.')
+    expect(state.workspaceView).toBe('craft')
+    expect(state.activePromptId).toBeNull()
+    expect(state.draftSnapshots.at(-1)?.customText).toBe('Existing draft')
   })
 })

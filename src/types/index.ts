@@ -55,7 +55,7 @@ export interface PromptTemplate {
 
 export type ContentVisibility = 'filtered' | 'all'
 export type WorkspaceDepth = 'simple' | 'studio'
-export type WorkspaceView = 'home' | 'craft' | 'library'
+export type WorkspaceView = 'home' | 'craft' | 'analyze' | 'library'
 export type PromptDimension = 'subject' | 'setting' | 'lighting' | 'composition' | 'style'
 export type FormatFamily = 'natural-language' | 'tag-list' | 'midjourney-params' | 'structured-instruction' | 'custom'
 export type StorageDurability = 'persistent' | 'best-effort' | 'unavailable' | 'denied'
@@ -63,6 +63,55 @@ export type LocalAIProviderId = 'ollama' | 'lmstudio' | 'openai-compatible' | 'a
 export type DraftPersistenceState = 'saving' | 'saved' | 'best-effort' | 'error'
 export type EnhancementGoal = 'preserve-intent' | 'more-visual' | 'lighting' | 'composition' | 'concise'
 export type FeatureIntegrity = 'complete' | 'partial' | 'simulated' | 'misleading' | 'unreachable'
+
+export type AnalysisIntent = 'recreate' | 'art-direction'
+export type AnalysisEvidence = 'observed' | 'inferred'
+export type AnalysisScope = 'scene' | 'direction' | 'both'
+export type VisualDimension =
+  | 'subject'
+  | 'setting'
+  | 'composition'
+  | 'camera'
+  | 'lighting'
+  | 'color'
+  | 'medium'
+  | 'material'
+  | 'texture'
+  | 'mood'
+  | 'era'
+  | 'typography'
+  | 'motion'
+
+export interface VisualObservation {
+  id: string
+  dimension: VisualDimension
+  text: string
+  evidence: AnalysisEvidence
+  scope: AnalysisScope
+  included: boolean
+}
+
+export interface PaletteSwatch {
+  hex: string
+  prominence: number
+  name: string
+  role: 'ground' | 'dominant' | 'support' | 'accent' | 'deepest'
+  included: boolean
+}
+
+export interface ImageAnalysis {
+  schemaVersion: 2
+  literalDescription: string
+  creativeRead: string
+  selectedIntent: AnalysisIntent
+  observations: VisualObservation[]
+  palette: PaletteSwatch[]
+  provenance: {
+    provider: LocalAIProviderId
+    model: string
+    analyzedAt: number
+  }
+}
 
 export interface AIEnhancementRequest {
   authoredText: string
@@ -257,14 +306,6 @@ export interface ExtractedTag {
   label: string
   confidence: number
   source: 'clip' | 'blip' | 'manual'
-}
-
-export interface ImageAnalysis {
-  style: string
-  composition: CompositionAnalysis
-  dominantColors: string[]
-  mood: string
-  era?: string
 }
 
 export interface CompositionAnalysis {
@@ -478,6 +519,7 @@ export interface AppState {
   contentVisibility: ContentVisibility
   workspaceDepth: WorkspaceDepth
   workspaceView: WorkspaceView
+  activeReferenceId: string | null
   activeCategory: string | null
   searchQuery: string
   savedPrompts: PromptTemplate[]
