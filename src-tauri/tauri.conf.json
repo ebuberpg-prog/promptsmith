@@ -35,7 +35,8 @@
     "shortDescription": "Local-first prompt and visual direction studio",
     "longDescription": "MUSE is a private prompt-craft, reference-analysis, and visual-direction workspace for creative professionals.",
     "macOS": {
-      "minimumSystemVersion": "11.0"
+      "minimumSystemVersion": "11.0",
+      "signingIdentity": "-"
     }
   }
 }
