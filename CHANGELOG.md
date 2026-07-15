@@ -2,6 +2,27 @@
 
 All notable changes to MUSE are documented here.
 
+## [1.0.2] — 2026-07-14
+
+### Added
+
+- Direct `Sample a missed color` correction from analyzed reference images
+- Regression coverage for small accents, continuous tonal fields, and palette prominence
+
+### Changed
+
+- Replaced frequency-first RGB palette selection with perceptual OKLab clustering and accent-aware sampling
+- Increased the local palette analysis surface from 128px to 384px
+- Recalculate swatch prominence from every sampled opaque pixel
+- Use border evidence when assigning palette ground roles
+
+### Fixed
+
+- Preserve visually important accent colors that were previously displaced by common background shades
+- Report palette prominence against the complete image sample instead of selected color buckets
+
+[1.0.2]: https://github.com/ebuberpg-prog/promptsmith/releases/tag/1.02
+
 ## [1.0.0] — 2026-07-13
 
 ### Added

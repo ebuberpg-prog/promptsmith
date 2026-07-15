@@ -4,6 +4,7 @@ import {
   Check,
   CircleNotch,
   Copy,
+  EyedropperSample,
   Image as ImageIcon,
   SlidersHorizontal,
   Trash,
@@ -15,7 +16,7 @@ import { usePromptSmithStore } from '@/store/prompt-store'
 import { aiService } from '@/services/local-ai-service'
 import { analyzeReferenceImage, normalizeVisionError } from '@/services/reference-analysis-service'
 import { prepareReference, REFERENCE_ACCEPT } from '@/services/reference-image-service'
-import { renderAnalysisPrompt, updateAnalysisObservation } from '@/services/image-analysis-engine'
+import { addSampledColorToPalette, renderAnalysisPrompt, updateAnalysisObservation } from '@/services/image-analysis-engine'
 import type { AnalysisIntent, ImageAnalysis, PaletteSwatch, ReferenceImage } from '@/types'
 import { cn } from '@/utils/cn'
 
@@ -90,6 +91,25 @@ export function AnalyzeView({ onOpenSettings, onNotify }: { onOpenSettings: () =
     onNotify('Started a new Craft draft · previous draft kept in recovery')
   }
 
+  const sampleColor = async (hex: string) => {
+    if (!activeReference?.analysis) return
+    try {
+      const result = await addSampledColorToPalette(activeReference.dataUrl, activeReference.analysis.palette, hex)
+      if (result.status === 'existing') {
+        setToast('That color is already represented')
+        return
+      }
+      if (result.status === 'full') {
+        setToast('Palette already contains the maximum eight swatches')
+        return
+      }
+      updateReferenceImage(activeReference.id, { analysis: { ...activeReference.analysis, palette: result.palette } })
+      setToast(`${hex} added from the reference`)
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'That color could not be sampled.')
+    }
+  }
+
   if (!activeReference) {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -138,7 +158,7 @@ export function AnalyzeView({ onOpenSettings, onNotify }: { onOpenSettings: () =
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[minmax(300px,0.78fr)_minmax(0,1.22fr)] lg:items-start">
-        <ReferenceSheet reference={activeReference} />
+        <ReferenceSheet reference={activeReference} onSampleColor={activeReference.analysis ? sampleColor : undefined} />
         <div className="min-w-0">
           <AnalysisContent
             reference={activeReference}
@@ -172,16 +192,39 @@ export function AnalyzeView({ onOpenSettings, onNotify }: { onOpenSettings: () =
   )
 }
 
-function ReferenceSheet({ reference }: { reference: ReferenceImage }) {
+function ReferenceSheet({ reference, onSampleColor }: { reference: ReferenceImage; onSampleColor?: (hex: string) => Promise<void> }) {
+  const [sampling, setSampling] = useState(false)
+  const [samplingColor, setSamplingColor] = useState(false)
+
+  const handleSample = async (event: React.MouseEvent<HTMLImageElement>) => {
+    if (!sampling || samplingColor || !onSampleColor) return
+    const hex = sampleDisplayedImage(event.currentTarget, event.clientX, event.clientY)
+    if (!hex) return
+    setSamplingColor(true)
+    try {
+      await onSampleColor(hex)
+      setSampling(false)
+    } finally {
+      setSamplingColor(false)
+    }
+  }
+
   return (
     <aside className="lg:sticky lg:top-6 space-y-3" aria-label="Active reference">
-      <div className="overflow-hidden rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface-soft)]">
-        <img src={reference.dataUrl} alt={reference.metadata?.altText ?? reference.name} className="w-full max-h-[70vh] object-contain" />
+      <div className={cn('relative overflow-hidden rounded-2xl border bg-[var(--ui-surface-soft)] transition-colors duration-150', sampling ? 'border-[var(--ui-border-strong)]' : 'border-[var(--ui-border)]')}>
+        <img
+          src={reference.dataUrl}
+          alt={reference.metadata?.altText ?? reference.name}
+          onClick={(event) => void handleSample(event)}
+          className={cn('w-full max-h-[70vh] object-contain', sampling && 'cursor-crosshair')}
+        />
+        {sampling && <div className="pointer-events-none absolute inset-x-3 bottom-3 flex justify-center"><span className="rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-elevated)] px-3 py-2 text-xs text-[var(--ui-text)]">Click the color that the analysis missed</span></div>}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--ui-muted-text)]">
         <span>{reference.metadata?.width} × {reference.metadata?.height}</span>
         <span>Saved locally · {formatBytes(reference.metadata?.originalBytes ?? 0)}</span>
       </div>
+      {onSampleColor && <button type="button" aria-pressed={sampling} disabled={samplingColor} onClick={() => setSampling((value) => !value)} className={cn('min-h-11 w-full rounded-lg border px-3 flex items-center justify-center gap-2 text-xs transition-colors duration-150 disabled:opacity-45', sampling ? 'border-[var(--ui-text)] bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'border-[var(--ui-border)] text-[var(--ui-muted-text)] hover:border-[var(--ui-border-hover)] hover:text-[var(--ui-text)]')}>{samplingColor ? <CircleNotch className="size-4 animate-spin" /> : <EyedropperSample className="size-4" />}{samplingColor ? 'Measuring color…' : sampling ? 'Cancel color sampling' : 'Sample a missed color'}</button>}
       {reference.analysis && <div className="flex h-8 overflow-hidden rounded-lg border border-[var(--ui-border)]" aria-label="Reference palette">{reference.analysis.palette.map((swatch) => <span key={swatch.hex} className="flex-1" style={{ backgroundColor: swatch.hex }} title={`${swatch.name} ${swatch.hex}`} />)}</div>}
     </aside>
   )
@@ -290,5 +333,32 @@ function AnalysisSkeleton() {
 
 function SectionHeading({ eyebrow, title, id }: { eyebrow: string; title: string; id: string }) { return <div><p className="text-xs uppercase tracking-[0.12em] text-[var(--ui-muted-text)]">{eyebrow}</p><h2 id={id} className="mt-1 font-display text-2xl sm:text-3xl text-balance">{title}</h2></div> }
 function IntentButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) { return <button type="button" aria-pressed={active} onClick={onClick} className={cn('min-h-11 rounded-lg px-3 text-xs flex items-center gap-2', active ? 'bg-[var(--ui-text)] text-[var(--ui-bg)]' : 'text-[var(--ui-muted-text)]')}><SlidersHorizontal className="size-3.5" />{children}</button> }
+function sampleDisplayedImage(image: HTMLImageElement, clientX: number, clientY: number) {
+  if (!image.naturalWidth || !image.naturalHeight) return null
+  const rect = image.getBoundingClientRect()
+  const scale = Math.min(rect.width / image.naturalWidth, rect.height / image.naturalHeight)
+  const renderedWidth = image.naturalWidth * scale
+  const renderedHeight = image.naturalHeight * scale
+  const offsetX = (rect.width - renderedWidth) / 2
+  const offsetY = (rect.height - renderedHeight) / 2
+  const localX = clientX - rect.left - offsetX
+  const localY = clientY - rect.top - offsetY
+  if (localX < 0 || localY < 0 || localX >= renderedWidth || localY >= renderedHeight) return null
+  const sourceX = Math.max(0, Math.min(image.naturalWidth - 1, Math.floor(localX / scale)))
+  const sourceY = Math.max(0, Math.min(image.naturalHeight - 1, Math.floor(localY / scale)))
+  const radius = 2
+  const sourceLeft = Math.max(0, sourceX - radius)
+  const sourceTop = Math.max(0, sourceY - radius)
+  const sourceWidth = Math.min(image.naturalWidth - sourceLeft, radius * 2 + 1)
+  const sourceHeight = Math.min(image.naturalHeight - sourceTop, radius * 2 + 1)
+  const canvas = document.createElement('canvas')
+  canvas.width = 1
+  canvas.height = 1
+  const context = canvas.getContext('2d', { willReadFrequently: true })
+  if (!context) return null
+  context.drawImage(image, sourceLeft, sourceTop, sourceWidth, sourceHeight, 0, 0, 1, 1)
+  const [r, g, b, alpha] = context.getImageData(0, 0, 1, 1).data
+  return alpha < 128 ? null : `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('').toUpperCase()}`
+}
 async function copyText(value: string) { await navigator.clipboard.writeText(value) }
 function formatBytes(bytes: number) { return bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB` }

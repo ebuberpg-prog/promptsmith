@@ -96,6 +96,19 @@ Keep visual analysis as one continuous editorial document rather than a dashboar
 - Palette hex values come from local pixel analysis. Show semantic name, role, and prominence without allowing a vision model to replace the measured color.
 - Do not send an image automatically. Uploads save locally; analysis always requires an explicit action and a vision-capable provider.
 
+### Sample from evidence
+
+When automatic visual measurement misses an important color, correction remains attached to the visible reference rather than opening a detached picker or asking the model to invent a swatch.
+
+- Offer `Sample a missed color` only after an analysis exists. Keep it directly below the stable reference image so the source and correction remain visually connected.
+- Enter an explicit pressed sampling state, strengthen the reference boundary, use a crosshair over the image, and place one compact instruction on the evidence surface. The control must remain at least 44px tall and offer a clear cancel state.
+- Sample a small pixel neighborhood from the locally stored reference. Never send the correction to a provider and never substitute an arbitrary model-generated hex value.
+- Treat perceptually near matches as already represented. Otherwise add the measured hex as included palette evidence, up to the documented palette limit, and recalculate every swatch's prominence against all sampled opaque pixels.
+- Update the palette strip, palette evidence cards, and both prompt outputs immediately. Confirm success, an existing match, a full palette, or a decoding error through the established quiet toast or inline error patterns.
+- Keep interface chrome on the warm paper-and-ink `--ui-*` tokens; the sampled image and swatch supply the expressive color. Use the existing borders-and-surface-shifts depth strategy without a modal, decorative shadow, or colored control container.
+
+This is a human correction path for measured evidence, not a replacement for automatic extraction. Reuse the same source-attached pattern for future image measurements that need precise local override.
+
 ### Analyze layout and handoff
 
 Use a sticky reference sheet beside the continuous study on desktop and a stacked reference-first layout on mobile. Keep previous studies in Library → References rather than adding a competing history rail.

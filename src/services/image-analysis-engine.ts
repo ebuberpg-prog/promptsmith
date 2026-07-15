@@ -21,52 +21,67 @@ export interface ParsedImageAnalysis {
   suggestedTags: string[]
 }
 
-export function extractDominantPalette(imageData: ImageData, maximum = 6): PaletteSwatch[] {
-  const buckets = new Map<number, { count: number; r: number; g: number; b: number }>()
-  const pixels = imageData.data
-  const stride = Math.max(1, Math.floor((imageData.width * imageData.height) / 24_000))
+interface PerceptualColor {
+  count: number
+  edgeCount: number
+  r: number
+  g: number
+  b: number
+  lab: { l: number; a: number; b: number }
+}
 
-  for (let pixel = 0; pixel < imageData.width * imageData.height; pixel += stride) {
-    const index = pixel * 4
-    if (pixels[index + 3] < 128) continue
-    const r = pixels[index]
-    const g = pixels[index + 1]
-    const b = pixels[index + 2]
-    const key = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3)
-    const bucket = buckets.get(key) ?? { count: 0, r: 0, g: 0, b: 0 }
-    bucket.count += 1
-    bucket.r += r
-    bucket.g += g
-    bucket.b += b
-    buckets.set(key, bucket)
+export function extractDominantPalette(imageData: ImageData, maximum = 6): PaletteSwatch[] {
+  const buckets = new Map<number, { count: number; edgeCount: number; r: number; g: number; b: number }>()
+  const pixels = imageData.data
+  const edgeX = Math.max(1, Math.round(imageData.width * 0.08))
+  const edgeY = Math.max(1, Math.round(imageData.height * 0.08))
+
+  for (let y = 0; y < imageData.height; y += 1) {
+    for (let x = 0; x < imageData.width; x += 1) {
+      const index = (y * imageData.width + x) * 4
+      if (pixels[index + 3] < 128) continue
+      const r = pixels[index]
+      const g = pixels[index + 1]
+      const b = pixels[index + 2]
+      const key = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3)
+      const bucket = buckets.get(key) ?? { count: 0, edgeCount: 0, r: 0, g: 0, b: 0 }
+      bucket.count += 1
+      if (x < edgeX || x >= imageData.width - edgeX || y < edgeY || y >= imageData.height - edgeY) bucket.edgeCount += 1
+      bucket.r += r
+      bucket.g += g
+      bucket.b += b
+      buckets.set(key, bucket)
+    }
   }
 
-  const candidates = [...buckets.values()]
-    .map((bucket) => ({
-      count: bucket.count,
-      r: Math.round(bucket.r / bucket.count),
-      g: Math.round(bucket.g / bucket.count),
-      b: Math.round(bucket.b / bucket.count),
-    }))
+  const candidates: PerceptualColor[] = [...buckets.values()]
+    .map((bucket) => {
+      const r = Math.round(bucket.r / bucket.count)
+      const g = Math.round(bucket.g / bucket.count)
+      const b = Math.round(bucket.b / bucket.count)
+      return {
+        count: bucket.count,
+        edgeCount: bucket.edgeCount,
+        r,
+        g,
+        b,
+        lab: rgbToOklab(r, g, b),
+      }
+    })
     .sort((a, b) => b.count - a.count)
-    .slice(0, 160)
 
   if (candidates.length === 0) return []
-
-  const selected: typeof candidates = []
-  for (const candidate of candidates) {
-    const nearest = selected.reduce((distance, item) => Math.min(distance, colorDistance(candidate, item)), Number.POSITIVE_INFINITY)
-    if (selected.length === 0 || nearest >= 28) selected.push(candidate)
-    if (selected.length >= Math.max(1, Math.min(8, maximum))) break
-  }
-
-  const total = selected.reduce((sum, color) => sum + color.count, 0)
-  const roles = assignPaletteRoles(selected)
+  const total = candidates.reduce((sum, color) => sum + color.count, 0)
+  const selected = clusterPalette(candidates, Math.max(1, Math.min(8, maximum)), total)
+    .filter((color) => color.count > 0)
+    .sort((a, b) => b.count - a.count)
+  const prominence = normalizedProminence(selected.map((color) => color.count), total)
+  const roles = assignPaletteRoles(selected, total)
   return selected.map((color, index) => {
     const hex = rgbToHex(color.r, color.g, color.b)
     return {
       hex,
-      prominence: Number((color.count / total).toFixed(4)),
+      prominence: prominence[index],
       name: describeColor(color.r, color.g, color.b),
       role: roles[index],
       included: true,
@@ -75,18 +90,54 @@ export function extractDominantPalette(imageData: ImageData, maximum = 6): Palet
 }
 
 export async function extractPaletteFromDataUrl(dataUrl: string, maximum = 6): Promise<PaletteSwatch[]> {
+  return extractDominantPalette(await imageDataFromDataUrl(dataUrl, 384), maximum)
+}
+
+export async function addSampledColorToPalette(
+  dataUrl: string,
+  palette: PaletteSwatch[],
+  hex: string,
+  maximum = 8,
+): Promise<{ palette: PaletteSwatch[]; status: 'added' | 'existing' | 'full' }> {
+  const rgb = hexToRgb(hex)
+  if (!rgb) return { palette, status: 'existing' }
+  const sampledLab = rgbToOklab(rgb.r, rgb.g, rgb.b)
+  if (palette.some((swatch) => {
+    const color = hexToRgb(swatch.hex)
+    return color ? perceptualDistance(sampledLab, rgbToOklab(color.r, color.g, color.b)) < 0.025 : false
+  })) return { palette, status: 'existing' }
+  if (palette.length >= maximum) return { palette, status: 'full' }
+
+  const next = [...palette, {
+    hex: rgbToHex(rgb.r, rgb.g, rgb.b),
+    prominence: 0,
+    name: describeColor(rgb.r, rgb.g, rgb.b),
+    role: 'accent' as const,
+    included: true,
+  }]
+  const imageData = await imageDataFromDataUrl(dataUrl, 512)
+  const counts = measureFixedPalette(imageData, next)
+  const total = counts.reduce((sum, count) => sum + count, 0)
+  const prominence = normalizedProminence(counts, total)
+  return {
+    palette: next.map((swatch, index) => ({ ...swatch, prominence: prominence[index] })),
+    status: 'added',
+  }
+}
+
+async function imageDataFromDataUrl(dataUrl: string, maximumDimension: number) {
   const response = await fetch(dataUrl)
   const blob = await response.blob()
   const bitmap = await createImageBitmap(blob)
   try {
-    const scale = Math.min(1, 128 / Math.max(bitmap.width, bitmap.height))
+    const scale = Math.min(1, maximumDimension / Math.max(bitmap.width, bitmap.height))
     const canvas = document.createElement('canvas')
     canvas.width = Math.max(1, Math.round(bitmap.width * scale))
     canvas.height = Math.max(1, Math.round(bitmap.height * scale))
     const context = canvas.getContext('2d', { willReadFrequently: true })
     if (!context) throw new Error('This browser could not inspect the image palette.')
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
-    return extractDominantPalette(context.getImageData(0, 0, canvas.width, canvas.height), maximum)
+    return context.getImageData(0, 0, canvas.width, canvas.height)
   } finally {
     bitmap.close()
   }
@@ -193,19 +244,140 @@ export function updateAnalysisObservation(analysis: ImageAnalysis, id: string, u
   return { ...analysis, observations: analysis.observations.map((item) => item.id === id ? { ...item, ...updates } : item) }
 }
 
-function assignPaletteRoles(colors: Array<{ r: number; g: number; b: number; count: number }>): PaletteSwatch['role'][] {
+function clusterPalette(candidates: PerceptualColor[], maximum: number, total: number) {
+  const globalLab = weightedLab(candidates)
+  const seeds: PerceptualColor[] = [{ ...candidates[0], lab: { ...candidates[0].lab } }]
+  if (maximum > 1) {
+    const minimumAccentCount = Math.max(2, Math.round(total * 0.0015))
+    const accent = candidates
+      .filter((candidate) => candidate.count >= minimumAccentCount && perceptualDistance(candidate.lab, seeds[0].lab) >= 0.04)
+      .reduce<PerceptualColor | null>((best, candidate) => accentSeedScore(candidate, globalLab, total) > (best ? accentSeedScore(best, globalLab, total) : -1) ? candidate : best, null)
+    if (accent) seeds.push({ ...accent, lab: { ...accent.lab } })
+  }
+
+  while (seeds.length < maximum) {
+    const candidate = candidates.reduce<{ color: PerceptualColor | null; score: number }>((best, color) => {
+      const nearest = seeds.reduce((distance, seed) => Math.min(distance, perceptualDistance(color.lab, seed.lab)), Number.POSITIVE_INFINITY)
+      if (nearest < 0.035) return best
+      const chroma = Math.min(1, Math.hypot(color.lab.a, color.lab.b) / 0.24)
+      const contrast = Math.min(1, perceptualDistance(color.lab, globalLab) / 0.38)
+      const score = Math.pow(color.count / total, 0.42) * Math.pow(nearest, 1.25) * (1 + chroma * 0.45 + contrast * 0.15)
+      return score > best.score ? { color, score } : best
+    }, { color: null, score: -1 }).color
+    if (!candidate) break
+    seeds.push({ ...candidate, lab: { ...candidate.lab } })
+  }
+
+  let clusters = seeds
+  for (let iteration = 0; iteration < 6; iteration += 1) {
+    const sums = clusters.map(() => ({ count: 0, edgeCount: 0, r: 0, g: 0, b: 0 }))
+    const clusterLabs = clusters.map((cluster) => cluster.lab)
+    for (const candidate of candidates) {
+      const index = nearestColorIndex(candidate.lab, clusterLabs)
+      const sum = sums[index]
+      sum.count += candidate.count
+      sum.edgeCount += candidate.edgeCount
+      sum.r += candidate.r * candidate.count
+      sum.g += candidate.g * candidate.count
+      sum.b += candidate.b * candidate.count
+    }
+    clusters = sums.flatMap((sum) => {
+      if (sum.count === 0) return []
+      const r = Math.round(sum.r / sum.count)
+      const g = Math.round(sum.g / sum.count)
+      const b = Math.round(sum.b / sum.count)
+      return [{ count: sum.count, edgeCount: sum.edgeCount, r, g, b, lab: rgbToOklab(r, g, b) }]
+    })
+    if (clusters.length === 0) return seeds
+  }
+  return clusters
+}
+
+function accentSeedScore(color: PerceptualColor, globalLab: PerceptualColor['lab'], total: number) {
+  const chroma = Math.min(1, Math.hypot(color.lab.a, color.lab.b) / 0.24)
+  const contrast = Math.min(1, perceptualDistance(color.lab, globalLab) / 0.38)
+  return Math.pow(color.count / total, 0.35) * (0.18 + chroma) * (0.3 + contrast)
+}
+
+function weightedLab(colors: PerceptualColor[]) {
+  const total = colors.reduce((sum, color) => sum + color.count, 0)
+  return colors.reduce((sum, color) => ({
+    l: sum.l + color.lab.l * color.count / total,
+    a: sum.a + color.lab.a * color.count / total,
+    b: sum.b + color.lab.b * color.count / total,
+  }), { l: 0, a: 0, b: 0 })
+}
+
+function assignPaletteRoles(colors: PerceptualColor[], total: number): PaletteSwatch['role'][] {
   const roles = colors.map(() => 'support' as PaletteSwatch['role'])
   if (colors.length === 0) return roles
   roles[0] = 'dominant'
-  if (colors.length > 1) roles[1] = 'ground'
-  if (colors.length > 2) roles[colors.length - 1] = 'accent'
-  const darkest = colors.reduce((best, color, index) => luminance(color) < luminance(colors[best]) ? index : best, 0)
-  if (darkest !== 0) roles[darkest] = 'deepest'
+  if (colors.length > 1) {
+    const ground = colors.reduce((best, color, index) => index > 0 && color.edgeCount > colors[best].edgeCount ? index : best, 1)
+    roles[ground] = 'ground'
+  }
+  const available = () => roles.map((role, index) => role === 'support' ? index : -1).filter((index) => index >= 0)
+  const globalLab = weightedLab(colors)
+  const accent = available().reduce((best, index) => {
+    const color = colors[index]
+    const chroma = Math.hypot(color.lab.a, color.lab.b)
+    const rarity = 1 - Math.min(1, color.count / total)
+    const score = chroma * 0.7 + perceptualDistance(color.lab, globalLab) * 0.2 + rarity * 0.1
+    return score > best.score ? { index, score } : best
+  }, { index: -1, score: -1 }).index
+  if (accent >= 0) roles[accent] = 'accent'
+  const darkest = available().reduce((best, index) => best < 0 || luminance(colors[index]) < luminance(colors[best]) ? index : best, -1)
+  if (darkest >= 0) roles[darkest] = 'deepest'
   return roles
 }
 
-function colorDistance(a: { r: number; g: number; b: number }, b: { r: number; g: number; b: number }) {
-  return Math.sqrt((a.r - b.r) ** 2 + (a.g - b.g) ** 2 + (a.b - b.b) ** 2)
+function measureFixedPalette(imageData: ImageData, palette: PaletteSwatch[]) {
+  const labs = palette.map((swatch) => {
+    const color = hexToRgb(swatch.hex) ?? { r: 0, g: 0, b: 0 }
+    return rgbToOklab(color.r, color.g, color.b)
+  })
+  const counts = palette.map(() => 0)
+  for (let index = 0; index < imageData.data.length; index += 4) {
+    if (imageData.data[index + 3] < 128) continue
+    const lab = rgbToOklab(imageData.data[index], imageData.data[index + 1], imageData.data[index + 2])
+    counts[nearestColorIndex(lab, labs)] += 1
+  }
+  return counts
+}
+
+function nearestColorIndex(color: PerceptualColor['lab'], palette: PerceptualColor['lab'][]) {
+  return palette.reduce((best, candidate, index) => perceptualDistance(color, candidate) < perceptualDistance(color, palette[best]) ? index : best, 0)
+}
+
+function perceptualDistance(a: PerceptualColor['lab'], b: PerceptualColor['lab']) {
+  return Math.hypot(a.l - b.l, a.a - b.a, a.b - b.b)
+}
+
+function normalizedProminence(counts: number[], total: number) {
+  if (total <= 0 || counts.length === 0) return counts.map(() => 0)
+  const values = counts.map((count) => Number((count / total).toFixed(4)))
+  const difference = Number((1 - values.reduce((sum, value) => sum + value, 0)).toFixed(4))
+  const largest = counts.reduce((best, count, index) => count > counts[best] ? index : best, 0)
+  values[largest] = Number((values[largest] + difference).toFixed(4))
+  return values
+}
+
+function rgbToOklab(r: number, g: number, b: number) {
+  const linear = [r, g, b].map((value) => {
+    const channel = value / 255
+    return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+  })
+  const l = 0.4122214708 * linear[0] + 0.5363325363 * linear[1] + 0.0514459929 * linear[2]
+  const m = 0.2119034982 * linear[0] + 0.6806995451 * linear[1] + 0.1073969566 * linear[2]
+  const s = 0.0883024619 * linear[0] + 0.2817188376 * linear[1] + 0.6299787005 * linear[2]
+  const lRoot = Math.cbrt(l)
+  const mRoot = Math.cbrt(m)
+  const sRoot = Math.cbrt(s)
+  return {
+    l: 0.2104542553 * lRoot + 0.793617785 * mRoot - 0.0040720468 * sRoot,
+    a: 1.9779984951 * lRoot - 2.428592205 * mRoot + 0.4505937099 * sRoot,
+    b: 0.0259040371 * lRoot + 0.7827717662 * mRoot - 0.808675766 * sRoot,
+  }
 }
 
 function luminance(color: { r: number; g: number; b: number }) {
@@ -214,6 +386,11 @@ function luminance(color: { r: number; g: number; b: number }) {
 
 function rgbToHex(r: number, g: number, b: number) {
   return `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('')}`.toUpperCase()
+}
+
+function hexToRgb(hex: string) {
+  const match = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(hex.trim())
+  return match ? { r: Number.parseInt(match[1], 16), g: Number.parseInt(match[2], 16), b: Number.parseInt(match[3], 16) } : null
 }
 
 function describeColor(r: number, g: number, b: number) {
